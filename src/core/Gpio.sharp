@@ -1,0 +1,12 @@
+mod pi.gpio;
+
+class Gpio {
+	public var pin;
+	public Direction dir;
+	public var lastValue;
+}
+
+public enum Direction {
+	IN,
+	OUT
+};

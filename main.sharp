@@ -3,23 +3,19 @@ mod app;
 import std;
 import std.kernel;
 import std.io;
+import pi.gpio;
 
-def main() {
-    File file = new File(new string("README1.md"));
-
-    println("file " + file.getName() + " being created  ");
-    file.create();
+def main(object[] args) {
+    RPG.addPin(3, Direction.OUT);
+  
+    for(var i = 0; i < 10; i++)
+    {
+		RPG.send(3, 1);
+		Thread.sleep(25);
+		RPG.send(3, 0);
+		Thread.sleep(25);
+    }
     
-    file.setWritable(true);
-    IOStream ostream = new IOStream(file, IOStream.WRITE);
-    ostream.write("Hello, World!\n");
-    ostream.close();
     
-    IOStream istream = new IOStream(file, IOStream.READ);
-    var _char;
-
-    
-            println(istream.nextLine());
-
-    istream.close();
+    RPG.shutdown();
 }

@@ -1,0 +1,122 @@
+mod pi.gpio;
+
+import std;
+import std.io;
+
+/**
+*  Raspberry pi GPIO Library base code
+*/
+public class RPG {
+	private static Dictionary<var, Gpio> map = new Dictionary<var, Gpio>();
+	
+	private static File fp = new File("no_file");
+	private static IOStream ostream = new IOStream(fp, IOStream.WRITE);
+	private static IOStream istream = new IOStream(fp, IOStream.READ, false);
+	
+	public static def addPin(var pin, Direction dir) : var
+	{
+		if(map.indexof(pin) == -1) {
+			map.put(pin, new Gpio { pin, dir });
+			
+			if(export(pin) == 0) {
+				return chdir(pin, dir);
+			} else
+				return -1;
+		} else
+			return 1;
+	}
+	
+	public static def send(var pin, var signal) : var
+	{
+		Gpio gp = map.get(pin);
+		
+		if(gp != null) {
+			if(gp.dir == Direction.OUT) 
+			{
+				try {
+					fp.updatePath("/sys/class/gpio/gpio" + pin + "/value");
+					
+					ostream.write(signal == 1 ? "1" : "0");
+					ostream.close();
+					return 0;
+				} catch(IOException e) {
+					return 2;
+				}
+			} else
+				return 1;
+		} else 
+			return -1;
+	}
+	
+	public static def read(var pin) : var
+	{
+		Gpio gp = map.get(pin);
+		
+		if(gp != null) {
+			if(gp.dir == Direction.IN) 
+			{
+				try {
+					fp.updatePath("/sys/class/gpio/gpio" + pin + "/value");
+					
+					istream.read();
+					return string.parseInt(istream.getData());
+				} catch(IOException e) {
+					return -3;
+				}
+			} else
+				return -2;
+		} else 
+			return -1;
+	}
+	
+	private static def export(var pin) : var
+	{
+		try {
+			fp.updatePath("/sys/class/gpio/export");
+			
+			ostream.write(string.parse(pin));
+			ostream.close();
+			return 0;
+		} catch(IOException ex) {
+			return -1;
+		}
+	} 
+	
+	public static def shutdown() {
+		for(var i = 0; i < map.size(); i++)
+		{
+			release(map.keyAt(i));
+		}
+	}
+	
+	public static def release(var pin) : var
+	{
+		try {
+			fp.updatePath("/sys/class/gpio/unexport");
+			
+			ostream.write(string.parse(pin));
+			ostream.close();
+			return 0;
+		} catch(IOException ex) {
+			return -1;
+		}
+	} 
+	
+	public static def chdir(var pin, Direction dir) : var
+	{
+		Gpio gp = map.get(pin);
+		if(gp != null) {
+			try {
+				fp.updatePath("/sys/class/gpio/gpio" + pin + "/direction");
+				
+				ostream.write(dir == Direction.IN ? "in" : "out");
+				ostream.close();
+				
+				gp.dir = dir;
+				return 0;
+			} catch(IOException ex) {
+				return -1;
+			}
+		}
+	} 
+}
