@@ -1,21 +1,11 @@
 mod app;
 
-import std;
-import std.kernel;
+import pi.echo;
 import std.io;
-import pi.gpio;
+import std;
 
-def main(object[] args) {
-    RPG.addPin(3, Direction.OUT);
-  
-    for(var i = 0; i < 10; i++)
-    {
-		RPG.send(3, 1);
-		Thread.sleep(25);
-		RPG.send(3, 0);
-		Thread.sleep(25);
-    }
-    
-    
-    RPG.shutdown();
+def main(object[] args)
+{
+   echo.startup();
+   echo.shutdown();
 }

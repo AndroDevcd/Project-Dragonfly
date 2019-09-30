@@ -1,0 +1,69 @@
+mod pi.echo;
+
+import std;
+import std.io;
+import std.kernel;
+import pi.gpio;
+
+/*
+* pins for the HC-sr04 chip
+*/
+const var TRG = 6;
+const var ECHO = 13;
+
+/*
+* Temporary pins for tx/rx indicators
+*/
+const var TX = 23;
+const var RX = 24;
+
+public class echo {
+
+   public static def startup() : var
+   {
+      if(RPG.startup()==0) {
+         RPG.addPin(TX, Direction.OUT);
+         RPG.addPin(RX, Direction.OUT);
+
+         RPG.addPin(TRG, Direction.OUT);
+         RPG.addPin(ECHO, Direction.IN);
+
+         signalStartup();
+         return 0;
+      }
+
+      return 1;
+   }
+
+   public static def distance() : var
+   {
+      RPG.send(TX, RPG.HIGH);
+      var past = Time.nanoTime(), now;
+      RPG.send(TRG, RPG.HIGH);
+
+      for(var i = 0; i < 1_000_000; i++)
+      {
+         if(RPG.read(ECHO)==1)
+            break;
+      }
+      now = Time.nanoTime();
+      RPG.send(TRG, RPG.LOW);
+      RPG.send(TX, RPG.LOW);
+
+      return (now-past) / 58; // centimeters
+   }
+
+   private static def signalStartup()
+   {
+      RPG.send(TX, RPG.HIGH);
+      RPG.send(RX, RPG.HIGH);
+      Thread.sleep(650);
+      RPG.send(TX, RPG.LOW);
+      RPG.send(RX, RPG.LOW);
+   }
+
+   public static def shutdown()
+   {
+      RPG.shutdown();
+   }
+}
