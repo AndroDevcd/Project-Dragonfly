@@ -1,11 +1,17 @@
-mod app;
+mod main;
 
-import pi.echo;
 import std.io;
-import std;
+import platform;
+import gpio;
 
-def main(object[] args)
+def main(args: string[])
 {
-   echo.startup();
-   echo.shutdown();
+   load_library("libs/dragonfly");
+   setup();
+   setup_device();
+
+   for(i := 0; i < 10; i++) {
+     println("i am ${get_distance()}cm away");
+     thread.sleep(1000);
+   }
 }
