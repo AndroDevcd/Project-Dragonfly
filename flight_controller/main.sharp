@@ -1,0 +1,14 @@
+mod main;
+
+import std.io;
+import platform;
+import gpio;
+
+def main(args: string[])
+{
+   load_library("bin/dragonfly");
+   setup();
+   setup_hc_sr04();
+
+   thread.sleep(10000);
+}

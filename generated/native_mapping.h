@@ -9,17 +9,16 @@ scope(main,
 
 	void __srt_global(object $instance);
 	void main(object args);
-	var get_distance(var& trg, var& echo);
-	var get_distance2();
-	void setup_device();
+	var get_dst_cm(var& trg, var& echo);
+	var get_distance();
+	void setup_hc_sr04();
+	void $03internal_static_init();
+	void anon_func$3187(object args);
 )
 
 scope(std, 
 
 	void __srt_global(object $instance);
-	object runtime_error(object message);
-	object runtime_error2();
-	void todo(object message);
 	var_array snprintf(var& fmt, var& num, var& precision);
 	void print(_int8_array& data);
 	void print2(object str);
@@ -62,6 +61,9 @@ scope(std,
 	void print_numbers8(_uint64_array& str);
 	void print_chars2(_int16_array& str);
 	var read_ch(var& hide);
+	object runtime_error(object message);
+	object runtime_error2();
+	void todo(object message);
 	void $03internal_static_init();
 )
 
@@ -73,170 +75,53 @@ scope(std, _object_,
 	void _object_(object $instance);
 )
 
-scope(std, throwable, 
+scope(std, string_builder, 
 
-	void throwable(object $instance, _int8_array& message);
-	void throwable2(object $instance, object message);
-	object get_message(object $instance);
-	void throwable3(object $instance);
-	object get_stack_trace(object $instance);
-)
-
-scope(std, exception, 
-
-	void exception(object $instance, _int8_array& message);
-	void exception2(object $instance, object message);
-	void exception3(object $instance);
-)
-
-scope(std, illegal_argument_exception, 
-
-	void illegal_argument_exception(object $instance, _int8_array& message);
-	void illegal_argument_exception2(object $instance, object message);
-	void illegal_argument_exception3(object $instance);
-)
-
-scope(std, illegal_state_exception, 
-
-	void illegal_state_exception(object $instance, _int8_array& message);
-	void illegal_state_exception2(object $instance, object message);
-	void illegal_state_exception3(object $instance);
-)
-
-scope(std, out_of_bounds_exception, 
-
-	void out_of_bounds_exception(object $instance, _int8_array& message);
-	void out_of_bounds_exception2(object $instance, object message);
-	void out_of_bounds_exception3(object $instance);
-)
-
-scope(std, io_exception, 
-
-	void io_exception(object $instance, _int8_array& message);
-	void io_exception2(object $instance, object message);
-	void io_exception3(object $instance);
-)
-
-scope(std, invalid_operation_exception, 
-
-	void invalid_operation_exception(object $instance, _int8_array& message);
-	void invalid_operation_exception2(object $instance, object message);
-	void invalid_operation_exception3(object $instance);
-)
-
-scope(std, nullptr_exception, 
-
-	void nullptr_exception(object $instance, _int8_array& message);
-	void nullptr_exception2(object $instance, object message);
-	void nullptr_exception3(object $instance);
-)
-
-scope(std, runtime_exception, 
-
-	void runtime_exception(object $instance, _int8_array& message);
-	void runtime_exception2(object $instance, object message);
-	void runtime_exception3(object $instance);
-)
-
-scope(std, stack_overflow_exception, 
-
-	void stack_overflow_exception(object $instance, _int8_array& message);
-	void stack_overflow_exception2(object $instance, object message);
-	void stack_overflow_exception3(object $instance);
-)
-
-scope(std, thread_stack_exception, 
-
-	void thread_stack_exception(object $instance, _int8_array& message);
-	void thread_stack_exception2(object $instance, object message);
-	void thread_stack_exception3(object $instance);
-)
-
-scope(std, class_cast_exception, 
-
-	void class_cast_exception(object $instance, _int8_array& message);
-	void class_cast_exception2(object $instance, object message);
-	void class_cast_exception3(object $instance);
-)
-
-scope(std, out_of_memory_exception, 
-
-	void out_of_memory_exception(object $instance, _int8_array& message);
-	void out_of_memory_exception2(object $instance, object message);
-	void out_of_memory_exception3(object $instance);
-)
-
-scope(std, not_implemented_error, 
-
-	void not_implemented_error(object $instance, _int8_array& message);
-	void not_implemented_error2(object $instance, object message);
-	void not_implemented_error3(object $instance);
-)
-
-scope(std, unsatisfied_link_error, 
-
-	void unsatisfied_link_error(object $instance, _int8_array& message);
-	void unsatisfied_link_error2(object $instance, object message);
-	void unsatisfied_link_error3(object $instance);
-)
-
-scope(std_math, 
-
-	void __srt_global(object $instance);
-	var is_nan(var& v);
-	var is_infinite(var& v);
-	var sin(var& num);
-	var cos(var& num);
-	var tan(var& num);
-	var sinh(var& num);
-	var cosh(var& num);
-	var tanh(var& num);
-	var asin(var& num);
-	var acos(var& num);
-	var atan(var& num);
-	var atan2(var& num1, var& num2);
-	var exp(var& num);
-	var log(var& num);
-	var log10(var& num);
-	var pow(var& num, var& exp);
-	var sqrt(var& num);
-	var ceil(var& num);
-	var floor(var& num);
-	var abs(var& num);
-	var fabs(var& num);
-	var ldexp(var& num, var& num2);
-	var fmod(var& num, var& num2);
-	var round(var& num);
-	var math_proc(var& num, var& proc);
-	var math_proc2(var& num, var& num2, var& proc);
-)
-
-scope(std, _enum_, 
-
-	void _enum_(object $instance, var& ord);
-	void _enum_2(object $instance, object e);
-	var op_$not_equals(object $instance, object e);
-	var op_$not_equals2(object $instance, var& num);
-	var op_$equals_equals(object $instance, object e);
-	var op_$equals_equals2(object $instance, var& num);
-	_int8_array get_name(object $instance);
-	_int64 get_ordinal(object $instance);
+	void set_resize_capacity(object $instance, var& new_capacity);
+	void string_builder(object $instance, _int8_array& str);
+	void string_builder2(object $instance, var& ch);
+	void string_builder3(object $instance, object str);
+	void string_builder4(object $instance, object str);
+	void string_builder5(object $instance, object str);
+	void string_builder6(object $instance, _int8_array& str, var& offset);
+	var space_available(object $instance, var& space_required);
+	void expand(object $instance, var& space_required);
+	object replace(object $instance, var& pos, _int8& ch);
+	object append(object $instance, var& ch);
+	_int8_array get_elements(object $instance);
+	object append2(object $instance, object c);
+	object append3(object $instance, _int8_array& immstr);
+	object append4(object $instance, _int8_array& immstr, var& len);
+	object op_$plus(object $instance, _int8_array& immstr);
+	object op_$plus2(object $instance, object obj);
 	object to_string(object $instance);
-	void _enum_3(object $instance);
-)
-
-scope(std, unique, 
-
+	var op_$equals_equals(object $instance, _int8_array& str);
+	var op_$equals_equals2(object $instance, object str);
+	var op_$not_equals(object $instance, _int8_array& str);
+	var op_$not_equals2(object $instance, object str);
+	void op_$equals(object $instance, _int8_array& immstr);
+	_int8 at(object $instance, var& pos);
+	var op_$array_at(object $instance, var& pos);
+	void fmt(var& _fmt);
+	void set_precision(var& prec);
+	_int8_array to_array(object $instance);
+	var starts_with(object $instance, object prefix);
+	var find(object $instance, object str);
+	var find2(object $instance, object str);
+	var ends_with(object $instance, object postfix);
+	object op_$plus3(object $instance, var& num);
+	var size(object $instance);
+	object parse(object $instance, var& number);
+	object op_$plus_equal(object $instance, var& num);
+	object op_$plus_equal2(object $instance, object obj);
+	object op_$plus_equal3(object $instance, object str);
+	_int8_array get_data(object $instance);
+	object op_$plus_equal4(object $instance, object str);
+	object op_$plus_equal5(object $instance, _int8_array& str);
+	object substring(object $instance, var& startPos, var& endPos);
+	object bounds_error(object $instance, var& pos);
 	object hash(object $instance);
-	object guid(object $instance);
-	void unique(object $instance);
-)
-
-scope(std, _nil_, 
-
-	object to_string(object $instance);
-	void _nil_(object $instance);
-	void set_instance(object value);
+	void string_builder7(object $instance);
 	void $03internal_static_init();
 )
 
@@ -288,11 +173,101 @@ scope(std, string,
 	void $03internal_static_init();
 )
 
+scope(std_io_task, 
+
+	void __srt_global(object $instance);
+	void finish();
+	void start_scheduler();
+	void calculate_max_threads();
+	var scheduler_main(object args);
+	object get_host(var& long_running);
+	void execute_synchronous(object scheduled_job);
+	var execute_job(object scheduled_job);
+	void $03internal_static_init();
+	var anon_func$3185(object it, object it2);
+	var anon_func$3186(object t);
+)
+
+scope(std_io_task, task, 
+
+	object with_timeout(var& mills_time);
+	object schedule(var& future);
+	object with_name(object job_name);
+	object with_args(object args);
+	object block();
+	object long_term();
+	object builder();
+	void task(object $instance);
+)
+
+scope(std_io_task, cancellation_exception, 
+
+	void cancellation_exception(object $instance, _int8_array& message);
+	void cancellation_exception2(object $instance, object message);
+	void cancellation_exception3(object $instance);
+)
+
+scope(std_io_task, job_master, 
+
+	void job_master(object $instance);
+	object op_$equals(object $instance, var& main);
+	object create_job(object $instance);
+	object create_job2(object $instance, object name);
+	void start_job(object $instance, object scheduled_job);
+	object get_host_controller(object $instance, object host);
+	void cleanup_job(object $instance, object scheduled_job);
+)
+
+scope(std_io_task, job_builder, 
+
+	void job_builder(object $instance);
+	void job_builder2(object $instance, object scheduled_job, object master);
+	object with_timeout(object $instance, var& mills_time);
+	object schedule(object $instance, var& future);
+	object recurring(object $instance, var& tm, object interval);
+	object with_name(object $instance, object job_name);
+	object with_args(object $instance, object args);
+	object block(object $instance);
+	object long_term(object $instance);
+	object op_$equals(object $instance, var& main);
+	object op_$equals2(object $instance, var& main);
+	object op_$equals3(object $instance, var& main);
+	object op_$equals4(object $instance, var& main);
+	object get_job(object $instance);
+)
+
+scope(std_io_task, job_controller, 
+
+	void job_controller(object $instance);
+)
+
+scope(std_io_task, job, 
+
+	void job(object $instance);
+	void job2(object $instance, object name);
+	var execute_async(object $instance);
+	void cancel(object $instance);
+	void cancel_future(object $instance);
+	void join(object $instance);
+	object get_state(object $instance);
+	object get_name(object $instance);
+	var get_id(object $instance);
+	void op_$equals(object $instance, var& block);
+	void op_$equals2(object $instance, var& block);
+	void op_$equals3(object $instance, var& block);
+	void op_$equals4(object $instance, var& block);
+	var job_main(object args);
+	void execute(object $instance);
+	var is_finished(object $instance);
+	var is_active(object $instance);
+	void update_interval(object $instance, var& tm, object interval);
+	void reschedule(object $instance);
+	void $03internal_static_init();
+)
+
 scope(std_io, 
 
 	void __srt_global(object $instance);
-	void critical_section(var& block);
-	void critical_section2(var& block, object lock_obj);
 	void _srt_thread_start();
 	void realloc(object data, var& size);
 	void realloc2(var_array& data, var& size);
@@ -334,13 +309,72 @@ scope(std_io,
 	_uint16_array invert8(_uint16_array& src, var& start, var& len);
 	_uint32_array invert9(_uint32_array& src, var& start, var& len);
 	_uint64_array invert10(_uint64_array& src, var& start, var& len);
+	void critical_section(var& block);
+	void critical_section2(var& block, object lock_obj);
 	void $03internal_static_init();
+)
+
+scope(std_io, thread_group, 
+
+	void thread_group(object $instance, object name);
+	void thread_group2(object $instance, object name, object priority);
+	object at(object $instance, var& id);
+	void add(object $instance, object t);
+	var size(object $instance);
+	object get_name(object $instance);
+	object get_priority(object $instance);
+	var remove(object $instance, var& id);
+	object get_elements(object $instance);
+	object find(object $instance, var& find_func);
+	void kill_all(object $instance);
+	void thread_group3(object $instance);
+	void $03internal_static_init();
+)
+
+scope(std_io, win_fs, 
+
+	var path_separator(object $instance);
+	object normalize(object $instance, object pathname);
+	var get_attributes(object $instance, object f);
+	var check_access(object $instance, object f, var& access);
+	void win_fs(object $instance);
 )
 
 scope(std_io, uncaught_exception_handler, 
 
 	void uncaught_exception(object $instance, object err);
 	void uncaught_exception_handler(object $instance);
+)
+
+scope(std_io, thread_result, 
+
+	object at(var& index);
+	void thread_result(object $instance);
+	void $03internal_static_init();
+)
+
+scope(std_io, file_system, 
+
+	var path_separator(object $instance);
+	object normalize(object $instance, object path);
+	object resolve(object $instance, object f);
+	var get_attributes(object $instance, object f);
+	var check_access(object $instance, object f, var& access);
+	var set_permission(object $instance, object f, var& access, var& enable, var& owneronly);
+	var last_modified_time(object $instance, object f, var& stat_id);
+	var get_length(object $instance, object f);
+	void create_file(object $instance, object pathname);
+	var delete_directory(object $instance, object f);
+	var _delete(object $instance, object f);
+	object list(object $instance, object f);
+	var create_directory(object $instance, object f);
+	var rename(object $instance, object f1, object f2);
+	object read(object f);
+	var write(object f, object data);
+	var set_last_modified_time(object $instance, object f, var& time);
+	var set_read_only(object $instance, object f);
+	var get_space_available(var& request);
+	void file_system(object $instance);
 )
 
 scope(std_io, thread, 
@@ -386,95 +420,6 @@ scope(std_io, thread,
 	var op_$equals_equals(object $instance, object t);
 )
 
-scope(std_io_task, 
-
-	void __srt_global(object $instance);
-	void start_scheduler();
-	void calculate_max_threads();
-	var scheduler_main(object args);
-	object get_host(var& long_running);
-	void execute_synchronous(object scheduled_job);
-	var execute_job(object scheduled_job);
-	void finish();
-	void $03internal_static_init();
-	var anon_func$3180(object t);
-	var anon_func$3181(object it, object it2);
-)
-
-scope(std_io_task, cancellation_exception, 
-
-	void cancellation_exception(object $instance, _int8_array& message);
-	void cancellation_exception2(object $instance, object message);
-	void cancellation_exception3(object $instance);
-)
-
-scope(std_io_task, job_builder, 
-
-	void job_builder(object $instance);
-	void job_builder2(object $instance, object scheduled_job, object master);
-	object with_timeout(object $instance, var& mills_time);
-	object schedule(object $instance, var& future);
-	object repeat(object $instance, var& count);
-	object with_name(object $instance, object job_name);
-	object with_args(object $instance, object args);
-	object block(object $instance);
-	object long_term(object $instance);
-	object op_$equals(object $instance, var& main);
-	object op_$equals2(object $instance, var& main);
-	object op_$equals3(object $instance, var& main);
-	object op_$equals4(object $instance, var& main);
-	object get_job(object $instance);
-)
-
-scope(std_io_task, task, 
-
-	object with_timeout(var& mills_time);
-	object schedule(var& future);
-	object with_name(object job_name);
-	object repeat(var& count);
-	object with_args(object args);
-	object block();
-	object long_term();
-	object builder();
-	void task(object $instance);
-)
-
-scope(std_io_task, job_master, 
-
-	void job_master(object $instance);
-	object op_$equals(object $instance, var& main);
-	object create_job(object $instance);
-	object create_job2(object $instance, object name);
-	void start_job(object $instance, object scheduled_job);
-	object get_host_controller(object $instance, object host);
-	void cleanup_job(object $instance, object scheduled_job);
-)
-
-scope(std_io_task, job, 
-
-	void job(object $instance);
-	void job2(object $instance, object name);
-	var execute_async(object $instance);
-	void cancel(object $instance);
-	void join(object $instance);
-	object get_state(object $instance);
-	object get_name(object $instance);
-	var get_id(object $instance);
-	void op_$equals(object $instance, var& block);
-	void op_$equals2(object $instance, var& block);
-	void op_$equals3(object $instance, var& block);
-	void op_$equals4(object $instance, var& block);
-	var job_main(object args);
-	void execute(object $instance);
-	var is_finished(object $instance);
-	void $03internal_static_init();
-)
-
-scope(std_io_task, job_controller, 
-
-	void job_controller(object $instance);
-)
-
 scope(std_io, unix_fs, 
 
 	var path_separator(object $instance);
@@ -482,47 +427,6 @@ scope(std_io, unix_fs,
 	var get_attributes(object $instance, object f);
 	var check_access(object $instance, object f, var& access);
 	void unix_fs(object $instance);
-)
-
-scope(std_io, thread_group, 
-
-	void thread_group(object $instance, object name);
-	void thread_group2(object $instance, object name, object priority);
-	object at(object $instance, var& id);
-	void add(object $instance, object t);
-	var size(object $instance);
-	object get_name(object $instance);
-	object get_priority(object $instance);
-	var remove(object $instance, var& id);
-	object get_elements(object $instance);
-	object find(object $instance, var& find_func);
-	void kill_all(object $instance);
-	void thread_group3(object $instance);
-	void $03internal_static_init();
-)
-
-scope(std_io, file_system, 
-
-	var path_separator(object $instance);
-	object normalize(object $instance, object path);
-	object resolve(object $instance, object f);
-	var get_attributes(object $instance, object f);
-	var check_access(object $instance, object f, var& access);
-	var set_permission(object $instance, object f, var& access, var& enable, var& owneronly);
-	var last_modified_time(object $instance, object f, var& stat_id);
-	var get_length(object $instance, object f);
-	void create_file(object $instance, object pathname);
-	var delete_directory(object $instance, object f);
-	var _delete(object $instance, object f);
-	object list(object $instance, object f);
-	var create_directory(object $instance, object f);
-	var rename(object $instance, object f1, object f2);
-	object read(object f);
-	var write(object f, object data);
-	var set_last_modified_time(object $instance, object f, var& time);
-	var set_read_only(object $instance, object f);
-	var get_space_available(var& request);
-	void file_system(object $instance);
 )
 
 scope(std_io, file, 
@@ -572,187 +476,18 @@ scope(std_io, file,
 	void $03internal_static_init();
 )
 
-scope(std_io, thread_result, 
+scope(std, _enum_, 
 
-	object at(var& index);
-	void thread_result(object $instance);
-	void $03internal_static_init();
-)
-
-scope(std_io, win_fs, 
-
-	var path_separator(object $instance);
-	object normalize(object $instance, object pathname);
-	var get_attributes(object $instance, object f);
-	var check_access(object $instance, object f, var& access);
-	void win_fs(object $instance);
-)
-
-scope(platform, 
-
-	void __srt_global(object $instance);
-	var load_library(object name);
-	var free_library(object name);
-	var link(object name, object library);
-)
-
-scope(platform, build, 
-
-	var is_windows();
-	var is_linux();
-	void build(object $instance);
-)
-
-scope(platform_kernel, 
-
-	void __srt_global(object $instance);
-)
-
-scope(platform_kernel, vm, 
-
-	object get_frame_info();
-	object get_stack_trace(object info);
-	var thread_create(var& daemon);
-	object suspend(object t);
-	object unsuspend(object t, var& wait);
-	object thread_join(object t);
-	object kill(object t);
-	object current_thread();
-	void exit_thread(object t, var& code);
-	void thread_yield();
-	object thread_start(object t, object args);
-	object set_thread_priority(object t, var& priority);
-	void set_thread(object t);
-	object thread_args();
-	var cores();
-	void vm(object $instance);
-)
-
-scope(platform_kernel, platform, 
-
-	void tls_init();
-	void static_init();
-	void exit(var& value);
-	var load_library(object name);
-	var free_library(object name);
-	var link_func(object name, object library);
-	var srt_init(object args);
-	void platform(object $instance);
-)
-
-scope(platform_kernel, stack_state, 
-
-	void stack_state(object $instance);
-)
-
-scope(std, printable, 
-
+	void _enum_(object $instance, var& ord);
+	void _enum_2(object $instance, object e);
+	var op_$not_equals(object $instance, object e);
+	var op_$not_equals2(object $instance, var& num);
+	var op_$equals_equals(object $instance, object e);
+	var op_$equals_equals2(object $instance, var& num);
+	_int8_array get_name(object $instance);
+	_int64 get_ordinal(object $instance);
 	object to_string(object $instance);
-	void printable(object $instance);
-)
-
-scope(std, time, 
-
-	var nano_time();
-	var nano_to_micro(var& nano);
-	var nano_to_mills(var& nano);
-	var nano_to_secs(var& nano);
-	var mills_time();
-	void sleep(var& time);
-	void sleep2(object tm_unit, var& time);
-	void wait(object tm_unit, var& time);
-	var adjust_time(var& usec);
-	var measure(object tm_unit, var& block);
-	void time(object $instance);
-	void $03internal_static_init();
-)
-
-scope(std_reflect, 
-
-	void __srt_global(object $instance);
-)
-
-scope(std_reflect, _class_, 
-
-	void _class_(object $instance);
-)
-
-scope(std_reflect, field, 
-
-	void field(object $instance);
-)
-
-scope(std_reflect, data_entity, 
-
-	void data_entity(object $instance);
-)
-
-scope(std_reflect, reflect, 
-
-	void reflect(object $instance, object ref_obj);
-	void reflect2(object $instance);
-	void set_reflect_obj(object $instance, object value);
-	object get_reflect_obj(object $instance);
-)
-
-scope(std_reflect, function, 
-
-	void function(object $instance);
-)
-
-scope(std_reflect, data_property, 
-
-	void data_property(object $instance);
-)
-
-scope(std, string_builder, 
-
-	void set_resize_capacity(object $instance, var& new_capacity);
-	void string_builder(object $instance, _int8_array& str);
-	void string_builder2(object $instance, var& ch);
-	void string_builder3(object $instance, object str);
-	void string_builder4(object $instance, object str);
-	void string_builder5(object $instance, object str);
-	void string_builder6(object $instance, _int8_array& str, var& offset);
-	var space_available(object $instance, var& space_required);
-	void expand(object $instance, var& space_required);
-	object replace(object $instance, var& pos, _int8& ch);
-	object append(object $instance, var& ch);
-	_int8_array get_elements(object $instance);
-	object append2(object $instance, object c);
-	object append3(object $instance, _int8_array& immstr);
-	object append4(object $instance, _int8_array& immstr, var& len);
-	object op_$plus(object $instance, _int8_array& immstr);
-	object op_$plus2(object $instance, object obj);
-	object to_string(object $instance);
-	var op_$equals_equals(object $instance, _int8_array& str);
-	var op_$equals_equals2(object $instance, object str);
-	var op_$not_equals(object $instance, _int8_array& str);
-	var op_$not_equals2(object $instance, object str);
-	void op_$equals(object $instance, _int8_array& immstr);
-	_int8 at(object $instance, var& pos);
-	var op_$array_at(object $instance, var& pos);
-	void fmt(var& _fmt);
-	void set_precision(var& prec);
-	_int8_array to_array(object $instance);
-	var starts_with(object $instance, object prefix);
-	var find(object $instance, object str);
-	var find2(object $instance, object str);
-	var ends_with(object $instance, object postfix);
-	object op_$plus3(object $instance, var& num);
-	var size(object $instance);
-	object parse(object $instance, var& number);
-	object op_$plus_equal(object $instance, var& num);
-	object op_$plus_equal2(object $instance, object obj);
-	object op_$plus_equal3(object $instance, object str);
-	_int8_array get_data(object $instance);
-	object op_$plus_equal4(object $instance, object str);
-	object op_$plus_equal5(object $instance, _int8_array& str);
-	object substring(object $instance, var& startPos, var& endPos);
-	object bounds_error(object $instance, var& pos);
-	object hash(object $instance);
-	void string_builder7(object $instance);
-	void $03internal_static_init();
+	void _enum_3(object $instance);
 )
 
 scope(std, ulong, 
@@ -1746,6 +1481,277 @@ scope(std, _bool,
 	var op_$or_equal11(object $instance, var& num);
 	var check_value(object $instance, var& new_val);
 	void _bool12(object $instance);
+)
+
+scope(platform, 
+
+	void __srt_global(object $instance);
+	var load_library(object name);
+	var free_library(object name);
+	var link(object name, object library);
+)
+
+scope(platform, build, 
+
+	var is_windows();
+	var is_linux();
+	void build(object $instance);
+)
+
+scope(platform_kernel, 
+
+	void __srt_global(object $instance);
+)
+
+scope(platform_kernel, stack_state, 
+
+	void stack_state(object $instance);
+)
+
+scope(platform_kernel, platform, 
+
+	void tls_init();
+	void static_init();
+	void exit(var& value);
+	_int8_array get_lib_path(object name);
+	var load_library(object name);
+	var free_library(object name);
+	var link_func(object name, object library);
+	var srt_init(object args);
+	void platform(object $instance);
+)
+
+scope(platform_kernel, vm, 
+
+	object get_frame_info();
+	object get_stack_trace(object info);
+	var thread_create(var& daemon);
+	object suspend(object t);
+	object unsuspend(object t, var& wait);
+	object thread_join(object t);
+	object kill(object t);
+	object current_thread();
+	void exit_thread(object t, var& code);
+	void thread_yield();
+	object thread_start(object t, object args);
+	object set_thread_priority(object t, var& priority);
+	void set_thread(object t);
+	object thread_args();
+	var cores();
+	void vm(object $instance);
+)
+
+scope(std_math, 
+
+	void __srt_global(object $instance);
+	var is_nan(var& v);
+	var is_infinite(var& v);
+	var sin(var& num);
+	var cos(var& num);
+	var tan(var& num);
+	var sinh(var& num);
+	var cosh(var& num);
+	var tanh(var& num);
+	var asin(var& num);
+	var acos(var& num);
+	var atan(var& num);
+	var atan2(var& num1, var& num2);
+	var exp(var& num);
+	var log(var& num);
+	var log10(var& num);
+	var pow(var& num, var& exp);
+	var sqrt(var& num);
+	var ceil(var& num);
+	var floor(var& num);
+	var abs(var& num);
+	var fabs(var& num);
+	var ldexp(var& num, var& num2);
+	var fmod(var& num, var& num2);
+	var round(var& num);
+	var math_proc(var& num, var& proc);
+	var math_proc2(var& num, var& num2, var& proc);
+)
+
+scope(std, unique, 
+
+	object hash(object $instance);
+	object guid(object $instance);
+	void unique(object $instance);
+)
+
+scope(std_reflect, 
+
+	void __srt_global(object $instance);
+)
+
+scope(std_reflect, data_entity, 
+
+	void data_entity(object $instance);
+)
+
+scope(std_reflect, _class_, 
+
+	void _class_(object $instance);
+)
+
+scope(std_reflect, reflect, 
+
+	void reflect(object $instance, object ref_obj);
+	void reflect2(object $instance);
+	void set_reflect_obj(object $instance, object value);
+	object get_reflect_obj(object $instance);
+)
+
+scope(std_reflect, data_property, 
+
+	void data_property(object $instance);
+)
+
+scope(std_reflect, field, 
+
+	void field(object $instance);
+)
+
+scope(std_reflect, function, 
+
+	void function(object $instance);
+)
+
+scope(std, printable, 
+
+	object to_string(object $instance);
+	void printable(object $instance);
+)
+
+scope(std, time, 
+
+	var nano_time();
+	var nano_to_micro(var& nano);
+	var nano_to_mills(var& nano);
+	var nano_to_secs(var& nano);
+	var mills_time();
+	void sleep(var& time);
+	void sleep2(object tm_unit, var& time);
+	void wait(object tm_unit, var& time);
+	var adjust_time(var& usec);
+	var measure(object tm_unit, var& block);
+	void time(object $instance);
+	void $03internal_static_init();
+)
+
+scope(std, _nil_, 
+
+	object to_string(object $instance);
+	void _nil_(object $instance);
+	void set_instance(object value);
+	void $03internal_static_init();
+)
+
+scope(std, throwable, 
+
+	void throwable(object $instance, _int8_array& message);
+	void throwable2(object $instance, object message);
+	object get_message(object $instance);
+	void throwable3(object $instance);
+	object get_stack_trace(object $instance);
+)
+
+scope(std, exception, 
+
+	void exception(object $instance, _int8_array& message);
+	void exception2(object $instance, object message);
+	void exception3(object $instance);
+)
+
+scope(std, illegal_argument_exception, 
+
+	void illegal_argument_exception(object $instance, _int8_array& message);
+	void illegal_argument_exception2(object $instance, object message);
+	void illegal_argument_exception3(object $instance);
+)
+
+scope(std, illegal_state_exception, 
+
+	void illegal_state_exception(object $instance, _int8_array& message);
+	void illegal_state_exception2(object $instance, object message);
+	void illegal_state_exception3(object $instance);
+)
+
+scope(std, out_of_bounds_exception, 
+
+	void out_of_bounds_exception(object $instance, _int8_array& message);
+	void out_of_bounds_exception2(object $instance, object message);
+	void out_of_bounds_exception3(object $instance);
+)
+
+scope(std, io_exception, 
+
+	void io_exception(object $instance, _int8_array& message);
+	void io_exception2(object $instance, object message);
+	void io_exception3(object $instance);
+)
+
+scope(std, invalid_operation_exception, 
+
+	void invalid_operation_exception(object $instance, _int8_array& message);
+	void invalid_operation_exception2(object $instance, object message);
+	void invalid_operation_exception3(object $instance);
+)
+
+scope(std, nullptr_exception, 
+
+	void nullptr_exception(object $instance, _int8_array& message);
+	void nullptr_exception2(object $instance, object message);
+	void nullptr_exception3(object $instance);
+)
+
+scope(std, runtime_exception, 
+
+	void runtime_exception(object $instance, _int8_array& message);
+	void runtime_exception2(object $instance, object message);
+	void runtime_exception3(object $instance);
+)
+
+scope(std, stack_overflow_exception, 
+
+	void stack_overflow_exception(object $instance, _int8_array& message);
+	void stack_overflow_exception2(object $instance, object message);
+	void stack_overflow_exception3(object $instance);
+)
+
+scope(std, thread_stack_exception, 
+
+	void thread_stack_exception(object $instance, _int8_array& message);
+	void thread_stack_exception2(object $instance, object message);
+	void thread_stack_exception3(object $instance);
+)
+
+scope(std, class_cast_exception, 
+
+	void class_cast_exception(object $instance, _int8_array& message);
+	void class_cast_exception2(object $instance, object message);
+	void class_cast_exception3(object $instance);
+)
+
+scope(std, out_of_memory_exception, 
+
+	void out_of_memory_exception(object $instance, _int8_array& message);
+	void out_of_memory_exception2(object $instance, object message);
+	void out_of_memory_exception3(object $instance);
+)
+
+scope(std, not_implemented_error, 
+
+	void not_implemented_error(object $instance, _int8_array& message);
+	void not_implemented_error2(object $instance, object message);
+	void not_implemented_error3(object $instance);
+)
+
+scope(std, unsatisfied_link_error, 
+
+	void unsatisfied_link_error(object $instance, _int8_array& message);
+	void unsatisfied_link_error2(object $instance, object message);
+	void unsatisfied_link_error3(object $instance);
 )
 
 scope(gpio, 

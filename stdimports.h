@@ -20,7 +20,8 @@
 #include <stdarg.h>
 #include <dlfcn.h>
 #include <wiringPi.h>
-#include "src/snb/native_mapping.h"
+#include <math.h>
+#include "generated/native_mapping.h"
 
 using namespace std;
 
@@ -33,6 +34,7 @@ using namespace std;
 
 #define POSIX_USEC_INTERVAL 1000
 #define CXX11_INLINE inline
+#define TIME_SINCE(time) (micros() - time)
 
 
 #endif //SHARP_STDIMPORTS_H
