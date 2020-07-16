@@ -1,0 +1,25 @@
+mod common.network.driver;
+
+/*
+* Interface for the nrf24 device
+*/
+native def setup(trnsLvl: var, rate: var, delay: var,
+    retryCount: var, isClient: var);
+
+native def set_transmission_lvl(level: var);
+
+native def set_transmission_rate(level: var);
+
+native def dump_details();
+
+native def set_retry_count(delay: var, count: var);
+
+native def power_down();
+
+native def get_signal_strength(): var;
+
+native def read() : _int8[];
+
+native def send(data: _int8[]);
+
+native def get_last_error() : var;

@@ -14,6 +14,8 @@ using namespace std;
 #define TRACKED_PACKETS 100
 #define MAX_SIGNAL_STRENGTH 4
 
+#define DEFAULT_RF_CHANNEL 121
+
 uint8_t address[] = { 0x0, 0xCE, 0x2B, 0xCE, 0x5F };
 
 bool packetSuccess[TRACKED_PACKETS];
@@ -23,23 +25,38 @@ bool trackingFilled = false;
 uint8_t response[TX_PACKET_WIDTH];
 
 int TIMEOUT_US = 0;
+int last_error = 0;
 
 RF24 radio(22, 0);
 
-scope(transmission, nrf24,
+scope(common_network_driver,
 	
-	void setup(object $instance, var &trnsLvl, var &rate, var &mode, 
-		var &delay, var &retryCount) {
+	void setup(var &trnsLvl, var &rate, var &delay,
+	        var &retryCount, var &isClient) {
 		radio.begin();
 		
-		set_transmission_lvl($instance, trnsLvl);
-		set_transmission_rate($instance, rate);
-		set_retry_count($instance, delay, retryCount);
-		switch_mode($instance, mode);
+		set_transmission_lvl(trnsLvl);
+		set_transmission_rate(rate);
+		set_retry_count(delay, retryCount);
+
+		if(isClient) {
+            address[0] = 0x23;
+            radio.openWritingPipe(address);
+            address[0] = 0x1C;
+            radio.openReadingPipe(1, address);
+        } else {
+            address[0] = 0x1C;
+            radio.openWritingPipe(address);
+            address[0] = 0x23;
+            radio.openReadingPipe(1, address);
+		}
+
+		radio.setChannel(DEFAULT_RF_CHANNEL);
+        radio.stopListening();
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH); 
 	}
 
-	void set_transmission_lvl(object $instance, var &level) {
+	void set_transmission_lvl(var &level) {
 		switch((long)level.value()) {
 			case 0:
 			case 1:
@@ -52,7 +69,7 @@ scope(transmission, nrf24,
 		}
 	}
 
-	void set_transmission_rate(object $instance, var &level) {
+	void set_transmission_rate(var &level) {
 		switch((long)level.value()) {
 			case 0:
 				radio.setDataRate(RF24_250KBPS);
@@ -72,27 +89,13 @@ scope(transmission, nrf24,
 	void dump_details() {
 		radio.printDetails();
 	}
-	
-	void switch_mode(object $instance, var &mode) {
-		var curr_mode = get<var>($instance, "mode");
-		curr_mode = mode;
-		
-		switch((long)mode.value()) {
-			case 0: // RX
-				radio.startListening();
-				break;
-			case 1: // TX
-				radio.stopListening();
-				break;
-		}
-	}
-	
-	void set_retry_count(object $instance, var &delay, var &count) {
-		radio.setRetries((uint8_t)delay.value(), (uint8_t)count.value() % 15);
+
+	void set_retry_count(var &delay, var &count) {
+		radio.setRetries((uint8_t)delay.value(), (uint8_t)count.value() % 16);
 		TIMEOUT_US = (250 * (int)delay.value()) * (int)count.value();
 	}
 	
-	void powerDown(object $instance) {
+	void power_down(object $instance) {
 		radio.powerDown();
 	}
 	
@@ -145,7 +148,7 @@ scope(transmission, nrf24,
 		if (timeout) {
 			if(withTimeout) return false;
 			else {
-				usleep(TIMEOUT_US / 2);
+                delayMicroseconds (TIMEOUT_US / 2);
 				goto retry;
 			}
 		} else {
@@ -155,52 +158,45 @@ scope(transmission, nrf24,
 		return true;
 	}
 	
-	unsigned int readHeaderPacket() {
+	unsigned int readHeaderPacket(stringstream &data) {
 		unsigned int packets = 
 			SET_i32(response[0x0], response[0x1],
 				response[0x2], response[0x3]);
-		pdata.len = response[0x4];
+        unsigned int len = response[0x4];
 		int startPos = TX_PACKET_HEADER_SIZE;
 		
-		for(int i = 0; i < pdata.len; i++) {
-			pdata.data[i] = response[startPos++];
+		for(int i = 0; i < len; i++) {
+			data << response[startPos++];
 		}
 	}
 	
-	void readFooterPacket() {
-		pdata.len = response[0x0];
+	void readFooterPacket(stringstream &data) {
+		unsigned int len = response[0x0];
 		int startPos = TX_PACKET_FOOTER_SIZE;
 		
-		for(int i = 0; i < pdata.len; i++) {
-			pdata.data[i] = response[startPos++];
+		for(int i = 0; i < len; i++) {
+			data << response[startPos++];
 		}
 	}
 	
-	void readPacket(stringstream &data) {
-		for(int i = 0; i < pdata.len; i++) {
-			data << pdata.data[i];
-		}
-	}
-	
-	var read(object $instance, _int8_array &data_response) {
+	var_array read() {
 		stringstream data;
+        radio.startListening();
+        var_array data_response(createLocalField<var_array>());
+
 		waitforResponse(false);
-		unsigned int packets = readHeaderPacket();
+		unsigned int packets = readHeaderPacket(data);
 		var success = getLocalField<var>();
-		
-		success = true;
-		readPacket(data);
-		
+
+        last_error = 0;
 		for(unsigned int i = 1; i < packets; i++) {
 			if(!waitforResponse(true)) {
-				data_response = NULL;
-				success = false;
+                last_error = 1;
 				break;
 			}
 			
 			if((i + 1) >= packets) {
-				readFooterPacket();
-				readPacket(data);
+				readFooterPacket(data);
 			} else {
 				for(int j = 0; j < TX_PACKET_WIDTH; j++) {
 					data << response[j];
@@ -210,14 +206,14 @@ scope(transmission, nrf24,
 		
 		string str = data.str();
 		data_response = str;
-		return success;
+		return data_response;
 	}
 	
-	var send(object $instance, _int8_array& data8) {
+	void send(_int8_array& data8) {
 		string data = stringFrom(data8);
-		var success = getLocalField<var>();
-		success = true;
-		
+        last_error = 0;
+
+        radio.stopListening();
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
 			packetSize = 1;
@@ -261,14 +257,18 @@ scope(transmission, nrf24,
 			if(!trackingFilled && packetsSent >= TRACKED_PACKETS) { trackingFilled = true; }
 			
             if (!ok) {
-				success = false;
+                last_error = 1;
                 printf("failed.\n");
                 break;
             } else {
 				printf("succeded.\n");
 			}
 		}
-		
-		return success;
-	} 
+	}
+
+	var get_last_error() {
+        var result = getLocalFild<var>();
+        result = last_error;
+        return result;
+    }
 )

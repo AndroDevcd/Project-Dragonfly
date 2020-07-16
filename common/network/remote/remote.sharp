@@ -1,0 +1,8 @@
+mod common.network.remote;
+
+import common.network;
+import common.network.data.*;
+
+def initialize(net: network) {
+    net.handshake_request = new handshake_request_impl();
+}

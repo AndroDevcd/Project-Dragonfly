@@ -2,13 +2,16 @@ mod main;
 
 import std.io;
 import platform;
-import gpio;
+import device;
+import common.network;
 
 def main(args: string[])
 {
    load_library("bin/dragonfly");
-   setup();
+   common.gpio#setup();
    setup_hc_sr04();
-
+   network.server_handshake();
+   //network.client_handshake();
+   println("handshake established!");
    thread.sleep(10000);
 }

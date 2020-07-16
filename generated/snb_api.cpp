@@ -191,8 +191,13 @@ namespace snb_api {
     }
 
     void set(var_array &arry, const char *str) {
-        long len = strlen(str);
-        if(str && arry.handle) {
+        if(arry.handle) {
+            if(str == NULL) {
+                createVarArray(arry, 0);
+                return;
+            }
+
+            long len = strlen(str);
             if(arry.size != len)
                 createVarArray(arry, len);
 
@@ -205,56 +210,54 @@ namespace snb_api {
     void set(var_array &arry, string& str) {
         set(arry, str.c_str());
     }
-    
-    #pragma GCC push_options
-    #pragma GCC optimize ("O0")
-   /*
-    * This allow the compiler to properly link each template function
-    */
-   void dead_func() {
-	    using namespace snb_api;
-	    createLocalField<var>();
-	    createLocalField<_int8>();
-	    createLocalField<_int16>();
-	    createLocalField<_int16>();
-	    createLocalField<_int32>();
-	    createLocalField<_int64>();
-	    createLocalField<_uint8>();
-	    createLocalField<_uint16>();
-	    createLocalField<_uint32>();
-	    createLocalField<_uint64>();
-	    createLocalField<var_array>();
-
-	    object obj;
-	    cast_to<var>(obj);
-	    cast_to<_int8>(obj);
-	    cast_to<_int16>(obj);
-	    cast_to<_int16>(obj);
-	    cast_to<_int32>(obj);
-	    cast_to<_int64>(obj);
-	    cast_to<_uint8>(obj);
-	    cast_to<_uint16>(obj);
-	    cast_to<_uint32>(obj);
-	    cast_to<_uint64>(obj);
-	    cast_to<var_array>(obj);
-
-
-	    get<var>(obj, "");
-	    get<_int8>(obj, "");
-	    get<_int16>(obj, "");
-	    get<_int16>(obj, "");
-	    get<_int32>(obj, "");
-	    get<_int64>(obj, "");
-	    get<_uint8>(obj, "");
-	    get<_uint16>(obj, "");
-	    get<_uint32>(obj, "");
-	    get<_uint64>(obj, "");
-	    get<var_array>(obj, "");
-    }
-    
-    #pragma GCC pop_options
 };
 
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+/*
+ * This allow the compiler to properly link each template function
+ */
+void dead_func() {
+    using namespace snb_api;
+    createLocalField<var>();
+    createLocalField<_int8>();
+    createLocalField<_int16>();
+    createLocalField<_int16>();
+    createLocalField<_int32>();
+    createLocalField<_int64>();
+    createLocalField<_uint8>();
+    createLocalField<_uint16>();
+    createLocalField<_uint32>();
+    createLocalField<_uint64>();
+    createLocalField<var_array>();
+
+    object obj;
+    cast_to<var>(obj);
+    cast_to<_int8>(obj);
+    cast_to<_int16>(obj);
+    cast_to<_int16>(obj);
+    cast_to<_int32>(obj);
+    cast_to<_int64>(obj);
+    cast_to<_uint8>(obj);
+    cast_to<_uint16>(obj);
+    cast_to<_uint32>(obj);
+    cast_to<_uint64>(obj);
+    cast_to<var_array>(obj);
+
+
+    get<var>(obj, "");
+    get<_int8>(obj, "");
+    get<_int16>(obj, "");
+    get<_int16>(obj, "");
+    get<_int32>(obj, "");
+    get<_int64>(obj, "");
+    get<_uint8>(obj, "");
+    get<_uint16>(obj, "");
+    get<_uint32>(obj, "");
+    get<_uint64>(obj, "");
+    get<var_array>(obj, "");
+}
+#pragma pop_options
 
 #ifdef __cplusplus
 extern "C" {
@@ -263,7 +266,7 @@ extern "C" {
 EXPORTED short snb_handshake(void* lib_funcs[], int size) {
     return snb_api::internal::handshake(lib_funcs, size);
 }
-    
+
 #ifdef __cplusplus
 }
 #endif

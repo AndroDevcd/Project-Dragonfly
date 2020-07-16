@@ -1,0 +1,21 @@
+mod common.network;
+
+import common.network.data.*;
+
+class network {
+    private static INSTANCE := new network();
+
+    init {
+        common.network.remote#initialize(self);
+    }
+
+    public handshake_request : connection_handshake_request;
+
+    static def server_handshake() : acknowledge {
+        return INSTANCE.handshake_request.server_handshake();
+    }
+
+    static def client_handshake() {
+       INSTANCE.handshake_request.client_handshake();
+    }
+}

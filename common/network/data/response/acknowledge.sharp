@@ -1,0 +1,11 @@
+mod common.network.data.response;
+
+class acknowledge
+{
+    acknowledge(result: var)
+    {
+        success = result;
+    }
+
+    success : var;
+}

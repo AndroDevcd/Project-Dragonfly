@@ -1,0 +1,63 @@
+mod common.network.core;
+
+import std.io;
+import common.network.driver;
+
+class request
+{
+    private static device : nrf24;
+    public static READ := 0;
+    public static WRITE := 1;
+
+    static init {
+        device := new nrf24();
+        device.dump();
+    }
+
+    static def write(rdata: request_data): var {
+        return device.send(rdata.to_string());
+    }
+
+    static def read(rdata: request_data): var {
+        raw := new string();
+        result := device.read(raw);
+
+        if(result == 0)
+        {
+            for(i := 0; i < raw.size(); i++) {
+                key := new string();
+                value := new string();
+
+                while(raw[i] != '=') {
+                    key += raw[i++];
+                }
+
+                i++;
+                while(raw[i] != ',' && ((i + 1) < raw.size())) {
+                    key += raw[i++];
+                }
+
+                rdata.add_item(key, value);
+            }
+            return 0;
+        } else return result;
+    }
+
+    static def rw_inf(rdata: request_data, rw: var) {
+        if(rw == READ) {
+            for(;;) {
+                if(read(rdata) != 0) {
+                    thread.sleep(1);
+                    continue;
+                }
+            }
+        } else {
+            for(;;) {
+                if(write(rdata) != 0) {
+                    thread.sleep(1);
+                    continue;
+                }
+            }
+        }
+    }
+}

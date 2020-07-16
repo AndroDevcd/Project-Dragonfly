@@ -1,0 +1,51 @@
+mod common.network.remote;
+
+import common.network.core;
+import common.network.data.*;
+import std.io;
+
+class handshake_request_impl base request : connection_handshake_request
+{
+    // server
+    def server_handshake(): acknowledge {
+        req := new request_data();
+        response := new request_data();
+        req.add_item("cmd", "handshake");
+
+        retry:
+        do {
+            if(write(req) != 0) {
+                thread.sleep(1);
+                continue;
+            }
+        } while(read(response) != 0);
+
+        value := response.at("response");
+        if(value != null && value == "ok") {
+            return new acknowledge(true);
+        } else {
+            response.clear();
+            goto retry;
+        }
+
+        return null;
+    }
+
+    // client
+    def client_handshake() {
+        req := new request_data();
+        response := new request_data();
+        req.add_item("response", "ok");
+
+        retry:
+        rw_inf(response, READ);
+
+        value := response.at("cmd");
+        if(value != null && value == "handshake") {
+            rw_inf(req, WRITE);
+        } else {
+            response.clear();
+            goto retry;
+        }
+    }
+}

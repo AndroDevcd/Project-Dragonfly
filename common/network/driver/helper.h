@@ -5,13 +5,15 @@
 #inclue "../stdimports.h"
 
 /**
- * DTP (Data Transfer Protocol)
+ * DTP (Data Transmission Protocol)
  * 
  * Each packet will be filled to 
  * the max except for the first and last one
+ *
+ * All packets have a max size of 32 bytes
  * 
- * Packet #1            Packet #2      Last Packet
- * [ {size}, 0, 0, ...] [0, 0, 0, ...] [ {len}, 0, 0, ...]
+ * Packet #1              Packet #2      Last Packet
+ * [ {header}, 0, 0, ...] [0, 0, 0, ...] [ {footer}, 0, 0, ...]
  */
 struct packet {
 	uint8_t len;

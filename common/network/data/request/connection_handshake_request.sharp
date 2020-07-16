@@ -1,0 +1,7 @@
+mod common.network.data.request;
+
+interface connection_handshake_request
+{
+    def server_handshake(): acknowledge;
+    def client_handshake();
+}

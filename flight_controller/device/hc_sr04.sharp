@@ -1,0 +1,59 @@
+mod device;
+
+import common.gpio;
+import common;
+import std.io.task;
+
+native def get_dst_cm(trg: var, echo: var): var;
+
+const ECHO := 5;
+const TRG := 6;
+
+// Time accuracy constants
+const LOW_ACCURACY_INTERVAL := 250; // 4 pulses/sec
+const MED_ACCURACY_INTERVAL := 150; // 6 pulses/sec
+const HIGH_ACCURACY_INTERVAL := 100; // 10 pulses/sec
+
+const LOW_ACCURACY_LIMIT := 400; // 10+ feet
+const MED_ACCURACY_LIMIT := 305; // between 5 & 10 feet
+const HIGH_ACCURACY_LIMIT := 150; // <= 5 feet
+
+def get_distance() := get_dst_cm(TRG, ECHO);
+
+accuracy_interval := LOW_ACCURACY_INTERVAL;
+def setup_hc_sr04() {
+  pin_mode(TRG, constants.OUTPUT);
+  pin_mode(ECHO, constants.INPUT);
+  write_pin(TRG, constants.LOW);
+  
+  task.builder()
+     .with_timeout(HIGH_ACCURACY_INTERVAL)
+    .recurring(LOW_ACCURACY_INTERVAL, milliseconds) = { args: object[] ->
+      jb := args[0] as job;
+      
+      dst := get_distance();
+      when {
+          (dst <= HIGH_ACCURACY_LIMIT) -> {
+            if(accuracy_interval != HIGH_ACCURACY_INTERVAL) {
+              accuracy_interval = HIGH_ACCURACY_INTERVAL;
+              println("mode: high distance:$dst cm");
+              jb.update_interval(accuracy_interval, milliseconds);
+            }
+          }
+          (dst > HIGH_ACCURACY_LIMIT && dst <= MED_ACCURACY_LIMIT) -> {
+            if(accuracy_interval != MED_ACCURACY_LIMIT) {
+              accuracy_interval = MED_ACCURACY_LIMIT;
+              println("mode: med distance:$dst cm");
+              jb.update_interval(accuracy_interval, milliseconds);
+            }
+          }
+          else -> {
+            if(accuracy_interval != LOW_ACCURACY_INTERVAL) {
+              accuracy_interval = LOW_ACCURACY_INTERVAL;
+              println("mode: low distance:$dst cm");
+              jb.update_interval(accuracy_interval, milliseconds);
+            }
+          }
+      }
+    };
+}
