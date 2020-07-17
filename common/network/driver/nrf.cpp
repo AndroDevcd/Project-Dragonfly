@@ -52,7 +52,6 @@ scope_begin(common_network_driver)
             radio.openReadingPipe(1, address);
 		}
 
-		radio.setChannel(DEFAULT_RF_CHANNEL);
         radio.stopListening();
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH); 
 	}
@@ -153,7 +152,7 @@ scope_begin(common_network_driver)
 				goto retry;
 			}
 		} else {
-			radio.read(&response, sizeof(uint8_t) * TX_PACKET_WIDTH);
+			radio.read(&response, TX_PACKET_WIDTH);
 		}
 		
 		return true;
@@ -165,6 +164,12 @@ scope_begin(common_network_driver)
 				response[0x2], response[0x3]);
         unsigned int len = response[0x4];
 		int startPos = TX_PACKET_HEADER_SIZE;
+		
+		cout << "headder recieved " << (long)response[0] << " ";
+		cout << (long)response[1] << " "
+		<< (long)response[2] << " "
+		<< (long)response[3] << " " << endl;
+		cout << "len " << len << endl;
 		
 		for(int i = 0; i < len; i++) {
 			data << response[startPos++];
@@ -258,7 +263,7 @@ scope_begin(common_network_driver)
 				pdata.data[j] = data[pos++];
 			}
 			
-			bool ok = radio.write(&pdata.data, sizeof(uint8_t) * TX_PACKET_WIDTH);
+			bool ok = radio.write(pdata.data, TX_PACKET_WIDTH);
 
 			// track how many packets sent over the network to track cell signal
 			packetSuccess[packetsSent++ % TRACKED_PACKETS] = ok;
