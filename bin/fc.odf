@@ -155,73 +155,75 @@ generic: std.io#entry<std#int,std.io#thread>[111] fields(3) methods(7)
 [36]: cannot sleep for negative time: 
 [37]: device is not setup
 [38]: device is shutown
-[39]: =
-[40]: ,
-[41]: cmd
-[42]: handshake
-[43]: response
-[44]: ok
-[45]: created
-[46]: active
-[47]: completed
-[48]: cancelled
-[49]: min_priority
-[50]: norm_priority
-[51]: max_priority
-[52]: result_ok
-[53]: result_ill_thread_start
-[54]: result_thread_running
-[55]: result_thread_terminated
-[56]: result_invalid_stack_size
-[57]: result_thread_not_started
-[58]: result_ill_thread_join
-[59]: result_thread_join_failed
-[60]: result_ill_thread_interrupt
-[61]: result_thread_interrupt_failed
-[62]: result_ill_thread_destroy
-[63]: result_thread_create_failed
-[64]: result_no_thread_id
-[65]: result_thread_destroy_failed
-[66]: result_ill_priority_set
-[67]: result_ill_thread_suspend
-[68]: result_max_spin
-[69]: enums
-[70]: int8
-[71]: int16
-[72]: int32
-[73]: int64
-[74]: uint8
-[75]: uint16
-[76]: uint32
-[77]: uint64
-[78]: fnptr
-[79]: _var
-[80]: _object
-[81]: _class
-[82]: method
-[83]: _nil
-[84]: any
-[85]: untyped
-[86]: undefined
-[87]: class_property
-[88]: field_property
-[89]: function_property
-[90]: seconds
-[91]: milliseconds
-[92]: microseconds
-[93]: nanoseconds
-[94]: illegal char in string: 
-[95]: [ 
-[96]: , 
-[97]:  ]
-[98]: Index: 
-[99]: , size: 
-[100]: key 
-[101]:  value 
-[102]: mode: high distance:
-[103]:  cm
-[104]: mode: med distance:
-[105]: mode: low distance:
+[39]: read data: 
+[40]:  = 
+[41]: =
+[42]: ,
+[43]: cmd
+[44]: handshake
+[45]: response
+[46]: ok
+[47]: created
+[48]: active
+[49]: completed
+[50]: cancelled
+[51]: min_priority
+[52]: norm_priority
+[53]: max_priority
+[54]: result_ok
+[55]: result_ill_thread_start
+[56]: result_thread_running
+[57]: result_thread_terminated
+[58]: result_invalid_stack_size
+[59]: result_thread_not_started
+[60]: result_ill_thread_join
+[61]: result_thread_join_failed
+[62]: result_ill_thread_interrupt
+[63]: result_thread_interrupt_failed
+[64]: result_ill_thread_destroy
+[65]: result_thread_create_failed
+[66]: result_no_thread_id
+[67]: result_thread_destroy_failed
+[68]: result_ill_priority_set
+[69]: result_ill_thread_suspend
+[70]: result_max_spin
+[71]: enums
+[72]: int8
+[73]: int16
+[74]: int32
+[75]: int64
+[76]: uint8
+[77]: uint16
+[78]: uint32
+[79]: uint64
+[80]: fnptr
+[81]: _var
+[82]: _object
+[83]: _class
+[84]: method
+[85]: _nil
+[86]: any
+[87]: untyped
+[88]: undefined
+[89]: class_property
+[90]: field_property
+[91]: function_property
+[92]: seconds
+[93]: milliseconds
+[94]: microseconds
+[95]: nanoseconds
+[96]: illegal char in string: 
+[97]: [ 
+[98]: , 
+[99]:  ]
+[100]: Index: 
+[101]: , size: 
+[102]: key 
+[103]:  value 
+[104]: mode: high distance:
+[105]:  cm
+[106]: mode: med distance:
+[107]: mode: low distance:
 
  constants: 
 
@@ -4234,7 +4236,7 @@ function: std#integer<_uint64>.parse[201] params(1) in file: /usr/include/sharp/
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -8360,7 +8362,7 @@ function: std#integer<_int64>.parse[394] params(1) in file: /usr/include/sharp//
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -12486,7 +12488,7 @@ function: std#integer<_uint32>.parse[587] params(1) in file: /usr/include/sharp/
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -16612,7 +16614,7 @@ function: std#integer<_int32>.parse[780] params(1) in file: /usr/include/sharp//
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -20738,7 +20740,7 @@ function: std#integer<_uint16>.parse[973] params(1) in file: /usr/include/sharp/
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -24864,7 +24866,7 @@ function: std#integer<_int16>.parse[1166] params(1) in file: /usr/include/sharp/
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -28990,7 +28992,7 @@ function: std#integer<_uint8>.parse[1359] params(1) in file: /usr/include/sharp/
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -33116,7 +33118,7 @@ function: std#integer<_int8>.parse[1552] params(1) in file: /usr/include/sharp//
 56 [0x38]:           dup    
 57 [0x39]:           new_class @4 // std#string   
 58 [0x3a]:           dup    
-59 [0x3b]:           newstr @94 // illegal char in string:    
+59 [0x3b]:           newstr @96 // illegal char in string:    
 60 [0x3c]:           call @1615 // <std#string.string>   
 61 [0x3d]:           movl 0   
 62 [0x3e]:           pushobj   
@@ -65068,7 +65070,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 1 [0x1]:          movg @11 // @std.io.task#job_state   
 2 [0x2]:          movn #0   
 4 [0x4]:          popobj   
-5 [0x5]:          newstr @45 // created   
+5 [0x5]:          newstr @47 // created   
 6 [0x6]:          movg @11 // @std.io.task#job_state   
 7 [0x7]:          movn #0   
 9 [0x9]:          movn #0   
@@ -65083,7 +65085,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 23 [0x17]:          movg @11 // @std.io.task#job_state   
 24 [0x18]:          movn #1   
 26 [0x1a]:          popobj   
-27 [0x1b]:          newstr @46 // active   
+27 [0x1b]:          newstr @48 // active   
 28 [0x1c]:          movg @11 // @std.io.task#job_state   
 29 [0x1d]:          movn #1   
 31 [0x1f]:          movn #0   
@@ -65098,7 +65100,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 45 [0x2d]:          movg @11 // @std.io.task#job_state   
 46 [0x2e]:          movn #2   
 48 [0x30]:          popobj   
-49 [0x31]:          newstr @47 // completed   
+49 [0x31]:          newstr @49 // completed   
 50 [0x32]:          movg @11 // @std.io.task#job_state   
 51 [0x33]:          movn #2   
 53 [0x35]:          movn #0   
@@ -65113,7 +65115,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 67 [0x43]:          movg @11 // @std.io.task#job_state   
 68 [0x44]:          movn #3   
 70 [0x46]:          popobj   
-71 [0x47]:          newstr @48 // cancelled   
+71 [0x47]:          newstr @50 // cancelled   
 72 [0x48]:          movg @11 // @std.io.task#job_state   
 73 [0x49]:          movn #3   
 75 [0x4b]:          movn #0   
@@ -65128,7 +65130,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 89 [0x59]:          movg @14 // @std.io#thread_priority   
 90 [0x5a]:          movn #0   
 92 [0x5c]:          popobj   
-93 [0x5d]:          newstr @49 // min_priority   
+93 [0x5d]:          newstr @51 // min_priority   
 94 [0x5e]:          movg @14 // @std.io#thread_priority   
 95 [0x5f]:          movn #0   
 97 [0x61]:          movn #0   
@@ -65143,7 +65145,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 111 [0x6f]:          movg @14 // @std.io#thread_priority   
 112 [0x70]:          movn #1   
 114 [0x72]:          popobj   
-115 [0x73]:          newstr @50 // norm_priority   
+115 [0x73]:          newstr @52 // norm_priority   
 116 [0x74]:          movg @14 // @std.io#thread_priority   
 117 [0x75]:          movn #1   
 119 [0x77]:          movn #0   
@@ -65158,7 +65160,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 133 [0x85]:          movg @14 // @std.io#thread_priority   
 134 [0x86]:          movn #2   
 136 [0x88]:          popobj   
-137 [0x89]:          newstr @51 // max_priority   
+137 [0x89]:          newstr @53 // max_priority   
 138 [0x8a]:          movg @14 // @std.io#thread_priority   
 139 [0x8b]:          movn #2   
 141 [0x8d]:          movn #0   
@@ -65173,7 +65175,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 155 [0x9b]:          movg @18 // @std.io#thread_result   
 156 [0x9c]:          movn #0   
 158 [0x9e]:          popobj   
-159 [0x9f]:          newstr @52 // result_ok   
+159 [0x9f]:          newstr @54 // result_ok   
 160 [0xa0]:          movg @18 // @std.io#thread_result   
 161 [0xa1]:          movn #0   
 163 [0xa3]:          movn #0   
@@ -65188,7 +65190,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 177 [0xb1]:          movg @18 // @std.io#thread_result   
 178 [0xb2]:          movn #1   
 180 [0xb4]:          popobj   
-181 [0xb5]:          newstr @53 // result_ill_thread_start   
+181 [0xb5]:          newstr @55 // result_ill_thread_start   
 182 [0xb6]:          movg @18 // @std.io#thread_result   
 183 [0xb7]:          movn #1   
 185 [0xb9]:          movn #0   
@@ -65203,7 +65205,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 199 [0xc7]:          movg @18 // @std.io#thread_result   
 200 [0xc8]:          movn #2   
 202 [0xca]:          popobj   
-203 [0xcb]:          newstr @54 // result_thread_running   
+203 [0xcb]:          newstr @56 // result_thread_running   
 204 [0xcc]:          movg @18 // @std.io#thread_result   
 205 [0xcd]:          movn #2   
 207 [0xcf]:          movn #0   
@@ -65218,7 +65220,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 221 [0xdd]:          movg @18 // @std.io#thread_result   
 222 [0xde]:          movn #3   
 224 [0xe0]:          popobj   
-225 [0xe1]:          newstr @55 // result_thread_terminated   
+225 [0xe1]:          newstr @57 // result_thread_terminated   
 226 [0xe2]:          movg @18 // @std.io#thread_result   
 227 [0xe3]:          movn #3   
 229 [0xe5]:          movn #0   
@@ -65233,7 +65235,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 243 [0xf3]:          movg @18 // @std.io#thread_result   
 244 [0xf4]:          movn #4   
 246 [0xf6]:          popobj   
-247 [0xf7]:          newstr @56 // result_invalid_stack_size   
+247 [0xf7]:          newstr @58 // result_invalid_stack_size   
 248 [0xf8]:          movg @18 // @std.io#thread_result   
 249 [0xf9]:          movn #4   
 251 [0xfb]:          movn #0   
@@ -65248,7 +65250,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 265 [0x109]:          movg @18 // @std.io#thread_result   
 266 [0x10a]:          movn #5   
 268 [0x10c]:          popobj   
-269 [0x10d]:          newstr @57 // result_thread_not_started   
+269 [0x10d]:          newstr @59 // result_thread_not_started   
 270 [0x10e]:          movg @18 // @std.io#thread_result   
 271 [0x10f]:          movn #5   
 273 [0x111]:          movn #0   
@@ -65263,7 +65265,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 287 [0x11f]:          movg @18 // @std.io#thread_result   
 288 [0x120]:          movn #6   
 290 [0x122]:          popobj   
-291 [0x123]:          newstr @58 // result_ill_thread_join   
+291 [0x123]:          newstr @60 // result_ill_thread_join   
 292 [0x124]:          movg @18 // @std.io#thread_result   
 293 [0x125]:          movn #6   
 295 [0x127]:          movn #0   
@@ -65278,7 +65280,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 309 [0x135]:          movg @18 // @std.io#thread_result   
 310 [0x136]:          movn #7   
 312 [0x138]:          popobj   
-313 [0x139]:          newstr @59 // result_thread_join_failed   
+313 [0x139]:          newstr @61 // result_thread_join_failed   
 314 [0x13a]:          movg @18 // @std.io#thread_result   
 315 [0x13b]:          movn #7   
 317 [0x13d]:          movn #0   
@@ -65293,7 +65295,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 331 [0x14b]:          movg @18 // @std.io#thread_result   
 332 [0x14c]:          movn #8   
 334 [0x14e]:          popobj   
-335 [0x14f]:          newstr @60 // result_ill_thread_interrupt   
+335 [0x14f]:          newstr @62 // result_ill_thread_interrupt   
 336 [0x150]:          movg @18 // @std.io#thread_result   
 337 [0x151]:          movn #8   
 339 [0x153]:          movn #0   
@@ -65308,7 +65310,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 353 [0x161]:          movg @18 // @std.io#thread_result   
 354 [0x162]:          movn #9   
 356 [0x164]:          popobj   
-357 [0x165]:          newstr @61 // result_thread_interrupt_failed   
+357 [0x165]:          newstr @63 // result_thread_interrupt_failed   
 358 [0x166]:          movg @18 // @std.io#thread_result   
 359 [0x167]:          movn #9   
 361 [0x169]:          movn #0   
@@ -65323,7 +65325,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 375 [0x177]:          movg @18 // @std.io#thread_result   
 376 [0x178]:          movn #10   
 378 [0x17a]:          popobj   
-379 [0x17b]:          newstr @62 // result_ill_thread_destroy   
+379 [0x17b]:          newstr @64 // result_ill_thread_destroy   
 380 [0x17c]:          movg @18 // @std.io#thread_result   
 381 [0x17d]:          movn #10   
 383 [0x17f]:          movn #0   
@@ -65338,7 +65340,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 397 [0x18d]:          movg @18 // @std.io#thread_result   
 398 [0x18e]:          movn #11   
 400 [0x190]:          popobj   
-401 [0x191]:          newstr @63 // result_thread_create_failed   
+401 [0x191]:          newstr @65 // result_thread_create_failed   
 402 [0x192]:          movg @18 // @std.io#thread_result   
 403 [0x193]:          movn #11   
 405 [0x195]:          movn #0   
@@ -65353,7 +65355,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 419 [0x1a3]:          movg @18 // @std.io#thread_result   
 420 [0x1a4]:          movn #12   
 422 [0x1a6]:          popobj   
-423 [0x1a7]:          newstr @64 // result_no_thread_id   
+423 [0x1a7]:          newstr @66 // result_no_thread_id   
 424 [0x1a8]:          movg @18 // @std.io#thread_result   
 425 [0x1a9]:          movn #12   
 427 [0x1ab]:          movn #0   
@@ -65368,7 +65370,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 441 [0x1b9]:          movg @18 // @std.io#thread_result   
 442 [0x1ba]:          movn #13   
 444 [0x1bc]:          popobj   
-445 [0x1bd]:          newstr @65 // result_thread_destroy_failed   
+445 [0x1bd]:          newstr @67 // result_thread_destroy_failed   
 446 [0x1be]:          movg @18 // @std.io#thread_result   
 447 [0x1bf]:          movn #13   
 449 [0x1c1]:          movn #0   
@@ -65383,7 +65385,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 463 [0x1cf]:          movg @18 // @std.io#thread_result   
 464 [0x1d0]:          movn #14   
 466 [0x1d2]:          popobj   
-467 [0x1d3]:          newstr @66 // result_ill_priority_set   
+467 [0x1d3]:          newstr @68 // result_ill_priority_set   
 468 [0x1d4]:          movg @18 // @std.io#thread_result   
 469 [0x1d5]:          movn #14   
 471 [0x1d7]:          movn #0   
@@ -65398,7 +65400,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 485 [0x1e5]:          movg @18 // @std.io#thread_result   
 486 [0x1e6]:          movn #15   
 488 [0x1e8]:          popobj   
-489 [0x1e9]:          newstr @67 // result_ill_thread_suspend   
+489 [0x1e9]:          newstr @69 // result_ill_thread_suspend   
 490 [0x1ea]:          movg @18 // @std.io#thread_result   
 491 [0x1eb]:          movn #15   
 493 [0x1ed]:          movn #0   
@@ -65413,7 +65415,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 507 [0x1fb]:          movg @18 // @std.io#thread_result   
 508 [0x1fc]:          movn #16   
 510 [0x1fe]:          popobj   
-511 [0x1ff]:          newstr @68 // result_max_spin   
+511 [0x1ff]:          newstr @70 // result_max_spin   
 512 [0x200]:          movg @18 // @std.io#thread_result   
 513 [0x201]:          movn #16   
 515 [0x203]:          movn #0   
@@ -65428,7 +65430,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 529 [0x211]:          movg @18 // @std.io#thread_result   
 530 [0x212]:          movn #17   
 532 [0x214]:          popobj   
-533 [0x215]:          newstr @69 // enums   
+533 [0x215]:          newstr @71 // enums   
 534 [0x216]:          movg @18 // @std.io#thread_result   
 535 [0x217]:          movn #17   
 537 [0x219]:          movn #0   
@@ -65443,7 +65445,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 551 [0x227]:          movg @44 // @std.reflect#data_type   
 552 [0x228]:          movn #0   
 554 [0x22a]:          popobj   
-555 [0x22b]:          newstr @70 // int8   
+555 [0x22b]:          newstr @72 // int8   
 556 [0x22c]:          movg @44 // @std.reflect#data_type   
 557 [0x22d]:          movn #0   
 559 [0x22f]:          movn #0   
@@ -65458,7 +65460,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 573 [0x23d]:          movg @44 // @std.reflect#data_type   
 574 [0x23e]:          movn #1   
 576 [0x240]:          popobj   
-577 [0x241]:          newstr @71 // int16   
+577 [0x241]:          newstr @73 // int16   
 578 [0x242]:          movg @44 // @std.reflect#data_type   
 579 [0x243]:          movn #1   
 581 [0x245]:          movn #0   
@@ -65473,7 +65475,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 595 [0x253]:          movg @44 // @std.reflect#data_type   
 596 [0x254]:          movn #2   
 598 [0x256]:          popobj   
-599 [0x257]:          newstr @72 // int32   
+599 [0x257]:          newstr @74 // int32   
 600 [0x258]:          movg @44 // @std.reflect#data_type   
 601 [0x259]:          movn #2   
 603 [0x25b]:          movn #0   
@@ -65488,7 +65490,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 617 [0x269]:          movg @44 // @std.reflect#data_type   
 618 [0x26a]:          movn #3   
 620 [0x26c]:          popobj   
-621 [0x26d]:          newstr @73 // int64   
+621 [0x26d]:          newstr @75 // int64   
 622 [0x26e]:          movg @44 // @std.reflect#data_type   
 623 [0x26f]:          movn #3   
 625 [0x271]:          movn #0   
@@ -65503,7 +65505,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 639 [0x27f]:          movg @44 // @std.reflect#data_type   
 640 [0x280]:          movn #4   
 642 [0x282]:          popobj   
-643 [0x283]:          newstr @74 // uint8   
+643 [0x283]:          newstr @76 // uint8   
 644 [0x284]:          movg @44 // @std.reflect#data_type   
 645 [0x285]:          movn #4   
 647 [0x287]:          movn #0   
@@ -65518,7 +65520,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 661 [0x295]:          movg @44 // @std.reflect#data_type   
 662 [0x296]:          movn #5   
 664 [0x298]:          popobj   
-665 [0x299]:          newstr @75 // uint16   
+665 [0x299]:          newstr @77 // uint16   
 666 [0x29a]:          movg @44 // @std.reflect#data_type   
 667 [0x29b]:          movn #5   
 669 [0x29d]:          movn #0   
@@ -65533,7 +65535,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 683 [0x2ab]:          movg @44 // @std.reflect#data_type   
 684 [0x2ac]:          movn #6   
 686 [0x2ae]:          popobj   
-687 [0x2af]:          newstr @76 // uint32   
+687 [0x2af]:          newstr @78 // uint32   
 688 [0x2b0]:          movg @44 // @std.reflect#data_type   
 689 [0x2b1]:          movn #6   
 691 [0x2b3]:          movn #0   
@@ -65548,7 +65550,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 705 [0x2c1]:          movg @44 // @std.reflect#data_type   
 706 [0x2c2]:          movn #7   
 708 [0x2c4]:          popobj   
-709 [0x2c5]:          newstr @77 // uint64   
+709 [0x2c5]:          newstr @79 // uint64   
 710 [0x2c6]:          movg @44 // @std.reflect#data_type   
 711 [0x2c7]:          movn #7   
 713 [0x2c9]:          movn #0   
@@ -65563,7 +65565,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 727 [0x2d7]:          movg @44 // @std.reflect#data_type   
 728 [0x2d8]:          movn #8   
 730 [0x2da]:          popobj   
-731 [0x2db]:          newstr @78 // fnptr   
+731 [0x2db]:          newstr @80 // fnptr   
 732 [0x2dc]:          movg @44 // @std.reflect#data_type   
 733 [0x2dd]:          movn #8   
 735 [0x2df]:          movn #0   
@@ -65578,7 +65580,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 749 [0x2ed]:          movg @44 // @std.reflect#data_type   
 750 [0x2ee]:          movn #9   
 752 [0x2f0]:          popobj   
-753 [0x2f1]:          newstr @79 // _var   
+753 [0x2f1]:          newstr @81 // _var   
 754 [0x2f2]:          movg @44 // @std.reflect#data_type   
 755 [0x2f3]:          movn #9   
 757 [0x2f5]:          movn #0   
@@ -65593,7 +65595,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 771 [0x303]:          movg @44 // @std.reflect#data_type   
 772 [0x304]:          movn #10   
 774 [0x306]:          popobj   
-775 [0x307]:          newstr @80 // _object   
+775 [0x307]:          newstr @82 // _object   
 776 [0x308]:          movg @44 // @std.reflect#data_type   
 777 [0x309]:          movn #10   
 779 [0x30b]:          movn #0   
@@ -65608,7 +65610,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 793 [0x319]:          movg @44 // @std.reflect#data_type   
 794 [0x31a]:          movn #11   
 796 [0x31c]:          popobj   
-797 [0x31d]:          newstr @81 // _class   
+797 [0x31d]:          newstr @83 // _class   
 798 [0x31e]:          movg @44 // @std.reflect#data_type   
 799 [0x31f]:          movn #11   
 801 [0x321]:          movn #0   
@@ -65623,7 +65625,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 815 [0x32f]:          movg @44 // @std.reflect#data_type   
 816 [0x330]:          movn #12   
 818 [0x332]:          popobj   
-819 [0x333]:          newstr @82 // method   
+819 [0x333]:          newstr @84 // method   
 820 [0x334]:          movg @44 // @std.reflect#data_type   
 821 [0x335]:          movn #12   
 823 [0x337]:          movn #0   
@@ -65638,7 +65640,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 837 [0x345]:          movg @44 // @std.reflect#data_type   
 838 [0x346]:          movn #13   
 840 [0x348]:          popobj   
-841 [0x349]:          newstr @83 // _nil   
+841 [0x349]:          newstr @85 // _nil   
 842 [0x34a]:          movg @44 // @std.reflect#data_type   
 843 [0x34b]:          movn #13   
 845 [0x34d]:          movn #0   
@@ -65653,7 +65655,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 859 [0x35b]:          movg @44 // @std.reflect#data_type   
 860 [0x35c]:          movn #14   
 862 [0x35e]:          popobj   
-863 [0x35f]:          newstr @84 // any   
+863 [0x35f]:          newstr @86 // any   
 864 [0x360]:          movg @44 // @std.reflect#data_type   
 865 [0x361]:          movn #14   
 867 [0x363]:          movn #0   
@@ -65668,7 +65670,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 881 [0x371]:          movg @44 // @std.reflect#data_type   
 882 [0x372]:          movn #15   
 884 [0x374]:          popobj   
-885 [0x375]:          newstr @85 // untyped   
+885 [0x375]:          newstr @87 // untyped   
 886 [0x376]:          movg @44 // @std.reflect#data_type   
 887 [0x377]:          movn #15   
 889 [0x379]:          movn #0   
@@ -65683,7 +65685,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 903 [0x387]:          movg @44 // @std.reflect#data_type   
 904 [0x388]:          movn #16   
 906 [0x38a]:          popobj   
-907 [0x38b]:          newstr @86 // undefined   
+907 [0x38b]:          newstr @88 // undefined   
 908 [0x38c]:          movg @44 // @std.reflect#data_type   
 909 [0x38d]:          movn #16   
 911 [0x38f]:          movn #0   
@@ -65698,12 +65700,12 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 925 [0x39d]:          movg @47 // @std.reflect#property_type   
 926 [0x39e]:          movn #0   
 928 [0x3a0]:          popobj   
-929 [0x3a1]:          newstr @87 // class_property   
+929 [0x3a1]:          newstr @89 // class_property   
 930 [0x3a2]:          movg @47 // @std.reflect#property_type   
 931 [0x3a3]:          movn #0   
 933 [0x3a5]:          movn #0   
 935 [0x3a7]:          popobj   
-936 [0x3a8]:          movi #61160, ebx   
+936 [0x3a8]:          movi #81330, ebx   
 938 [0x3aa]:          movg @47 // @std.reflect#property_type   
 939 [0x3ab]:          movn #0   
 941 [0x3ad]:          movn #1   
@@ -65713,12 +65715,12 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 947 [0x3b3]:          movg @47 // @std.reflect#property_type   
 948 [0x3b4]:          movn #1   
 950 [0x3b6]:          popobj   
-951 [0x3b7]:          newstr @88 // field_property   
+951 [0x3b7]:          newstr @90 // field_property   
 952 [0x3b8]:          movg @47 // @std.reflect#property_type   
 953 [0x3b9]:          movn #1   
 955 [0x3bb]:          movn #0   
 957 [0x3bd]:          popobj   
-958 [0x3be]:          movi #61161, ebx   
+958 [0x3be]:          movi #81331, ebx   
 960 [0x3c0]:          movg @47 // @std.reflect#property_type   
 961 [0x3c1]:          movn #1   
 963 [0x3c3]:          movn #1   
@@ -65728,12 +65730,12 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 969 [0x3c9]:          movg @47 // @std.reflect#property_type   
 970 [0x3ca]:          movn #2   
 972 [0x3cc]:          popobj   
-973 [0x3cd]:          newstr @89 // function_property   
+973 [0x3cd]:          newstr @91 // function_property   
 974 [0x3ce]:          movg @47 // @std.reflect#property_type   
 975 [0x3cf]:          movn #2   
 977 [0x3d1]:          movn #0   
 979 [0x3d3]:          popobj   
-980 [0x3d4]:          movi #61162, ebx   
+980 [0x3d4]:          movi #81332, ebx   
 982 [0x3d6]:          movg @47 // @std.reflect#property_type   
 983 [0x3d7]:          movn #2   
 985 [0x3d9]:          movn #1   
@@ -65743,7 +65745,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 991 [0x3df]:          movg @53 // @std#time_unit   
 992 [0x3e0]:          movn #0   
 994 [0x3e2]:          popobj   
-995 [0x3e3]:          newstr @90 // seconds   
+995 [0x3e3]:          newstr @92 // seconds   
 996 [0x3e4]:          movg @53 // @std#time_unit   
 997 [0x3e5]:          movn #0   
 999 [0x3e7]:          movn #0   
@@ -65758,7 +65760,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 1013 [0x3f5]:          movg @53 // @std#time_unit   
 1014 [0x3f6]:          movn #1   
 1016 [0x3f8]:          popobj   
-1017 [0x3f9]:          newstr @91 // milliseconds   
+1017 [0x3f9]:          newstr @93 // milliseconds   
 1018 [0x3fa]:          movg @53 // @std#time_unit   
 1019 [0x3fb]:          movn #1   
 1021 [0x3fd]:          movn #0   
@@ -65773,7 +65775,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 1035 [0x40b]:          movg @53 // @std#time_unit   
 1036 [0x40c]:          movn #2   
 1038 [0x40e]:          popobj   
-1039 [0x40f]:          newstr @92 // microseconds   
+1039 [0x40f]:          newstr @94 // microseconds   
 1040 [0x410]:          movg @53 // @std#time_unit   
 1041 [0x411]:          movn #2   
 1043 [0x413]:          movn #0   
@@ -65788,7 +65790,7 @@ function: platform.kernel#platform.static_init[2901] params(0) in file: /usr/inc
 1057 [0x421]:          movg @53 // @std#time_unit   
 1058 [0x422]:          movn #3   
 1060 [0x424]:          popobj   
-1061 [0x425]:          newstr @93 // nanoseconds   
+1061 [0x425]:          newstr @95 // nanoseconds   
 1062 [0x426]:          movg @53 // @std#time_unit   
 1063 [0x427]:          movn #3   
 1065 [0x429]:          movn #0   
@@ -68233,7 +68235,7 @@ function: common.network.core#request.read[3050] params(1) in file: ../common//n
 19 [0x13]:          test ecx, ebx   
 20 [0x14]:          movr ebx, cmt   
 21 [0x15]:          movr cmt, ebx   
-22 [0x16]:          jne 138   
+22 [0x16]:          jne 151   
 23 [0x17]: line: 29 movi #0, ebx   
 25 [0x19]:          smovr_2 ebx, fp+3   
 26 [0x1a]:          loadl ebx, fp+3   
@@ -68246,7 +68248,7 @@ function: common.network.core#request.read[3050] params(1) in file: ../common//n
 33 [0x21]:          lt ecx, ebx   
 34 [0x22]:          movr ebx, cmt   
 35 [0x23]:          movr cmt, ebx   
-36 [0x24]:          jne 133   
+36 [0x24]:          jne 146   
 37 [0x25]: line: 30 new_class @4 // std#string   
 38 [0x26]:          dup    
 39 [0x27]:          call @1657 // <std#string.string>   
@@ -68327,34 +68329,47 @@ function: common.network.core#request.read[3050] params(1) in file: ../common//n
 117 [0x75]:          call @1650 // <std#string.operator+=>   
 118 [0x76]:          pop   
 119 [0x77]:          jmp @78   
-120 [0x78]: line: 42 movl 0   
-121 [0x79]:          pushobj   
-122 [0x7a]:          movl 4   
-123 [0x7b]:          pushobj   
-124 [0x7c]:          movl 5   
+120 [0x78]: line: 42 new_class @4 // std#string   
+121 [0x79]:          dup    
+122 [0x7a]:          newstr @39 // read data:    
+123 [0x7b]:          call @1615 // <std#string.string>   
+124 [0x7c]:          movl 4   
 125 [0x7d]:          pushobj   
-126 [0x7e]:          call @3053 // <common.network.core#request_data.add_item>   
-127 [0x7f]:          pop   
-128 [0x80]:          loadl ebx, fp+3   
-129 [0x81]:          movr egx, ebx   
-130 [0x82]:          inc ebx   
-131 [0x83]:          smovr_2 ebx, fp+3   
-132 [0x84]:          jmp @26   
-133 [0x85]: line: 44 movi #0, ebx   
-135 [0x87]:          return_val ebx   
-136 [0x88]:          ret   
-137 [0x89]:          jmp @141   
-138 [0x8a]: line: 45 loadl ebx, fp+2   
-139 [0x8b]:          return_val ebx   
-140 [0x8c]:          ret   
-141 [0x8d]:          nop   
+126 [0x7e]:          call @1630 // <std#string.operator+>   
+127 [0x7f]:          newstr @40 //  =    
+128 [0x80]:          call @1627 // <std#string.operator+>   
+129 [0x81]:          movl 5   
+130 [0x82]:          pushobj   
+131 [0x83]:          call @1630 // <std#string.operator+>   
+132 [0x84]:          call @1907 // <std#__srt_global.println>   
+133 [0x85]: line: 43 movl 0   
+134 [0x86]:          pushobj   
+135 [0x87]:          movl 4   
+136 [0x88]:          pushobj   
+137 [0x89]:          movl 5   
+138 [0x8a]:          pushobj   
+139 [0x8b]:          call @3053 // <common.network.core#request_data.add_item>   
+140 [0x8c]:          pop   
+141 [0x8d]:          loadl ebx, fp+3   
+142 [0x8e]:          movr egx, ebx   
+143 [0x8f]:          inc ebx   
+144 [0x90]:          smovr_2 ebx, fp+3   
+145 [0x91]:          jmp @26   
+146 [0x92]: line: 45 movi #0, ebx   
+148 [0x94]:          return_val ebx   
+149 [0x95]:          ret   
+150 [0x96]:          jmp @154   
+151 [0x97]: line: 46 loadl ebx, fp+2   
+152 [0x98]:          return_val ebx   
+153 [0x99]:          ret   
+154 [0x9a]:          nop   
 
 
-function: common.network.core#request.rw_inf[3051] params(2) in file: ../common//network//core//request.sharp:48:15: note:  
+function: common.network.core#request.rw_inf[3051] params(2) in file: ../common//network//core//request.sharp:49:15: note:  
 		    static def rw_inf(rdata: request_data, rw: var) {
 		              ^
 
-0 [0x0]: line: 49 loadl ebx, fp+1   
+0 [0x0]: line: 50 loadl ebx, fp+1   
 1 [0x1]:          rstore ebx   
 2 [0x2]:          movg @74 // @common.network.core#request   
 3 [0x3]:          movn #1   
@@ -68365,9 +68380,9 @@ function: common.network.core#request.rw_inf[3051] params(2) in file: ../common/
 10 [0xa]:          test ecx, ebx   
 11 [0xb]:          movr ebx, cmt   
 12 [0xc]:          movr cmt, ebx   
-13 [0xd]:          jne 34   
-14 [0xe]: line: 50 movl 0   
-15 [0xf]: line: 51 pushobj   
+13 [0xd]:          jne 35   
+14 [0xe]: line: 51 movl 0   
+15 [0xf]: line: 52 pushobj   
 16 [0x10]:          call @3050 // <common.network.core#request.read>   
 17 [0x11]:          loadval ebx   
 18 [0x12]:          rstore ebx   
@@ -68377,32 +68392,34 @@ function: common.network.core#request.rw_inf[3051] params(2) in file: ../common/
 23 [0x17]:          movr ebx, cmt   
 24 [0x18]:          movr cmt, ebx   
 25 [0x19]:          jne 31   
-26 [0x1a]: line: 52 movi #1, ebx   
+26 [0x1a]: line: 53 movi #1, ebx   
 28 [0x1c]:          rstore ebx   
 29 [0x1d]:          call @1816 // <std.io#thread.sleep>   
-30 [0x1e]: line: 53 jmp @14   
+30 [0x1e]: line: 54 jmp @14   
 31 [0x1f]:          nop   
-32 [0x20]:          jmp @14   
-33 [0x21]:          jmp @53   
-34 [0x22]: line: 57 movl 0   
-35 [0x23]: line: 58 pushobj   
-36 [0x24]:          call @3049 // <common.network.core#request.write>   
-37 [0x25]:          loadval ebx   
-38 [0x26]:          rstore ebx   
-39 [0x27]:          movi #0, ebx   
-41 [0x29]:          loadval ecx   
-42 [0x2a]:          tne ecx, ebx   
-43 [0x2b]:          movr ebx, cmt   
-44 [0x2c]:          movr cmt, ebx   
-45 [0x2d]:          jne 51   
-46 [0x2e]: line: 59 movi #1, ebx   
-48 [0x30]:          rstore ebx   
-49 [0x31]:          call @1816 // <std.io#thread.sleep>   
-50 [0x32]: line: 60 jmp @34   
-51 [0x33]:          nop   
-52 [0x34]:          jmp @34   
-53 [0x35]:          nop   
-54 [0x36]:          ret   
+32 [0x20]: line: 57 jmp @34   
+33 [0x21]:          jmp @14   
+34 [0x22]:          jmp @55   
+35 [0x23]: line: 60 movl 0   
+36 [0x24]: line: 61 pushobj   
+37 [0x25]:          call @3049 // <common.network.core#request.write>   
+38 [0x26]:          loadval ebx   
+39 [0x27]:          rstore ebx   
+40 [0x28]:          movi #0, ebx   
+42 [0x2a]:          loadval ecx   
+43 [0x2b]:          tne ecx, ebx   
+44 [0x2c]:          movr ebx, cmt   
+45 [0x2d]:          movr cmt, ebx   
+46 [0x2e]:          jne 52   
+47 [0x2f]: line: 62 movi #1, ebx   
+49 [0x31]:          rstore ebx   
+50 [0x32]:          call @1816 // <std.io#thread.sleep>   
+51 [0x33]: line: 63 jmp @35   
+52 [0x34]:          nop   
+53 [0x35]: line: 66 jmp @55   
+54 [0x36]:          jmp @35   
+55 [0x37]:          nop   
+56 [0x38]:          ret   
 
 
 constructor: common.network.core#request.request[3052] params(0) in file: ../common//network//core//request.sharp:6:6: note:  
@@ -68523,7 +68540,7 @@ function: common.network.core#request_data.to_string[3054] params(0) in file: ..
 37 [0x25]:          pushobj   
 38 [0x26]:          new_class @4 // std#string   
 39 [0x27]:          dup    
-40 [0x28]:          newstr @39 // =   
+40 [0x28]:          newstr @41 // =   
 41 [0x29]:          call @1615 // <std#string.string>   
 42 [0x2a]:          movl 0   
 43 [0x2b]:          movn #0   
@@ -68555,7 +68572,7 @@ function: common.network.core#request_data.to_string[3054] params(0) in file: ..
 73 [0x49]:          jne 79   
 74 [0x4a]: line: 29 movl 1   
 75 [0x4b]:          pushobj   
-76 [0x4c]:          newstr @40 // ,   
+76 [0x4c]:          newstr @42 // ,   
 77 [0x4d]:          call @1610 // <std#string_builder.operator+=>   
 78 [0x4e]:          pop   
 79 [0x4f]:          nop   
@@ -68708,111 +68725,102 @@ function: common.network.remote#handshake_request_impl.server_handshake[3061] pa
 11 [0xb]:          pushobj   
 12 [0xc]:          new_class @4 // std#string   
 13 [0xd]:          dup    
-14 [0xe]:          newstr @41 // cmd   
+14 [0xe]:          newstr @43 // cmd   
 15 [0xf]:          call @1615 // <std#string.string>   
 16 [0x10]:          new_class @4 // std#string   
 17 [0x11]:          dup    
-18 [0x12]:          newstr @42 // handshake   
+18 [0x12]:          newstr @44 // handshake   
 19 [0x13]:          call @1615 // <std#string.string>   
 20 [0x14]:          call @3053 // <common.network.core#request_data.add_item>   
 21 [0x15]:          pop   
 22 [0x16]: line: 15 movl 1   
 23 [0x17]: line: 16 pushobj   
-24 [0x18]: line: 17 call @3049 // <common.network.core#request.write>   
-25 [0x19]:          loadval ebx   
-26 [0x1a]:          rstore ebx   
-27 [0x1b]:          movi #0, ebx   
-29 [0x1d]:          loadval ecx   
-30 [0x1e]:          tne ecx, ebx   
-31 [0x1f]:          movr ebx, cmt   
-32 [0x20]:          movr cmt, ebx   
-33 [0x21]:          jne 39   
-34 [0x22]: line: 18 movi #1, ebx   
-36 [0x24]:          rstore ebx   
-37 [0x25]:          call @1816 // <std.io#thread.sleep>   
-38 [0x26]: line: 19 jmp @22   
-39 [0x27]:          nop   
-40 [0x28]:          movl 2   
-41 [0x29]:          pushobj   
-42 [0x2a]:          call @3050 // <common.network.core#request.read>   
-43 [0x2b]:          loadval ebx   
-44 [0x2c]:          rstore ebx   
-45 [0x2d]:          movi #0, ebx   
-47 [0x2f]:          loadval ecx   
-48 [0x30]:          tne ecx, ebx   
-49 [0x31]:          movr ebx, cmt   
-50 [0x32]:          movr cmt, ebx   
-51 [0x33]:          je 22   
-52 [0x34]: line: 23 movl 2   
-53 [0x35]:          pushobj   
-54 [0x36]:          new_class @4 // std#string   
-55 [0x37]:          dup    
-56 [0x38]:          newstr @43 // response   
-57 [0x39]:          call @1615 // <std#string.string>   
-58 [0x3a]:          call @3055 // <common.network.core#request_data.at>   
-59 [0x3b]:          popobj2    
-60 [0x3c]:          smovr_3 fp+3   
-61 [0x3d]: line: 24 movl 3   
-62 [0x3e]:          pushobj   
-63 [0x3f]:          pushnull    
-64 [0x40]:          itest ebx   
-65 [0x41]:          not ebx, ebx   
-66 [0x42]:          skne ebx // pc = 72   
-67 [0x43]:          movl 3   
-68 [0x44]:          pushobj   
-69 [0x45]:          newstr @44 // ok   
-70 [0x46]:          call @1632 // <std#string.operator==>   
-71 [0x47]:          loadval ebx   
-72 [0x48]:          movr cmt, ebx   
-73 [0x49]:          jne 84   
-74 [0x4a]: line: 25 new_class @84 // common.network.data.response#acknowledge   
-75 [0x4b]:          dup    
-76 [0x4c]:          movi #1, ebx   
-78 [0x4e]:          rstore ebx   
-79 [0x4f]:          call @3070 // <common.network.data.response#acknowledge.acknowledge>   
-80 [0x50]:          popobj2    
-81 [0x51]:          returnobj   
-82 [0x52]:          ret   
-83 [0x53]:          jmp @88   
-84 [0x54]: line: 27 movl 2   
-85 [0x55]:          pushobj   
-86 [0x56]:          call @3056 // <common.network.core#request_data.clear>   
-87 [0x57]: line: 28 jmp @22   
-88 [0x58]:          nop   
-89 [0x59]: line: 31 pushnull    
-90 [0x5a]:          popobj2    
-91 [0x5b]:          returnobj   
-92 [0x5c]:          ret   
+24 [0x18]:          movg @74 // @common.network.core#request   
+25 [0x19]:          movn #2   
+27 [0x1b]:          movi #0, adx   
+29 [0x1d]:          chklen adx   
+30 [0x1e]:          iaload ebx, adx   
+31 [0x1f]:          rstore ebx   
+32 [0x20]:          call @3051 // <common.network.core#request.rw_inf>   
+33 [0x21]: line: 17 movl 2   
+34 [0x22]:          pushobj   
+35 [0x23]:          movg @74 // @common.network.core#request   
+36 [0x24]:          movn #1   
+38 [0x26]:          movi #0, adx   
+40 [0x28]:          chklen adx   
+41 [0x29]:          iaload ebx, adx   
+42 [0x2a]:          rstore ebx   
+43 [0x2b]:          call @3051 // <common.network.core#request.rw_inf>   
+44 [0x2c]: line: 19 movl 2   
+45 [0x2d]:          pushobj   
+46 [0x2e]:          new_class @4 // std#string   
+47 [0x2f]:          dup    
+48 [0x30]:          newstr @45 // response   
+49 [0x31]:          call @1615 // <std#string.string>   
+50 [0x32]:          call @3055 // <common.network.core#request_data.at>   
+51 [0x33]:          popobj2    
+52 [0x34]:          smovr_3 fp+3   
+53 [0x35]: line: 20 movl 3   
+54 [0x36]:          pushobj   
+55 [0x37]:          pushnull    
+56 [0x38]:          itest ebx   
+57 [0x39]:          not ebx, ebx   
+58 [0x3a]:          skne ebx // pc = 64   
+59 [0x3b]:          movl 3   
+60 [0x3c]:          pushobj   
+61 [0x3d]:          newstr @46 // ok   
+62 [0x3e]:          call @1632 // <std#string.operator==>   
+63 [0x3f]:          loadval ebx   
+64 [0x40]:          movr cmt, ebx   
+65 [0x41]:          jne 76   
+66 [0x42]: line: 21 new_class @84 // common.network.data.response#acknowledge   
+67 [0x43]:          dup    
+68 [0x44]:          movi #1, ebx   
+70 [0x46]:          rstore ebx   
+71 [0x47]:          call @3070 // <common.network.data.response#acknowledge.acknowledge>   
+72 [0x48]:          popobj2    
+73 [0x49]:          returnobj   
+74 [0x4a]:          ret   
+75 [0x4b]:          jmp @80   
+76 [0x4c]: line: 23 movl 2   
+77 [0x4d]:          pushobj   
+78 [0x4e]:          call @3056 // <common.network.core#request_data.clear>   
+79 [0x4f]: line: 24 jmp @22   
+80 [0x50]:          nop   
+81 [0x51]: line: 27 pushnull    
+82 [0x52]:          popobj2    
+83 [0x53]:          returnobj   
+84 [0x54]:          ret   
 
 
-function: common.network.remote#handshake_request_impl.client_handshake[3062] params(0) in file: ../common//network//remote//handshake_request_impl.sharp:35:7: note:  
+function: common.network.remote#handshake_request_impl.client_handshake[3062] params(0) in file: ../common//network//remote//handshake_request_impl.sharp:31:7: note:  
 		    def client_handshake() {
 		      ^
 
-0 [0x0]: line: 36 new_class @75 // common.network.core#request_data   
+0 [0x0]: line: 32 new_class @75 // common.network.core#request_data   
 1 [0x1]:          dup    
 2 [0x2]:          call @3059 // <common.network.core#request_data.request_data>   
 3 [0x3]:          popobj2    
 4 [0x4]:          smovr_3 fp+1   
-5 [0x5]: line: 37 new_class @75 // common.network.core#request_data   
+5 [0x5]: line: 33 new_class @75 // common.network.core#request_data   
 6 [0x6]:          dup    
 7 [0x7]:          call @3059 // <common.network.core#request_data.request_data>   
 8 [0x8]:          popobj2    
 9 [0x9]:          smovr_3 fp+2   
-10 [0xa]: line: 38 movl 1   
+10 [0xa]: line: 34 movl 1   
 11 [0xb]:          pushobj   
 12 [0xc]:          new_class @4 // std#string   
 13 [0xd]:          dup    
-14 [0xe]:          newstr @43 // response   
+14 [0xe]:          newstr @45 // response   
 15 [0xf]:          call @1615 // <std#string.string>   
 16 [0x10]:          new_class @4 // std#string   
 17 [0x11]:          dup    
-18 [0x12]:          newstr @44 // ok   
+18 [0x12]:          newstr @46 // ok   
 19 [0x13]:          call @1615 // <std#string.string>   
 20 [0x14]:          call @3053 // <common.network.core#request_data.add_item>   
 21 [0x15]:          pop   
-22 [0x16]: line: 40 movl 2   
-23 [0x17]: line: 41 pushobj   
+22 [0x16]: line: 36 movl 2   
+23 [0x17]: line: 37 pushobj   
 24 [0x18]:          movg @74 // @common.network.core#request   
 25 [0x19]:          movn #1   
 27 [0x1b]:          movi #0, adx   
@@ -68820,16 +68828,16 @@ function: common.network.remote#handshake_request_impl.client_handshake[3062] pa
 30 [0x1e]:          iaload ebx, adx   
 31 [0x1f]:          rstore ebx   
 32 [0x20]:          call @3051 // <common.network.core#request.rw_inf>   
-33 [0x21]: line: 43 movl 2   
+33 [0x21]: line: 39 movl 2   
 34 [0x22]:          pushobj   
 35 [0x23]:          new_class @4 // std#string   
 36 [0x24]:          dup    
-37 [0x25]:          newstr @41 // cmd   
+37 [0x25]:          newstr @43 // cmd   
 38 [0x26]:          call @1615 // <std#string.string>   
 39 [0x27]:          call @3055 // <common.network.core#request_data.at>   
 40 [0x28]:          popobj2    
 41 [0x29]:          smovr_3 fp+3   
-42 [0x2a]: line: 44 movl 3   
+42 [0x2a]: line: 40 movl 3   
 43 [0x2b]:          pushobj   
 44 [0x2c]:          pushnull    
 45 [0x2d]:          itest ebx   
@@ -68837,12 +68845,12 @@ function: common.network.remote#handshake_request_impl.client_handshake[3062] pa
 47 [0x2f]:          skne ebx // pc = 53   
 48 [0x30]:          movl 3   
 49 [0x31]:          pushobj   
-50 [0x32]:          newstr @42 // handshake   
+50 [0x32]:          newstr @44 // handshake   
 51 [0x33]:          call @1632 // <std#string.operator==>   
 52 [0x34]:          loadval ebx   
 53 [0x35]:          movr cmt, ebx   
 54 [0x36]:          jne 67   
-55 [0x37]: line: 45 movl 1   
+55 [0x37]: line: 41 movl 1   
 56 [0x38]:          pushobj   
 57 [0x39]:          movg @74 // @common.network.core#request   
 58 [0x3a]:          movn #2   
@@ -68852,10 +68860,10 @@ function: common.network.remote#handshake_request_impl.client_handshake[3062] pa
 64 [0x40]:          rstore ebx   
 65 [0x41]:          call @3051 // <common.network.core#request.rw_inf>   
 66 [0x42]:          jmp @71   
-67 [0x43]: line: 47 movl 2   
+67 [0x43]: line: 43 movl 2   
 68 [0x44]:          pushobj   
 69 [0x45]:          call @3056 // <common.network.core#request_data.clear>   
-70 [0x46]: line: 48 jmp @22   
+70 [0x46]: line: 44 jmp @22   
 71 [0x47]:          nop   
 72 [0x48]:          ret   
 
@@ -71060,7 +71068,7 @@ function: std#list<std#string>.to_string[3117] params(0) in file: /usr/include/s
 4 [0x4]:           smovr_3 fp+1   
 5 [0x5]: line: 180 movl 1   
 6 [0x6]:           pushobj   
-7 [0x7]:           newstr @95 // [    
+7 [0x7]:           newstr @97 // [    
 8 [0x8]:           call @1610 // <std#string_builder.operator+=>   
 9 [0x9]:           pop   
 10 [0xa]: line: 181 movi #0, ebx   
@@ -71108,7 +71116,7 @@ function: std#list<std#string>.to_string[3117] params(0) in file: /usr/include/s
 59 [0x3b]:           jne 65   
 60 [0x3c]: line: 185 movl 1   
 61 [0x3d]:           pushobj   
-62 [0x3e]:           newstr @96 // ,    
+62 [0x3e]:           newstr @98 // ,    
 63 [0x3f]:           call @1610 // <std#string_builder.operator+=>   
 64 [0x40]:           pop   
 65 [0x41]:           nop   
@@ -71119,7 +71127,7 @@ function: std#list<std#string>.to_string[3117] params(0) in file: /usr/include/s
 70 [0x46]:           jmp @13   
 71 [0x47]: line: 189 movl 1   
 72 [0x48]:           pushobj   
-73 [0x49]:           newstr @97 //  ]   
+73 [0x49]:           newstr @99 //  ]   
 74 [0x4a]:           call @1610 // <std#string_builder.operator+=>   
 75 [0x4b]:           pop   
 76 [0x4c]: line: 190 movl 1   
@@ -71136,12 +71144,12 @@ function: std#list<std#string>.out_of_bounds_msg[3118] params(1) in file: /usr/i
 
 0 [0x0]: line: 194 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @98 // Index:    
+2 [0x2]:           newstr @100 // Index:    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           loadl ebx, fp+1   
 5 [0x5]:           rstore ebx   
 6 [0x6]:           call @1647 // <std#string.operator+>   
-7 [0x7]:           newstr @99 // , size:    
+7 [0x7]:           newstr @101 // , size:    
 8 [0x8]:           call @1627 // <std#string.operator+>   
 9 [0x9]:           movl 0   
 10 [0xa]:           movn #0   
@@ -72554,7 +72562,7 @@ function: std#list<std.io.task#job>.to_string[3154] params(0) in file: /usr/incl
 4 [0x4]:           smovr_3 fp+1   
 5 [0x5]: line: 180 movl 1   
 6 [0x6]:           pushobj   
-7 [0x7]:           newstr @95 // [    
+7 [0x7]:           newstr @97 // [    
 8 [0x8]:           call @1610 // <std#string_builder.operator+=>   
 9 [0x9]:           pop   
 10 [0xa]: line: 181 movi #0, ebx   
@@ -72602,7 +72610,7 @@ function: std#list<std.io.task#job>.to_string[3154] params(0) in file: /usr/incl
 59 [0x3b]:           jne 65   
 60 [0x3c]: line: 185 movl 1   
 61 [0x3d]:           pushobj   
-62 [0x3e]:           newstr @96 // ,    
+62 [0x3e]:           newstr @98 // ,    
 63 [0x3f]:           call @1610 // <std#string_builder.operator+=>   
 64 [0x40]:           pop   
 65 [0x41]:           nop   
@@ -72613,7 +72621,7 @@ function: std#list<std.io.task#job>.to_string[3154] params(0) in file: /usr/incl
 70 [0x46]:           jmp @13   
 71 [0x47]: line: 189 movl 1   
 72 [0x48]:           pushobj   
-73 [0x49]:           newstr @97 //  ]   
+73 [0x49]:           newstr @99 //  ]   
 74 [0x4a]:           call @1610 // <std#string_builder.operator+=>   
 75 [0x4b]:           pop   
 76 [0x4c]: line: 190 movl 1   
@@ -72630,12 +72638,12 @@ function: std#list<std.io.task#job>.out_of_bounds_msg[3155] params(1) in file: /
 
 0 [0x0]: line: 194 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @98 // Index:    
+2 [0x2]:           newstr @100 // Index:    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           loadl ebx, fp+1   
 5 [0x5]:           rstore ebx   
 6 [0x6]:           call @1647 // <std#string.operator+>   
-7 [0x7]:           newstr @99 // , size:    
+7 [0x7]:           newstr @101 // , size:    
 8 [0x8]:           call @1627 // <std#string.operator+>   
 9 [0x9]:           movl 0   
 10 [0xa]:           movn #0   
@@ -73336,7 +73344,7 @@ function: std#synced_list<std.io.task#job>.to_string[3167] params(0) in file: /u
 6 [0x6]:           smovr_3 fp+1   
 7 [0x7]: line: 199 movl 1   
 8 [0x8]:           pushobj   
-9 [0x9]:           newstr @95 // [    
+9 [0x9]:           newstr @97 // [    
 10 [0xa]:           call @1610 // <std#string_builder.operator+=>   
 11 [0xb]:           pop   
 12 [0xc]: line: 200 movi #0, ebx   
@@ -73384,7 +73392,7 @@ function: std#synced_list<std.io.task#job>.to_string[3167] params(0) in file: /u
 61 [0x3d]:           jne 67   
 62 [0x3e]: line: 204 movl 1   
 63 [0x3f]:           pushobj   
-64 [0x40]:           newstr @96 // ,    
+64 [0x40]:           newstr @98 // ,    
 65 [0x41]:           call @1610 // <std#string_builder.operator+=>   
 66 [0x42]:           pop   
 67 [0x43]:           nop   
@@ -73395,7 +73403,7 @@ function: std#synced_list<std.io.task#job>.to_string[3167] params(0) in file: /u
 72 [0x48]:           jmp @15   
 73 [0x49]: line: 208 movl 1   
 74 [0x4a]:           pushobj   
-75 [0x4b]:           newstr @97 //  ]   
+75 [0x4b]:           newstr @99 //  ]   
 76 [0x4c]:           call @1610 // <std#string_builder.operator+=>   
 77 [0x4d]:           pop   
 78 [0x4e]: line: 209 movl 0   
@@ -73416,12 +73424,12 @@ function: std#synced_list<std.io.task#job>.out_of_bounds_msg[3168] params(1) in 
 
 0 [0x0]: line: 214 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @98 // Index:    
+2 [0x2]:           newstr @100 // Index:    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           loadl ebx, fp+1   
 5 [0x5]:           rstore ebx   
 6 [0x6]:           call @1647 // <std#string.operator+>   
-7 [0x7]:           newstr @99 // , size:    
+7 [0x7]:           newstr @101 // , size:    
 8 [0x8]:           call @1627 // <std#string.operator+>   
 9 [0x9]:           movl 0   
 10 [0xa]:           movn #0   
@@ -74467,7 +74475,7 @@ function: std#list<std.io#thread>.to_string[3192] params(0) in file: /usr/includ
 4 [0x4]:           smovr_3 fp+1   
 5 [0x5]: line: 180 movl 1   
 6 [0x6]:           pushobj   
-7 [0x7]:           newstr @95 // [    
+7 [0x7]:           newstr @97 // [    
 8 [0x8]:           call @1610 // <std#string_builder.operator+=>   
 9 [0x9]:           pop   
 10 [0xa]: line: 181 movi #0, ebx   
@@ -74515,7 +74523,7 @@ function: std#list<std.io#thread>.to_string[3192] params(0) in file: /usr/includ
 59 [0x3b]:           jne 65   
 60 [0x3c]: line: 185 movl 1   
 61 [0x3d]:           pushobj   
-62 [0x3e]:           newstr @96 // ,    
+62 [0x3e]:           newstr @98 // ,    
 63 [0x3f]:           call @1610 // <std#string_builder.operator+=>   
 64 [0x40]:           pop   
 65 [0x41]:           nop   
@@ -74526,7 +74534,7 @@ function: std#list<std.io#thread>.to_string[3192] params(0) in file: /usr/includ
 70 [0x46]:           jmp @13   
 71 [0x47]: line: 189 movl 1   
 72 [0x48]:           pushobj   
-73 [0x49]:           newstr @97 //  ]   
+73 [0x49]:           newstr @99 //  ]   
 74 [0x4a]:           call @1610 // <std#string_builder.operator+=>   
 75 [0x4b]:           pop   
 76 [0x4c]: line: 190 movl 1   
@@ -74543,12 +74551,12 @@ function: std#list<std.io#thread>.out_of_bounds_msg[3193] params(1) in file: /us
 
 0 [0x0]: line: 194 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @98 // Index:    
+2 [0x2]:           newstr @100 // Index:    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           loadl ebx, fp+1   
 5 [0x5]:           rstore ebx   
 6 [0x6]:           call @1647 // <std#string.operator+>   
-7 [0x7]:           newstr @99 // , size:    
+7 [0x7]:           newstr @101 // , size:    
 8 [0x8]:           call @1627 // <std#string.operator+>   
 9 [0x9]:           movl 0   
 10 [0xa]:           movn #0   
@@ -75600,7 +75608,7 @@ function: std#list<var>.to_string[3219] params(0) in file: /usr/include/sharp//l
 4 [0x4]:           smovr_3 fp+1   
 5 [0x5]: line: 180 movl 1   
 6 [0x6]:           pushobj   
-7 [0x7]:           newstr @95 // [    
+7 [0x7]:           newstr @97 // [    
 8 [0x8]:           call @1610 // <std#string_builder.operator+=>   
 9 [0x9]:           pop   
 10 [0xa]: line: 181 movi #0, ebx   
@@ -75648,7 +75656,7 @@ function: std#list<var>.to_string[3219] params(0) in file: /usr/include/sharp//l
 59 [0x3b]:           jne 65   
 60 [0x3c]: line: 185 movl 1   
 61 [0x3d]:           pushobj   
-62 [0x3e]:           newstr @96 // ,    
+62 [0x3e]:           newstr @98 // ,    
 63 [0x3f]:           call @1610 // <std#string_builder.operator+=>   
 64 [0x40]:           pop   
 65 [0x41]:           nop   
@@ -75659,7 +75667,7 @@ function: std#list<var>.to_string[3219] params(0) in file: /usr/include/sharp//l
 70 [0x46]:           jmp @13   
 71 [0x47]: line: 189 movl 1   
 72 [0x48]:           pushobj   
-73 [0x49]:           newstr @97 //  ]   
+73 [0x49]:           newstr @99 //  ]   
 74 [0x4a]:           call @1610 // <std#string_builder.operator+=>   
 75 [0x4b]:           pop   
 76 [0x4c]: line: 190 movl 1   
@@ -75676,12 +75684,12 @@ function: std#list<var>.out_of_bounds_msg[3220] params(1) in file: /usr/include/
 
 0 [0x0]: line: 194 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @98 // Index:    
+2 [0x2]:           newstr @100 // Index:    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           loadl ebx, fp+1   
 5 [0x5]:           rstore ebx   
 6 [0x6]:           call @1647 // <std#string.operator+>   
-7 [0x7]:           newstr @99 // , size:    
+7 [0x7]:           newstr @101 // , size:    
 8 [0x8]:           call @1627 // <std#string.operator+>   
 9 [0x9]:           movl 0   
 10 [0xa]:           movn #0   
@@ -76789,7 +76797,7 @@ function: std#list<common.network.core#request_data.request_item>.to_string[3250
 4 [0x4]:           smovr_3 fp+1   
 5 [0x5]: line: 180 movl 1   
 6 [0x6]:           pushobj   
-7 [0x7]:           newstr @95 // [    
+7 [0x7]:           newstr @97 // [    
 8 [0x8]:           call @1610 // <std#string_builder.operator+=>   
 9 [0x9]:           pop   
 10 [0xa]: line: 181 movi #0, ebx   
@@ -76837,7 +76845,7 @@ function: std#list<common.network.core#request_data.request_item>.to_string[3250
 59 [0x3b]:           jne 65   
 60 [0x3c]: line: 185 movl 1   
 61 [0x3d]:           pushobj   
-62 [0x3e]:           newstr @96 // ,    
+62 [0x3e]:           newstr @98 // ,    
 63 [0x3f]:           call @1610 // <std#string_builder.operator+=>   
 64 [0x40]:           pop   
 65 [0x41]:           nop   
@@ -76848,7 +76856,7 @@ function: std#list<common.network.core#request_data.request_item>.to_string[3250
 70 [0x46]:           jmp @13   
 71 [0x47]: line: 189 movl 1   
 72 [0x48]:           pushobj   
-73 [0x49]:           newstr @97 //  ]   
+73 [0x49]:           newstr @99 //  ]   
 74 [0x4a]:           call @1610 // <std#string_builder.operator+=>   
 75 [0x4b]:           pop   
 76 [0x4c]: line: 190 movl 1   
@@ -76865,12 +76873,12 @@ function: std#list<common.network.core#request_data.request_item>.out_of_bounds_
 
 0 [0x0]: line: 194 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @98 // Index:    
+2 [0x2]:           newstr @100 // Index:    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           loadl ebx, fp+1   
 5 [0x5]:           rstore ebx   
 6 [0x6]:           call @1647 // <std#string.operator+>   
-7 [0x7]:           newstr @99 // , size:    
+7 [0x7]:           newstr @101 // , size:    
 8 [0x8]:           call @1627 // <std#string.operator+>   
 9 [0x9]:           movl 0   
 10 [0xa]:           movn #0   
@@ -76937,13 +76945,13 @@ function: std.io.task#entry<std.io#thread,std.io.task#job_controller>.to_string[
 
 0 [0x0]: line: 132 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @100 // key    
+2 [0x2]:           newstr @102 // key    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           movl 0   
 5 [0x5]:           movn #0   
 7 [0x7]:           pushobj   
 8 [0x8]:           call @1629 // <std#string.operator+>   
-9 [0x9]:           newstr @101 //  value    
+9 [0x9]:           newstr @103 //  value    
 10 [0xa]:           call @1627 // <std#string.operator+>   
 11 [0xb]:           movl 0   
 12 [0xc]:           movn #1   
@@ -76988,13 +76996,13 @@ function: std.io#entry<std#int,std.io#thread>.to_string[3257] params(0) in file:
 
 0 [0x0]: line: 132 new_class @4 // std#string   
 1 [0x1]:           dup    
-2 [0x2]:           newstr @100 // key    
+2 [0x2]:           newstr @102 // key    
 3 [0x3]:           call @1615 // <std#string.string>   
 4 [0x4]:           movl 0   
 5 [0x5]:           movn #0   
 7 [0x7]:           pushobj   
 8 [0x8]:           call @1629 // <std#string.operator+>   
-9 [0x9]:           newstr @101 //  value    
+9 [0x9]:           newstr @103 //  value    
 10 [0xa]:           call @1627 // <std#string.operator+>   
 11 [0xb]:           movl 0   
 12 [0xc]:           movn #1   
@@ -77613,12 +77621,12 @@ lambda: device#__srt_global.anon_func$3275[3275] params(1) in file: device//hc_s
 48 [0x30]:          rmov adx, ebx   
 49 [0x31]: line: 39 new_class @4 // std#string   
 50 [0x32]:          dup    
-51 [0x33]:          newstr @102 // mode: high distance:   
+51 [0x33]:          newstr @104 // mode: high distance:   
 52 [0x34]:          call @1615 // <std#string.string>   
 53 [0x35]:          loadl ebx, fp+2   
 54 [0x36]:          rstore ebx   
 55 [0x37]:          call @1647 // <std#string.operator+>   
-56 [0x38]:          newstr @103 //  cm   
+56 [0x38]:          newstr @105 //  cm   
 57 [0x39]:          call @1627 // <std#string.operator+>   
 58 [0x3a]:          call @1907 // <std#__srt_global.println>   
 59 [0x3b]: line: 40 movl 1   
@@ -77671,12 +77679,12 @@ lambda: device#__srt_global.anon_func$3275[3275] params(1) in file: device//hc_s
 117 [0x75]:          rmov adx, ebx   
 118 [0x76]: line: 46 new_class @4 // std#string   
 119 [0x77]:          dup    
-120 [0x78]:          newstr @104 // mode: med distance:   
+120 [0x78]:          newstr @106 // mode: med distance:   
 121 [0x79]:          call @1615 // <std#string.string>   
 122 [0x7a]:          loadl ebx, fp+2   
 123 [0x7b]:          rstore ebx   
 124 [0x7c]:          call @1647 // <std#string.operator+>   
-125 [0x7d]:          newstr @103 //  cm   
+125 [0x7d]:          newstr @105 //  cm   
 126 [0x7e]:          call @1627 // <std#string.operator+>   
 127 [0x7f]:          call @1907 // <std#__srt_global.println>   
 128 [0x80]: line: 47 movl 1   
@@ -77714,12 +77722,12 @@ lambda: device#__srt_global.anon_func$3275[3275] params(1) in file: device//hc_s
 169 [0xa9]:          rmov adx, ebx   
 170 [0xaa]: line: 53 new_class @4 // std#string   
 171 [0xab]:          dup    
-172 [0xac]:          newstr @105 // mode: low distance:   
+172 [0xac]:          newstr @107 // mode: low distance:   
 173 [0xad]:          call @1615 // <std#string.string>   
 174 [0xae]:          loadl ebx, fp+2   
 175 [0xaf]:          rstore ebx   
 176 [0xb0]:          call @1647 // <std#string.operator+>   
-177 [0xb1]:          newstr @103 //  cm   
+177 [0xb1]:          newstr @105 //  cm   
 178 [0xb2]:          call @1627 // <std#string.operator+>   
 179 [0xb3]:          call @1907 // <std#__srt_global.println>   
 180 [0xb4]: line: 54 movl 1   

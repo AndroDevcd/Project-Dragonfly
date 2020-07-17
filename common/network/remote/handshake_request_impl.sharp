@@ -13,12 +13,8 @@ class handshake_request_impl base request : connection_handshake_request
         req.add_item("cmd", "handshake");
 
         retry:
-        do {
-            if(write(req) != 0) {
-                thread.sleep(1);
-                continue;
-            }
-        } while(read(response) != 0);
+        rw_inf(req, WRITE);
+        rw_inf(response, READ);
 
         value := response.at("response");
         if(value != null && value == "ok") {

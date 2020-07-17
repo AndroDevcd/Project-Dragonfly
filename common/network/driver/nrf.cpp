@@ -19,7 +19,7 @@ using namespace std;
 uint8_t address[] = { 0x0, 0xCE, 0x2B, 0xCE, 0x5F };
 
 bool packetSuccess[TRACKED_PACKETS];
-int8_t packetsSent = 0;
+uint8_t packetsSent = 0;
 bool trackingFilled = false;
 packet pdata;
 
@@ -186,11 +186,12 @@ scope_begin(common_network_driver)
 		stringstream data;
         radio.startListening();
         var_array data_response(createLocalField<var_array>());
-
+		
 		waitforResponse(false);
 		unsigned int packets = readHeaderPacket(data);
 		var success = createLocalField<var>();
-
+		
+		cout << "waiting for response packets: " << packets << " success: ";
         last_error = 0;
 		for(unsigned int i = 1; i < packets; i++) {
 			if(!waitforResponse(true)) {
@@ -209,6 +210,9 @@ scope_begin(common_network_driver)
 		
 		string str = data.str();
 		data_response = str;
+		
+		if(last_error) { cout << "no" << endl; }
+		else { cout << "yes recieved: " << str << endl; }
 		return data_response;
 	}
 	
@@ -227,6 +231,7 @@ scope_begin(common_network_driver)
 				packetSize = ((data.size() + TX_PACKET_HEADER_SIZE + TX_PACKET_FOOTER_SIZE) / TX_PACKET_WIDTH) + 1;
 		}
 		
+		cout << "sending data packets: " << packetSize << " data: " << data << " success: ";
 		for(unsigned int i = 0; i < packetSize; i++) {
 			if(i == 0)
 			{
@@ -248,9 +253,9 @@ scope_begin(common_network_driver)
 				pdata.len = TX_PACKET_WIDTH;
 			}
 			
-			for(int j = 0; j < pdata.len; j++) 
+			for(int j = startPos; j < pdata.len; j++) 
 			{
-				pdata.data[startPos++] = data[pos++];
+				pdata.data[j] = data[pos++];
 			}
 			
 			bool ok = radio.write(&pdata.data, sizeof(uint8_t) * TX_PACKET_WIDTH);
@@ -261,12 +266,11 @@ scope_begin(common_network_driver)
 			
             if (!ok) {
                 last_error = 1;
-                printf("failed.\n");
-                break;
-            } else {
-				printf("succeded.\n");
-			}
+                cout << "no" << endl;
+                return;
+            }
 		}
+        cout << "yes" << endl;
 	}
 
 	var get_last_error() {

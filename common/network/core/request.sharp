@@ -39,6 +39,7 @@ class request
                     key += raw[i++];
                 }
 
+                println("read data: $key = $value");
                 rdata.add_item(key, value);
             }
             return 0;
@@ -52,6 +53,8 @@ class request
                     thread.sleep(1);
                     continue;
                 }
+                
+                break;
             }
         } else {
             for(;;) {
@@ -59,6 +62,8 @@ class request
                     thread.sleep(1);
                     continue;
                 }
+                
+                break;
             }
         }
     }
