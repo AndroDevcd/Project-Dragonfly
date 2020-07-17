@@ -53,14 +53,14 @@ class nrf24 {
 	def read(response: string): var {
 	    check_state();
 
-        response = read();
+        response = common.network.driver#read();
         return get_last_error();
 	}
 
 	def send(response: string): var {
 	    check_state();
 
-        send(response.get_data());
+        common.network.driver#send(response.get_data());
         return get_last_error();
 	}
 

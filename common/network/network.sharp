@@ -3,11 +3,15 @@ mod common.network;
 import common.network.data.*;
 
 class network {
-    private static INSTANCE := new network();
-
-    init {
-        common.network.remote#initialize(self);
-    }
+    private static INSTANCE : network;
+        get {
+            if(INSTANCE == null) {
+                INSTANCE = new network();
+                common.network.remote#initialize(INSTANCE);
+            }
+            
+            return INSTANCE;
+        }
 
     public handshake_request : connection_handshake_request;
 

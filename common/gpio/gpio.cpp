@@ -1,6 +1,7 @@
 #include "../../stdimports.h"
+#include <wiringPi.h>
 
-scope(common_gpio,
+scope_begin(common_gpio)
 
     void setup() {
         wiringPiSetup();
@@ -19,4 +20,4 @@ scope(common_gpio,
         result = digitalRead((long)pin.value());
         return result;
     }
-)
+scope_end()

@@ -2,7 +2,7 @@
 #ifndef HELPER_H
 #define HELPER_H
 
-#inclue "../stdimports.h"
+#include "../../../stdimports.h"
 
 /**
  * DTP (Data Transmission Protocol)
@@ -18,7 +18,7 @@
 struct packet {
 	uint8_t len;
 	uint8_t* data;
-} pdata;
+};
 
 bool isWholeNumber(double num);
 

@@ -1,5 +1,5 @@
 #include <RF24/RF24.h>
-#include "generated/native_mapping.h"
+#include "../../../generated/native_mapping.h"
 #include "helper.h"
 
 using namespace std;
@@ -21,6 +21,7 @@ uint8_t address[] = { 0x0, 0xCE, 0x2B, 0xCE, 0x5F };
 bool packetSuccess[TRACKED_PACKETS];
 int8_t packetsSent = 0;
 bool trackingFilled = false;
+packet pdata;
 
 uint8_t response[TX_PACKET_WIDTH];
 
@@ -29,7 +30,7 @@ int last_error = 0;
 
 RF24 radio(22, 0);
 
-scope(common_network_driver,
+scope_begin(common_network_driver)
 	
 	void setup(var &trnsLvl, var &rate, var &delay,
 	        var &retryCount, var &isClient) {
@@ -39,7 +40,7 @@ scope(common_network_driver,
 		set_transmission_rate(rate);
 		set_retry_count(delay, retryCount);
 
-		if(isClient) {
+		if((int)isClient.value()) {
             address[0] = 0x23;
             radio.openWritingPipe(address);
             address[0] = 0x1C;
@@ -117,7 +118,7 @@ scope(common_network_driver,
 	
 	var get_signal_strength(object $instance) 
 	{
-		var signalStrength = getLocalField<var>();
+		var signalStrength = createLocalField<var>();
 		
 		if(!trackingFilled) {
 			signalStrength = MAX_SIGNAL_STRENGTH;
@@ -152,7 +153,7 @@ scope(common_network_driver,
 				goto retry;
 			}
 		} else {
-			radio.read(&response, sizeof(uint8_t) * response);
+			radio.read(&response, sizeof(uint8_t) * TX_PACKET_WIDTH);
 		}
 		
 		return true;
@@ -168,6 +169,8 @@ scope(common_network_driver,
 		for(int i = 0; i < len; i++) {
 			data << response[startPos++];
 		}
+		
+		return packets;
 	}
 	
 	void readFooterPacket(stringstream &data) {
@@ -186,7 +189,7 @@ scope(common_network_driver,
 
 		waitforResponse(false);
 		unsigned int packets = readHeaderPacket(data);
-		var success = getLocalField<var>();
+		var success = createLocalField<var>();
 
         last_error = 0;
 		for(unsigned int i = 1; i < packets; i++) {
@@ -267,8 +270,8 @@ scope(common_network_driver,
 	}
 
 	var get_last_error() {
-        var result = getLocalFild<var>();
+        var result = createLocalField<var>();
         result = last_error;
         return result;
     }
-)
+scope_end()

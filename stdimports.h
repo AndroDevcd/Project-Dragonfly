@@ -19,7 +19,6 @@
 #include <sys/time.h>
 #include <stdarg.h>
 #include <dlfcn.h>
-#include <wiringPi.h>
 #include <math.h>
 #include "generated/native_mapping.h"
 

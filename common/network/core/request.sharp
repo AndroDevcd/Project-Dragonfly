@@ -9,9 +9,11 @@ class request
     public static READ := 0;
     public static WRITE := 1;
 
-    static init {
-        device := new nrf24();
-        device.dump();
+    init {
+        if(device == null) {
+            device = new nrf24();
+            device.dump();
+        }
     }
 
     static def write(rdata: request_data): var {

@@ -1,9 +1,10 @@
 #include "../../stdimports.h"
+#include <wiringPi.h>
 
 #define PULSE_TIMEOUT 20000
 #define CM_TIME_CONVERSION 58
 
-scope(device,
+scope_begin(device)
 
     var get_dst_cm(var &trg, var& echo) {
         digitalWrite((long)trg.value(), HIGH);
@@ -23,4 +24,4 @@ scope(device,
         distance = dst;
         return distance;
     }
-)
+scope_end()
