@@ -9,7 +9,7 @@ class request_data {
 
     def add_item(key: string, value: string) : request_data {
         item := new request_item(key, value);
-        index := items.indexof(item);
+        index := items.indexof(item, indexing_func);
 
         if(index == -1)
             items.add(item);
@@ -35,7 +35,7 @@ class request_data {
 
     def at(key: string): string {
         item := new request_item(key, null);
-        index := items.indexof(item);
+        index := items.indexof(item, indexing_func);
 
         if(index == -1)
             return null;

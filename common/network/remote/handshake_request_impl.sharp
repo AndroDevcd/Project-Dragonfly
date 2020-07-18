@@ -37,9 +37,12 @@ class handshake_request_impl base request : connection_handshake_request
         rw_inf(response, READ);
 
         value := response.at("cmd");
+        println("value = $value");
         if(value != null && value == "handshake") {
+            println("recived command writing");
             rw_inf(req, WRITE);
         } else {
+            println("recived command restarting");
             response.clear();
             goto retry;
         }

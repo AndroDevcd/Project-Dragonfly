@@ -172,6 +172,12 @@ scope_begin(common_network_driver)
         unsigned int len = response[0x4];
 		int startPos = TX_PACKET_HEADER_SIZE;
 		
+		cout << "headder recieved " << (long)response[0] << " ";
+		cout << (long)response[1] << " "
+		<< (long)response[2] << " "
+		<< (long)response[3] << " " << endl;
+		cout << "len " << len << endl;
+		
 		for(int i = 0; i < len; i++) {
 			data << response[startPos++];
 		}

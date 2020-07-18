@@ -24,24 +24,31 @@ class request
         raw := new string();
         result := device.read(raw);
 
+        println("raw data: $raw result $result");
         if(result == 0)
         {
             for(i := 0; i < raw.size(); i++) {
                 key := new string();
                 value := new string();
 
-                while(raw[i] != '=') {
-                    key += raw[i++];
-                }
+                startPos := i, endPos;
+                while(raw[i++] != '=') { endPos = i; }
+                key = raw.substring(startPos, endPos);
 
-                i++;
-                while(raw[i] != ',' && ((i + 1) < raw.size())) {
-                    key += raw[i++];
+                startPos = i;
+                while(raw[i++] != ',') {
+                    if((i + 1) > raw.size()) {
+                        endPos=i;
+                        break;
+                    } else endPos = i-1;
                 }
+                value = raw.substring(startPos, endPos);
 
                 println("read data: $key = $value");
                 rdata.add_item(key, value);
             }
+            
+            println("success parsing");
             return 0;
         } else return result;
     }
