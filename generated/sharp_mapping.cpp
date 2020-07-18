@@ -13516,10 +13516,15 @@ scope_begin(common_network_core, request)
 		return $result;
 	}
 
-	void rw_inf(object rdata, var& rw) {
+	var rw_inf(object rdata, var& rw, var& count) {
 		pushObj(rdata);
 		pushNum(rw.value());
+		pushNum(count.value());
 		call(3051);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
 	}
 
 	void request(object $instance) {

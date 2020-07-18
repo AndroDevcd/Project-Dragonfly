@@ -15,53 +15,53 @@ class nrf24 {
         is_setup = true;
         has_power = true;
         setup(transmission_level, transmission_rate,
-            constants.DELAY_500US, constants.RF24_MAX_RETRY, false);
+            constants.DELAY_500US, 5, true);
     }
 
 	def set_rf_lvl(level: var) {
 	    check_state();
 	    transmission_level = level;
-        set_transmission_lvl(level);
+	    set_transmission_lvl(level);
 	}
 
 	def set_data_rate(level: var) {
 	    check_state();
 	    transmission_rate = level;
-        set_transmission_rate(level);
+	    set_transmission_rate(level);
 	}
 
 	def dump() {
 	    check_state();
-        dump_details();
+	    dump_details();
 	}
 
 	def update_retry_count(delay: var, count: var) {
 	    check_state();
-        set_retry_count(delay, count);
+	    set_retry_count(delay, count);
 	}
 
 	def shut_down() {
-        has_power = false;
-        power_down();
+	    has_power = false;
+	    power_down();
 	}
 
 	def update_signal_strength() {
 	    check_state();
-        signal_strength := get_signal_strength();
+	    signal_strength := get_signal_strength();
 	}
 
 	def read(response: string): var {
 	    check_state();
 
-        response = common.network.driver#read();
-        return get_last_error();
+	    response = common.network.driver#read();
+	    return get_last_error();
 	}
 
 	def send(response: string): var {
 	    check_state();
 
-        common.network.driver#send(response.get_data());
-        return get_last_error();
+	    common.network.driver#send(response.get_data());
+	    return get_last_error();
 	}
 
 	def check_state() {

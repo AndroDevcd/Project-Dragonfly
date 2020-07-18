@@ -107,13 +107,6 @@ scope_begin(common_network_driver)
 		p.data[0x2] = GET_i32y(packet_count);
 		p.data[0x3] = GET_i32z(packet_count);
 		p.data[0x4] = len;
-		
-		cout << "sending headder " << "packet count " << packet_count << " "
-			<< (long)p.data[0] << " "
-			<< (long)p.data[1] << " "
-			<< (long)p.data[2] << " "
-			<< (long)p.data[3] << " " << endl;
-		cout << "len " << len << endl;
 	} 
 	
 	void addFooter(packet &p, uint8_t len) 
@@ -172,12 +165,6 @@ scope_begin(common_network_driver)
         unsigned int len = response[0x4];
 		int startPos = TX_PACKET_HEADER_SIZE;
 		
-		cout << "headder recieved " << (long)response[0] << " ";
-		cout << (long)response[1] << " "
-		<< (long)response[2] << " "
-		<< (long)response[3] << " " << endl;
-		cout << "len " << len << endl;
-		
 		for(int i = 0; i < len; i++) {
 			data << response[startPos++];
 		}
@@ -208,7 +195,6 @@ scope_begin(common_network_driver)
 		unsigned int packets = readHeaderPacket(data);
 		var success = createLocalField<var>();
 		
-		cout << "waiting for response packets: " << packets << " success: ";
         last_error = 0;
 		for(unsigned int i = 1; i < packets; i++) {
 			if(!waitforResponse(true)) {
@@ -228,8 +214,6 @@ scope_begin(common_network_driver)
 		string str = data.str();
 		data_response = str;
 		
-		if(last_error) { cout << "no" << endl; }
-		else { cout << "yes recieved: " << str << endl; }
 		radio.stopListening();
 		return data_response;
 	}
@@ -249,7 +233,6 @@ scope_begin(common_network_driver)
 				packetSize = ((data.size() + TX_PACKET_HEADER_SIZE + TX_PACKET_FOOTER_SIZE) / TX_PACKET_WIDTH) + 1;
 		}
 		
-		cout << "sending data packets: " << packetSize << " data: " << data << " success: ";
 		for(unsigned int i = 0; i < packetSize; i++) {
 			if(i == 0)
 			{
@@ -271,7 +254,6 @@ scope_begin(common_network_driver)
 				pdata.len = TX_PACKET_WIDTH;
 			}
 			
-			cout << "startpos " << startPos << "sent -> ";
 			for(int j = startPos; j < pdata.len + startPos; j++) 
 			{
 				pdata.data[j] = data[pos++];
@@ -287,11 +269,9 @@ scope_begin(common_network_driver)
 			
             if (!ok) {
                 last_error = 1;
-                cout << "no" << endl;
                 return;
             }
 		}
-        cout << "yes" << endl;
 	}
 
 	var get_last_error() {

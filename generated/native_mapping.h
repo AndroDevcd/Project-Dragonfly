@@ -1798,7 +1798,7 @@ scope_begin(common_network_core, request)
 
 	var write(object rdata);
 	var read(object rdata);
-	void rw_inf(object rdata, var& rw);
+	var rw_inf(object rdata, var& rw, var& count);
 	void request(object $instance);
 	void $03internal_static_init();
 scope_end()

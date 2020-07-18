@@ -58,26 +58,28 @@ class request
             for(;;) {
                 if(read(rdata) != 0) {
                     thread.sleep(1);
-                    if(count != -1 && count-- > 0) {
+                    if(count != -1 && count-- < 0) {
                         return 1;
                     }
                     continue;
                 }
                 
-                return 0;
+                break;
             }
         } else {
             for(;;) {
                 if(write(rdata) != 0) {
                     thread.sleep(1);
-                    if(count != -1 && count-- > 0) {
+                    if(count != -1 && count-- < 0) {
                         return 1;
                     }
                     continue;
                 }
                 
-                return 0;
+                break;
             }
         }
+        
+        return 0;
     }
 }
