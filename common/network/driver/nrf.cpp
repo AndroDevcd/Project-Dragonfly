@@ -199,7 +199,12 @@ scope_begin(common_network_driver)
         radio.startListening();
         var_array data_response(createLocalField<var_array>());
 		
-		waitforResponse(false);
+		if(!waitforResponse(true)) {
+            last_error = 1;
+			radio.stopListening();
+            return data_response;
+		}
+		
 		unsigned int packets = readHeaderPacket(data);
 		var success = createLocalField<var>();
 		
@@ -225,6 +230,7 @@ scope_begin(common_network_driver)
 		
 		if(last_error) { cout << "no" << endl; }
 		else { cout << "yes recieved: " << str << endl; }
+		radio.stopListening();
 		return data_response;
 	}
 	

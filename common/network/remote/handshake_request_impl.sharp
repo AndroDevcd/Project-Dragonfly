@@ -13,8 +13,8 @@ class handshake_request_impl base request : connection_handshake_request
         req.add_item("cmd", "handshake");
 
         retry:
-        rw_inf(req, WRITE);
-        rw_inf(response, READ);
+        rw_inf(req, WRITE, -1);
+        rw_inf(response, READ, -1);
 
         value := response.at("response");
         if(value != null && value == "ok") {
@@ -34,13 +34,13 @@ class handshake_request_impl base request : connection_handshake_request
         req.add_item("response", "ok");
 
         retry:
-        rw_inf(response, READ);
+        rw_inf(response, READ, -1);
 
         value := response.at("cmd");
         println("value = $value");
         if(value != null && value == "handshake") {
             println("recived command writing");
-            rw_inf(req, WRITE);
+            rw_inf(req, WRITE, -1);
         } else {
             println("recived command restarting");
             response.clear();

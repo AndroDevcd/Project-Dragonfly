@@ -53,24 +53,30 @@ class request
         } else return result;
     }
 
-    static def rw_inf(rdata: request_data, rw: var) {
+    static def rw_inf(rdata: request_data, rw: var, count: var) : var {
         if(rw == READ) {
             for(;;) {
                 if(read(rdata) != 0) {
                     thread.sleep(1);
+                    if(count != -1 && count-- > 0) {
+                        return 1;
+                    }
                     continue;
                 }
                 
-                break;
+                return 0;
             }
         } else {
             for(;;) {
                 if(write(rdata) != 0) {
                     thread.sleep(1);
+                    if(count != -1 && count-- > 0) {
+                        return 1;
+                    }
                     continue;
                 }
                 
-                break;
+                return 0;
             }
         }
     }
