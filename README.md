@@ -1,9 +1,9 @@
 ## Project-Dragonfly
----
+
 Complete end to end system for controlling a bi-copter drone
 
 ## Introduction
----
+
 Project Dragonfly is a complete end to end custom built system designed to power 
 a bi-copter drone as controller which runs on top of the raspberry-pi os. It has a complete network
 stack that is used to facilitate the connection between the controller and the drone its-self.
@@ -13,8 +13,8 @@ out in the wild from how they fly to their natural aerodynamic skeletal build. T
 project is ``Sharp``, an open-source programming language that offers several high level benefits as well as 
 a very intuitive and easy to use interface for working with c++ on lower-level level tasks. 
 
-#### The network stack
----
+### The network stack
+
 The network stack for the drone & controller consists of 2 nrf24L01 devices capable of transmitting data up to 2Mbps.
 The network stack as well as other aspects of the project was built with clear-architecture in mind to offer modularity
 to the codebase to make modifying components much easier.
