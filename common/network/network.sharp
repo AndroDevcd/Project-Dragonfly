@@ -29,7 +29,7 @@ class network {
         INSTANCE.acknowledge_req.send(new acknowledge(ack));
     }
 
-    static def send_command(cmd: _int8[]) {
+    static def send_command(cmd: string) {
        return INSTANCE.command_req.basic_command(cmd);
     }
 }
