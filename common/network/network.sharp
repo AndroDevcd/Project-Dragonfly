@@ -13,13 +13,23 @@ class network {
             return INSTANCE;
         }
 
-    public handshake_request : connection_handshake_request;
+    public handshake_req : handshake_request;
+    public command_req : command_request;
+    public acknowledge_req : acknowledge_request;
 
-    static def server_handshake() : acknowledge {
-        return INSTANCE.handshake_request.server_handshake();
+    static def handshake() {
+        INSTANCE.handshake_req.handshake();
     }
 
-    static def client_handshake() {
-       INSTANCE.handshake_request.client_handshake();
+    static def listen(): command_response {
+       return INSTANCE.command_req.listen();
+    }
+
+    static def send_acknowledge(ack: var) {
+        INSTANCE.acknowledge_req.send(new acknowledge(ack));
+    }
+
+    static def send_command(cmd: _int8[]) {
+       return INSTANCE.command_req.basic_command(cmd);
     }
 }

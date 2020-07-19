@@ -1,0 +1,8 @@
+mod common.network.data.request;
+
+import common.network.data.response;
+
+interface acknowledge_request
+{
+    def send(ack: acknowledge);
+}

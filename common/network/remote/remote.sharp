@@ -4,5 +4,7 @@ import common.network;
 import common.network.data.*;
 
 def initialize(net: network) {
-    net.handshake_request = new handshake_request_impl();
+    net.handshake_req = new handshake_request_impl();
+    net.command_req = new command_request_impl();
+    net.acknowledge_req = new acknowledge_request_impl();
 }

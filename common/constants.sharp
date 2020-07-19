@@ -21,4 +21,21 @@ class constants {
     static const SIGNAL_LOW := 1;
     static const SIGNAL_MED := 2;
     static const SIGNAL_HIGH := 3;
+    static NETWORK_STATE := CLIENT;
+    static const CLIENT := 1;
+    static const SERVER := 0;
+    static const RW_LIMIT := 3;
+    static const INFINITE := -100;
+
+    class strings {
+        static const CMD := "cmd";
+        static const RESPONSE := "response";
+        static const YES := "yes";
+        static const NO := "no";
+        static const HANDSHAKE := "0";
+        static const UP := "1";
+        static const DOWN := "2";
+        static const LEFT := "3";
+        static const RIGHT := "4";
+    }
 }

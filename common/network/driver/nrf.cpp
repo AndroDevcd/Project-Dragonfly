@@ -28,6 +28,18 @@ uint8_t response[TX_PACKET_WIDTH];
 int TIMEOUT_US = 0;
 int last_error = 0;
 
+// extern wiringpi function
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern unsigned int micros (void);
+
+#ifdef __cplusplus
+}
+#endif
+
+
 RF24 radio(22, 0);
 
 scope_begin(common_network_driver)
@@ -137,10 +149,10 @@ scope_begin(common_network_driver)
 	bool waitforResponse(bool withTimeout) {
 		// Wait here until we get a response, or timeout 
 		retry:
-        unsigned long started_waiting_at = millis();
+        unsigned long started_waiting_at = micros();
         bool timeout = false;
 		while (!radio.available() && !timeout) {
-			if (millis() - started_waiting_at > TIMEOUT_US) {
+			if (micros() - started_waiting_at > TIMEOUT_US) {
 				timeout = true;
 			}
 		}

@@ -3,45 +3,24 @@ mod common.network.remote;
 import common.network.core;
 import common.network.data.*;
 import std.io;
+import common;
 
-class handshake_request_impl base request : connection_handshake_request
+class handshake_request_impl base request : handshake_request
 {
     // server
-    def server_handshake(): acknowledge {
+    def handshake() {
         req := new request_data();
         response := new request_data();
-        req.add_item("cmd", "handshake");
+        req.add_item(constants.strings.CMD, constants.strings.HANDSHAKE);
 
         retry:
-        rw_inf(req, WRITE, 5);
-        if(rw_inf(response, READ, 3)) {
+        rw_inf(req, WRITE, constants.RW_LIMIT);
+        if(rw_inf(response, READ, constants.RW_LIMIT)) {
             goto retry;
         }
 
-        value := response.at("response");
-        if(value != null && value == "ok") {
-            return new acknowledge(true);
-        } else {
-            response.clear();
-            goto retry;
-        }
-
-        return null;
-    }
-
-    // client
-    def client_handshake() {
-        req := new request_data();
-        response := new request_data();
-        req.add_item("response", "ok");
-
-        retry:
-        rw_inf(response, READ, -1);
-
-        value := response.at("cmd");
-        if(value != null && value == "handshake") {
-            rw_inf(req, WRITE, -1);
-        } else {
+        value := response.at(constants.strings.RESPONSE);
+        if(!(value != null && value == constants.strings.YES)) {
             response.clear();
             goto retry;
         }

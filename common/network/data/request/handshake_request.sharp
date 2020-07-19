@@ -1,0 +1,6 @@
+mod common.network.data.request;
+
+interface handshake_request
+{
+    def handshake();
+}

@@ -1,0 +1,15 @@
+mod common.network.data.response;
+
+import common.network.core;
+
+class command_response
+{
+    command_response(cmd: _int8[], req: request_data)
+    {
+        command = cmd;
+        data = req;
+    }
+
+    command : _int8[];
+    data : request_data;
+}

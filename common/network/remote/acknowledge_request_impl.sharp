@@ -1,0 +1,17 @@
+mod common.network.remote;
+
+import common.network.core;
+import common.network.data.*;
+import std.io;
+import common;
+
+class acknowledge_request_impl base request : acknowledge_request
+{
+    def send(ack: acknowledge) {
+        req := new request_data();
+        req.add_item(constants.strings.RESPONSE, ack.success ? constants.strings.YES : constants.strings.NO);
+
+        retry:
+        rw_inf(req, WRITE, constants.RW_LIMIT);
+    }
+}

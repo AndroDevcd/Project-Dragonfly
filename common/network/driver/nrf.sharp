@@ -15,7 +15,7 @@ class nrf24 {
         is_setup = true;
         has_power = true;
         setup(transmission_level, transmission_rate,
-            constants.DELAY_500US, 5, true);
+            constants.DELAY_500US, 5, constants.NETWORK_STATE);
     }
 
 	def set_rf_lvl(level: var) {

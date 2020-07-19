@@ -1,0 +1,44 @@
+mod main;
+
+import std.io;
+import platform;
+import common.network;
+import common;
+
+def main(args: string[])
+{
+   load_library("bin/dragonfly");
+   constants.NETWORK_STATE = constants.SERVER;
+
+   common.gpio#setup();
+   network.handshake();
+   println("handshake established!");
+   println("please type a command: w, a, s, d, q: up, left, down, right, reconnect");
+
+   for(;;) {
+      ch := read_char();
+
+      when(ch) {
+         'w' -> {
+            network.send_command(constants.strings.UP);
+         }
+         's' -> {
+            network.send_command(constants.strings.DOWN);
+         }
+         'a' -> {
+            network.send_command(constants.strings.LEFT);
+         }
+         'd' -> {
+            network.send_command(constants.strings.RIGHT);
+         }
+         'q' -> {
+            println("\nreconnecting...");
+            network.handshake();
+            println("connected!");
+         }
+      }
+
+      println();
+      thread.sleep(50);
+   }
+}

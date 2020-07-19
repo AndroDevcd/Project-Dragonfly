@@ -4,14 +4,37 @@ import std.io;
 import platform;
 import device;
 import common.network;
+import common;
 
 def main(args: string[])
 {
    load_library("bin/dragonfly");
+   constants.NETWORK_STATE = constants.CLIENT;
+
    common.gpio#setup();
    //setup_hc_sr04();
-   //network.server_handshake();
-   network.client_handshake();
-   println("handshake established!");
-   thread.sleep(10000);
+   for(;;) {
+      response := network.listen();
+
+      when(response.command) {
+         constants.strings.UP -> {
+            println("up");
+         }
+         constants.strings.DOWN -> {
+            println("down");
+         }
+         constants.strings.LEFT -> {
+            println("left");
+         }
+         constants.strings.RIGHT -> {
+            println("right");
+         }
+         constants.strings.HANDSHAKE -> {
+            println("reconnected");
+            network.send_acknowledge(true);
+         }
+      }
+
+      thread.sleep(1);
+   }
 }
