@@ -38,7 +38,7 @@ class request
 
                 startPos = i;
                 while(raw[i++] != ',') {
-                    if((i + 1) > raw.size()) {
+                    if((i + 1) >= raw.size()) {
                         endPos=i;
                         break;
                     } else endPos = i-1;
