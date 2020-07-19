@@ -257,7 +257,7 @@ scope_begin(common_network_driver)
 				}
 				
 				startPos = TX_PACKET_HEADER_SIZE;
-			} else if((i + 1) <= packetSize) {
+			} else if((i + 1) >= packetSize) {
 				addFooter(pdata, data.size() - dataConsumed);
 				startPos = TX_PACKET_FOOTER_SIZE;
 			} else {
