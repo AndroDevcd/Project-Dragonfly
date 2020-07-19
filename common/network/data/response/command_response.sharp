@@ -4,12 +4,12 @@ import common.network.core;
 
 class command_response
 {
-    command_response(cmd: _int8[], req: request_data)
+    command_response(cmd: string, req: request_data)
     {
         command = cmd;
         data = req;
     }
 
-    command : _int8[];
+    command : string;
     data : request_data;
 }

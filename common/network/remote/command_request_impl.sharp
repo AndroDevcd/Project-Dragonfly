@@ -16,7 +16,7 @@ class command_request_impl base request : command_request
 
         value := response.at(constants.strings.CMD);
         if(value != null) {
-            return new command_response(value.get_data(), response);
+            return new command_response(value, response);
         } else {
             response.clear();
             goto retry;
@@ -25,7 +25,7 @@ class command_request_impl base request : command_request
         return null; // for the compiler
     }
 
-    def basic_command(cmd: _int8[]) {
+    def basic_command(cmd: string) {
        req := new request_data();
        req.add_item(constants.strings.CMD, cmd);
 

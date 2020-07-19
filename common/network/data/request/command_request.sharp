@@ -3,5 +3,5 @@ mod common.network.data.request;
 interface command_request
 {
     def listen(): command_response;
-    def basic_command(cmd: _int8[]);
+    def basic_command(cmd: string);
 }
