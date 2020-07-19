@@ -10,7 +10,7 @@ stack that is used to facilitate the connection between the controller and the d
 
 Project Dragonfly as the name suggests was created out of inspiration of the majestic nature of dragonflies 
 out in the wild from how they fly to their natural aerodynamic skeletal build. The software that's driving this 
-project is ``Sharp``, an open-source programming language that offers several high level benefits as well as 
+project is [Sharp](https://github.com/AndroDevcd/Sharp), an open-source programming language that offers several high level benefits as well as 
 a very intuitive and easy to use interface for working with c++ on lower-level level tasks. 
 
 ### The network stack
