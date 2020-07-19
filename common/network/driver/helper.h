@@ -12,7 +12,7 @@
  *
  * All packets have a max size of 32 bytes
  * 
- * Packet #1              Packet #2      Last Packet
+ * Packet #1              Packet #2      Packet #N
  * [ {header}, 0, 0, ...] [0, 0, 0, ...] [ {footer}, 0, 0, ...]
  */
 struct packet {
