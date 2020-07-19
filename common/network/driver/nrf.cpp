@@ -269,10 +269,8 @@ scope_begin(common_network_driver)
 			for(int j = startPos; j < pdata.len + startPos; j++) 
 			{
 				pdata.data[j] = data[pos++];
-				cout << pdata.data[j];
 			}
-			
-			cout << endl;
+
 			bool ok = radio.write(pdata.data,TX_PACKET_WIDTH);
 
 			// track how many packets sent over the network to track cell signal
