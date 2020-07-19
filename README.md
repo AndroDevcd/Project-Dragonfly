@@ -40,7 +40,7 @@ to the codebase to make modifying components much easier.
 ```
 
 We use each level as a way to abstract the former pushing each lower level closer 
-to interacting with the actual hardware at the low level. The network interface serves as the highest level
+to interacting with the actual hardware. The network interface serves as the highest level
 interface to send and receive data based on any specific request you would like to preform. The remote layer is used by the 
 network layer and serves as the implementation of the actual requests made by the former. Each object in the remote
 layer must implement the interfaces described in the data layer.
