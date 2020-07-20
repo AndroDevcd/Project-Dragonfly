@@ -20,23 +20,23 @@ The network stack as well as other aspects of the project was built with clear-a
 to the codebase to make modifying components much easier.
 
 ```
-                                +=========================+  (High-Level)
-                                #    Network Interface    #
-                                +============+============+   
-                                             |
-                           +--------------+  v   +~~~~~~~~~~~~~~+
-                           | Remote Layer |<-+---|  Data Layer  |
-                           +--------------+  |   +~~~~~~~~~~~~~~+
-                                             |      (interface)
-                                             v
-                                +=========================+
-                                #        Core Layer       #
-                                +============+============+
-                                             |
-                                             v
-                                +=========================+  (Low-Level)
-                                #       Driver Layer      #
-                                +=========================+
+              +=========================+  (High-Level)
+              #    Network Interface    #
+              +============+============+   
+                           |
+         +--------------+  v   +~~~~~~~~~~~~~~+
+         | Remote Layer |<-+---|  Data Layer  |
+         +--------------+  |   +~~~~~~~~~~~~~~+
+                           |      (interface)
+                           v
+              +=========================+
+              #        Core Layer       #
+              +============+============+
+                           |
+                           v
+              +=========================+  (Low-Level)
+              #       Driver Layer      #
+              +=========================+
 ```
 
 We use each level as a way to abstract the former pushing each lower level closer 
