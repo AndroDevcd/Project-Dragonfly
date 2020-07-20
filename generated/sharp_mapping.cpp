@@ -2,32 +2,18 @@
 
 using namespace snb_api::internal;
 
-scope_begin(main) 
+scope_begin(std) 
 
 	void __srt_global(object $instance) {
 		pushObj($instance);
 		call(0);
 	}
 
-	void main(object args) {
-		pushObj(args);
-		call(1565);
-	}
-
-scope_end()
-
-scope_begin(std) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(1);
-	}
-
 	var_array snprintf(var& fmt, var& num, var& precision) {
 		pushNum(fmt.value());
 		pushNum(num.value());
 		pushNum(precision.value());
-		call(1888);
+		call(1565);
 
 		object $tmpObj = getSpObjAt(0);
 		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
@@ -35,75 +21,75 @@ scope_begin(std)
 
 	void print(_int8_array& data) {
 		pushObj(data.handle);
-		call(1889);
+		call(1566);
 	}
 
 	void print2(object str) {
 		pushObj(str);
-		call(1890);
+		call(1567);
 	}
 
 	void println(var_array& data) {
 		pushObj(data.handle);
-		call(1891);
+		call(1568);
 	}
 
 	void println2(_int8_array& data) {
 		pushObj(data.handle);
-		call(1892);
+		call(1569);
 	}
 
 	void println3(_int16_array& data) {
 		pushObj(data.handle);
-		call(1893);
+		call(1570);
 	}
 
 	void println4(_int32_array& data) {
 		pushObj(data.handle);
-		call(1894);
+		call(1571);
 	}
 
 	void println5(_int64_array& data) {
 		pushObj(data.handle);
-		call(1895);
+		call(1572);
 	}
 
 	void println6(_uint8_array& data) {
 		pushObj(data.handle);
-		call(1896);
+		call(1573);
 	}
 
 	void println7(_uint16_array& data) {
 		pushObj(data.handle);
-		call(1897);
+		call(1574);
 	}
 
 	void println8(_uint32_array& data) {
 		pushObj(data.handle);
-		call(1898);
+		call(1575);
 	}
 
 	void println9(_uint64_array& data) {
 		pushObj(data.handle);
-		call(1899);
+		call(1576);
 	}
 
 	void println10(var& data) {
 		pushNum(data.value());
-		call(1900);
+		call(1577);
 	}
 
 	void println11() {
-		call(1901);
+		call(1578);
 	}
 
 	void println12(object e) {
 		pushObj(e);
-		call(1902);
+		call(1579);
 	}
 
 	object read_line() {
-		call(1903);
+		call(1580);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -111,7 +97,7 @@ scope_begin(std)
 	}
 
 	object read_passwd() {
-		call(1904);
+		call(1581);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -119,7 +105,7 @@ scope_begin(std)
 	}
 
 	var read_char() {
-		call(1905);
+		call(1582);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -127,7 +113,7 @@ scope_begin(std)
 	}
 
 	var read_raw_char() {
-		call(1906);
+		call(1583);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -136,30 +122,30 @@ scope_begin(std)
 
 	void println13(object str) {
 		pushObj(str);
-		call(1907);
+		call(1584);
 	}
 
 	void println14(object o) {
 		pushObj(o);
-		call(1908);
+		call(1585);
 	}
 
 	void print3(object o) {
 		pushObj(o);
-		call(1909);
+		call(1586);
 	}
 
 	void print4(var& data) {
 		pushNum(data.value());
-		call(1910);
+		call(1587);
 	}
 
 	void flush() {
-		call(1911);
+		call(1588);
 	}
 
 	var utc_mills_time() {
-		call(1912);
+		call(1589);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -167,7 +153,7 @@ scope_begin(std)
 	}
 
 	var nano_time() {
-		call(1913);
+		call(1590);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -175,12 +161,12 @@ scope_begin(std)
 	}
 
 	void exit() {
-		call(1914);
+		call(1591);
 	}
 
 	var sizeOf(object data) {
 		pushObj(data);
-		call(1915);
+		call(1592);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -189,7 +175,7 @@ scope_begin(std)
 
 	var sizeOf2(object data) {
 		pushObj(data);
-		call(1916);
+		call(1593);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -198,67 +184,67 @@ scope_begin(std)
 
 	void print_chars(_int8_array& str) {
 		pushObj(str.handle);
-		call(1917);
+		call(1594);
 	}
 
 	void print_num(var& val) {
 		pushNum(val.value());
-		call(1918);
+		call(1595);
 	}
 
 	void print_char(_int8& val) {
 		pushNum(val.value());
-		call(1919);
+		call(1596);
 	}
 
 	void print_numbers(var_array& str) {
 		pushObj(str.handle);
-		call(1920);
+		call(1597);
 	}
 
 	void print_numbers2(_int16_array& str) {
 		pushObj(str.handle);
-		call(1921);
+		call(1598);
 	}
 
 	void print_numbers3(_int32_array& str) {
 		pushObj(str.handle);
-		call(1922);
+		call(1599);
 	}
 
 	void print_numbers4(_int64_array& str) {
 		pushObj(str.handle);
-		call(1923);
+		call(1600);
 	}
 
 	void print_numbers5(_uint8_array& str) {
 		pushObj(str.handle);
-		call(1924);
+		call(1601);
 	}
 
 	void print_numbers6(_uint16_array& str) {
 		pushObj(str.handle);
-		call(1925);
+		call(1602);
 	}
 
 	void print_numbers7(_uint32_array& str) {
 		pushObj(str.handle);
-		call(1926);
+		call(1603);
 	}
 
 	void print_numbers8(_uint64_array& str) {
 		pushObj(str.handle);
-		call(1927);
+		call(1604);
 	}
 
 	void print_chars2(_int16_array& str) {
 		pushObj(str.handle);
-		call(1928);
+		call(1605);
 	}
 
 	var read_ch(var& hide) {
 		pushNum(hide.value());
-		call(1929);
+		call(1606);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -267,7 +253,7 @@ scope_begin(std)
 
 	object runtime_error(object message) {
 		pushObj(message);
-		call(3022);
+		call(1663);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -275,7 +261,7 @@ scope_begin(std)
 	}
 
 	object runtime_error2() {
-		call(3023);
+		call(1664);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -284,2875 +270,11 @@ scope_begin(std)
 
 	void todo(object message) {
 		pushObj(message);
-		call(3024);
-	}
-
-	void $03internal_static_init() {
-		call(3259);
-	}
-
-scope_end()
-
-scope_begin(std, _object_) 
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(1566);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object hash(object $instance) {
-		pushObj($instance);
-		call(1567);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object guid(object $instance) {
-		pushObj($instance);
-		call(1568);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void _object_(object $instance) {
-		pushObj($instance);
-		call(1569);
-	}
-
-scope_end()
-
-scope_begin(std, string_builder) 
-
-	void set_resize_capacity(object $instance, var& new_capacity) {
-		pushObj($instance);
-		pushNum(new_capacity.value());
-		call(1570);
-	}
-
-	void string_builder(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1571);
-	}
-
-	void string_builder2(object $instance, var& ch) {
-		pushObj($instance);
-		pushNum(ch.value());
-		call(1572);
-	}
-
-	void string_builder3(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1573);
-	}
-
-	void string_builder4(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1574);
-	}
-
-	void string_builder5(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1575);
-	}
-
-	void string_builder6(object $instance, _int8_array& str, var& offset) {
-		pushObj($instance);
-		pushObj(str.handle);
-		pushNum(offset.value());
-		call(1576);
-	}
-
-	var space_available(object $instance, var& space_required) {
-		pushObj($instance);
-		pushNum(space_required.value());
-		call(1577);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void expand(object $instance, var& space_required) {
-		pushObj($instance);
-		pushNum(space_required.value());
-		call(1578);
-	}
-
-	object replace(object $instance, var& pos, _int8& ch) {
-		pushObj($instance);
-		pushNum(pos.value());
-		pushNum(ch.value());
-		call(1579);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object append(object $instance, var& ch) {
-		pushObj($instance);
-		pushNum(ch.value());
-		call(1580);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	_int8_array get_elements(object $instance) {
-		pushObj($instance);
-		call(1581);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	object append2(object $instance, object c) {
-		pushObj($instance);
-		pushObj(c);
-		call(1582);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object append3(object $instance, _int8_array& immstr) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		call(1583);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object append4(object $instance, _int8_array& immstr, var& len) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		pushNum(len.value());
-		call(1584);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus(object $instance, _int8_array& immstr) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		call(1585);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus2(object $instance, object obj) {
-		pushObj($instance);
-		pushObj(obj);
-		call(1586);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(1587);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1588);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals2(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1589);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$not_equals(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1590);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$not_equals2(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1591);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void op_$equals(object $instance, _int8_array& immstr) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		call(1592);
-	}
-
-	_int8 at(object $instance, var& pos) {
-		pushObj($instance);
-		pushNum(pos.value());
-		call(1593);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$array_at(object $instance, var& pos) {
-		pushObj($instance);
-		pushNum(pos.value());
-		call(1594);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void fmt(var& _fmt) {
-		pushNum(_fmt.value());
-		call(1595);
-	}
-
-	void set_precision(var& prec) {
-		pushNum(prec.value());
-		call(1596);
-	}
-
-	_int8_array to_array(object $instance) {
-		pushObj($instance);
-		call(1597);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	var starts_with(object $instance, object prefix) {
-		pushObj($instance);
-		pushObj(prefix);
-		call(1598);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var find(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1599);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var find2(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1600);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var ends_with(object $instance, object postfix) {
-		pushObj($instance);
-		pushObj(postfix);
-		call(1601);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus3(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1602);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var size(object $instance) {
-		pushObj($instance);
-		call(1603);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object parse(object $instance, var& number) {
-		pushObj($instance);
-		pushNum(number.value());
-		call(1604);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1605);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal2(object $instance, object obj) {
-		pushObj($instance);
-		pushObj(obj);
-		call(1606);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal3(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1607);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	_int8_array get_data(object $instance) {
-		pushObj($instance);
-		call(1608);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	object op_$plus_equal4(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1609);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal5(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1610);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object substring(object $instance, var& startPos, var& endPos) {
-		pushObj($instance);
-		pushNum(startPos.value());
-		pushNum(endPos.value());
-		call(1611);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object bounds_error(object $instance, var& pos) {
-		pushObj($instance);
-		pushNum(pos.value());
-		call(1612);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object hash(object $instance) {
-		pushObj($instance);
-		call(1613);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void string_builder7(object $instance) {
-		pushObj($instance);
-		call(1614);
-	}
-
-	void $03internal_static_init() {
-		call(3260);
-	}
-
-scope_end()
-
-scope_begin(std, string) 
-
-	void string(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1615);
-	}
-
-	void string2(object $instance, var& ch) {
-		pushObj($instance);
-		pushNum(ch.value());
-		call(1616);
-	}
-
-	void string3(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1617);
-	}
-
-	void string4(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1618);
-	}
-
-	void string5(object $instance, _int8_array& str, var& offset) {
-		pushObj($instance);
-		pushObj(str.handle);
-		pushNum(offset.value());
-		call(1619);
-	}
-
-	void string6(object $instance, _int8_array& str, var& start, var& end) {
-		pushObj($instance);
-		pushObj(str.handle);
-		pushNum(start.value());
-		pushNum(end.value());
-		call(1620);
-	}
-
-	object replace(object $instance, var& pos, _int8& ch) {
-		pushObj($instance);
-		pushNum(pos.value());
-		pushNum(ch.value());
-		call(1621);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object append(object $instance, var& ch) {
-		pushObj($instance);
-		pushNum(ch.value());
-		call(1622);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var empty(object $instance) {
-		pushObj($instance);
-		call(1623);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object append2(object $instance, object c) {
-		pushObj($instance);
-		pushObj(c);
-		call(1624);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object append3(object $instance, _int8_array& immstr) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		call(1625);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object append4(object $instance, _int8_array& immstr, var& len) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		pushNum(len.value());
-		call(1626);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus(object $instance, _int8_array& immstr) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		call(1627);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_lower(object $instance) {
-		pushObj($instance);
-		call(1628);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus2(object $instance, object obj) {
-		pushObj($instance);
-		pushObj(obj);
-		call(1629);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus3(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1630);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(1631);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1632);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals2(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1633);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$not_equals(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1634);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$not_equals2(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1635);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void op_$equals(object $instance, _int8_array& immstr) {
-		pushObj($instance);
-		pushObj(immstr.handle);
-		call(1636);
-	}
-
-	_int8 at(object $instance, var& pos) {
-		pushObj($instance);
-		pushNum(pos.value());
-		call(1637);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$array_at(object $instance, var& pos) {
-		pushObj($instance);
-		pushNum(pos.value());
-		call(1638);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void fmt(var& _fmt) {
-		pushNum(_fmt.value());
-		call(1639);
-	}
-
-	void set_precision(var& prec) {
-		pushNum(prec.value());
-		call(1640);
-	}
-
-	_int8_array get_data(object $instance) {
-		pushObj($instance);
-		call(1641);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int8_array get_elements(object $instance) {
-		pushObj($instance);
-		call(1642);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int8_array to_array(object $instance) {
-		pushObj($instance);
-		call(1643);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	var starts_with(object $instance, object prefix) {
-		pushObj($instance);
-		pushObj(prefix);
-		call(1644);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var find(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1645);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var ends_with(object $instance, object postfix) {
-		pushObj($instance);
-		pushObj(postfix);
-		call(1646);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus4(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1647);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var size(object $instance) {
-		pushObj($instance);
-		call(1648);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object parse(var& number) {
-		pushNum(number.value());
-		call(1649);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1650);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal2(object $instance, object obj) {
-		pushObj($instance);
-		pushObj(obj);
-		call(1651);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal3(object $instance, object str) {
-		pushObj($instance);
-		pushObj(str);
-		call(1652);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$plus_equal4(object $instance, _int8_array& str) {
-		pushObj($instance);
-		pushObj(str.handle);
-		call(1653);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object substring(object $instance, var& start_pos, var& end_pos) {
-		pushObj($instance);
-		pushNum(start_pos.value());
-		pushNum(end_pos.value());
-		call(1654);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object bounds_error(object $instance, var& pos) {
-		pushObj($instance);
-		pushNum(pos.value());
-		call(1655);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object hash(object $instance) {
-		pushObj($instance);
-		call(1656);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void string7(object $instance) {
-		pushObj($instance);
-		call(1657);
-	}
-
-	void $03internal_static_init() {
-		call(3261);
-	}
-
-scope_end()
-
-scope_begin(std_io_task) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(2);
-	}
-
-	void finish() {
-		call(1658);
-	}
-
-	void start_scheduler() {
-		call(1691);
-	}
-
-	void calculate_max_threads() {
-		call(1692);
-	}
-
-	var scheduler_main(object args) {
-		pushObj(args);
-		call(1693);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object get_host(var& long_running) {
-		pushNum(long_running.value());
-		call(1694);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void execute_synchronous(object scheduled_job) {
-		pushObj(scheduled_job);
-		call(1695);
-	}
-
-	var execute_job(object scheduled_job) {
-		pushObj(scheduled_job);
-		call(1696);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void $03internal_static_init() {
-		call(3262);
-	}
-
-	var anon_func$3273(object it, object it2) {
-		pushObj(it);
-		pushObj(it2);
-		call(3273);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var anon_func$3274(object t) {
-		pushObj(t);
-		call(3274);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(std_io_task, task) 
-
-	object with_timeout(var& mills_time) {
-		pushNum(mills_time.value());
-		call(1659);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object schedule(var& future) {
-		pushNum(future.value());
-		call(1660);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object with_name(object job_name) {
-		pushObj(job_name);
-		call(1661);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object with_args(object args) {
-		pushObj(args);
-		call(1662);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object block() {
-		call(1663);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object long_term() {
-		call(1664);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object builder() {
 		call(1665);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void task(object $instance) {
-		pushObj($instance);
-		call(1666);
-	}
-
-scope_end()
-
-scope_begin(std_io_task, cancellation_exception) 
-
-	void cancellation_exception(object $instance, _int8_array& message) {
-		pushObj($instance);
-		pushObj(message.handle);
-		call(1667);
-	}
-
-	void cancellation_exception2(object $instance, object message) {
-		pushObj($instance);
-		pushObj(message);
-		call(1668);
-	}
-
-	void cancellation_exception3(object $instance) {
-		pushObj($instance);
-		call(1669);
-	}
-
-scope_end()
-
-scope_begin(std_io_task, job_master) 
-
-	void job_master(object $instance) {
-		pushObj($instance);
-		call(1670);
-	}
-
-	object op_$equals(object $instance, var& main) {
-		pushObj($instance);
-		pushNum(main.value());
-		call(1671);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object create_job(object $instance) {
-		pushObj($instance);
-		call(1672);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object create_job2(object $instance, object name) {
-		pushObj($instance);
-		pushObj(name);
-		call(1673);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void start_job(object $instance, object scheduled_job) {
-		pushObj($instance);
-		pushObj(scheduled_job);
-		call(1674);
-	}
-
-	object get_host_controller(object $instance, object host) {
-		pushObj($instance);
-		pushObj(host);
-		call(1675);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void cleanup_job(object $instance, object scheduled_job) {
-		pushObj($instance);
-		pushObj(scheduled_job);
-		call(1676);
-	}
-
-scope_end()
-
-scope_begin(std_io_task, job_builder) 
-
-	void job_builder(object $instance) {
-		pushObj($instance);
-		call(1677);
-	}
-
-	void job_builder2(object $instance, object scheduled_job, object master) {
-		pushObj($instance);
-		pushObj(scheduled_job);
-		pushObj(master);
-		call(1678);
-	}
-
-	object with_timeout(object $instance, var& mills_time) {
-		pushObj($instance);
-		pushNum(mills_time.value());
-		call(1679);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object schedule(object $instance, var& future) {
-		pushObj($instance);
-		pushNum(future.value());
-		call(1680);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object recurring(object $instance, var& tm, object interval) {
-		pushObj($instance);
-		pushNum(tm.value());
-		pushObj(interval);
-		call(1681);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object with_name(object $instance, object job_name) {
-		pushObj($instance);
-		pushObj(job_name);
-		call(1682);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object with_args(object $instance, object args) {
-		pushObj($instance);
-		pushObj(args);
-		call(1683);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object block(object $instance) {
-		pushObj($instance);
-		call(1684);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object long_term(object $instance) {
-		pushObj($instance);
-		call(1685);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$equals(object $instance, var& main) {
-		pushObj($instance);
-		pushNum(main.value());
-		call(1686);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$equals2(object $instance, var& main) {
-		pushObj($instance);
-		pushNum(main.value());
-		call(1687);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$equals3(object $instance, var& main) {
-		pushObj($instance);
-		pushNum(main.value());
-		call(1688);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$equals4(object $instance, var& main) {
-		pushObj($instance);
-		pushNum(main.value());
-		call(1689);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object get_job(object $instance) {
-		pushObj($instance);
-		call(1690);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(std_io_task, job_controller) 
-
-	void job_controller(object $instance) {
-		pushObj($instance);
-		call(1697);
-	}
-
-scope_end()
-
-scope_begin(std_io_task, job) 
-
-	void job(object $instance) {
-		pushObj($instance);
-		call(1698);
-	}
-
-	void job2(object $instance, object name) {
-		pushObj($instance);
-		pushObj(name);
-		call(1699);
-	}
-
-	var execute_async(object $instance) {
-		pushObj($instance);
-		call(1700);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void cancel(object $instance) {
-		pushObj($instance);
-		call(1701);
-	}
-
-	void cancel_future(object $instance) {
-		pushObj($instance);
-		call(1702);
-	}
-
-	void join(object $instance) {
-		pushObj($instance);
-		call(1703);
-	}
-
-	object get_state(object $instance) {
-		pushObj($instance);
-		call(1704);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object get_name(object $instance) {
-		pushObj($instance);
-		call(1705);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var get_id(object $instance) {
-		pushObj($instance);
-		call(1706);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void op_$equals(object $instance, var& block) {
-		pushObj($instance);
-		pushNum(block.value());
-		call(1707);
-	}
-
-	void op_$equals2(object $instance, var& block) {
-		pushObj($instance);
-		pushNum(block.value());
-		call(1708);
-	}
-
-	void op_$equals3(object $instance, var& block) {
-		pushObj($instance);
-		pushNum(block.value());
-		call(1709);
-	}
-
-	void op_$equals4(object $instance, var& block) {
-		pushObj($instance);
-		pushNum(block.value());
-		call(1710);
-	}
-
-	var job_main(object args) {
-		pushObj(args);
-		call(1711);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void execute(object $instance) {
-		pushObj($instance);
-		call(1712);
-	}
-
-	var is_finished(object $instance) {
-		pushObj($instance);
-		call(1713);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_active(object $instance) {
-		pushObj($instance);
-		call(1714);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void update_timeout(object $instance, var& tm) {
-		pushObj($instance);
-		pushNum(tm.value());
-		call(1715);
-	}
-
-	void update_interval(object $instance, var& tm, object interval) {
-		pushObj($instance);
-		pushNum(tm.value());
-		pushObj(interval);
-		call(1716);
-	}
-
-	void reschedule(object $instance) {
-		pushObj($instance);
-		call(1717);
 	}
 
 	void $03internal_static_init() {
-		call(3263);
-	}
-
-scope_end()
-
-scope_begin(std_io) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(3);
-	}
-
-	void _srt_thread_start() {
-		call(1718);
-	}
-
-	void realloc(object data, var& size) {
-		pushObj(data);
-		pushNum(size.value());
-		call(1721);
-	}
-
-	void realloc2(var_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1722);
-	}
-
-	void realloc3(_int8_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1723);
-	}
-
-	void realloc4(_int16_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1724);
-	}
-
-	void realloc5(_int32_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1725);
-	}
-
-	void realloc6(_int64_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1726);
-	}
-
-	void realloc7(_uint8_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1727);
-	}
-
-	void realloc8(_uint16_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1728);
-	}
-
-	void realloc9(_uint32_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1729);
-	}
-
-	void realloc10(_uint64_array& data, var& size) {
-		pushObj(data.handle);
-		pushNum(size.value());
-		call(1730);
-	}
-
-	void memcopy(object src, object dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src);
-		pushObj(dest);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1731);
-	}
-
-	void memcopy2(var_array& src, var_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1732);
-	}
-
-	void memcopy3(_int8_array& src, _int8_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1733);
-	}
-
-	void memcopy4(_int16_array& src, _int16_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1734);
-	}
-
-	void memcopy5(_int32_array& src, _int32_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1735);
-	}
-
-	void memcopy6(_int64_array& src, _int64_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1736);
-	}
-
-	void memcopy7(_uint8_array& src, _uint8_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1737);
-	}
-
-	void memcopy8(_uint16_array& src, _uint16_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1738);
-	}
-
-	void memcopy9(_uint32_array& src, _uint32_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1739);
-	}
-
-	void memcopy10(_uint64_array& src, _uint64_array& dest, var& destStart, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushObj(dest.handle);
-		pushNum(destStart.value());
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1740);
-	}
-
-	object copy(object src, var& srcStart, var& srcEnd) {
-		pushObj(src);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1741);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var_array copy2(var_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1742);
-
-		object $tmpObj = getSpObjAt(0);
-		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int8_array copy3(_int8_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1743);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int16_array copy4(_int16_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1744);
-
-		object $tmpObj = getSpObjAt(0);
-		_int16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int32_array copy5(_int32_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1745);
-
-		object $tmpObj = getSpObjAt(0);
-		_int32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint8_array copy6(_uint8_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1746);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint16_array copy7(_uint16_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1747);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint32_array copy8(_uint32_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1748);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint64_array copy9(_uint64_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1749);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int64_array copy10(_int64_array& src, var& srcStart, var& srcEnd) {
-		pushObj(src.handle);
-		pushNum(srcStart.value());
-		pushNum(srcEnd.value());
-		call(1750);
-
-		object $tmpObj = getSpObjAt(0);
-		_int64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	object invert(object src, var& start, var& len) {
-		pushObj(src);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1751);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var_array invert2(var_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1752);
-
-		object $tmpObj = getSpObjAt(0);
-		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int8_array invert3(_int8_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1753);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int16_array invert4(_int16_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1754);
-
-		object $tmpObj = getSpObjAt(0);
-		_int16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int32_array invert5(_int32_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1755);
-
-		object $tmpObj = getSpObjAt(0);
-		_int32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_int64_array invert6(_int64_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1756);
-
-		object $tmpObj = getSpObjAt(0);
-		_int64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint8_array invert7(_uint8_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1757);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint16_array invert8(_uint16_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1758);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint32_array invert9(_uint32_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1759);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	_uint64_array invert10(_uint64_array& src, var& start, var& len) {
-		pushObj(src.handle);
-		pushNum(start.value());
-		pushNum(len.value());
-		call(1760);
-
-		object $tmpObj = getSpObjAt(0);
-		_uint64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	void critical_section(var& block) {
-		pushNum(block.value());
-		call(1839);
-	}
-
-	void critical_section2(var& block, object lock_obj) {
-		pushNum(block.value());
-		pushObj(lock_obj);
-		call(1840);
-	}
-
-	void $03internal_static_init() {
-		call(3265);
-	}
-
-scope_end()
-
-scope_begin(std_io, thread_group) 
-
-	void thread_group(object $instance, object name) {
-		pushObj($instance);
-		pushObj(name);
-		call(1761);
-	}
-
-	void thread_group2(object $instance, object name, object priority) {
-		pushObj($instance);
-		pushObj(name);
-		pushObj(priority);
-		call(1762);
-	}
-
-	object at(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(1763);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void add(object $instance, object t) {
-		pushObj($instance);
-		pushObj(t);
-		call(1764);
-	}
-
-	var size(object $instance) {
-		pushObj($instance);
-		call(1765);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object get_name(object $instance) {
-		pushObj($instance);
-		call(1766);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object get_priority(object $instance) {
-		pushObj($instance);
-		call(1767);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var remove(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(1768);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object get_elements(object $instance) {
-		pushObj($instance);
-		call(1769);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object find(object $instance, var& find_func) {
-		pushObj($instance);
-		pushNum(find_func.value());
-		call(1770);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void kill_all(object $instance) {
-		pushObj($instance);
-		call(1771);
-	}
-
-	void thread_group3(object $instance) {
-		pushObj($instance);
-		call(1772);
-	}
-
-	void $03internal_static_init() {
-		call(3264);
-	}
-
-scope_end()
-
-scope_begin(std_io, win_fs) 
-
-	var path_separator(object $instance) {
-		pushObj($instance);
-		call(1773);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object normalize(object $instance, object pathname) {
-		pushObj($instance);
-		pushObj(pathname);
-		call(1774);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var get_attributes(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1775);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var check_access(object $instance, object f, var& access) {
-		pushObj($instance);
-		pushObj(f);
-		pushNum(access.value());
-		call(1776);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void win_fs(object $instance) {
-		pushObj($instance);
-		call(1777);
-	}
-
-scope_end()
-
-scope_begin(std_io, uncaught_exception_handler) 
-
-	void uncaught_exception(object $instance, object err) {
-		pushObj($instance);
-		pushObj(err);
-		call(1778);
-	}
-
-	void uncaught_exception_handler(object $instance) {
-		pushObj($instance);
-		call(1779);
-	}
-
-scope_end()
-
-scope_begin(std_io, thread_result) 
-
-	object at(var& index) {
-		pushNum(index.value());
-		call(1719);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void thread_result(object $instance) {
-		pushObj($instance);
-		call(1720);
-	}
-
-	void $03internal_static_init() {
-		call(3272);
-	}
-
-scope_end()
-
-scope_begin(std_io, file_system) 
-
-	var path_separator(object $instance) {
-		pushObj($instance);
-		call(1780);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object normalize(object $instance, object path) {
-		pushObj($instance);
-		pushObj(path);
-		call(1781);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object resolve(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1782);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var get_attributes(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1783);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var check_access(object $instance, object f, var& access) {
-		pushObj($instance);
-		pushObj(f);
-		pushNum(access.value());
-		call(1784);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_permission(object $instance, object f, var& access, var& enable, var& owneronly) {
-		pushObj($instance);
-		pushObj(f);
-		pushNum(access.value());
-		pushNum(enable.value());
-		pushNum(owneronly.value());
-		call(1785);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var last_modified_time(object $instance, object f, var& stat_id) {
-		pushObj($instance);
-		pushObj(f);
-		pushNum(stat_id.value());
-		call(1786);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_length(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1787);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void create_file(object $instance, object pathname) {
-		pushObj($instance);
-		pushObj(pathname);
-		call(1788);
-	}
-
-	var delete_directory(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1789);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var _delete(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1790);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object list(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1791);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var create_directory(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1792);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var rename(object $instance, object f1, object f2) {
-		pushObj($instance);
-		pushObj(f1);
-		pushObj(f2);
-		call(1793);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object read(object f) {
-		pushObj(f);
-		call(1794);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var write(object f, object data) {
-		pushObj(f);
-		pushObj(data);
-		call(1795);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_last_modified_time(object $instance, object f, var& time) {
-		pushObj($instance);
-		pushObj(f);
-		pushNum(time.value());
-		call(1796);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_read_only(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1797);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_space_available(var& request) {
-		pushNum(request.value());
-		call(1798);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void file_system(object $instance) {
-		pushObj($instance);
-		call(1799);
-	}
-
-scope_end()
-
-scope_begin(std_io, thread) 
-
-	void thread(object $instance) {
-		pushObj($instance);
-		call(1800);
-	}
-
-	void thread2(object $instance, object name, var& main) {
-		pushObj($instance);
-		pushObj(name);
-		pushNum(main.value());
-		call(1801);
-	}
-
-	void thread3(object $instance, object name, var& daemon, var& main) {
-		pushObj($instance);
-		pushObj(name);
-		pushNum(daemon.value());
-		pushNum(main.value());
-		call(1802);
-	}
-
-	void thread4(object $instance, object name, var& main, var& stack_size) {
-		pushObj($instance);
-		pushObj(name);
-		pushNum(main.value());
-		pushNum(stack_size.value());
-		call(1803);
-	}
-
-	void thread5(object $instance, object name, var& daemon, var& main, var& stack_size) {
-		pushObj($instance);
-		pushObj(name);
-		pushNum(daemon.value());
-		pushNum(main.value());
-		pushNum(stack_size.value());
-		call(1804);
-	}
-
-	void thread6(object $instance, object name, var& main, var& stack_size, object group) {
-		pushObj($instance);
-		pushObj(name);
-		pushNum(main.value());
-		pushNum(stack_size.value());
-		pushObj(group);
-		call(1805);
-	}
-
-	void thread7(object $instance, object name, var& main, object group) {
-		pushObj($instance);
-		pushObj(name);
-		pushNum(main.value());
-		pushObj(group);
-		call(1806);
-	}
-
-	void thread8(object $instance, object name, var& daemon, var& main, var& stack_size, object group) {
-		pushObj($instance);
-		pushObj(name);
-		pushNum(daemon.value());
-		pushNum(main.value());
-		pushNum(stack_size.value());
-		pushObj(group);
-		call(1807);
-	}
-
-	object start(object $instance, object args) {
-		pushObj($instance);
-		pushObj(args);
-		call(1808);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object start2(object $instance) {
-		pushObj($instance);
-		call(1809);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object suspend(object $instance) {
-		pushObj($instance);
-		call(1810);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object notify(object $instance) {
-		pushObj($instance);
-		call(1811);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object notify_and_wait(object $instance) {
-		pushObj($instance);
-		call(1812);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object join(object $instance) {
-		pushObj($instance);
-		call(1813);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object interrupt(object $instance) {
-		pushObj($instance);
-		call(1814);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object current() {
-		call(1815);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void sleep(var& mills_time) {
-		pushNum(mills_time.value());
-		call(1816);
-	}
-
-	void wait() {
-		call(1817);
-	}
-
-	void wait2(var& mills_time) {
-		pushNum(mills_time.value());
-		call(1818);
-	}
-
-	void exit(var& code) {
-		pushNum(code.value());
-		call(1819);
-	}
-
-	object hash(object $instance) {
-		pushObj($instance);
-		call(1820);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void yield() {
-		call(1821);
-	}
-
-	void set_exception_handler(object $instance, object error_handler) {
-		pushObj($instance);
-		pushObj(error_handler);
-		call(1822);
-	}
-
-	object set_priority(object $instance, object priority) {
-		pushObj($instance);
-		pushObj(priority);
-		call(1823);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void remove_thread(object $instance, object t) {
-		pushObj($instance);
-		pushObj(t);
-		call(1824);
-	}
-
-	var get_id(object $instance) {
-		pushObj($instance);
-		call(1825);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_native_handle(object $instance) {
-		pushObj($instance);
-		call(1826);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_stack_size(object $instance) {
-		pushObj($instance);
-		call(1827);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object get_name(object $instance) {
-		pushObj($instance);
-		call(1828);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var is_exited(object $instance) {
-		pushObj($instance);
-		call(1829);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_daemon(object $instance) {
-		pushObj($instance);
-		call(1830);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_started(object $instance) {
-		pushObj($instance);
-		call(1831);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_suspended(object $instance) {
-		pushObj($instance);
-		call(1832);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_terminated(object $instance) {
-		pushObj($instance);
-		call(1833);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_main(object $instance, var& main) {
-		pushObj($instance);
-		pushNum(main.value());
-		call(1834);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_active(object $instance) {
-		pushObj($instance);
-		call(1835);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_exit_code(object $instance) {
-		pushObj($instance);
-		call(1836);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object get_exception_handler(object $instance) {
-		pushObj($instance);
-		call(1837);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals(object $instance, object t) {
-		pushObj($instance);
-		pushObj(t);
-		call(1838);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(std_io, unix_fs) 
-
-	var path_separator(object $instance) {
-		pushObj($instance);
-		call(1841);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object normalize(object $instance, object pathname) {
-		pushObj($instance);
-		pushObj(pathname);
-		call(1842);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var get_attributes(object $instance, object f) {
-		pushObj($instance);
-		pushObj(f);
-		call(1843);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var check_access(object $instance, object f, var& access) {
-		pushObj($instance);
-		pushObj(f);
-		pushNum(access.value());
-		call(1844);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void unix_fs(object $instance) {
-		pushObj($instance);
-		call(1845);
-	}
-
-scope_end()
-
-scope_begin(std_io, file) 
-
-	void file(object $instance, object path) {
-		pushObj($instance);
-		pushObj(path);
-		call(1846);
-	}
-
-	void file2(object $instance, _int8_array& path) {
-		pushObj($instance);
-		pushObj(path.handle);
-		call(1847);
-	}
-
-	object get_name(object $instance) {
-		pushObj($instance);
-		call(1848);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(1849);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void update_path(object $instance, object path) {
-		pushObj($instance);
-		pushObj(path);
-		call(1850);
-	}
-
-	object get_parent_file(object $instance) {
-		pushObj($instance);
-		call(1851);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object get_path(object $instance) {
-		pushObj($instance);
-		call(1852);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object get_absolute_path(object $instance) {
-		pushObj($instance);
-		call(1853);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var is_readable(object $instance) {
-		pushObj($instance);
-		call(1854);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_writeable(object $instance) {
-		pushObj($instance);
-		call(1855);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var exists(object $instance) {
-		pushObj($instance);
-		call(1856);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_directory(object $instance) {
-		pushObj($instance);
-		call(1857);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_file(object $instance) {
-		pushObj($instance);
-		call(1858);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_hidden(object $instance) {
-		pushObj($instance);
-		call(1859);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var last_modified(object $instance) {
-		pushObj($instance);
-		call(1860);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var last_status_changed(object $instance) {
-		pushObj($instance);
-		call(1861);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var last_accessed(object $instance) {
-		pushObj($instance);
-		call(1862);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var length(object $instance) {
-		pushObj($instance);
-		call(1863);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void create(object $instance) {
-		pushObj($instance);
-		call(1864);
-	}
-
-	var _delete(object $instance) {
-		pushObj($instance);
-		call(1865);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object list(object $instance) {
-		pushObj($instance);
-		call(1866);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var mkdir(object $instance) {
-		pushObj($instance);
-		call(1867);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var rename(object $instance, object dest) {
-		pushObj($instance);
-		pushObj(dest);
-		call(1868);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_last_modified(object $instance, var& time) {
-		pushObj($instance);
-		pushNum(time.value());
-		call(1869);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_read_only(object $instance) {
-		pushObj($instance);
-		call(1870);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_writable(object $instance, var& writable, var& owner_only) {
-		pushObj($instance);
-		pushNum(writable.value());
-		pushNum(owner_only.value());
-		call(1871);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_writable2(object $instance, var& writable) {
-		pushObj($instance);
-		pushNum(writable.value());
-		call(1872);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_readable(object $instance, var& readable, var& owner_only) {
-		pushObj($instance);
-		pushNum(readable.value());
-		pushNum(owner_only.value());
-		call(1873);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_readable2(object $instance, var& readable) {
-		pushObj($instance);
-		pushNum(readable.value());
-		call(1874);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_executable(object $instance, var& executable, var& owner_only) {
-		pushObj($instance);
-		pushNum(executable.value());
-		pushNum(owner_only.value());
-		call(1875);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var set_executable2(object $instance, var& executable) {
-		pushObj($instance);
-		pushNum(executable.value());
-		call(1876);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_executable(object $instance) {
-		pushObj($instance);
-		call(1877);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_total_space(object $instance) {
-		pushObj($instance);
-		call(1878);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_free_space(object $instance) {
-		pushObj($instance);
-		call(1879);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var get_usable_space(object $instance) {
-		pushObj($instance);
-		call(1880);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object generate_temp_file(object prefix, object suffix, object dir) {
-		pushObj(prefix);
-		pushObj(suffix);
-		pushObj(dir);
-		call(1881);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object create_temp_file(object prefix, object suffix, object directory) {
-		pushObj(prefix);
-		pushObj(suffix);
-		pushObj(directory);
-		call(1882);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object create_temp_file2(object prefix, object suffix) {
-		pushObj(prefix);
-		pushObj(suffix);
-		call(1883);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object read_all_text(object $instance) {
-		pushObj($instance);
-		call(1884);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var write(object $instance, object data) {
-		pushObj($instance);
-		pushObj(data);
-		call(1885);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object get_file_system() {
-		call(1886);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void file3(object $instance) {
-		pushObj($instance);
-		call(1887);
-	}
-
-	void $03internal_static_init() {
-		call(3266);
+		call(3288);
 	}
 
 scope_end()
@@ -3162,19 +284,19 @@ scope_begin(std, _enum_)
 	void _enum_(object $instance, var& ord) {
 		pushObj($instance);
 		pushNum(ord.value());
-		call(1930);
+		call(1607);
 	}
 
 	void _enum_2(object $instance, object e) {
 		pushObj($instance);
 		pushObj(e);
-		call(1931);
+		call(1608);
 	}
 
 	var op_$not_equals(object $instance, object e) {
 		pushObj($instance);
 		pushObj(e);
-		call(1932);
+		call(1609);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -3184,7 +306,7 @@ scope_begin(std, _enum_)
 	var op_$not_equals2(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1933);
+		call(1610);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -3194,7 +316,7 @@ scope_begin(std, _enum_)
 	var op_$equals_equals(object $instance, object e) {
 		pushObj($instance);
 		pushObj(e);
-		call(1934);
+		call(1611);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -3204,7 +326,7 @@ scope_begin(std, _enum_)
 	var op_$equals_equals2(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1935);
+		call(1612);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -3213,7 +335,7 @@ scope_begin(std, _enum_)
 
 	_int8_array get_name(object $instance) {
 		pushObj($instance);
-		call(1936);
+		call(1613);
 
 		object $tmpObj = getSpObjAt(0);
 		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
@@ -3221,7 +343,7 @@ scope_begin(std, _enum_)
 
 	_int64 get_ordinal(object $instance) {
 		pushObj($instance);
-		call(1937);
+		call(1614);
 
 		_int64 $result(getSpNumAt(0));
 		decSp(1);
@@ -3230,7 +352,7 @@ scope_begin(std, _enum_)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(1938);
+		call(1615);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -3239,9821 +361,7 @@ scope_begin(std, _enum_)
 
 	void _enum_3(object $instance) {
 		pushObj($instance);
-		call(1939);
-	}
-
-scope_end()
-
-scope_begin(std, ulong) 
-
-	void ulong(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1940);
-	}
-
-	void ulong2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1941);
-	}
-
-	void ulong3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1942);
-	}
-
-	void ulong4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1943);
-	}
-
-	void ulong5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1944);
-	}
-
-	void ulong6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1945);
-	}
-
-	void ulong7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1946);
-	}
-
-	void ulong8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1947);
-	}
-
-	void ulong9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1948);
-	}
-
-	void ulong10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(1949);
-	}
-
-	void ulong11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(1950);
-	}
-
-	_uint64 op_$not(object $instance) {
-		pushObj($instance);
-		call(1951);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(1952);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1953);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(1954);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1955);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1956);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1957);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1958);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1959);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1960);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1961);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1962);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1963);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1964);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1965);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1966);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1967);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1968);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1969);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1970);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1971);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1972);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1973);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1974);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1975);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1976);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1977);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1978);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1979);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1980);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1981);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1982);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1983);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1984);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1985);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1986);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1987);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1988);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1989);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1990);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1991);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1992);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1993);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1994);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1995);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1996);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1997);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(1998);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1999);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2000);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2001);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2002);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2003);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2004);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2005);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2006);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2007);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2008);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2009);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2010);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2011);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2012);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2013);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2014);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2015);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2016);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2017);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2018);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2019);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2020);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2021);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2022);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2023);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2024);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2025);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2026);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2027);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2028);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2029);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2030);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2031);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint64 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2032);
-
-		_uint64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void ulong12(object $instance) {
-		pushObj($instance);
-		call(2033);
-	}
-
-scope_end()
-
-scope_begin(std, _long) 
-
-	void _long(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2034);
-	}
-
-	void _long2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2035);
-	}
-
-	void _long3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2036);
-	}
-
-	void _long4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2037);
-	}
-
-	void _long5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2038);
-	}
-
-	void _long6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2039);
-	}
-
-	void _long7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2040);
-	}
-
-	void _long8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2041);
-	}
-
-	void _long9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2042);
-	}
-
-	void _long10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2043);
-	}
-
-	void _long11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2044);
-	}
-
-	_int64 op_$not(object $instance) {
-		pushObj($instance);
-		call(2045);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2046);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2047);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2048);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2049);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2050);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2051);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2052);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2053);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2054);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2055);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2056);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2057);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2058);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2059);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2060);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2061);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2062);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2063);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2064);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2065);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2066);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2067);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2068);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2069);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2070);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2071);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2072);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2073);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2074);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2075);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2076);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2077);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2078);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2079);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2080);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2081);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2082);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2083);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2084);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2085);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2086);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2087);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2088);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2089);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2090);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2091);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2092);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2093);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2094);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2095);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2096);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2097);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2098);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2099);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2100);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2101);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2102);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2103);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2104);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2105);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2106);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2107);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2108);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2109);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2110);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2111);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2112);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2113);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2114);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2115);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2116);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2117);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2118);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2119);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2120);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2121);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2122);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2123);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2124);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2125);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int64 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2126);
-
-		_int64 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void _long12(object $instance) {
-		pushObj($instance);
-		call(2127);
-	}
-
-scope_end()
-
-scope_begin(std, uint) 
-
-	void uint(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2128);
-	}
-
-	void uint2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2129);
-	}
-
-	void uint3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2130);
-	}
-
-	void uint4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2131);
-	}
-
-	void uint5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2132);
-	}
-
-	void uint6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2133);
-	}
-
-	void uint7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2134);
-	}
-
-	void uint8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2135);
-	}
-
-	void uint9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2136);
-	}
-
-	void uint10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2137);
-	}
-
-	void uint11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2138);
-	}
-
-	_uint32 op_$not(object $instance) {
-		pushObj($instance);
-		call(2139);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2140);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2141);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2142);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2143);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2144);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2145);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2146);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2147);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2148);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2149);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2150);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2151);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2152);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2153);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2154);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2155);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2156);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2157);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2158);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2159);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2160);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2161);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2162);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2163);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2164);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2165);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2166);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2167);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2168);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2169);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2170);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2171);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2172);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2173);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2174);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2175);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2176);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2177);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2178);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2179);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2180);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2181);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2182);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2183);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2184);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2185);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2186);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2187);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2188);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2189);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2190);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2191);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2192);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2193);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2194);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2195);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2196);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2197);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2198);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2199);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2200);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2201);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2202);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2203);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2204);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2205);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2206);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2207);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2208);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2209);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2210);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2211);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2212);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2213);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2214);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2215);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2216);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2217);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2218);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2219);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint32 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2220);
-
-		_uint32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void uint12(object $instance) {
-		pushObj($instance);
-		call(2221);
-	}
-
-scope_end()
-
-scope_begin(std, _int) 
-
-	void _int(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2222);
-	}
-
-	void _int2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2223);
-	}
-
-	void _int3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2224);
-	}
-
-	void _int4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2225);
-	}
-
-	void _int5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2226);
-	}
-
-	void _int6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2227);
-	}
-
-	void _int7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2228);
-	}
-
-	void _int8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2229);
-	}
-
-	void _int9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2230);
-	}
-
-	void _int10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2231);
-	}
-
-	void _int11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2232);
-	}
-
-	_int32 op_$not(object $instance) {
-		pushObj($instance);
-		call(2233);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2234);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2235);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2236);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2237);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2238);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2239);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2240);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2241);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2242);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2243);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2244);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2245);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2246);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2247);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2248);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2249);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2250);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2251);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2252);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2253);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2254);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2255);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2256);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2257);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2258);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2259);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2260);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2261);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2262);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2263);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2264);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2265);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2266);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2267);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2268);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2269);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2270);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2271);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2272);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2273);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2274);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2275);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2276);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2277);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2278);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2279);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2280);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2281);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2282);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2283);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2284);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2285);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2286);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2287);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2288);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2289);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2290);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2291);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2292);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2293);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2294);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2295);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2296);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2297);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2298);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2299);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2300);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2301);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2302);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2303);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2304);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2305);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2306);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2307);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2308);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2309);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2310);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2311);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2312);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2313);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int32 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2314);
-
-		_int32 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void _int12(object $instance) {
-		pushObj($instance);
-		call(2315);
-	}
-
-scope_end()
-
-scope_begin(std, ushort) 
-
-	void ushort(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2316);
-	}
-
-	void ushort2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2317);
-	}
-
-	void ushort3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2318);
-	}
-
-	void ushort4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2319);
-	}
-
-	void ushort5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2320);
-	}
-
-	void ushort6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2321);
-	}
-
-	void ushort7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2322);
-	}
-
-	void ushort8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2323);
-	}
-
-	void ushort9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2324);
-	}
-
-	void ushort10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2325);
-	}
-
-	void ushort11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2326);
-	}
-
-	_uint16 op_$not(object $instance) {
-		pushObj($instance);
-		call(2327);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2328);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2329);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2330);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2331);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2332);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2333);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2334);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2335);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2336);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2337);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2338);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2339);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2340);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2341);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2342);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2343);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2344);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2345);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2346);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2347);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2348);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2349);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2350);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2351);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2352);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2353);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2354);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2355);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2356);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2357);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2358);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2359);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2360);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2361);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2362);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2363);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2364);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2365);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2366);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2367);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2368);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2369);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2370);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2371);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2372);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2373);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2374);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2375);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2376);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2377);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2378);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2379);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2380);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2381);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2382);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2383);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2384);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2385);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2386);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2387);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2388);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2389);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2390);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2391);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2392);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2393);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2394);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2395);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2396);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2397);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2398);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2399);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2400);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2401);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2402);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2403);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2404);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2405);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2406);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2407);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint16 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2408);
-
-		_uint16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void ushort12(object $instance) {
-		pushObj($instance);
-		call(2409);
-	}
-
-scope_end()
-
-scope_begin(std, _short) 
-
-	void _short(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2410);
-	}
-
-	void _short2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2411);
-	}
-
-	void _short3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2412);
-	}
-
-	void _short4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2413);
-	}
-
-	void _short5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2414);
-	}
-
-	void _short6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2415);
-	}
-
-	void _short7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2416);
-	}
-
-	void _short8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2417);
-	}
-
-	void _short9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2418);
-	}
-
-	void _short10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2419);
-	}
-
-	void _short11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2420);
-	}
-
-	_int16 op_$not(object $instance) {
-		pushObj($instance);
-		call(2421);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2422);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2423);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2424);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2425);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2426);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2427);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2428);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2429);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2430);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2431);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2432);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2433);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2434);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2435);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2436);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2437);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2438);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2439);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2440);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2441);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2442);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2443);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2444);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2445);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2446);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2447);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2448);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2449);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2450);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2451);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2452);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2453);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2454);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2455);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2456);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2457);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2458);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2459);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2460);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2461);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2462);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2463);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2464);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2465);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2466);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2467);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2468);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2469);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2470);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2471);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2472);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2473);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2474);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2475);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2476);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2477);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2478);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2479);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2480);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2481);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2482);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2483);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2484);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2485);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2486);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2487);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2488);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2489);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2490);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2491);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2492);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2493);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2494);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2495);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2496);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2497);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2498);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2499);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2500);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2501);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int16 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2502);
-
-		_int16 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void _short12(object $instance) {
-		pushObj($instance);
-		call(2503);
-	}
-
-scope_end()
-
-scope_begin(std, uchar) 
-
-	void uchar(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2504);
-	}
-
-	void uchar2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2505);
-	}
-
-	void uchar3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2506);
-	}
-
-	void uchar4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2507);
-	}
-
-	void uchar5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2508);
-	}
-
-	void uchar6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2509);
-	}
-
-	void uchar7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2510);
-	}
-
-	void uchar8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2511);
-	}
-
-	void uchar9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2512);
-	}
-
-	void uchar10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2513);
-	}
-
-	void uchar11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2514);
-	}
-
-	_uint8 op_$not(object $instance) {
-		pushObj($instance);
-		call(2515);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2516);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2517);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2518);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2519);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2520);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2521);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2522);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2523);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2524);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2525);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2526);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2527);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2528);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2529);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2530);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2531);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2532);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2533);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2534);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2535);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2536);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2537);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2538);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2539);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2540);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2541);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2542);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2543);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2544);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2545);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2546);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2547);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2548);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2549);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2550);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2551);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2552);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2553);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2554);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2555);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2556);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2557);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2558);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2559);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2560);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2561);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2562);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2563);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2564);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2565);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2566);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2567);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2568);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2569);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2570);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2571);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2572);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2573);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2574);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2575);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2576);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2577);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2578);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2579);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2580);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2581);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2582);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2583);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2584);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2585);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2586);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2587);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2588);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2589);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2590);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2591);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2592);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2593);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2594);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2595);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2596);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void uchar12(object $instance) {
-		pushObj($instance);
-		call(2597);
-	}
-
-scope_end()
-
-scope_begin(std, _char) 
-
-	void _char(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2598);
-	}
-
-	void _char2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2599);
-	}
-
-	void _char3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2600);
-	}
-
-	void _char4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2601);
-	}
-
-	void _char5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2602);
-	}
-
-	void _char6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2603);
-	}
-
-	void _char7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2604);
-	}
-
-	void _char8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2605);
-	}
-
-	void _char9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2606);
-	}
-
-	void _char10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2607);
-	}
-
-	void _char11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2608);
-	}
-
-	_int8 op_$not(object $instance) {
-		pushObj($instance);
-		call(2609);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2610);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2611);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2612);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2613);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2614);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2615);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2616);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2617);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2618);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2619);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2620);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2621);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2622);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2623);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2624);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2625);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2626);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2627);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2628);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2629);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2630);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2631);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2632);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2633);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2634);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2635);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2636);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2637);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2638);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2639);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2640);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2641);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2642);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2643);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2644);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2645);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2646);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2647);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2648);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2649);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2650);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2651);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2652);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2653);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2654);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2655);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2656);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2657);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2658);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2659);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2660);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2661);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2662);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2663);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2664);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2665);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2666);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2667);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2668);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2669);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2670);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2671);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2672);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2673);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2674);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2675);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2676);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2677);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2678);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2679);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2680);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2681);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2682);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2683);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2684);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2685);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2686);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2687);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2688);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2689);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2690);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_digit(var& ch) {
-		pushNum(ch.value());
-		call(2691);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_newline(var& ch) {
-		pushNum(ch.value());
-		call(2692);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_alpha(var& ch) {
-		pushNum(ch.value());
-		call(2693);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_alpha_num(var& ch) {
-		pushNum(ch.value());
-		call(2694);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var to_lower(var& ch) {
-		pushNum(ch.value());
-		call(2695);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var to_upper(var& ch) {
-		pushNum(ch.value());
-		call(2696);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void _char12(object $instance) {
-		pushObj($instance);
-		call(2697);
-	}
-
-scope_end()
-
-scope_begin(std, byte) 
-
-	void byte(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2698);
-	}
-
-	void byte2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2699);
-	}
-
-	void byte3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2700);
-	}
-
-	void byte4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2701);
-	}
-
-	void byte5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2702);
-	}
-
-	void byte6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2703);
-	}
-
-	void byte7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2704);
-	}
-
-	void byte8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2705);
-	}
-
-	void byte9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2706);
-	}
-
-	void byte10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2707);
-	}
-
-	void byte11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2708);
-	}
-
-	_uint8 op_$not(object $instance) {
-		pushObj($instance);
-		call(2709);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2710);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2711);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2712);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2713);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2714);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2715);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2716);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2717);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2718);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2719);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2720);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2721);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2722);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2723);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2724);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2725);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2726);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2727);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2728);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2729);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2730);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2731);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2732);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2733);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2734);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2735);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2736);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2737);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2738);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2739);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2740);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2741);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2742);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2743);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2744);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2745);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2746);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2747);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2748);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2749);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2750);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2751);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2752);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2753);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2754);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2755);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2756);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2757);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2758);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2759);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2760);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2761);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2762);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2763);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2764);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2765);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2766);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2767);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2768);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2769);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2770);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2771);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2772);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2773);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2774);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2775);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2776);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2777);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2778);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2779);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2780);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2781);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2782);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2783);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2784);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2785);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2786);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2787);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2788);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2789);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_uint8 op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2790);
-
-		_uint8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_digit(var& ch) {
-		pushNum(ch.value());
-		call(2791);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_newline(var& ch) {
-		pushNum(ch.value());
-		call(2792);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_alpha(var& ch) {
-		pushNum(ch.value());
-		call(2793);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_alpha_num(var& ch) {
-		pushNum(ch.value());
-		call(2794);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var to_lower(var& ch) {
-		pushNum(ch.value());
-		call(2795);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var to_upper(var& ch) {
-		pushNum(ch.value());
-		call(2796);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void byte12(object $instance) {
-		pushObj($instance);
-		call(2797);
-	}
-
-scope_end()
-
-scope_begin(std, _bool) 
-
-	void _bool(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2798);
-	}
-
-	void _bool2(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2799);
-	}
-
-	void _bool3(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2800);
-	}
-
-	void _bool4(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2801);
-	}
-
-	void _bool5(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2802);
-	}
-
-	void _bool6(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2803);
-	}
-
-	void _bool7(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2804);
-	}
-
-	void _bool8(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2805);
-	}
-
-	void _bool9(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2806);
-	}
-
-	void _bool10(object $instance, object i) {
-		pushObj($instance);
-		pushObj(i);
-		call(2807);
-	}
-
-	void _bool11(object $instance, var& i) {
-		pushObj($instance);
-		pushNum(i.value());
-		call(2808);
-	}
-
-	_int8 op_$not(object $instance) {
-		pushObj($instance);
-		call(2809);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_plus(object $instance) {
-		pushObj($instance);
-		call(2810);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$plus_plus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2811);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_minus(object $instance) {
-		pushObj($instance);
-		call(2812);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	_int8 op_$minus_minus2(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2813);
-
-		_int8 $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2814);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2815);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2816);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2817);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2818);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2819);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2820);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2821);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2822);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2823);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$plus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2824);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2825);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2826);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2827);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2828);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2829);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2830);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2831);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2832);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2833);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2834);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$minus_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2835);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2836);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2837);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2838);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2839);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2840);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2841);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2842);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2843);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2844);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2845);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mult_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2846);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2847);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2848);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2849);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2850);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2851);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2852);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2853);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2854);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2855);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2856);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$div_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2857);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2858);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2859);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2860);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2861);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2862);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2863);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2864);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2865);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2866);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2867);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$mod_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2868);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2869);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2870);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2871);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2872);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2873);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2874);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2875);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2876);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2877);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2878);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$and_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2879);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2880);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal2(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2881);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal3(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2882);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal4(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2883);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal5(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2884);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal6(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2885);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal7(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2886);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal8(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2887);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal9(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2888);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal10(object $instance, object num) {
-		pushObj($instance);
-		pushObj(num);
-		call(2889);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$or_equal11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(2890);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var check_value(object $instance, var& new_val) {
-		pushObj($instance);
-		pushNum(new_val.value());
-		call(2891);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void _bool12(object $instance) {
-		pushObj($instance);
-		call(2892);
-	}
-
-scope_end()
-
-scope_begin(platform) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(4);
-	}
-
-	var load_library(object name) {
-		pushObj(name);
-		call(2896);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var free_library(object name) {
-		pushObj(name);
-		call(2897);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var link(object name, object library) {
-		pushObj(name);
-		pushObj(library);
-		call(2898);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(platform, build) 
-
-	var is_windows() {
-		call(2893);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_linux() {
-		call(2894);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void build(object $instance) {
-		pushObj($instance);
-		call(2895);
-	}
-
-scope_end()
-
-scope_begin(platform_kernel) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(5);
-	}
-
-scope_end()
-
-scope_begin(platform_kernel, stack_state) 
-
-	void stack_state(object $instance) {
-		pushObj($instance);
-		call(2899);
-	}
-
-scope_end()
-
-scope_begin(platform_kernel, platform) 
-
-	void tls_init() {
-		call(2900);
-	}
-
-	void static_init() {
-		call(2901);
-	}
-
-	void exit(var& value) {
-		pushNum(value.value());
-		call(2902);
-	}
-
-	_int8_array get_lib_path(object name) {
-		pushObj(name);
-		call(2903);
-
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
-	}
-
-	var load_library(object name) {
-		pushObj(name);
-		call(2904);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var free_library(object name) {
-		pushObj(name);
-		call(2905);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var link_func(object name, object library) {
-		pushObj(name);
-		pushObj(library);
-		call(2906);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var srt_init(object args) {
-		pushObj(args);
-		call(2907);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void platform(object $instance) {
-		pushObj($instance);
-		call(2908);
-	}
-
-scope_end()
-
-scope_begin(platform_kernel, vm) 
-
-	object get_frame_info() {
-		call(2909);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object get_stack_trace(object info) {
-		pushObj(info);
-		call(2910);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var thread_create(var& daemon) {
-		pushNum(daemon.value());
-		call(2911);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object suspend(object t) {
-		pushObj(t);
-		call(2912);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object unsuspend(object t, var& wait) {
-		pushObj(t);
-		pushNum(wait.value());
-		call(2913);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object thread_join(object t) {
-		pushObj(t);
-		call(2914);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object kill(object t) {
-		pushObj(t);
-		call(2915);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object current_thread() {
-		call(2916);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void exit_thread(object t, var& code) {
-		pushObj(t);
-		pushNum(code.value());
-		call(2917);
-	}
-
-	void thread_yield() {
-		call(2918);
-	}
-
-	object thread_start(object t, object args) {
-		pushObj(t);
-		pushObj(args);
-		call(2919);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object set_thread_priority(object t, var& priority) {
-		pushObj(t);
-		pushNum(priority.value());
-		call(2920);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void set_thread(object t) {
-		pushObj(t);
-		call(2921);
-	}
-
-	object thread_args() {
-		call(2922);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	var cores() {
-		call(2923);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void vm(object $instance) {
-		pushObj($instance);
-		call(2924);
-	}
-
-scope_end()
-
-scope_begin(std_math) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(6);
-	}
-
-	var is_nan(var& v) {
-		pushNum(v.value());
-		call(2925);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var is_infinite(var& v) {
-		pushNum(v.value());
-		call(2926);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var sin(var& num) {
-		pushNum(num.value());
-		call(2927);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var cos(var& num) {
-		pushNum(num.value());
-		call(2928);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var tan(var& num) {
-		pushNum(num.value());
-		call(2929);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var sinh(var& num) {
-		pushNum(num.value());
-		call(2930);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var cosh(var& num) {
-		pushNum(num.value());
-		call(2931);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var tanh(var& num) {
-		pushNum(num.value());
-		call(2932);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var asin(var& num) {
-		pushNum(num.value());
-		call(2933);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var acos(var& num) {
-		pushNum(num.value());
-		call(2934);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var atan(var& num) {
-		pushNum(num.value());
-		call(2935);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var atan2(var& num1, var& num2) {
-		pushNum(num1.value());
-		pushNum(num2.value());
-		call(2936);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var exp(var& num) {
-		pushNum(num.value());
-		call(2937);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var log(var& num) {
-		pushNum(num.value());
-		call(2938);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var log10(var& num) {
-		pushNum(num.value());
-		call(2939);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var pow(var& num, var& exp) {
-		pushNum(num.value());
-		pushNum(exp.value());
-		call(2940);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var sqrt(var& num) {
-		pushNum(num.value());
-		call(2941);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var ceil(var& num) {
-		pushNum(num.value());
-		call(2942);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var floor(var& num) {
-		pushNum(num.value());
-		call(2943);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var abs(var& num) {
-		pushNum(num.value());
-		call(2944);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var fabs(var& num) {
-		pushNum(num.value());
-		call(2945);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var ldexp(var& num, var& num2) {
-		pushNum(num.value());
-		pushNum(num2.value());
-		call(2946);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var fmod(var& num, var& num2) {
-		pushNum(num.value());
-		pushNum(num2.value());
-		call(2947);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var round(var& num) {
-		pushNum(num.value());
-		call(2948);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var math_proc(var& num, var& proc) {
-		pushNum(num.value());
-		pushNum(proc.value());
-		call(2949);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var math_proc2(var& num, var& num2, var& proc) {
-		pushNum(num.value());
-		pushNum(num2.value());
-		pushNum(proc.value());
-		call(2950);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(std, unique) 
-
-	object hash(object $instance) {
-		pushObj($instance);
-		call(2951);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object guid(object $instance) {
-		pushObj($instance);
-		call(2952);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void unique(object $instance) {
-		pushObj($instance);
-		call(2953);
-	}
-
-scope_end()
-
-scope_begin(std_reflect) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(7);
-	}
-
-scope_end()
-
-scope_begin(std_reflect, data_entity) 
-
-	void data_entity(object $instance) {
-		pushObj($instance);
-		call(2954);
-	}
-
-scope_end()
-
-scope_begin(std_reflect, _class_) 
-
-	void _class_(object $instance) {
-		pushObj($instance);
-		call(2955);
-	}
-
-scope_end()
-
-scope_begin(std_reflect, reflect) 
-
-	void reflect(object $instance, object ref_obj) {
-		pushObj($instance);
-		pushObj(ref_obj);
-		call(2956);
-	}
-
-	void reflect2(object $instance) {
-		pushObj($instance);
-		call(2957);
-	}
-
-	void set_reflect_obj(object $instance, object value) {
-		pushObj($instance);
-		pushObj(value);
-		call(3221);
-	}
-
-	object get_reflect_obj(object $instance) {
-		pushObj($instance);
-		call(3222);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(std_reflect, data_property) 
-
-	void data_property(object $instance) {
-		pushObj($instance);
-		call(2958);
-	}
-
-scope_end()
-
-scope_begin(std_reflect, field) 
-
-	void field(object $instance) {
-		pushObj($instance);
-		call(2959);
-	}
-
-scope_end()
-
-scope_begin(std_reflect, function) 
-
-	void function(object $instance) {
-		pushObj($instance);
-		call(2960);
-	}
-
-scope_end()
-
-scope_begin(std, printable) 
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(2961);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void printable(object $instance) {
-		pushObj($instance);
-		call(2962);
-	}
-
-scope_end()
-
-scope_begin(std, time) 
-
-	var nano_time() {
-		call(2963);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var nano_to_micro(var& nano) {
-		pushNum(nano.value());
-		call(2964);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var nano_to_mills(var& nano) {
-		pushNum(nano.value());
-		call(2965);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var nano_to_secs(var& nano) {
-		pushNum(nano.value());
-		call(2966);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var mills_time() {
-		call(2967);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void sleep(var& time) {
-		pushNum(time.value());
-		call(2968);
-	}
-
-	void sleep2(object tm_unit, var& time) {
-		pushObj(tm_unit);
-		pushNum(time.value());
-		call(2969);
-	}
-
-	void wait(object tm_unit, var& time) {
-		pushObj(tm_unit);
-		pushNum(time.value());
-		call(2970);
-	}
-
-	var adjust_time(var& usec) {
-		pushNum(usec.value());
-		call(2971);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var measure(object tm_unit, var& block) {
-		pushObj(tm_unit);
-		pushNum(block.value());
-		call(2972);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void time(object $instance) {
-		pushObj($instance);
-		call(2973);
-	}
-
-	void $03internal_static_init() {
-		call(3267);
-	}
-
-scope_end()
-
-scope_begin(std, _nil_) 
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(2974);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void _nil_(object $instance) {
-		pushObj($instance);
-		call(2975);
-	}
-
-	void set_instance(object value) {
-		pushObj(value);
-		call(3223);
-	}
-
-	void $03internal_static_init() {
-		call(3268);
+		call(1616);
 	}
 
 scope_end()
@@ -13063,18 +371,18 @@ scope_begin(std, throwable)
 	void throwable(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2976);
+		call(1617);
 	}
 
 	void throwable2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2977);
+		call(1618);
 	}
 
 	object get_message(object $instance) {
 		pushObj($instance);
-		call(2978);
+		call(1619);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -13083,12 +391,12 @@ scope_begin(std, throwable)
 
 	void throwable3(object $instance) {
 		pushObj($instance);
-		call(2979);
+		call(1620);
 	}
 
 	object get_stack_trace(object $instance) {
 		pushObj($instance);
-		call(3224);
+		call(3142);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -13102,18 +410,18 @@ scope_begin(std, exception)
 	void exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2980);
+		call(1621);
 	}
 
 	void exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2981);
+		call(1622);
 	}
 
 	void exception3(object $instance) {
 		pushObj($instance);
-		call(2982);
+		call(1623);
 	}
 
 scope_end()
@@ -13123,18 +431,18 @@ scope_begin(std, illegal_argument_exception)
 	void illegal_argument_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2983);
+		call(1624);
 	}
 
 	void illegal_argument_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2984);
+		call(1625);
 	}
 
 	void illegal_argument_exception3(object $instance) {
 		pushObj($instance);
-		call(2985);
+		call(1626);
 	}
 
 scope_end()
@@ -13144,18 +452,18 @@ scope_begin(std, illegal_state_exception)
 	void illegal_state_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2986);
+		call(1627);
 	}
 
 	void illegal_state_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2987);
+		call(1628);
 	}
 
 	void illegal_state_exception3(object $instance) {
 		pushObj($instance);
-		call(2988);
+		call(1629);
 	}
 
 scope_end()
@@ -13165,18 +473,18 @@ scope_begin(std, out_of_bounds_exception)
 	void out_of_bounds_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2989);
+		call(1630);
 	}
 
 	void out_of_bounds_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2990);
+		call(1631);
 	}
 
 	void out_of_bounds_exception3(object $instance) {
 		pushObj($instance);
-		call(2991);
+		call(1632);
 	}
 
 scope_end()
@@ -13186,18 +494,18 @@ scope_begin(std, io_exception)
 	void io_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2992);
+		call(1633);
 	}
 
 	void io_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2993);
+		call(1634);
 	}
 
 	void io_exception3(object $instance) {
 		pushObj($instance);
-		call(2994);
+		call(1635);
 	}
 
 scope_end()
@@ -13207,18 +515,18 @@ scope_begin(std, invalid_operation_exception)
 	void invalid_operation_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2995);
+		call(1636);
 	}
 
 	void invalid_operation_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2996);
+		call(1637);
 	}
 
 	void invalid_operation_exception3(object $instance) {
 		pushObj($instance);
-		call(2997);
+		call(1638);
 	}
 
 scope_end()
@@ -13228,18 +536,18 @@ scope_begin(std, nullptr_exception)
 	void nullptr_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(2998);
+		call(1639);
 	}
 
 	void nullptr_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(2999);
+		call(1640);
 	}
 
 	void nullptr_exception3(object $instance) {
 		pushObj($instance);
-		call(3000);
+		call(1641);
 	}
 
 scope_end()
@@ -13249,18 +557,18 @@ scope_begin(std, runtime_exception)
 	void runtime_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(3001);
+		call(1642);
 	}
 
 	void runtime_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(3002);
+		call(1643);
 	}
 
 	void runtime_exception3(object $instance) {
 		pushObj($instance);
-		call(3003);
+		call(1644);
 	}
 
 scope_end()
@@ -13270,18 +578,18 @@ scope_begin(std, stack_overflow_exception)
 	void stack_overflow_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(3004);
+		call(1645);
 	}
 
 	void stack_overflow_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(3005);
+		call(1646);
 	}
 
 	void stack_overflow_exception3(object $instance) {
 		pushObj($instance);
-		call(3006);
+		call(1647);
 	}
 
 scope_end()
@@ -13291,18 +599,18 @@ scope_begin(std, thread_stack_exception)
 	void thread_stack_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(3007);
+		call(1648);
 	}
 
 	void thread_stack_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(3008);
+		call(1649);
 	}
 
 	void thread_stack_exception3(object $instance) {
 		pushObj($instance);
-		call(3009);
+		call(1650);
 	}
 
 scope_end()
@@ -13312,18 +620,18 @@ scope_begin(std, class_cast_exception)
 	void class_cast_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(3010);
+		call(1651);
 	}
 
 	void class_cast_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(3011);
+		call(1652);
 	}
 
 	void class_cast_exception3(object $instance) {
 		pushObj($instance);
-		call(3012);
+		call(1653);
 	}
 
 scope_end()
@@ -13333,18 +641,18 @@ scope_begin(std, out_of_memory_exception)
 	void out_of_memory_exception(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(3013);
+		call(1654);
 	}
 
 	void out_of_memory_exception2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(3014);
+		call(1655);
 	}
 
 	void out_of_memory_exception3(object $instance) {
 		pushObj($instance);
-		call(3015);
+		call(1656);
 	}
 
 scope_end()
@@ -13354,18 +662,18 @@ scope_begin(std, not_implemented_error)
 	void not_implemented_error(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(3016);
+		call(1657);
 	}
 
 	void not_implemented_error2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(3017);
+		call(1658);
 	}
 
 	void not_implemented_error3(object $instance) {
 		pushObj($instance);
-		call(3018);
+		call(1659);
 	}
 
 scope_end()
@@ -13375,18 +683,12803 @@ scope_begin(std, unsatisfied_link_error)
 	void unsatisfied_link_error(object $instance, _int8_array& message) {
 		pushObj($instance);
 		pushObj(message.handle);
-		call(3019);
+		call(1660);
 	}
 
 	void unsatisfied_link_error2(object $instance, object message) {
 		pushObj($instance);
 		pushObj(message);
-		call(3020);
+		call(1661);
 	}
 
 	void unsatisfied_link_error3(object $instance) {
 		pushObj($instance);
+		call(1662);
+	}
+
+scope_end()
+
+scope_begin(std_io) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(1);
+	}
+
+	void critical_section(var& block) {
+		pushNum(block.value());
+		call(1666);
+	}
+
+	void critical_section2(var& block, object lock_obj) {
+		pushNum(block.value());
+		pushObj(lock_obj);
+		call(1667);
+	}
+
+	void realloc(object data, var& size) {
+		pushObj(data);
+		pushNum(size.value());
+		call(1730);
+	}
+
+	void realloc2(var_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1731);
+	}
+
+	void realloc3(_int8_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1732);
+	}
+
+	void realloc4(_int16_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1733);
+	}
+
+	void realloc5(_int32_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1734);
+	}
+
+	void realloc6(_int64_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1735);
+	}
+
+	void realloc7(_uint8_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1736);
+	}
+
+	void realloc8(_uint16_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1737);
+	}
+
+	void realloc9(_uint32_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1738);
+	}
+
+	void realloc10(_uint64_array& data, var& size) {
+		pushObj(data.handle);
+		pushNum(size.value());
+		call(1739);
+	}
+
+	void memcopy(object src, object dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src);
+		pushObj(dest);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1740);
+	}
+
+	void memcopy2(var_array& src, var_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1741);
+	}
+
+	void memcopy3(_int8_array& src, _int8_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1742);
+	}
+
+	void memcopy4(_int16_array& src, _int16_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1743);
+	}
+
+	void memcopy5(_int32_array& src, _int32_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1744);
+	}
+
+	void memcopy6(_int64_array& src, _int64_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1745);
+	}
+
+	void memcopy7(_uint8_array& src, _uint8_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1746);
+	}
+
+	void memcopy8(_uint16_array& src, _uint16_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1747);
+	}
+
+	void memcopy9(_uint32_array& src, _uint32_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1748);
+	}
+
+	void memcopy10(_uint64_array& src, _uint64_array& dest, var& destStart, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushObj(dest.handle);
+		pushNum(destStart.value());
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1749);
+	}
+
+	object copy(object src, var& srcStart, var& srcEnd) {
+		pushObj(src);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1750);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var_array copy2(var_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1751);
+
+		object $tmpObj = getSpObjAt(0);
+		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int8_array copy3(_int8_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1752);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int16_array copy4(_int16_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1753);
+
+		object $tmpObj = getSpObjAt(0);
+		_int16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int32_array copy5(_int32_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1754);
+
+		object $tmpObj = getSpObjAt(0);
+		_int32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint8_array copy6(_uint8_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1755);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint16_array copy7(_uint16_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1756);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint32_array copy8(_uint32_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1757);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint64_array copy9(_uint64_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1758);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int64_array copy10(_int64_array& src, var& srcStart, var& srcEnd) {
+		pushObj(src.handle);
+		pushNum(srcStart.value());
+		pushNum(srcEnd.value());
+		call(1759);
+
+		object $tmpObj = getSpObjAt(0);
+		_int64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	object invert(object src, var& start, var& len) {
+		pushObj(src);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1760);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var_array invert2(var_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1761);
+
+		object $tmpObj = getSpObjAt(0);
+		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int8_array invert3(_int8_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1762);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int16_array invert4(_int16_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1763);
+
+		object $tmpObj = getSpObjAt(0);
+		_int16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int32_array invert5(_int32_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1764);
+
+		object $tmpObj = getSpObjAt(0);
+		_int32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int64_array invert6(_int64_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1765);
+
+		object $tmpObj = getSpObjAt(0);
+		_int64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint8_array invert7(_uint8_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1766);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint16_array invert8(_uint16_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1767);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint16_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint32_array invert9(_uint32_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1768);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint32_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_uint64_array invert10(_uint64_array& src, var& start, var& len) {
+		pushObj(src.handle);
+		pushNum(start.value());
+		pushNum(len.value());
+		call(1769);
+
+		object $tmpObj = getSpObjAt(0);
+		_uint64_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	void _srt_thread_start() {
+		call(1881);
+	}
+
+	void $03internal_static_init() {
+		call(3282);
+	}
+
+scope_end()
+
+scope_begin(std_io, file) 
+
+	void file(object $instance, object path) {
+		pushObj($instance);
+		pushObj(path);
+		call(1668);
+	}
+
+	void file2(object $instance, _int8_array& path) {
+		pushObj($instance);
+		pushObj(path.handle);
+		call(1669);
+	}
+
+	object get_name(object $instance) {
+		pushObj($instance);
+		call(1670);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(1671);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void update_path(object $instance, object path) {
+		pushObj($instance);
+		pushObj(path);
+		call(1672);
+	}
+
+	object get_parent_file(object $instance) {
+		pushObj($instance);
+		call(1673);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object get_path(object $instance) {
+		pushObj($instance);
+		call(1674);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object get_absolute_path(object $instance) {
+		pushObj($instance);
+		call(1675);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var is_readable(object $instance) {
+		pushObj($instance);
+		call(1676);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_writeable(object $instance) {
+		pushObj($instance);
+		call(1677);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var exists(object $instance) {
+		pushObj($instance);
+		call(1678);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_directory(object $instance) {
+		pushObj($instance);
+		call(1679);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_file(object $instance) {
+		pushObj($instance);
+		call(1680);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_hidden(object $instance) {
+		pushObj($instance);
+		call(1681);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var last_modified(object $instance) {
+		pushObj($instance);
+		call(1682);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var last_status_changed(object $instance) {
+		pushObj($instance);
+		call(1683);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var last_accessed(object $instance) {
+		pushObj($instance);
+		call(1684);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var length(object $instance) {
+		pushObj($instance);
+		call(1685);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void create(object $instance) {
+		pushObj($instance);
+		call(1686);
+	}
+
+	var _delete(object $instance) {
+		pushObj($instance);
+		call(1687);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object list(object $instance) {
+		pushObj($instance);
+		call(1688);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var mkdir(object $instance) {
+		pushObj($instance);
+		call(1689);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var rename(object $instance, object dest) {
+		pushObj($instance);
+		pushObj(dest);
+		call(1690);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_last_modified(object $instance, var& time) {
+		pushObj($instance);
+		pushNum(time.value());
+		call(1691);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_read_only(object $instance) {
+		pushObj($instance);
+		call(1692);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_writable(object $instance, var& writable, var& owner_only) {
+		pushObj($instance);
+		pushNum(writable.value());
+		pushNum(owner_only.value());
+		call(1693);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_writable2(object $instance, var& writable) {
+		pushObj($instance);
+		pushNum(writable.value());
+		call(1694);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_readable(object $instance, var& readable, var& owner_only) {
+		pushObj($instance);
+		pushNum(readable.value());
+		pushNum(owner_only.value());
+		call(1695);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_readable2(object $instance, var& readable) {
+		pushObj($instance);
+		pushNum(readable.value());
+		call(1696);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_executable(object $instance, var& executable, var& owner_only) {
+		pushObj($instance);
+		pushNum(executable.value());
+		pushNum(owner_only.value());
+		call(1697);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_executable2(object $instance, var& executable) {
+		pushObj($instance);
+		pushNum(executable.value());
+		call(1698);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_executable(object $instance) {
+		pushObj($instance);
+		call(1699);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_total_space(object $instance) {
+		pushObj($instance);
+		call(1700);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_free_space(object $instance) {
+		pushObj($instance);
+		call(1701);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_usable_space(object $instance) {
+		pushObj($instance);
+		call(1702);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object generate_temp_file(object prefix, object suffix, object dir) {
+		pushObj(prefix);
+		pushObj(suffix);
+		pushObj(dir);
+		call(1703);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object create_temp_file(object prefix, object suffix, object directory) {
+		pushObj(prefix);
+		pushObj(suffix);
+		pushObj(directory);
+		call(1704);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object create_temp_file2(object prefix, object suffix) {
+		pushObj(prefix);
+		pushObj(suffix);
+		call(1705);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object read_all_text(object $instance) {
+		pushObj($instance);
+		call(1706);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var write(object $instance, object data) {
+		pushObj($instance);
+		pushObj(data);
+		call(1707);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object get_file_system() {
+		call(1708);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void file3(object $instance) {
+		pushObj($instance);
+		call(1709);
+	}
+
+	void $03internal_static_init() {
+		call(3283);
+	}
+
+scope_end()
+
+scope_begin(std_io, file_system) 
+
+	var path_separator(object $instance) {
+		pushObj($instance);
+		call(1710);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object normalize(object $instance, object path) {
+		pushObj($instance);
+		pushObj(path);
+		call(1711);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object resolve(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1712);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var get_attributes(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1713);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var check_access(object $instance, object f, var& access) {
+		pushObj($instance);
+		pushObj(f);
+		pushNum(access.value());
+		call(1714);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_permission(object $instance, object f, var& access, var& enable, var& owneronly) {
+		pushObj($instance);
+		pushObj(f);
+		pushNum(access.value());
+		pushNum(enable.value());
+		pushNum(owneronly.value());
+		call(1715);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var last_modified_time(object $instance, object f, var& stat_id) {
+		pushObj($instance);
+		pushObj(f);
+		pushNum(stat_id.value());
+		call(1716);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_length(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1717);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void create_file(object $instance, object pathname) {
+		pushObj($instance);
+		pushObj(pathname);
+		call(1718);
+	}
+
+	var delete_directory(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1719);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var _delete(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1720);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object list(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1721);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var create_directory(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1722);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var rename(object $instance, object f1, object f2) {
+		pushObj($instance);
+		pushObj(f1);
+		pushObj(f2);
+		call(1723);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object read(object f) {
+		pushObj(f);
+		call(1724);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var write(object f, object data) {
+		pushObj(f);
+		pushObj(data);
+		call(1725);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_last_modified_time(object $instance, object f, var& time) {
+		pushObj($instance);
+		pushObj(f);
+		pushNum(time.value());
+		call(1726);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_read_only(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1727);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_space_available(var& request) {
+		pushNum(request.value());
+		call(1728);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void file_system(object $instance) {
+		pushObj($instance);
+		call(1729);
+	}
+
+scope_end()
+
+scope_begin(std_io_task) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(2);
+	}
+
+	void start_scheduler() {
+		call(1815);
+	}
+
+	void calculate_max_threads() {
+		call(1816);
+	}
+
+	var scheduler_main(object args) {
+		pushObj(args);
+		call(1817);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object get_host(var& long_running) {
+		pushNum(long_running.value());
+		call(1818);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void execute_synchronous(object scheduled_job) {
+		pushObj(scheduled_job);
+		call(1819);
+	}
+
+	var execute_job(object scheduled_job) {
+		pushObj(scheduled_job);
+		call(1820);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void finish() {
+		call(1821);
+	}
+
+	void $03internal_static_init() {
+		call(3285);
+	}
+
+	var anon_func$3298(object it, object it2) {
+		pushObj(it);
+		pushObj(it2);
+		call(3298);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var anon_func$3299(object t) {
+		pushObj(t);
+		call(3299);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(std_io_task, cancellation_exception) 
+
+	void cancellation_exception(object $instance, _int8_array& message) {
+		pushObj($instance);
+		pushObj(message.handle);
+		call(1770);
+	}
+
+	void cancellation_exception2(object $instance, object message) {
+		pushObj($instance);
+		pushObj(message);
+		call(1771);
+	}
+
+	void cancellation_exception3(object $instance) {
+		pushObj($instance);
+		call(1772);
+	}
+
+scope_end()
+
+scope_begin(std_io_task, job) 
+
+	void job(object $instance) {
+		pushObj($instance);
+		call(1773);
+	}
+
+	void job2(object $instance, object name) {
+		pushObj($instance);
+		pushObj(name);
+		call(1774);
+	}
+
+	var execute_async(object $instance) {
+		pushObj($instance);
+		call(1775);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void cancel(object $instance) {
+		pushObj($instance);
+		call(1776);
+	}
+
+	void cancel_future(object $instance) {
+		pushObj($instance);
+		call(1777);
+	}
+
+	void join(object $instance) {
+		pushObj($instance);
+		call(1778);
+	}
+
+	object get_state(object $instance) {
+		pushObj($instance);
+		call(1779);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object get_name(object $instance) {
+		pushObj($instance);
+		call(1780);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var get_id(object $instance) {
+		pushObj($instance);
+		call(1781);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void op_$equals(object $instance, var& block) {
+		pushObj($instance);
+		pushNum(block.value());
+		call(1782);
+	}
+
+	void op_$equals2(object $instance, var& block) {
+		pushObj($instance);
+		pushNum(block.value());
+		call(1783);
+	}
+
+	void op_$equals3(object $instance, var& block) {
+		pushObj($instance);
+		pushNum(block.value());
+		call(1784);
+	}
+
+	void op_$equals4(object $instance, var& block) {
+		pushObj($instance);
+		pushNum(block.value());
+		call(1785);
+	}
+
+	var job_main(object args) {
+		pushObj(args);
+		call(1786);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void execute(object $instance) {
+		pushObj($instance);
+		call(1787);
+	}
+
+	var is_finished(object $instance) {
+		pushObj($instance);
+		call(1788);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_active(object $instance) {
+		pushObj($instance);
+		call(1789);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void update_timeout(object $instance, var& tm) {
+		pushObj($instance);
+		pushNum(tm.value());
+		call(1790);
+	}
+
+	void update_interval(object $instance, var& tm, object interval) {
+		pushObj($instance);
+		pushNum(tm.value());
+		pushObj(interval);
+		call(1791);
+	}
+
+	void reschedule(object $instance) {
+		pushObj($instance);
+		call(1792);
+	}
+
+	void $03internal_static_init() {
+		call(3284);
+	}
+
+scope_end()
+
+scope_begin(std_io_task, job_builder) 
+
+	void job_builder(object $instance) {
+		pushObj($instance);
+		call(1793);
+	}
+
+	void job_builder2(object $instance, object scheduled_job, object master) {
+		pushObj($instance);
+		pushObj(scheduled_job);
+		pushObj(master);
+		call(1794);
+	}
+
+	object with_timeout(object $instance, var& mills_time) {
+		pushObj($instance);
+		pushNum(mills_time.value());
+		call(1795);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object schedule(object $instance, var& future) {
+		pushObj($instance);
+		pushNum(future.value());
+		call(1796);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object recurring(object $instance, var& tm, object interval) {
+		pushObj($instance);
+		pushNum(tm.value());
+		pushObj(interval);
+		call(1797);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object with_name(object $instance, object job_name) {
+		pushObj($instance);
+		pushObj(job_name);
+		call(1798);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object with_args(object $instance, object args) {
+		pushObj($instance);
+		pushObj(args);
+		call(1799);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object block(object $instance) {
+		pushObj($instance);
+		call(1800);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object long_term(object $instance) {
+		pushObj($instance);
+		call(1801);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$equals(object $instance, var& main) {
+		pushObj($instance);
+		pushNum(main.value());
+		call(1802);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$equals2(object $instance, var& main) {
+		pushObj($instance);
+		pushNum(main.value());
+		call(1803);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$equals3(object $instance, var& main) {
+		pushObj($instance);
+		pushNum(main.value());
+		call(1804);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$equals4(object $instance, var& main) {
+		pushObj($instance);
+		pushNum(main.value());
+		call(1805);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object get_job(object $instance) {
+		pushObj($instance);
+		call(1806);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(std_io_task, job_controller) 
+
+	void job_controller(object $instance) {
+		pushObj($instance);
+		call(1807);
+	}
+
+scope_end()
+
+scope_begin(std_io_task, job_master) 
+
+	void job_master(object $instance) {
+		pushObj($instance);
+		call(1808);
+	}
+
+	object op_$equals(object $instance, var& main) {
+		pushObj($instance);
+		pushNum(main.value());
+		call(1809);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object create_job(object $instance) {
+		pushObj($instance);
+		call(1810);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object create_job2(object $instance, object name) {
+		pushObj($instance);
+		pushObj(name);
+		call(1811);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void start_job(object $instance, object scheduled_job) {
+		pushObj($instance);
+		pushObj(scheduled_job);
+		call(1812);
+	}
+
+	object get_host_controller(object $instance, object host) {
+		pushObj($instance);
+		pushObj(host);
+		call(1813);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void cleanup_job(object $instance, object scheduled_job) {
+		pushObj($instance);
+		pushObj(scheduled_job);
+		call(1814);
+	}
+
+scope_end()
+
+scope_begin(std_io_task, task) 
+
+	object with_timeout(var& mills_time) {
+		pushNum(mills_time.value());
+		call(1822);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object schedule(var& future) {
+		pushNum(future.value());
+		call(1823);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object with_name(object job_name) {
+		pushObj(job_name);
+		call(1824);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object with_args(object args) {
+		pushObj(args);
+		call(1825);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object block() {
+		call(1826);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object long_term() {
+		call(1827);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object builder() {
+		call(1828);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void task(object $instance) {
+		pushObj($instance);
+		call(1829);
+	}
+
+scope_end()
+
+scope_begin(std_io, thread) 
+
+	void thread(object $instance) {
+		pushObj($instance);
+		call(1830);
+	}
+
+	void thread2(object $instance, object name, var& main) {
+		pushObj($instance);
+		pushObj(name);
+		pushNum(main.value());
+		call(1831);
+	}
+
+	void thread3(object $instance, object name, var& daemon, var& main) {
+		pushObj($instance);
+		pushObj(name);
+		pushNum(daemon.value());
+		pushNum(main.value());
+		call(1832);
+	}
+
+	void thread4(object $instance, object name, var& main, var& stack_size) {
+		pushObj($instance);
+		pushObj(name);
+		pushNum(main.value());
+		pushNum(stack_size.value());
+		call(1833);
+	}
+
+	void thread5(object $instance, object name, var& daemon, var& main, var& stack_size) {
+		pushObj($instance);
+		pushObj(name);
+		pushNum(daemon.value());
+		pushNum(main.value());
+		pushNum(stack_size.value());
+		call(1834);
+	}
+
+	void thread6(object $instance, object name, var& main, var& stack_size, object group) {
+		pushObj($instance);
+		pushObj(name);
+		pushNum(main.value());
+		pushNum(stack_size.value());
+		pushObj(group);
+		call(1835);
+	}
+
+	void thread7(object $instance, object name, var& main, object group) {
+		pushObj($instance);
+		pushObj(name);
+		pushNum(main.value());
+		pushObj(group);
+		call(1836);
+	}
+
+	void thread8(object $instance, object name, var& daemon, var& main, var& stack_size, object group) {
+		pushObj($instance);
+		pushObj(name);
+		pushNum(daemon.value());
+		pushNum(main.value());
+		pushNum(stack_size.value());
+		pushObj(group);
+		call(1837);
+	}
+
+	object start(object $instance, object args) {
+		pushObj($instance);
+		pushObj(args);
+		call(1838);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object start2(object $instance) {
+		pushObj($instance);
+		call(1839);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object suspend(object $instance) {
+		pushObj($instance);
+		call(1840);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object notify(object $instance) {
+		pushObj($instance);
+		call(1841);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object notify_and_wait(object $instance) {
+		pushObj($instance);
+		call(1842);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object join(object $instance) {
+		pushObj($instance);
+		call(1843);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object interrupt(object $instance) {
+		pushObj($instance);
+		call(1844);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object current() {
+		call(1845);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void sleep(var& mills_time) {
+		pushNum(mills_time.value());
+		call(1846);
+	}
+
+	void wait() {
+		call(1847);
+	}
+
+	void wait2(var& mills_time) {
+		pushNum(mills_time.value());
+		call(1848);
+	}
+
+	void exit(var& code) {
+		pushNum(code.value());
+		call(1849);
+	}
+
+	object hash(object $instance) {
+		pushObj($instance);
+		call(1850);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void yield() {
+		call(1851);
+	}
+
+	void set_exception_handler(object $instance, object error_handler) {
+		pushObj($instance);
+		pushObj(error_handler);
+		call(1852);
+	}
+
+	object set_priority(object $instance, object priority) {
+		pushObj($instance);
+		pushObj(priority);
+		call(1853);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void remove_thread(object $instance, object t) {
+		pushObj($instance);
+		pushObj(t);
+		call(1854);
+	}
+
+	var get_id(object $instance) {
+		pushObj($instance);
+		call(1855);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_native_handle(object $instance) {
+		pushObj($instance);
+		call(1856);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_stack_size(object $instance) {
+		pushObj($instance);
+		call(1857);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object get_name(object $instance) {
+		pushObj($instance);
+		call(1858);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var is_exited(object $instance) {
+		pushObj($instance);
+		call(1859);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_daemon(object $instance) {
+		pushObj($instance);
+		call(1860);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_started(object $instance) {
+		pushObj($instance);
+		call(1861);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_suspended(object $instance) {
+		pushObj($instance);
+		call(1862);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_terminated(object $instance) {
+		pushObj($instance);
+		call(1863);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var set_main(object $instance, var& main) {
+		pushObj($instance);
+		pushNum(main.value());
+		call(1864);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_active(object $instance) {
+		pushObj($instance);
+		call(1865);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var get_exit_code(object $instance) {
+		pushObj($instance);
+		call(1866);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object get_exception_handler(object $instance) {
+		pushObj($instance);
+		call(1867);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object t) {
+		pushObj($instance);
+		pushObj(t);
+		call(1868);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(std_io, thread_group) 
+
+	void thread_group(object $instance, object name) {
+		pushObj($instance);
+		pushObj(name);
+		call(1869);
+	}
+
+	void thread_group2(object $instance, object name, object priority) {
+		pushObj($instance);
+		pushObj(name);
+		pushObj(priority);
+		call(1870);
+	}
+
+	object at(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(1871);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void add(object $instance, object t) {
+		pushObj($instance);
+		pushObj(t);
+		call(1872);
+	}
+
+	var size(object $instance) {
+		pushObj($instance);
+		call(1873);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object get_name(object $instance) {
+		pushObj($instance);
+		call(1874);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object get_priority(object $instance) {
+		pushObj($instance);
+		call(1875);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var remove(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(1876);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object get_elements(object $instance) {
+		pushObj($instance);
+		call(1877);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object find(object $instance, var& find_func) {
+		pushObj($instance);
+		pushNum(find_func.value());
+		call(1878);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void kill_all(object $instance) {
+		pushObj($instance);
+		call(1879);
+	}
+
+	void thread_group3(object $instance) {
+		pushObj($instance);
+		call(1880);
+	}
+
+	void $03internal_static_init() {
+		call(3286);
+	}
+
+scope_end()
+
+scope_begin(std_io, thread_result) 
+
+	object at(var& index) {
+		pushNum(index.value());
+		call(1882);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void thread_result(object $instance) {
+		pushObj($instance);
+		call(1883);
+	}
+
+	void $03internal_static_init() {
+		call(3297);
+	}
+
+scope_end()
+
+scope_begin(std_io, uncaught_exception_handler) 
+
+	void uncaught_exception(object $instance, object err) {
+		pushObj($instance);
+		pushObj(err);
+		call(1884);
+	}
+
+	void uncaught_exception_handler(object $instance) {
+		pushObj($instance);
+		call(1885);
+	}
+
+scope_end()
+
+scope_begin(std_io, unix_fs) 
+
+	var path_separator(object $instance) {
+		pushObj($instance);
+		call(1886);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object normalize(object $instance, object pathname) {
+		pushObj($instance);
+		pushObj(pathname);
+		call(1887);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var get_attributes(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1888);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var check_access(object $instance, object f, var& access) {
+		pushObj($instance);
+		pushObj(f);
+		pushNum(access.value());
+		call(1889);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void unix_fs(object $instance) {
+		pushObj($instance);
+		call(1890);
+	}
+
+scope_end()
+
+scope_begin(std_io, win_fs) 
+
+	var path_separator(object $instance) {
+		pushObj($instance);
+		call(1891);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object normalize(object $instance, object pathname) {
+		pushObj($instance);
+		pushObj(pathname);
+		call(1892);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var get_attributes(object $instance, object f) {
+		pushObj($instance);
+		pushObj(f);
+		call(1893);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var check_access(object $instance, object f, var& access) {
+		pushObj($instance);
+		pushObj(f);
+		pushNum(access.value());
+		call(1894);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void win_fs(object $instance) {
+		pushObj($instance);
+		call(1895);
+	}
+
+scope_end()
+
+scope_begin(std_math) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(3);
+	}
+
+	var is_nan(var& v) {
+		pushNum(v.value());
+		call(1896);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_infinite(var& v) {
+		pushNum(v.value());
+		call(1897);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var sin(var& num) {
+		pushNum(num.value());
+		call(1898);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var cos(var& num) {
+		pushNum(num.value());
+		call(1899);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var tan(var& num) {
+		pushNum(num.value());
+		call(1900);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var sinh(var& num) {
+		pushNum(num.value());
+		call(1901);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var cosh(var& num) {
+		pushNum(num.value());
+		call(1902);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var tanh(var& num) {
+		pushNum(num.value());
+		call(1903);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var asin(var& num) {
+		pushNum(num.value());
+		call(1904);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var acos(var& num) {
+		pushNum(num.value());
+		call(1905);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var atan(var& num) {
+		pushNum(num.value());
+		call(1906);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var atan2(var& num1, var& num2) {
+		pushNum(num1.value());
+		pushNum(num2.value());
+		call(1907);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var exp(var& num) {
+		pushNum(num.value());
+		call(1908);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var log(var& num) {
+		pushNum(num.value());
+		call(1909);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var log10(var& num) {
+		pushNum(num.value());
+		call(1910);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var pow(var& num, var& exp) {
+		pushNum(num.value());
+		pushNum(exp.value());
+		call(1911);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var sqrt(var& num) {
+		pushNum(num.value());
+		call(1912);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var ceil(var& num) {
+		pushNum(num.value());
+		call(1913);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var floor(var& num) {
+		pushNum(num.value());
+		call(1914);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var abs(var& num) {
+		pushNum(num.value());
+		call(1915);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var fabs(var& num) {
+		pushNum(num.value());
+		call(1916);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var ldexp(var& num, var& num2) {
+		pushNum(num.value());
+		pushNum(num2.value());
+		call(1917);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var fmod(var& num, var& num2) {
+		pushNum(num.value());
+		pushNum(num2.value());
+		call(1918);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var round(var& num) {
+		pushNum(num.value());
+		call(1919);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var math_proc(var& num, var& proc) {
+		pushNum(num.value());
+		pushNum(proc.value());
+		call(1920);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var math_proc2(var& num, var& num2, var& proc) {
+		pushNum(num.value());
+		pushNum(num2.value());
+		pushNum(proc.value());
+		call(1921);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(std, _nil_) 
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(1922);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void _nil_(object $instance) {
+		pushObj($instance);
+		call(1923);
+	}
+
+	void set_instance(object value) {
+		pushObj(value);
+		call(3245);
+	}
+
+	void $03internal_static_init() {
+		call(3287);
+	}
+
+scope_end()
+
+scope_begin(std, _object_) 
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(1924);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object hash(object $instance) {
+		pushObj($instance);
+		call(1925);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object guid(object $instance) {
+		pushObj($instance);
+		call(1926);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void _object_(object $instance) {
+		pushObj($instance);
+		call(1927);
+	}
+
+scope_end()
+
+scope_begin(platform) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(4);
+	}
+
+	void load_library(object name) {
+		pushObj(name);
+		call(1931);
+	}
+
+	var free_library(object name) {
+		pushObj(name);
+		call(1932);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var link(object name, object library) {
+		pushObj(name);
+		pushObj(library);
+		call(1933);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(platform, build) 
+
+	var is_windows() {
+		call(1928);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_linux() {
+		call(1929);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void build(object $instance) {
+		pushObj($instance);
+		call(1930);
+	}
+
+scope_end()
+
+scope_begin(platform_kernel) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(5);
+	}
+
+scope_end()
+
+scope_begin(platform_kernel, platform) 
+
+	void tls_init() {
+		call(1934);
+	}
+
+	void static_init() {
+		call(1935);
+	}
+
+	void exit(var& value) {
+		pushNum(value.value());
+		call(1936);
+	}
+
+	_int8_array get_lib_path(object name) {
+		pushObj(name);
+		call(1937);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	void load_library(object name) {
+		pushObj(name);
+		call(1938);
+	}
+
+	var free_library(object name) {
+		pushObj(name);
+		call(1939);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var link_func(object name, object library) {
+		pushObj(name);
+		pushObj(library);
+		call(1940);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var srt_init(object args) {
+		pushObj(args);
+		call(1941);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void platform(object $instance) {
+		pushObj($instance);
+		call(1942);
+	}
+
+scope_end()
+
+scope_begin(platform_kernel, stack_state) 
+
+	void stack_state(object $instance) {
+		pushObj($instance);
+		call(1943);
+	}
+
+scope_end()
+
+scope_begin(platform_kernel, vm) 
+
+	object get_frame_info() {
+		call(1944);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object get_stack_trace(object info) {
+		pushObj(info);
+		call(1945);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var thread_create(var& daemon) {
+		pushNum(daemon.value());
+		call(1946);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object suspend(object t) {
+		pushObj(t);
+		call(1947);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object unsuspend(object t, var& wait) {
+		pushObj(t);
+		pushNum(wait.value());
+		call(1948);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object thread_join(object t) {
+		pushObj(t);
+		call(1949);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object kill(object t) {
+		pushObj(t);
+		call(1950);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object current_thread() {
+		call(1951);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void exit_thread(object t, var& code) {
+		pushObj(t);
+		pushNum(code.value());
+		call(1952);
+	}
+
+	void thread_yield() {
+		call(1953);
+	}
+
+	object thread_start(object t, object args) {
+		pushObj(t);
+		pushObj(args);
+		call(1954);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object set_thread_priority(object t, var& priority) {
+		pushObj(t);
+		pushNum(priority.value());
+		call(1955);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void set_thread(object t) {
+		pushObj(t);
+		call(1956);
+	}
+
+	object thread_args() {
+		call(1957);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var cores() {
+		call(1958);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void vm(object $instance) {
+		pushObj($instance);
+		call(1959);
+	}
+
+scope_end()
+
+scope_begin(std, ulong) 
+
+	void ulong(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1960);
+	}
+
+	void ulong2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1961);
+	}
+
+	void ulong3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1962);
+	}
+
+	void ulong4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1963);
+	}
+
+	void ulong5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1964);
+	}
+
+	void ulong6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1965);
+	}
+
+	void ulong7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1966);
+	}
+
+	void ulong8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1967);
+	}
+
+	void ulong9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1968);
+	}
+
+	void ulong10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(1969);
+	}
+
+	void ulong11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(1970);
+	}
+
+	_uint64 op_$not(object $instance) {
+		pushObj($instance);
+		call(1971);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(1972);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(1973);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(1974);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(1975);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1976);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1977);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1978);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1979);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1980);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1981);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1982);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1983);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1984);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1985);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(1986);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1987);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1988);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1989);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1990);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1991);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1992);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1993);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1994);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1995);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1996);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(1997);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1998);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1999);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2000);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2001);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2002);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2003);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2004);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2005);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2006);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2007);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2008);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2009);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2010);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2011);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2012);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2013);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2014);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2015);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2016);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2017);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2018);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2019);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2020);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2021);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2022);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2023);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2024);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2025);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2026);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2027);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2028);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2029);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2030);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2031);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2032);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2033);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2034);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2035);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2036);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2037);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2038);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2039);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2040);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2041);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2042);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2043);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2044);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2045);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2046);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2047);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2048);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2049);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2050);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2051);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint64 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2052);
+
+		_uint64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void ulong12(object $instance) {
+		pushObj($instance);
+		call(2053);
+	}
+
+scope_end()
+
+scope_begin(std, _long) 
+
+	void _long(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2054);
+	}
+
+	void _long2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2055);
+	}
+
+	void _long3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2056);
+	}
+
+	void _long4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2057);
+	}
+
+	void _long5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2058);
+	}
+
+	void _long6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2059);
+	}
+
+	void _long7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2060);
+	}
+
+	void _long8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2061);
+	}
+
+	void _long9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2062);
+	}
+
+	void _long10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2063);
+	}
+
+	void _long11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2064);
+	}
+
+	_int64 op_$not(object $instance) {
+		pushObj($instance);
+		call(2065);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2066);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2067);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2068);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2069);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2070);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2071);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2072);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2073);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2074);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2075);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2076);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2077);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2078);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2079);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2080);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2081);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2082);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2083);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2084);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2085);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2086);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2087);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2088);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2089);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2090);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2091);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2092);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2093);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2094);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2095);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2096);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2097);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2098);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2099);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2100);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2101);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2102);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2103);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2104);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2105);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2106);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2107);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2108);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2109);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2110);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2111);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2112);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2113);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2114);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2115);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2116);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2117);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2118);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2119);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2120);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2121);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2122);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2123);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2124);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2125);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2126);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2127);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2128);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2129);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2130);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2131);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2132);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2133);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2134);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2135);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2136);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2137);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2138);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2139);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2140);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2141);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2142);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2143);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2144);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2145);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int64 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2146);
+
+		_int64 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void _long12(object $instance) {
+		pushObj($instance);
+		call(2147);
+	}
+
+scope_end()
+
+scope_begin(std, uint) 
+
+	void uint(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2148);
+	}
+
+	void uint2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2149);
+	}
+
+	void uint3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2150);
+	}
+
+	void uint4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2151);
+	}
+
+	void uint5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2152);
+	}
+
+	void uint6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2153);
+	}
+
+	void uint7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2154);
+	}
+
+	void uint8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2155);
+	}
+
+	void uint9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2156);
+	}
+
+	void uint10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2157);
+	}
+
+	void uint11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2158);
+	}
+
+	_uint32 op_$not(object $instance) {
+		pushObj($instance);
+		call(2159);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2160);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2161);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2162);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2163);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2164);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2165);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2166);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2167);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2168);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2169);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2170);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2171);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2172);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2173);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2174);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2175);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2176);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2177);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2178);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2179);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2180);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2181);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2182);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2183);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2184);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2185);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2186);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2187);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2188);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2189);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2190);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2191);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2192);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2193);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2194);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2195);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2196);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2197);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2198);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2199);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2200);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2201);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2202);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2203);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2204);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2205);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2206);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2207);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2208);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2209);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2210);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2211);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2212);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2213);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2214);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2215);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2216);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2217);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2218);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2219);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2220);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2221);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2222);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2223);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2224);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2225);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2226);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2227);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2228);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2229);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2230);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2231);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2232);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2233);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2234);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2235);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2236);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2237);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2238);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2239);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint32 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2240);
+
+		_uint32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void uint12(object $instance) {
+		pushObj($instance);
+		call(2241);
+	}
+
+scope_end()
+
+scope_begin(std, _int) 
+
+	void _int(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2242);
+	}
+
+	void _int2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2243);
+	}
+
+	void _int3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2244);
+	}
+
+	void _int4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2245);
+	}
+
+	void _int5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2246);
+	}
+
+	void _int6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2247);
+	}
+
+	void _int7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2248);
+	}
+
+	void _int8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2249);
+	}
+
+	void _int9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2250);
+	}
+
+	void _int10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2251);
+	}
+
+	void _int11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2252);
+	}
+
+	_int32 op_$not(object $instance) {
+		pushObj($instance);
+		call(2253);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2254);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2255);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2256);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2257);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2258);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2259);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2260);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2261);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2262);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2263);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2264);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2265);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2266);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2267);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2268);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2269);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2270);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2271);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2272);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2273);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2274);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2275);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2276);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2277);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2278);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2279);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2280);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2281);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2282);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2283);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2284);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2285);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2286);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2287);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2288);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2289);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2290);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2291);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2292);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2293);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2294);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2295);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2296);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2297);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2298);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2299);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2300);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2301);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2302);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2303);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2304);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2305);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2306);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2307);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2308);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2309);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2310);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2311);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2312);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2313);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2314);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2315);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2316);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2317);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2318);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2319);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2320);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2321);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2322);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2323);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2324);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2325);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2326);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2327);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2328);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2329);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2330);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2331);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2332);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2333);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int32 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2334);
+
+		_int32 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void _int12(object $instance) {
+		pushObj($instance);
+		call(2335);
+	}
+
+scope_end()
+
+scope_begin(std, ushort) 
+
+	void ushort(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2336);
+	}
+
+	void ushort2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2337);
+	}
+
+	void ushort3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2338);
+	}
+
+	void ushort4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2339);
+	}
+
+	void ushort5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2340);
+	}
+
+	void ushort6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2341);
+	}
+
+	void ushort7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2342);
+	}
+
+	void ushort8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2343);
+	}
+
+	void ushort9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2344);
+	}
+
+	void ushort10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2345);
+	}
+
+	void ushort11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2346);
+	}
+
+	_uint16 op_$not(object $instance) {
+		pushObj($instance);
+		call(2347);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2348);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2349);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2350);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2351);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2352);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2353);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2354);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2355);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2356);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2357);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2358);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2359);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2360);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2361);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2362);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2363);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2364);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2365);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2366);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2367);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2368);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2369);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2370);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2371);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2372);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2373);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2374);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2375);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2376);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2377);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2378);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2379);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2380);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2381);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2382);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2383);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2384);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2385);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2386);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2387);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2388);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2389);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2390);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2391);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2392);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2393);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2394);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2395);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2396);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2397);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2398);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2399);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2400);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2401);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2402);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2403);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2404);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2405);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2406);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2407);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2408);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2409);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2410);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2411);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2412);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2413);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2414);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2415);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2416);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2417);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2418);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2419);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2420);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2421);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2422);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2423);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2424);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2425);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2426);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2427);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint16 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2428);
+
+		_uint16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void ushort12(object $instance) {
+		pushObj($instance);
+		call(2429);
+	}
+
+scope_end()
+
+scope_begin(std, _short) 
+
+	void _short(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2430);
+	}
+
+	void _short2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2431);
+	}
+
+	void _short3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2432);
+	}
+
+	void _short4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2433);
+	}
+
+	void _short5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2434);
+	}
+
+	void _short6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2435);
+	}
+
+	void _short7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2436);
+	}
+
+	void _short8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2437);
+	}
+
+	void _short9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2438);
+	}
+
+	void _short10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2439);
+	}
+
+	void _short11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2440);
+	}
+
+	_int16 op_$not(object $instance) {
+		pushObj($instance);
+		call(2441);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2442);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2443);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2444);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2445);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2446);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2447);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2448);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2449);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2450);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2451);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2452);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2453);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2454);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2455);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2456);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2457);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2458);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2459);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2460);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2461);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2462);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2463);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2464);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2465);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2466);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2467);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2468);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2469);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2470);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2471);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2472);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2473);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2474);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2475);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2476);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2477);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2478);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2479);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2480);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2481);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2482);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2483);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2484);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2485);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2486);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2487);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2488);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2489);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2490);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2491);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2492);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2493);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2494);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2495);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2496);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2497);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2498);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2499);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2500);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2501);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2502);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2503);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2504);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2505);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2506);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2507);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2508);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2509);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2510);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2511);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2512);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2513);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2514);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2515);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2516);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2517);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2518);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2519);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2520);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2521);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int16 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2522);
+
+		_int16 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void _short12(object $instance) {
+		pushObj($instance);
+		call(2523);
+	}
+
+scope_end()
+
+scope_begin(std, uchar) 
+
+	void uchar(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2524);
+	}
+
+	void uchar2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2525);
+	}
+
+	void uchar3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2526);
+	}
+
+	void uchar4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2527);
+	}
+
+	void uchar5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2528);
+	}
+
+	void uchar6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2529);
+	}
+
+	void uchar7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2530);
+	}
+
+	void uchar8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2531);
+	}
+
+	void uchar9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2532);
+	}
+
+	void uchar10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2533);
+	}
+
+	void uchar11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2534);
+	}
+
+	_uint8 op_$not(object $instance) {
+		pushObj($instance);
+		call(2535);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2536);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2537);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2538);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2539);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2540);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2541);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2542);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2543);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2544);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2545);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2546);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2547);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2548);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2549);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2550);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2551);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2552);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2553);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2554);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2555);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2556);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2557);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2558);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2559);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2560);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2561);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2562);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2563);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2564);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2565);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2566);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2567);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2568);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2569);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2570);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2571);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2572);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2573);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2574);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2575);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2576);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2577);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2578);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2579);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2580);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2581);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2582);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2583);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2584);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2585);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2586);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2587);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2588);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2589);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2590);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2591);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2592);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2593);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2594);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2595);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2596);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2597);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2598);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2599);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2600);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2601);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2602);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2603);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2604);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2605);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2606);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2607);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2608);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2609);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2610);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2611);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2612);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2613);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2614);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2615);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2616);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void uchar12(object $instance) {
+		pushObj($instance);
+		call(2617);
+	}
+
+scope_end()
+
+scope_begin(std, _char) 
+
+	void _char(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2618);
+	}
+
+	void _char2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2619);
+	}
+
+	void _char3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2620);
+	}
+
+	void _char4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2621);
+	}
+
+	void _char5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2622);
+	}
+
+	void _char6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2623);
+	}
+
+	void _char7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2624);
+	}
+
+	void _char8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2625);
+	}
+
+	void _char9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2626);
+	}
+
+	void _char10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2627);
+	}
+
+	void _char11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2628);
+	}
+
+	_int8 op_$not(object $instance) {
+		pushObj($instance);
+		call(2629);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2630);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2631);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2632);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2633);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2634);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2635);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2636);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2637);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2638);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2639);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2640);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2641);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2642);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2643);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2644);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2645);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2646);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2647);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2648);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2649);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2650);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2651);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2652);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2653);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2654);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2655);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2656);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2657);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2658);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2659);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2660);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2661);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2662);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2663);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2664);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2665);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2666);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2667);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2668);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2669);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2670);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2671);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2672);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2673);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2674);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2675);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2676);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2677);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2678);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2679);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2680);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2681);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2682);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2683);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2684);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2685);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2686);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2687);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2688);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2689);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2690);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2691);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2692);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2693);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2694);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2695);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2696);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2697);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2698);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2699);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2700);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2701);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2702);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2703);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2704);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2705);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2706);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2707);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2708);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2709);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2710);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_digit(var& ch) {
+		pushNum(ch.value());
+		call(2711);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_newline(var& ch) {
+		pushNum(ch.value());
+		call(2712);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_alpha(var& ch) {
+		pushNum(ch.value());
+		call(2713);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_alpha_num(var& ch) {
+		pushNum(ch.value());
+		call(2714);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var to_lower(var& ch) {
+		pushNum(ch.value());
+		call(2715);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var to_upper(var& ch) {
+		pushNum(ch.value());
+		call(2716);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void _char12(object $instance) {
+		pushObj($instance);
+		call(2717);
+	}
+
+scope_end()
+
+scope_begin(std, byte) 
+
+	void byte(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2718);
+	}
+
+	void byte2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2719);
+	}
+
+	void byte3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2720);
+	}
+
+	void byte4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2721);
+	}
+
+	void byte5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2722);
+	}
+
+	void byte6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2723);
+	}
+
+	void byte7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2724);
+	}
+
+	void byte8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2725);
+	}
+
+	void byte9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2726);
+	}
+
+	void byte10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2727);
+	}
+
+	void byte11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2728);
+	}
+
+	_uint8 op_$not(object $instance) {
+		pushObj($instance);
+		call(2729);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2730);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2731);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2732);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2733);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2734);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2735);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2736);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2737);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2738);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2739);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2740);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2741);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2742);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2743);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2744);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2745);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2746);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2747);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2748);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2749);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2750);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2751);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2752);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2753);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2754);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2755);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2756);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2757);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2758);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2759);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2760);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2761);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2762);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2763);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2764);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2765);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2766);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2767);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2768);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2769);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2770);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2771);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2772);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2773);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2774);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2775);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2776);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2777);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2778);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2779);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2780);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2781);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2782);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2783);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2784);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2785);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2786);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2787);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2788);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2789);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2790);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2791);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2792);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2793);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2794);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2795);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2796);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2797);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2798);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2799);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2800);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2801);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2802);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2803);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2804);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2805);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2806);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2807);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2808);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2809);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_uint8 op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2810);
+
+		_uint8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_digit(var& ch) {
+		pushNum(ch.value());
+		call(2811);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_newline(var& ch) {
+		pushNum(ch.value());
+		call(2812);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_alpha(var& ch) {
+		pushNum(ch.value());
+		call(2813);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var is_alpha_num(var& ch) {
+		pushNum(ch.value());
+		call(2814);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var to_lower(var& ch) {
+		pushNum(ch.value());
+		call(2815);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var to_upper(var& ch) {
+		pushNum(ch.value());
+		call(2816);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void byte12(object $instance) {
+		pushObj($instance);
+		call(2817);
+	}
+
+scope_end()
+
+scope_begin(std, _bool) 
+
+	void _bool(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2818);
+	}
+
+	void _bool2(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2819);
+	}
+
+	void _bool3(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2820);
+	}
+
+	void _bool4(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2821);
+	}
+
+	void _bool5(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2822);
+	}
+
+	void _bool6(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2823);
+	}
+
+	void _bool7(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2824);
+	}
+
+	void _bool8(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2825);
+	}
+
+	void _bool9(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2826);
+	}
+
+	void _bool10(object $instance, object i) {
+		pushObj($instance);
+		pushObj(i);
+		call(2827);
+	}
+
+	void _bool11(object $instance, var& i) {
+		pushObj($instance);
+		pushNum(i.value());
+		call(2828);
+	}
+
+	_int8 op_$not(object $instance) {
+		pushObj($instance);
+		call(2829);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_plus(object $instance) {
+		pushObj($instance);
+		call(2830);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$plus_plus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2831);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_minus(object $instance) {
+		pushObj($instance);
+		call(2832);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$minus_minus2(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2833);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2834);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2835);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2836);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2837);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2838);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2839);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2840);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2841);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2842);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2843);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$plus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2844);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2845);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2846);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2847);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2848);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2849);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2850);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2851);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2852);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2853);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2854);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$minus_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2855);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2856);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2857);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2858);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2859);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2860);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2861);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2862);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2863);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2864);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2865);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mult_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2866);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2867);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2868);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2869);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2870);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2871);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2872);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2873);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2874);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2875);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2876);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$div_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2877);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2878);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2879);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2880);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2881);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2882);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2883);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2884);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2885);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2886);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2887);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$mod_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2888);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2889);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2890);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2891);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2892);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2893);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2894);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2895);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2896);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2897);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2898);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$and_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2899);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2900);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal2(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2901);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal3(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2902);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal4(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2903);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal5(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2904);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal6(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2905);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal7(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2906);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal8(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2907);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal9(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2908);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal10(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(2909);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$or_equal11(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2910);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var check_value(object $instance, var& new_val) {
+		pushObj($instance);
+		pushNum(new_val.value());
+		call(2911);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void _bool12(object $instance) {
+		pushObj($instance);
+		call(2912);
+	}
+
+scope_end()
+
+scope_begin(std, printable) 
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(2913);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void printable(object $instance) {
+		pushObj($instance);
+		call(2914);
+	}
+
+scope_end()
+
+scope_begin(std_reflect) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(6);
+	}
+
+scope_end()
+
+scope_begin(std_reflect, _class_) 
+
+	void _class_(object $instance) {
+		pushObj($instance);
+		call(2915);
+	}
+
+scope_end()
+
+scope_begin(std_reflect, data_entity) 
+
+	void data_entity(object $instance) {
+		pushObj($instance);
+		call(2916);
+	}
+
+scope_end()
+
+scope_begin(std_reflect, data_property) 
+
+	void data_property(object $instance) {
+		pushObj($instance);
+		call(2917);
+	}
+
+scope_end()
+
+scope_begin(std_reflect, field) 
+
+	void field(object $instance) {
+		pushObj($instance);
+		call(2918);
+	}
+
+scope_end()
+
+scope_begin(std_reflect, function) 
+
+	void function(object $instance) {
+		pushObj($instance);
+		call(2919);
+	}
+
+scope_end()
+
+scope_begin(std_reflect, reflect) 
+
+	void reflect(object $instance, object ref_obj) {
+		pushObj($instance);
+		pushObj(ref_obj);
+		call(2920);
+	}
+
+	void reflect2(object $instance) {
+		pushObj($instance);
+		call(2921);
+	}
+
+	void set_reflect_obj(object $instance, object value) {
+		pushObj($instance);
+		pushObj(value);
+		call(3246);
+	}
+
+	object get_reflect_obj(object $instance) {
+		pushObj($instance);
+		call(3247);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(std, string) 
+
+	void string(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(2922);
+	}
+
+	void string2(object $instance, var& ch) {
+		pushObj($instance);
+		pushNum(ch.value());
+		call(2923);
+	}
+
+	void string3(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2924);
+	}
+
+	void string4(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2925);
+	}
+
+	void string5(object $instance, _int8_array& str, var& offset) {
+		pushObj($instance);
+		pushObj(str.handle);
+		pushNum(offset.value());
+		call(2926);
+	}
+
+	void string6(object $instance, _int8_array& str, var& start, var& end) {
+		pushObj($instance);
+		pushObj(str.handle);
+		pushNum(start.value());
+		pushNum(end.value());
+		call(2927);
+	}
+
+	object replace(object $instance, var& pos, _int8& ch) {
+		pushObj($instance);
+		pushNum(pos.value());
+		pushNum(ch.value());
+		call(2928);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object append(object $instance, var& ch) {
+		pushObj($instance);
+		pushNum(ch.value());
+		call(2929);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var empty(object $instance) {
+		pushObj($instance);
+		call(2930);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object append2(object $instance, object c) {
+		pushObj($instance);
+		pushObj(c);
+		call(2931);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object append3(object $instance, _int8_array& immstr) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		call(2932);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object append4(object $instance, _int8_array& immstr, var& len) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		pushNum(len.value());
+		call(2933);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus(object $instance, _int8_array& immstr) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		call(2934);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_lower(object $instance) {
+		pushObj($instance);
+		call(2935);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus2(object $instance, object obj) {
+		pushObj($instance);
+		pushObj(obj);
+		call(2936);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus3(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2937);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(2938);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(2939);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals2(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2940);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(2941);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2942);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void op_$equals(object $instance, _int8_array& immstr) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		call(2943);
+	}
+
+	_int8 at(object $instance, var& pos) {
+		pushObj($instance);
+		pushNum(pos.value());
+		call(2944);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	_int8 op_$array_at(object $instance, var& pos) {
+		pushObj($instance);
+		pushNum(pos.value());
+		call(2945);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void fmt(var& _fmt) {
+		pushNum(_fmt.value());
+		call(2946);
+	}
+
+	void set_precision(var& prec) {
+		pushNum(prec.value());
+		call(2947);
+	}
+
+	_int8_array get_data(object $instance) {
+		pushObj($instance);
+		call(2948);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int8_array get_elements(object $instance) {
+		pushObj($instance);
+		call(2949);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	_int8_array to_array(object $instance) {
+		pushObj($instance);
+		call(2950);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	var starts_with(object $instance, object prefix) {
+		pushObj($instance);
+		pushObj(prefix);
+		call(2951);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var find(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2952);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var ends_with(object $instance, object postfix) {
+		pushObj($instance);
+		pushObj(postfix);
+		call(2953);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus4(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2954);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var size(object $instance) {
+		pushObj($instance);
+		call(2955);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object parse(var& number) {
+		pushNum(number.value());
+		call(2956);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2957);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal2(object $instance, _int8& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2958);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal3(object $instance, _uint8& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2959);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal4(object $instance, _int16& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2960);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal5(object $instance, _uint16& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2961);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal6(object $instance, _int32& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2962);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal7(object $instance, _uint32& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2963);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal8(object $instance, _int64& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2964);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal9(object $instance, _uint64& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(2965);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal10(object $instance, object obj) {
+		pushObj($instance);
+		pushObj(obj);
+		call(2966);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal11(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2967);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal12(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(2968);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object substring(object $instance, var& start_pos, var& end_pos) {
+		pushObj($instance);
+		pushNum(start_pos.value());
+		pushNum(end_pos.value());
+		call(2969);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object bounds_error(object $instance, var& pos) {
+		pushObj($instance);
+		pushNum(pos.value());
+		call(2970);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object hash(object $instance) {
+		pushObj($instance);
+		call(2971);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void string7(object $instance) {
+		pushObj($instance);
+		call(2972);
+	}
+
+	void $03internal_static_init() {
+		call(3289);
+	}
+
+scope_end()
+
+scope_begin(std, string_builder) 
+
+	void set_resize_capacity(object $instance, var& new_capacity) {
+		pushObj($instance);
+		pushNum(new_capacity.value());
+		call(2973);
+	}
+
+	void string_builder(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(2974);
+	}
+
+	void string_builder2(object $instance, var& ch) {
+		pushObj($instance);
+		pushNum(ch.value());
+		call(2975);
+	}
+
+	void string_builder3(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2976);
+	}
+
+	void string_builder4(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2977);
+	}
+
+	void string_builder5(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2978);
+	}
+
+	void string_builder6(object $instance, _int8_array& str, var& offset) {
+		pushObj($instance);
+		pushObj(str.handle);
+		pushNum(offset.value());
+		call(2979);
+	}
+
+	var space_available(object $instance, var& space_required) {
+		pushObj($instance);
+		pushNum(space_required.value());
+		call(2980);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void expand(object $instance, var& space_required) {
+		pushObj($instance);
+		pushNum(space_required.value());
+		call(2981);
+	}
+
+	object replace(object $instance, var& pos, _int8& ch) {
+		pushObj($instance);
+		pushNum(pos.value());
+		pushNum(ch.value());
+		call(2982);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object append(object $instance, var& ch) {
+		pushObj($instance);
+		pushNum(ch.value());
+		call(2983);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	_int8_array get_elements(object $instance) {
+		pushObj($instance);
+		call(2984);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	object append2(object $instance, object c) {
+		pushObj($instance);
+		pushObj(c);
+		call(2985);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object append3(object $instance, _int8_array& immstr) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		call(2986);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object append4(object $instance, _int8_array& immstr, var& len) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		pushNum(len.value());
+		call(2987);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus(object $instance, _int8_array& immstr) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		call(2988);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus2(object $instance, object obj) {
+		pushObj($instance);
+		pushObj(obj);
+		call(2989);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(2990);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(2991);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals2(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2992);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(2993);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(2994);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void op_$equals(object $instance, _int8_array& immstr) {
+		pushObj($instance);
+		pushObj(immstr.handle);
+		call(2995);
+	}
+
+	_int8 at(object $instance, var& pos) {
+		pushObj($instance);
+		pushNum(pos.value());
+		call(2996);
+
+		_int8 $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$array_at(object $instance, var& pos) {
+		pushObj($instance);
+		pushNum(pos.value());
+		call(2997);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void fmt(var& _fmt) {
+		pushNum(_fmt.value());
+		call(2998);
+	}
+
+	void set_precision(var& prec) {
+		pushNum(prec.value());
+		call(2999);
+	}
+
+	_int8_array to_array(object $instance) {
+		pushObj($instance);
+		call(3000);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	var starts_with(object $instance, object prefix) {
+		pushObj($instance);
+		pushObj(prefix);
+		call(3001);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var find(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(3002);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var find2(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(3003);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var ends_with(object $instance, object postfix) {
+		pushObj($instance);
+		pushObj(postfix);
+		call(3004);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus3(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(3005);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var size(object $instance) {
+		pushObj($instance);
+		call(3006);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object parse(object $instance, var& number) {
+		pushObj($instance);
+		pushNum(number.value());
+		call(3007);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal(object $instance, var& num) {
+		pushObj($instance);
+		pushNum(num.value());
+		call(3008);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal2(object $instance, object obj) {
+		pushObj($instance);
+		pushObj(obj);
+		call(3009);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal3(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(3010);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	_int8_array get_data(object $instance) {
+		pushObj($instance);
+		call(3011);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	object op_$plus_equal4(object $instance, object str) {
+		pushObj($instance);
+		pushObj(str);
+		call(3012);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$plus_equal5(object $instance, _int8_array& str) {
+		pushObj($instance);
+		pushObj(str.handle);
+		call(3013);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object substring(object $instance, var& startPos, var& endPos) {
+		pushObj($instance);
+		pushNum(startPos.value());
+		pushNum(endPos.value());
+		call(3014);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object bounds_error(object $instance, var& pos) {
+		pushObj($instance);
+		pushNum(pos.value());
+		call(3015);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object hash(object $instance) {
+		pushObj($instance);
+		call(3016);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void string_builder7(object $instance) {
+		pushObj($instance);
+		call(3017);
+	}
+
+	void $03internal_static_init() {
+		call(3290);
+	}
+
+scope_end()
+
+scope_begin(std, time) 
+
+	var nano_time() {
+		call(3018);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var nano_to_micro(var& nano) {
+		pushNum(nano.value());
+		call(3019);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var nano_to_mills(var& nano) {
+		pushNum(nano.value());
+		call(3020);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var nano_to_secs(var& nano) {
+		pushNum(nano.value());
 		call(3021);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var mills_time() {
+		call(3022);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void sleep(var& time) {
+		pushNum(time.value());
+		call(3023);
+	}
+
+	void sleep2(object tm_unit, var& time) {
+		pushObj(tm_unit);
+		pushNum(time.value());
+		call(3024);
+	}
+
+	void wait(object tm_unit, var& time) {
+		pushObj(tm_unit);
+		pushNum(time.value());
+		call(3025);
+	}
+
+	var adjust_time(var& usec) {
+		pushNum(usec.value());
+		call(3026);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var measure(object tm_unit, var& block) {
+		pushObj(tm_unit);
+		pushNum(block.value());
+		call(3027);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void time(object $instance) {
+		pushObj($instance);
+		call(3028);
+	}
+
+	void $03internal_static_init() {
+		call(3291);
+	}
+
+scope_end()
+
+scope_begin(std, unique) 
+
+	object hash(object $instance) {
+		pushObj($instance);
+		call(3029);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object guid(object $instance) {
+		pushObj($instance);
+		call(3030);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void unique(object $instance) {
+		pushObj($instance);
+		call(3031);
+	}
+
+scope_end()
+
+scope_begin(common) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(7);
+	}
+
+scope_end()
+
+scope_begin(common, constants) 
+
+	void constants(object $instance) {
+		pushObj($instance);
+		call(3033);
+	}
+
+	void $03internal_static_init() {
+		call(3292);
+	}
+
+scope_end()
+
+scope_begin(common, constants_strings) 
+
+	void strings(object $instance) {
+		pushObj($instance);
+		call(3032);
+	}
+
+	void $03internal_static_init() {
+		call(3293);
 	}
 
 scope_end()
@@ -13400,94 +13493,17 @@ scope_begin(common_gpio)
 
 scope_end()
 
-scope_begin(common_network_driver) 
+scope_begin(common_network_core) 
 
 	void __srt_global(object $instance) {
 		pushObj($instance);
 		call(9);
 	}
 
-scope_end()
-
-scope_begin(common_network_driver, nrf24) 
-
-	void nrf24(object $instance) {
-		pushObj($instance);
-		call(3039);
-	}
-
-	void set_rf_lvl(object $instance, var& level) {
-		pushObj($instance);
-		pushNum(level.value());
-		call(3040);
-	}
-
-	void set_data_rate(object $instance, var& level) {
-		pushObj($instance);
-		pushNum(level.value());
-		call(3041);
-	}
-
-	void dump(object $instance) {
-		pushObj($instance);
-		call(3042);
-	}
-
-	void update_retry_count(object $instance, var& delay, var& count) {
-		pushObj($instance);
-		pushNum(delay.value());
-		pushNum(count.value());
-		call(3043);
-	}
-
-	void shut_down(object $instance) {
-		pushObj($instance);
-		call(3044);
-	}
-
-	void update_signal_strength(object $instance) {
-		pushObj($instance);
-		call(3045);
-	}
-
-	var read(object $instance, object response) {
-		pushObj($instance);
-		pushObj(response);
-		call(3046);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var send(object $instance, object response) {
-		pushObj($instance);
-		pushObj(response);
-		call(3047);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void check_state(object $instance) {
-		pushObj($instance);
-		call(3048);
-	}
-
-scope_end()
-
-scope_begin(common_network_core) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(10);
-	}
-
-	var anon_func$3270(object t1, object t2) {
+	var anon_func$3295(object t1, object t2) {
 		pushObj(t1);
 		pushObj(t2);
-		call(3270);
+		call(3295);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -13500,7 +13516,7 @@ scope_begin(common_network_core, request)
 
 	var write(object rdata) {
 		pushObj(rdata);
-		call(3049);
+		call(3038);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -13509,7 +13525,7 @@ scope_begin(common_network_core, request)
 
 	var read(object rdata) {
 		pushObj(rdata);
-		call(3050);
+		call(3039);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -13520,7 +13536,7 @@ scope_begin(common_network_core, request)
 		pushObj(rdata);
 		pushNum(rw.value());
 		pushNum(count.value());
-		call(3051);
+		call(3040);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -13529,11 +13545,11 @@ scope_begin(common_network_core, request)
 
 	void request(object $instance) {
 		pushObj($instance);
-		call(3052);
+		call(3041);
 	}
 
 	void $03internal_static_init() {
-		call(3269);
+		call(3294);
 	}
 
 scope_end()
@@ -13544,7 +13560,7 @@ scope_begin(common_network_core, request_data)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3053);
+		call(3042);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -13553,7 +13569,7 @@ scope_begin(common_network_core, request_data)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3054);
+		call(3043);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -13563,7 +13579,7 @@ scope_begin(common_network_core, request_data)
 	object at(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3055);
+		call(3044);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -13572,12 +13588,12 @@ scope_begin(common_network_core, request_data)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3056);
+		call(3045);
 	}
 
 	void request_data(object $instance) {
 		pushObj($instance);
-		call(3059);
+		call(3048);
 	}
 
 scope_end()
@@ -13588,87 +13604,12 @@ scope_begin(common_network_core, request_data_request_item)
 		pushObj($instance);
 		pushObj(k);
 		pushObj(v);
-		call(3057);
+		call(3046);
 	}
 
 	void request_item2(object $instance) {
 		pushObj($instance);
-		call(3058);
-	}
-
-scope_end()
-
-scope_begin(common_network_remote) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(11);
-	}
-
-	void initialize(object net) {
-		pushObj(net);
-		call(3060);
-	}
-
-scope_end()
-
-scope_begin(common_network_remote, handshake_request_impl) 
-
-	object server_handshake(object $instance) {
-		pushObj($instance);
-		call(3061);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void client_handshake(object $instance) {
-		pushObj($instance);
-		call(3062);
-	}
-
-	void handshake_request_impl(object $instance) {
-		pushObj($instance);
-		call(3063);
-	}
-
-scope_end()
-
-scope_begin(common_network) 
-
-	void __srt_global(object $instance) {
-		pushObj($instance);
-		call(12);
-	}
-
-scope_end()
-
-scope_begin(common_network, network) 
-
-	object server_handshake() {
-		call(3064);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void client_handshake() {
-		call(3065);
-	}
-
-	void network(object $instance) {
-		pushObj($instance);
-		call(3066);
-	}
-
-	object get_INSTANCE() {
-		call(3252);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
+		call(3047);
 	}
 
 scope_end()
@@ -13677,30 +13618,84 @@ scope_begin(common_network_data_request)
 
 	void __srt_global(object $instance) {
 		pushObj($instance);
-		call(13);
+		call(10);
 	}
 
 scope_end()
 
-scope_begin(common_network_data_request, connection_handshake_request) 
+scope_begin(common_network_data_request, acknowledge_request) 
 
-	object server_handshake(object $instance) {
+	void send(object $instance) {
 		pushObj($instance);
-		call(3067);
+		call(3049);
+	}
+
+	void acknowledge_request(object $instance) {
+		pushObj($instance);
+		call(3050);
+	}
+
+scope_end()
+
+scope_begin(common_network_data_request, command_request) 
+
+	object listen(object $instance) {
+		pushObj($instance);
+		call(3051);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
 		return $result;
 	}
 
-	void client_handshake(object $instance) {
+	var send_command(object $instance, object req, var& ack, var& timeout) {
 		pushObj($instance);
-		call(3068);
+		pushObj(req);
+		pushNum(ack.value());
+		pushNum(timeout.value());
+		call(3052);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
 	}
 
-	void connection_handshake_request(object $instance) {
+	void command_request(object $instance) {
 		pushObj($instance);
-		call(3069);
+		call(3053);
+	}
+
+scope_end()
+
+scope_begin(common_network_data_request, flight_mode_change_request) 
+
+	var change_mode(object $instance, object mode) {
+		pushObj($instance);
+		pushObj(mode);
+		call(3054);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void flight_mode_change_request(object $instance) {
+		pushObj($instance);
+		call(3055);
+	}
+
+scope_end()
+
+scope_begin(common_network_data_request, handshake_request) 
+
+	void handshake(object $instance) {
+		pushObj($instance);
+		call(3056);
+	}
+
+	void handshake_request(object $instance) {
+		pushObj($instance);
+		call(3057);
 	}
 
 scope_end()
@@ -13709,40 +13704,242 @@ scope_begin(common_network_data_response)
 
 	void __srt_global(object $instance) {
 		pushObj($instance);
-		call(14);
+		call(11);
 	}
 
 scope_end()
 
-scope_begin(common_network_data_response, acknowledge) 
+scope_begin(common_network_data_response, command_response) 
 
-	void acknowledge(object $instance, var& result) {
+	void command_response(object $instance, object cmd, object req) {
 		pushObj($instance);
-		pushNum(result.value());
-		call(3070);
+		pushObj(cmd);
+		pushObj(req);
+		call(3058);
 	}
 
-	void acknowledge2(object $instance) {
+	void command_response2(object $instance) {
 		pushObj($instance);
-		call(3071);
+		call(3059);
 	}
 
 scope_end()
 
-scope_begin(common) 
+scope_begin(common_network_driver) 
 
 	void __srt_global(object $instance) {
 		pushObj($instance);
-		call(15);
+		call(12);
 	}
 
 scope_end()
 
-scope_begin(common, constants) 
+scope_begin(common_network_driver, nrf24) 
 
-	void constants(object $instance) {
+	void nrf24(object $instance) {
 		pushObj($instance);
+		call(3070);
+	}
+
+	void set_rf_lvl(object $instance, var& level) {
+		pushObj($instance);
+		pushNum(level.value());
+		call(3071);
+	}
+
+	void set_data_rate(object $instance, var& level) {
+		pushObj($instance);
+		pushNum(level.value());
 		call(3072);
+	}
+
+	void dump(object $instance) {
+		pushObj($instance);
+		call(3073);
+	}
+
+	void update_retry_count(object $instance, var& delay, var& count) {
+		pushObj($instance);
+		pushNum(delay.value());
+		pushNum(count.value());
+		call(3074);
+	}
+
+	void shut_down(object $instance) {
+		pushObj($instance);
+		call(3075);
+	}
+
+	void update_signal_strength(object $instance) {
+		pushObj($instance);
+		call(3076);
+	}
+
+	var read(object $instance, object response) {
+		pushObj($instance);
+		pushObj(response);
+		call(3077);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var send(object $instance, object response) {
+		pushObj($instance);
+		pushObj(response);
+		call(3078);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void check_state(object $instance) {
+		pushObj($instance);
+		call(3079);
+	}
+
+scope_end()
+
+scope_begin(common_network) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(13);
+	}
+
+scope_end()
+
+scope_begin(common_network, network) 
+
+	void handshake() {
+		call(3080);
+	}
+
+	object listen() {
+		call(3081);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var change_mode(object mode) {
+		pushObj(mode);
+		call(3082);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void send_acknowledge() {
+		call(3083);
+	}
+
+	void network(object $instance) {
+		pushObj($instance);
+		call(3084);
+	}
+
+	object get_INSTANCE() {
+		call(3275);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(common_network_remote) 
+
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(14);
+	}
+
+	void initialize(object net) {
+		pushObj(net);
+		call(3094);
+	}
+
+scope_end()
+
+scope_begin(common_network_remote, acknowledge_request_impl) 
+
+	void acknowledge_request_impl(object $instance) {
+		pushObj($instance);
+		call(3085);
+	}
+
+	void send(object $instance) {
+		pushObj($instance);
+		call(3086);
+	}
+
+scope_end()
+
+scope_begin(common_network_remote, command_request_impl) 
+
+	object listen(object $instance) {
+		pushObj($instance);
+		call(3087);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	var send_command(object $instance, object req, var& ack, var& timeout) {
+		pushObj($instance);
+		pushObj(req);
+		pushNum(ack.value());
+		pushNum(timeout.value());
+		call(3088);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void command_request_impl(object $instance) {
+		pushObj($instance);
+		call(3089);
+	}
+
+scope_end()
+
+scope_begin(common_network_remote, flight_mode_change_request_impl) 
+
+	void flight_mode_change_request_impl(object $instance) {
+		pushObj($instance);
+		call(3090);
+	}
+
+	var change_mode(object $instance, object mode) {
+		pushObj($instance);
+		pushObj(mode);
+		call(3091);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(common_network_remote, handshake_request_impl) 
+
+	void handshake_request_impl(object $instance) {
+		pushObj($instance);
+		call(3092);
+	}
+
+	void handshake(object $instance) {
+		pushObj($instance);
+		call(3093);
 	}
 
 scope_end()
@@ -13751,11 +13948,11 @@ scope_begin(device)
 
 	void __srt_global(object $instance) {
 		pushObj($instance);
-		call(16);
+		call(15);
 	}
 
 	var get_distance() {
-		call(3074);
+		call(3096);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -13763,28 +13960,43 @@ scope_begin(device)
 	}
 
 	void setup_hc_sr04() {
-		call(3075);
+		call(3097);
 	}
 
 	void $03internal_static_init() {
-		call(3271);
+		call(3296);
 	}
 
-	void anon_func$3275(object args) {
+	void anon_func$3300(object args) {
 		pushObj(args);
-		call(3275);
+		call(3300);
 	}
 
 scope_end()
 
-scope_begin(std, loopable$_int8$) 
+scope_begin(main) 
 
-	_int8_array get_elements(object $instance) {
+	void __srt_global(object $instance) {
+		pushObj($instance);
+		call(16);
+	}
+
+	void main(object args) {
+		pushObj(args);
+		call(3098);
+	}
+
+scope_end()
+
+scope_begin(std, loopable$std_io_thread$) 
+
+	object get_elements(object $instance) {
 		pushObj($instance);
 		call(17);
 
-		object $tmpObj = getSpObjAt(0);
-		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
 	}
 
 	void loopable(object $instance) {
@@ -13794,35 +14006,17 @@ scope_begin(std, loopable$_int8$)
 
 scope_end()
 
-scope_begin(std, loopable$std_io_thread$) 
-
-	object get_elements(object $instance) {
-		pushObj($instance);
-		call(19);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void loopable(object $instance) {
-		pushObj($instance);
-		call(20);
-	}
-
-scope_end()
-
 scope_begin(std, integer$_uint64$) 
 
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(21);
+		call(19);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(22);
+		call(20);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -13830,6 +14024,26 @@ scope_begin(std, integer$_uint64$)
 	}
 
 	var op_$not_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(21);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(22);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(23);
@@ -13839,7 +14053,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals(object $instance, object num) {
+	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(24);
@@ -13849,7 +14063,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals2(object $instance, object num) {
+	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(25);
@@ -13859,7 +14073,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals2(object $instance, object num) {
+	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(26);
@@ -13869,7 +14083,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals3(object $instance, object num) {
+	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(27);
@@ -13879,7 +14093,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals3(object $instance, object num) {
+	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(28);
@@ -13889,7 +14103,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals4(object $instance, object num) {
+	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(29);
@@ -13899,7 +14113,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals4(object $instance, object num) {
+	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(30);
@@ -13909,7 +14123,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals5(object $instance, object num) {
+	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(31);
@@ -13919,7 +14133,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals5(object $instance, object num) {
+	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(32);
@@ -13929,7 +14143,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals6(object $instance, object num) {
+	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(33);
@@ -13939,7 +14153,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals6(object $instance, object num) {
+	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(34);
@@ -13949,7 +14163,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals7(object $instance, object num) {
+	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(35);
@@ -13959,7 +14173,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals7(object $instance, object num) {
+	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(36);
@@ -13969,7 +14183,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals8(object $instance, object num) {
+	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(37);
@@ -13979,7 +14193,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals8(object $instance, object num) {
+	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(38);
@@ -13989,7 +14203,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals9(object $instance, object num) {
+	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(39);
@@ -13999,7 +14213,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals9(object $instance, object num) {
+	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(40);
@@ -14009,7 +14223,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals10(object $instance, object num) {
+	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(41);
@@ -14019,7 +14233,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$equals_equals10(object $instance, object num) {
+	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(42);
@@ -14029,7 +14243,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus(object $instance, object num) {
+	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(43);
@@ -14039,7 +14253,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus2(object $instance, object num) {
+	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(44);
@@ -14049,7 +14263,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus3(object $instance, object num) {
+	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(45);
@@ -14059,7 +14273,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus4(object $instance, object num) {
+	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(46);
@@ -14069,7 +14283,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus5(object $instance, object num) {
+	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(47);
@@ -14079,7 +14293,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus6(object $instance, object num) {
+	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(48);
@@ -14089,7 +14303,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus7(object $instance, object num) {
+	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(49);
@@ -14099,7 +14313,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus8(object $instance, object num) {
+	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(50);
@@ -14109,9 +14323,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus9(object $instance, object num) {
+	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(51);
 
 		var $result(getSpNumAt(0));
@@ -14119,7 +14333,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus10(object $instance, object num) {
+	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(52);
@@ -14129,9 +14343,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$plus11(object $instance, var& num) {
+	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(53);
 
 		var $result(getSpNumAt(0));
@@ -14139,7 +14353,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus(object $instance, object num) {
+	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(54);
@@ -14149,7 +14363,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus2(object $instance, object num) {
+	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(55);
@@ -14159,7 +14373,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus3(object $instance, object num) {
+	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(56);
@@ -14169,7 +14383,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus4(object $instance, object num) {
+	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(57);
@@ -14179,7 +14393,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus5(object $instance, object num) {
+	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(58);
@@ -14189,7 +14403,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus6(object $instance, object num) {
+	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(59);
@@ -14199,7 +14413,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus7(object $instance, object num) {
+	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(60);
@@ -14209,7 +14423,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus8(object $instance, object num) {
+	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(61);
@@ -14219,9 +14433,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus9(object $instance, object num) {
+	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(62);
 
 		var $result(getSpNumAt(0));
@@ -14229,7 +14443,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus10(object $instance, object num) {
+	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(63);
@@ -14239,9 +14453,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$minus11(object $instance, var& num) {
+	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(64);
 
 		var $result(getSpNumAt(0));
@@ -14249,7 +14463,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult(object $instance, object num) {
+	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(65);
@@ -14259,7 +14473,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult2(object $instance, object num) {
+	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(66);
@@ -14269,7 +14483,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult3(object $instance, object num) {
+	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(67);
@@ -14279,7 +14493,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult4(object $instance, object num) {
+	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(68);
@@ -14289,7 +14503,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult5(object $instance, object num) {
+	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(69);
@@ -14299,7 +14513,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult6(object $instance, object num) {
+	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(70);
@@ -14309,7 +14523,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult7(object $instance, object num) {
+	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(71);
@@ -14319,7 +14533,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult8(object $instance, object num) {
+	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(72);
@@ -14329,9 +14543,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult9(object $instance, object num) {
+	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(73);
 
 		var $result(getSpNumAt(0));
@@ -14339,7 +14553,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult10(object $instance, object num) {
+	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(74);
@@ -14349,9 +14563,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mult11(object $instance, var& num) {
+	var op_$div2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(75);
 
 		var $result(getSpNumAt(0));
@@ -14359,7 +14573,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div(object $instance, object num) {
+	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(76);
@@ -14369,7 +14583,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div2(object $instance, object num) {
+	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(77);
@@ -14379,7 +14593,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div3(object $instance, object num) {
+	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(78);
@@ -14389,7 +14603,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div4(object $instance, object num) {
+	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(79);
@@ -14399,7 +14613,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div5(object $instance, object num) {
+	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(80);
@@ -14409,7 +14623,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div6(object $instance, object num) {
+	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(81);
@@ -14419,7 +14633,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div7(object $instance, object num) {
+	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(82);
@@ -14429,7 +14643,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div8(object $instance, object num) {
+	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(83);
@@ -14439,9 +14653,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div9(object $instance, object num) {
+	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(84);
 
 		var $result(getSpNumAt(0));
@@ -14449,7 +14663,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div10(object $instance, object num) {
+	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(85);
@@ -14459,9 +14673,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$div11(object $instance, var& num) {
+	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(86);
 
 		var $result(getSpNumAt(0));
@@ -14469,7 +14683,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod(object $instance, object num) {
+	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(87);
@@ -14479,7 +14693,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod2(object $instance, object num) {
+	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(88);
@@ -14489,7 +14703,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod3(object $instance, object num) {
+	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(89);
@@ -14499,7 +14713,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod4(object $instance, object num) {
+	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(90);
@@ -14509,7 +14723,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod5(object $instance, object num) {
+	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(91);
@@ -14519,7 +14733,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod6(object $instance, object num) {
+	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(92);
@@ -14529,7 +14743,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod7(object $instance, object num) {
+	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(93);
@@ -14539,7 +14753,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod8(object $instance, object num) {
+	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(94);
@@ -14549,9 +14763,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod9(object $instance, object num) {
+	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(95);
 
 		var $result(getSpNumAt(0));
@@ -14559,7 +14773,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod10(object $instance, object num) {
+	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(96);
@@ -14569,9 +14783,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$mod11(object $instance, var& num) {
+	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(97);
 
 		var $result(getSpNumAt(0));
@@ -14579,7 +14793,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than(object $instance, object num) {
+	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(98);
@@ -14589,7 +14803,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than2(object $instance, object num) {
+	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(99);
@@ -14599,7 +14813,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than3(object $instance, object num) {
+	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(100);
@@ -14609,7 +14823,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than4(object $instance, object num) {
+	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(101);
@@ -14619,7 +14833,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than5(object $instance, object num) {
+	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(102);
@@ -14629,7 +14843,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than6(object $instance, object num) {
+	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(103);
@@ -14639,7 +14853,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than7(object $instance, object num) {
+	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(104);
@@ -14649,7 +14863,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than8(object $instance, object num) {
+	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(105);
@@ -14659,9 +14873,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than9(object $instance, object num) {
+	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(106);
 
 		var $result(getSpNumAt(0));
@@ -14669,7 +14883,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than10(object $instance, object num) {
+	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(107);
@@ -14679,9 +14893,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_than11(object $instance, var& num) {
+	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(108);
 
 		var $result(getSpNumAt(0));
@@ -14689,7 +14903,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than(object $instance, object num) {
+	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(109);
@@ -14699,7 +14913,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than2(object $instance, object num) {
+	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(110);
@@ -14709,7 +14923,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than3(object $instance, object num) {
+	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(111);
@@ -14719,7 +14933,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than4(object $instance, object num) {
+	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(112);
@@ -14729,7 +14943,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than5(object $instance, object num) {
+	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(113);
@@ -14739,7 +14953,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than6(object $instance, object num) {
+	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(114);
@@ -14749,7 +14963,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than7(object $instance, object num) {
+	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(115);
@@ -14759,7 +14973,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than8(object $instance, object num) {
+	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(116);
@@ -14769,9 +14983,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than9(object $instance, object num) {
+	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(117);
 
 		var $result(getSpNumAt(0));
@@ -14779,7 +14993,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than10(object $instance, object num) {
+	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(118);
@@ -14789,9 +15003,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$greater_than11(object $instance, var& num) {
+	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(119);
 
 		var $result(getSpNumAt(0));
@@ -14799,7 +15013,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals(object $instance, object num) {
+	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(120);
@@ -14809,7 +15023,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals2(object $instance, object num) {
+	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(121);
@@ -14819,7 +15033,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals3(object $instance, object num) {
+	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(122);
@@ -14829,7 +15043,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals4(object $instance, object num) {
+	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(123);
@@ -14839,7 +15053,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals5(object $instance, object num) {
+	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(124);
@@ -14849,7 +15063,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals6(object $instance, object num) {
+	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(125);
@@ -14859,7 +15073,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals7(object $instance, object num) {
+	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(126);
@@ -14869,7 +15083,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals8(object $instance, object num) {
+	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(127);
@@ -14879,9 +15093,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals9(object $instance, object num) {
+	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(128);
 
 		var $result(getSpNumAt(0));
@@ -14889,7 +15103,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals10(object $instance, object num) {
+	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(129);
@@ -14899,9 +15113,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$less_or_equals11(object $instance, var& num) {
+	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(130);
 
 		var $result(getSpNumAt(0));
@@ -14909,7 +15123,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow(object $instance, object num) {
+	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(131);
@@ -14919,7 +15133,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow2(object $instance, object num) {
+	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(132);
@@ -14929,7 +15143,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow3(object $instance, object num) {
+	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(133);
@@ -14939,7 +15153,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow4(object $instance, object num) {
+	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(134);
@@ -14949,7 +15163,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow5(object $instance, object num) {
+	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(135);
@@ -14959,7 +15173,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow6(object $instance, object num) {
+	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(136);
@@ -14969,7 +15183,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow7(object $instance, object num) {
+	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(137);
@@ -14979,7 +15193,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow8(object $instance, object num) {
+	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(138);
@@ -14989,9 +15203,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow9(object $instance, object num) {
+	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(139);
 
 		var $result(getSpNumAt(0));
@@ -14999,7 +15213,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow10(object $instance, object num) {
+	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(140);
@@ -15009,9 +15223,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$pow11(object $instance, var& num) {
+	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(141);
 
 		var $result(getSpNumAt(0));
@@ -15019,7 +15233,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift(object $instance, object num) {
+	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(142);
@@ -15029,7 +15243,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift2(object $instance, object num) {
+	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(143);
@@ -15039,7 +15253,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift3(object $instance, object num) {
+	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(144);
@@ -15049,7 +15263,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift4(object $instance, object num) {
+	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(145);
@@ -15059,7 +15273,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift5(object $instance, object num) {
+	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(146);
@@ -15069,7 +15283,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift6(object $instance, object num) {
+	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(147);
@@ -15079,7 +15293,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift7(object $instance, object num) {
+	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(148);
@@ -15089,7 +15303,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift8(object $instance, object num) {
+	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(149);
@@ -15099,9 +15313,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift9(object $instance, object num) {
+	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(150);
 
 		var $result(getSpNumAt(0));
@@ -15109,7 +15323,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift10(object $instance, object num) {
+	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(151);
@@ -15119,9 +15333,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$left_shift11(object $instance, var& num) {
+	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(152);
 
 		var $result(getSpNumAt(0));
@@ -15129,7 +15343,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift(object $instance, object num) {
+	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(153);
@@ -15139,7 +15353,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift2(object $instance, object num) {
+	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(154);
@@ -15149,7 +15363,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift3(object $instance, object num) {
+	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(155);
@@ -15159,7 +15373,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift4(object $instance, object num) {
+	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(156);
@@ -15169,7 +15383,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift5(object $instance, object num) {
+	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(157);
@@ -15179,7 +15393,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift6(object $instance, object num) {
+	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(158);
@@ -15189,7 +15403,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift7(object $instance, object num) {
+	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(159);
@@ -15199,7 +15413,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift8(object $instance, object num) {
+	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(160);
@@ -15209,9 +15423,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift9(object $instance, object num) {
+	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(161);
 
 		var $result(getSpNumAt(0));
@@ -15219,7 +15433,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift10(object $instance, object num) {
+	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(162);
@@ -15229,9 +15443,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$right_shift11(object $instance, var& num) {
+	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(163);
 
 		var $result(getSpNumAt(0));
@@ -15239,7 +15453,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor(object $instance, object num) {
+	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(164);
@@ -15249,7 +15463,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor2(object $instance, object num) {
+	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(165);
@@ -15259,7 +15473,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor3(object $instance, object num) {
+	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(166);
@@ -15269,7 +15483,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor4(object $instance, object num) {
+	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(167);
@@ -15279,7 +15493,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor5(object $instance, object num) {
+	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(168);
@@ -15289,7 +15503,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor6(object $instance, object num) {
+	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(169);
@@ -15299,7 +15513,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor7(object $instance, object num) {
+	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(170);
@@ -15309,7 +15523,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor8(object $instance, object num) {
+	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(171);
@@ -15319,9 +15533,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor9(object $instance, object num) {
+	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(172);
 
 		var $result(getSpNumAt(0));
@@ -15329,7 +15543,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor10(object $instance, object num) {
+	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(173);
@@ -15339,9 +15553,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$xor11(object $instance, var& num) {
+	var op_$and2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(174);
 
 		var $result(getSpNumAt(0));
@@ -15349,7 +15563,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and(object $instance, object num) {
+	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(175);
@@ -15359,7 +15573,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and2(object $instance, object num) {
+	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(176);
@@ -15369,7 +15583,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and3(object $instance, object num) {
+	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(177);
@@ -15379,7 +15593,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and4(object $instance, object num) {
+	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(178);
@@ -15389,7 +15603,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and5(object $instance, object num) {
+	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(179);
@@ -15399,7 +15613,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and6(object $instance, object num) {
+	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(180);
@@ -15409,7 +15623,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and7(object $instance, object num) {
+	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(181);
@@ -15419,7 +15633,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and8(object $instance, object num) {
+	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(182);
@@ -15429,9 +15643,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and9(object $instance, object num) {
+	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(183);
 
 		var $result(getSpNumAt(0));
@@ -15439,7 +15653,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and10(object $instance, object num) {
+	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(184);
@@ -15449,9 +15663,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$and11(object $instance, var& num) {
+	var op_$or2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(185);
 
 		var $result(getSpNumAt(0));
@@ -15459,7 +15673,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or(object $instance, object num) {
+	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(186);
@@ -15469,7 +15683,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or2(object $instance, object num) {
+	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(187);
@@ -15479,7 +15693,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or3(object $instance, object num) {
+	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(188);
@@ -15489,7 +15703,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or4(object $instance, object num) {
+	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(189);
@@ -15499,7 +15713,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or5(object $instance, object num) {
+	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(190);
@@ -15509,7 +15723,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or6(object $instance, object num) {
+	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(191);
@@ -15519,7 +15733,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or7(object $instance, object num) {
+	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(192);
@@ -15529,7 +15743,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or8(object $instance, object num) {
+	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(193);
@@ -15539,9 +15753,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or9(object $instance, object num) {
+	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(194);
 
 		var $result(getSpNumAt(0));
@@ -15549,9 +15763,9 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or10(object $instance, object num) {
+	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(195);
 
 		var $result(getSpNumAt(0));
@@ -15559,7 +15773,7 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$or11(object $instance, var& num) {
+	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
 		call(196);
@@ -15569,30 +15783,10 @@ scope_begin(std, integer$_uint64$)
 		return $result;
 	}
 
-	var op_$not_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(197);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(198);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
 	_uint64 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(199);
+		call(197);
 
 		_uint64 $result(getSpNumAt(0));
 		decSp(1);
@@ -15601,7 +15795,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(200);
+		call(198);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15610,7 +15804,7 @@ scope_begin(std, integer$_uint64$)
 
 	_uint64 parse(object s) {
 		pushObj(s);
-		call(201);
+		call(199);
 
 		_uint64 $result(getSpNumAt(0));
 		decSp(1);
@@ -15619,7 +15813,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(202);
+		call(200);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15628,7 +15822,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(203);
+		call(201);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15637,7 +15831,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(204);
+		call(202);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15646,7 +15840,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(205);
+		call(203);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15655,7 +15849,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(206);
+		call(204);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15664,7 +15858,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(207);
+		call(205);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15673,7 +15867,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(208);
+		call(206);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15682,7 +15876,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(209);
+		call(207);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15691,7 +15885,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(210);
+		call(208);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15700,7 +15894,7 @@ scope_begin(std, integer$_uint64$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(211);
+		call(209);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15709,7 +15903,7 @@ scope_begin(std, integer$_uint64$)
 
 	_uint64 get_value(object $instance) {
 		pushObj($instance);
-		call(212);
+		call(210);
 
 		_uint64 $result(getSpNumAt(0));
 		decSp(1);
@@ -15718,7 +15912,7 @@ scope_begin(std, integer$_uint64$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
-		call(213);
+		call(211);
 	}
 
 scope_end()
@@ -15728,12 +15922,12 @@ scope_begin(std, integer$_int64$)
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(214);
+		call(212);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(215);
+		call(213);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -15741,6 +15935,26 @@ scope_begin(std, integer$_int64$)
 	}
 
 	var op_$not_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(214);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(215);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(216);
@@ -15750,7 +15964,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals(object $instance, object num) {
+	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(217);
@@ -15760,7 +15974,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals2(object $instance, object num) {
+	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(218);
@@ -15770,7 +15984,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals2(object $instance, object num) {
+	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(219);
@@ -15780,7 +15994,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals3(object $instance, object num) {
+	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(220);
@@ -15790,7 +16004,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals3(object $instance, object num) {
+	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(221);
@@ -15800,7 +16014,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals4(object $instance, object num) {
+	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(222);
@@ -15810,7 +16024,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals4(object $instance, object num) {
+	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(223);
@@ -15820,7 +16034,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals5(object $instance, object num) {
+	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(224);
@@ -15830,7 +16044,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals5(object $instance, object num) {
+	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(225);
@@ -15840,7 +16054,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals6(object $instance, object num) {
+	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(226);
@@ -15850,7 +16064,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals6(object $instance, object num) {
+	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(227);
@@ -15860,7 +16074,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals7(object $instance, object num) {
+	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(228);
@@ -15870,7 +16084,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals7(object $instance, object num) {
+	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(229);
@@ -15880,7 +16094,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals8(object $instance, object num) {
+	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(230);
@@ -15890,7 +16104,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals8(object $instance, object num) {
+	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(231);
@@ -15900,7 +16114,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals9(object $instance, object num) {
+	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(232);
@@ -15910,7 +16124,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals9(object $instance, object num) {
+	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(233);
@@ -15920,7 +16134,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals10(object $instance, object num) {
+	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(234);
@@ -15930,7 +16144,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$equals_equals10(object $instance, object num) {
+	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(235);
@@ -15940,7 +16154,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus(object $instance, object num) {
+	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(236);
@@ -15950,7 +16164,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus2(object $instance, object num) {
+	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(237);
@@ -15960,7 +16174,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus3(object $instance, object num) {
+	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(238);
@@ -15970,7 +16184,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus4(object $instance, object num) {
+	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(239);
@@ -15980,7 +16194,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus5(object $instance, object num) {
+	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(240);
@@ -15990,7 +16204,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus6(object $instance, object num) {
+	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(241);
@@ -16000,7 +16214,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus7(object $instance, object num) {
+	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(242);
@@ -16010,7 +16224,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus8(object $instance, object num) {
+	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(243);
@@ -16020,9 +16234,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus9(object $instance, object num) {
+	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(244);
 
 		var $result(getSpNumAt(0));
@@ -16030,7 +16244,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus10(object $instance, object num) {
+	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(245);
@@ -16040,9 +16254,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$plus11(object $instance, var& num) {
+	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(246);
 
 		var $result(getSpNumAt(0));
@@ -16050,7 +16264,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus(object $instance, object num) {
+	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(247);
@@ -16060,7 +16274,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus2(object $instance, object num) {
+	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(248);
@@ -16070,7 +16284,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus3(object $instance, object num) {
+	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(249);
@@ -16080,7 +16294,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus4(object $instance, object num) {
+	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(250);
@@ -16090,7 +16304,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus5(object $instance, object num) {
+	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(251);
@@ -16100,7 +16314,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus6(object $instance, object num) {
+	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(252);
@@ -16110,7 +16324,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus7(object $instance, object num) {
+	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(253);
@@ -16120,7 +16334,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus8(object $instance, object num) {
+	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(254);
@@ -16130,9 +16344,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus9(object $instance, object num) {
+	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(255);
 
 		var $result(getSpNumAt(0));
@@ -16140,7 +16354,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus10(object $instance, object num) {
+	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(256);
@@ -16150,9 +16364,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$minus11(object $instance, var& num) {
+	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(257);
 
 		var $result(getSpNumAt(0));
@@ -16160,7 +16374,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult(object $instance, object num) {
+	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(258);
@@ -16170,7 +16384,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult2(object $instance, object num) {
+	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(259);
@@ -16180,7 +16394,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult3(object $instance, object num) {
+	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(260);
@@ -16190,7 +16404,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult4(object $instance, object num) {
+	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(261);
@@ -16200,7 +16414,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult5(object $instance, object num) {
+	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(262);
@@ -16210,7 +16424,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult6(object $instance, object num) {
+	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(263);
@@ -16220,7 +16434,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult7(object $instance, object num) {
+	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(264);
@@ -16230,7 +16444,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult8(object $instance, object num) {
+	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(265);
@@ -16240,9 +16454,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult9(object $instance, object num) {
+	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(266);
 
 		var $result(getSpNumAt(0));
@@ -16250,7 +16464,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult10(object $instance, object num) {
+	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(267);
@@ -16260,9 +16474,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mult11(object $instance, var& num) {
+	var op_$div2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(268);
 
 		var $result(getSpNumAt(0));
@@ -16270,7 +16484,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div(object $instance, object num) {
+	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(269);
@@ -16280,7 +16494,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div2(object $instance, object num) {
+	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(270);
@@ -16290,7 +16504,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div3(object $instance, object num) {
+	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(271);
@@ -16300,7 +16514,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div4(object $instance, object num) {
+	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(272);
@@ -16310,7 +16524,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div5(object $instance, object num) {
+	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(273);
@@ -16320,7 +16534,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div6(object $instance, object num) {
+	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(274);
@@ -16330,7 +16544,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div7(object $instance, object num) {
+	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(275);
@@ -16340,7 +16554,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div8(object $instance, object num) {
+	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(276);
@@ -16350,9 +16564,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div9(object $instance, object num) {
+	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(277);
 
 		var $result(getSpNumAt(0));
@@ -16360,7 +16574,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div10(object $instance, object num) {
+	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(278);
@@ -16370,9 +16584,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$div11(object $instance, var& num) {
+	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(279);
 
 		var $result(getSpNumAt(0));
@@ -16380,7 +16594,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod(object $instance, object num) {
+	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(280);
@@ -16390,7 +16604,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod2(object $instance, object num) {
+	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(281);
@@ -16400,7 +16614,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod3(object $instance, object num) {
+	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(282);
@@ -16410,7 +16624,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod4(object $instance, object num) {
+	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(283);
@@ -16420,7 +16634,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod5(object $instance, object num) {
+	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(284);
@@ -16430,7 +16644,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod6(object $instance, object num) {
+	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(285);
@@ -16440,7 +16654,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod7(object $instance, object num) {
+	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(286);
@@ -16450,7 +16664,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod8(object $instance, object num) {
+	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(287);
@@ -16460,9 +16674,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod9(object $instance, object num) {
+	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(288);
 
 		var $result(getSpNumAt(0));
@@ -16470,7 +16684,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod10(object $instance, object num) {
+	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(289);
@@ -16480,9 +16694,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$mod11(object $instance, var& num) {
+	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(290);
 
 		var $result(getSpNumAt(0));
@@ -16490,7 +16704,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than(object $instance, object num) {
+	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(291);
@@ -16500,7 +16714,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than2(object $instance, object num) {
+	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(292);
@@ -16510,7 +16724,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than3(object $instance, object num) {
+	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(293);
@@ -16520,7 +16734,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than4(object $instance, object num) {
+	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(294);
@@ -16530,7 +16744,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than5(object $instance, object num) {
+	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(295);
@@ -16540,7 +16754,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than6(object $instance, object num) {
+	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(296);
@@ -16550,7 +16764,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than7(object $instance, object num) {
+	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(297);
@@ -16560,7 +16774,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than8(object $instance, object num) {
+	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(298);
@@ -16570,9 +16784,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than9(object $instance, object num) {
+	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(299);
 
 		var $result(getSpNumAt(0));
@@ -16580,7 +16794,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than10(object $instance, object num) {
+	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(300);
@@ -16590,9 +16804,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_than11(object $instance, var& num) {
+	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(301);
 
 		var $result(getSpNumAt(0));
@@ -16600,7 +16814,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than(object $instance, object num) {
+	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(302);
@@ -16610,7 +16824,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than2(object $instance, object num) {
+	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(303);
@@ -16620,7 +16834,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than3(object $instance, object num) {
+	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(304);
@@ -16630,7 +16844,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than4(object $instance, object num) {
+	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(305);
@@ -16640,7 +16854,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than5(object $instance, object num) {
+	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(306);
@@ -16650,7 +16864,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than6(object $instance, object num) {
+	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(307);
@@ -16660,7 +16874,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than7(object $instance, object num) {
+	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(308);
@@ -16670,7 +16884,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than8(object $instance, object num) {
+	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(309);
@@ -16680,9 +16894,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than9(object $instance, object num) {
+	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(310);
 
 		var $result(getSpNumAt(0));
@@ -16690,7 +16904,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than10(object $instance, object num) {
+	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(311);
@@ -16700,9 +16914,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$greater_than11(object $instance, var& num) {
+	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(312);
 
 		var $result(getSpNumAt(0));
@@ -16710,7 +16924,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals(object $instance, object num) {
+	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(313);
@@ -16720,7 +16934,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals2(object $instance, object num) {
+	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(314);
@@ -16730,7 +16944,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals3(object $instance, object num) {
+	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(315);
@@ -16740,7 +16954,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals4(object $instance, object num) {
+	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(316);
@@ -16750,7 +16964,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals5(object $instance, object num) {
+	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(317);
@@ -16760,7 +16974,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals6(object $instance, object num) {
+	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(318);
@@ -16770,7 +16984,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals7(object $instance, object num) {
+	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(319);
@@ -16780,7 +16994,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals8(object $instance, object num) {
+	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(320);
@@ -16790,9 +17004,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals9(object $instance, object num) {
+	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(321);
 
 		var $result(getSpNumAt(0));
@@ -16800,7 +17014,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals10(object $instance, object num) {
+	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(322);
@@ -16810,9 +17024,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$less_or_equals11(object $instance, var& num) {
+	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(323);
 
 		var $result(getSpNumAt(0));
@@ -16820,7 +17034,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow(object $instance, object num) {
+	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(324);
@@ -16830,7 +17044,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow2(object $instance, object num) {
+	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(325);
@@ -16840,7 +17054,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow3(object $instance, object num) {
+	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(326);
@@ -16850,7 +17064,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow4(object $instance, object num) {
+	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(327);
@@ -16860,7 +17074,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow5(object $instance, object num) {
+	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(328);
@@ -16870,7 +17084,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow6(object $instance, object num) {
+	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(329);
@@ -16880,7 +17094,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow7(object $instance, object num) {
+	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(330);
@@ -16890,7 +17104,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow8(object $instance, object num) {
+	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(331);
@@ -16900,9 +17114,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow9(object $instance, object num) {
+	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(332);
 
 		var $result(getSpNumAt(0));
@@ -16910,7 +17124,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow10(object $instance, object num) {
+	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(333);
@@ -16920,9 +17134,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$pow11(object $instance, var& num) {
+	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(334);
 
 		var $result(getSpNumAt(0));
@@ -16930,7 +17144,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift(object $instance, object num) {
+	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(335);
@@ -16940,7 +17154,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift2(object $instance, object num) {
+	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(336);
@@ -16950,7 +17164,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift3(object $instance, object num) {
+	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(337);
@@ -16960,7 +17174,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift4(object $instance, object num) {
+	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(338);
@@ -16970,7 +17184,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift5(object $instance, object num) {
+	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(339);
@@ -16980,7 +17194,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift6(object $instance, object num) {
+	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(340);
@@ -16990,7 +17204,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift7(object $instance, object num) {
+	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(341);
@@ -17000,7 +17214,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift8(object $instance, object num) {
+	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(342);
@@ -17010,9 +17224,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift9(object $instance, object num) {
+	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(343);
 
 		var $result(getSpNumAt(0));
@@ -17020,7 +17234,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift10(object $instance, object num) {
+	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(344);
@@ -17030,9 +17244,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$left_shift11(object $instance, var& num) {
+	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(345);
 
 		var $result(getSpNumAt(0));
@@ -17040,7 +17254,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift(object $instance, object num) {
+	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(346);
@@ -17050,7 +17264,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift2(object $instance, object num) {
+	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(347);
@@ -17060,7 +17274,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift3(object $instance, object num) {
+	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(348);
@@ -17070,7 +17284,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift4(object $instance, object num) {
+	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(349);
@@ -17080,7 +17294,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift5(object $instance, object num) {
+	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(350);
@@ -17090,7 +17304,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift6(object $instance, object num) {
+	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(351);
@@ -17100,7 +17314,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift7(object $instance, object num) {
+	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(352);
@@ -17110,7 +17324,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift8(object $instance, object num) {
+	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(353);
@@ -17120,9 +17334,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift9(object $instance, object num) {
+	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(354);
 
 		var $result(getSpNumAt(0));
@@ -17130,7 +17344,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift10(object $instance, object num) {
+	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(355);
@@ -17140,9 +17354,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$right_shift11(object $instance, var& num) {
+	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(356);
 
 		var $result(getSpNumAt(0));
@@ -17150,7 +17364,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor(object $instance, object num) {
+	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(357);
@@ -17160,7 +17374,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor2(object $instance, object num) {
+	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(358);
@@ -17170,7 +17384,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor3(object $instance, object num) {
+	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(359);
@@ -17180,7 +17394,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor4(object $instance, object num) {
+	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(360);
@@ -17190,7 +17404,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor5(object $instance, object num) {
+	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(361);
@@ -17200,7 +17414,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor6(object $instance, object num) {
+	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(362);
@@ -17210,7 +17424,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor7(object $instance, object num) {
+	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(363);
@@ -17220,7 +17434,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor8(object $instance, object num) {
+	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(364);
@@ -17230,9 +17444,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor9(object $instance, object num) {
+	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(365);
 
 		var $result(getSpNumAt(0));
@@ -17240,7 +17454,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor10(object $instance, object num) {
+	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(366);
@@ -17250,9 +17464,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$xor11(object $instance, var& num) {
+	var op_$and2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(367);
 
 		var $result(getSpNumAt(0));
@@ -17260,7 +17474,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and(object $instance, object num) {
+	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(368);
@@ -17270,7 +17484,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and2(object $instance, object num) {
+	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(369);
@@ -17280,7 +17494,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and3(object $instance, object num) {
+	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(370);
@@ -17290,7 +17504,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and4(object $instance, object num) {
+	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(371);
@@ -17300,7 +17514,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and5(object $instance, object num) {
+	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(372);
@@ -17310,7 +17524,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and6(object $instance, object num) {
+	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(373);
@@ -17320,7 +17534,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and7(object $instance, object num) {
+	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(374);
@@ -17330,7 +17544,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and8(object $instance, object num) {
+	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(375);
@@ -17340,9 +17554,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and9(object $instance, object num) {
+	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(376);
 
 		var $result(getSpNumAt(0));
@@ -17350,7 +17564,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and10(object $instance, object num) {
+	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(377);
@@ -17360,9 +17574,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$and11(object $instance, var& num) {
+	var op_$or2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(378);
 
 		var $result(getSpNumAt(0));
@@ -17370,7 +17584,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or(object $instance, object num) {
+	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(379);
@@ -17380,7 +17594,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or2(object $instance, object num) {
+	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(380);
@@ -17390,7 +17604,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or3(object $instance, object num) {
+	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(381);
@@ -17400,7 +17614,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or4(object $instance, object num) {
+	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(382);
@@ -17410,7 +17624,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or5(object $instance, object num) {
+	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(383);
@@ -17420,7 +17634,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or6(object $instance, object num) {
+	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(384);
@@ -17430,7 +17644,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or7(object $instance, object num) {
+	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(385);
@@ -17440,7 +17654,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or8(object $instance, object num) {
+	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(386);
@@ -17450,9 +17664,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or9(object $instance, object num) {
+	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(387);
 
 		var $result(getSpNumAt(0));
@@ -17460,9 +17674,9 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or10(object $instance, object num) {
+	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(388);
 
 		var $result(getSpNumAt(0));
@@ -17470,7 +17684,7 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$or11(object $instance, var& num) {
+	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
 		call(389);
@@ -17480,30 +17694,10 @@ scope_begin(std, integer$_int64$)
 		return $result;
 	}
 
-	var op_$not_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(390);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(391);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
 	_int64 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(392);
+		call(390);
 
 		_int64 $result(getSpNumAt(0));
 		decSp(1);
@@ -17512,7 +17706,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(393);
+		call(391);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17521,7 +17715,7 @@ scope_begin(std, integer$_int64$)
 
 	_int64 parse(object s) {
 		pushObj(s);
-		call(394);
+		call(392);
 
 		_int64 $result(getSpNumAt(0));
 		decSp(1);
@@ -17530,7 +17724,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(395);
+		call(393);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17539,7 +17733,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(396);
+		call(394);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17548,7 +17742,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(397);
+		call(395);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17557,7 +17751,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(398);
+		call(396);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17566,7 +17760,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(399);
+		call(397);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17575,7 +17769,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(400);
+		call(398);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17584,7 +17778,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(401);
+		call(399);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17593,7 +17787,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(402);
+		call(400);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17602,7 +17796,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(403);
+		call(401);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17611,7 +17805,7 @@ scope_begin(std, integer$_int64$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(404);
+		call(402);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17620,7 +17814,7 @@ scope_begin(std, integer$_int64$)
 
 	_int64 get_value(object $instance) {
 		pushObj($instance);
-		call(405);
+		call(403);
 
 		_int64 $result(getSpNumAt(0));
 		decSp(1);
@@ -17629,7 +17823,7 @@ scope_begin(std, integer$_int64$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
-		call(406);
+		call(404);
 	}
 
 scope_end()
@@ -17639,12 +17833,12 @@ scope_begin(std, integer$_uint32$)
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(407);
+		call(405);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(408);
+		call(406);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -17652,6 +17846,26 @@ scope_begin(std, integer$_uint32$)
 	}
 
 	var op_$not_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(407);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(408);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(409);
@@ -17661,7 +17875,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals(object $instance, object num) {
+	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(410);
@@ -17671,7 +17885,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals2(object $instance, object num) {
+	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(411);
@@ -17681,7 +17895,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals2(object $instance, object num) {
+	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(412);
@@ -17691,7 +17905,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals3(object $instance, object num) {
+	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(413);
@@ -17701,7 +17915,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals3(object $instance, object num) {
+	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(414);
@@ -17711,7 +17925,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals4(object $instance, object num) {
+	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(415);
@@ -17721,7 +17935,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals4(object $instance, object num) {
+	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(416);
@@ -17731,7 +17945,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals5(object $instance, object num) {
+	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(417);
@@ -17741,7 +17955,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals5(object $instance, object num) {
+	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(418);
@@ -17751,7 +17965,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals6(object $instance, object num) {
+	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(419);
@@ -17761,7 +17975,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals6(object $instance, object num) {
+	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(420);
@@ -17771,7 +17985,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals7(object $instance, object num) {
+	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(421);
@@ -17781,7 +17995,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals7(object $instance, object num) {
+	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(422);
@@ -17791,7 +18005,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals8(object $instance, object num) {
+	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(423);
@@ -17801,7 +18015,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals8(object $instance, object num) {
+	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(424);
@@ -17811,7 +18025,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals9(object $instance, object num) {
+	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(425);
@@ -17821,7 +18035,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals9(object $instance, object num) {
+	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(426);
@@ -17831,7 +18045,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals10(object $instance, object num) {
+	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(427);
@@ -17841,7 +18055,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$equals_equals10(object $instance, object num) {
+	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(428);
@@ -17851,7 +18065,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus(object $instance, object num) {
+	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(429);
@@ -17861,7 +18075,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus2(object $instance, object num) {
+	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(430);
@@ -17871,7 +18085,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus3(object $instance, object num) {
+	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(431);
@@ -17881,7 +18095,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus4(object $instance, object num) {
+	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(432);
@@ -17891,7 +18105,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus5(object $instance, object num) {
+	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(433);
@@ -17901,7 +18115,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus6(object $instance, object num) {
+	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(434);
@@ -17911,7 +18125,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus7(object $instance, object num) {
+	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(435);
@@ -17921,7 +18135,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus8(object $instance, object num) {
+	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(436);
@@ -17931,9 +18145,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus9(object $instance, object num) {
+	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(437);
 
 		var $result(getSpNumAt(0));
@@ -17941,7 +18155,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus10(object $instance, object num) {
+	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(438);
@@ -17951,9 +18165,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$plus11(object $instance, var& num) {
+	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(439);
 
 		var $result(getSpNumAt(0));
@@ -17961,7 +18175,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus(object $instance, object num) {
+	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(440);
@@ -17971,7 +18185,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus2(object $instance, object num) {
+	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(441);
@@ -17981,7 +18195,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus3(object $instance, object num) {
+	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(442);
@@ -17991,7 +18205,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus4(object $instance, object num) {
+	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(443);
@@ -18001,7 +18215,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus5(object $instance, object num) {
+	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(444);
@@ -18011,7 +18225,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus6(object $instance, object num) {
+	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(445);
@@ -18021,7 +18235,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus7(object $instance, object num) {
+	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(446);
@@ -18031,7 +18245,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus8(object $instance, object num) {
+	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(447);
@@ -18041,9 +18255,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus9(object $instance, object num) {
+	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(448);
 
 		var $result(getSpNumAt(0));
@@ -18051,7 +18265,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus10(object $instance, object num) {
+	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(449);
@@ -18061,9 +18275,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$minus11(object $instance, var& num) {
+	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(450);
 
 		var $result(getSpNumAt(0));
@@ -18071,7 +18285,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult(object $instance, object num) {
+	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(451);
@@ -18081,7 +18295,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult2(object $instance, object num) {
+	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(452);
@@ -18091,7 +18305,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult3(object $instance, object num) {
+	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(453);
@@ -18101,7 +18315,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult4(object $instance, object num) {
+	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(454);
@@ -18111,7 +18325,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult5(object $instance, object num) {
+	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(455);
@@ -18121,7 +18335,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult6(object $instance, object num) {
+	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(456);
@@ -18131,7 +18345,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult7(object $instance, object num) {
+	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(457);
@@ -18141,7 +18355,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult8(object $instance, object num) {
+	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(458);
@@ -18151,9 +18365,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult9(object $instance, object num) {
+	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(459);
 
 		var $result(getSpNumAt(0));
@@ -18161,7 +18375,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult10(object $instance, object num) {
+	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(460);
@@ -18171,9 +18385,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mult11(object $instance, var& num) {
+	var op_$div2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(461);
 
 		var $result(getSpNumAt(0));
@@ -18181,7 +18395,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div(object $instance, object num) {
+	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(462);
@@ -18191,7 +18405,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div2(object $instance, object num) {
+	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(463);
@@ -18201,7 +18415,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div3(object $instance, object num) {
+	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(464);
@@ -18211,7 +18425,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div4(object $instance, object num) {
+	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(465);
@@ -18221,7 +18435,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div5(object $instance, object num) {
+	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(466);
@@ -18231,7 +18445,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div6(object $instance, object num) {
+	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(467);
@@ -18241,7 +18455,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div7(object $instance, object num) {
+	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(468);
@@ -18251,7 +18465,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div8(object $instance, object num) {
+	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(469);
@@ -18261,9 +18475,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div9(object $instance, object num) {
+	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(470);
 
 		var $result(getSpNumAt(0));
@@ -18271,7 +18485,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div10(object $instance, object num) {
+	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(471);
@@ -18281,9 +18495,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$div11(object $instance, var& num) {
+	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(472);
 
 		var $result(getSpNumAt(0));
@@ -18291,7 +18505,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod(object $instance, object num) {
+	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(473);
@@ -18301,7 +18515,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod2(object $instance, object num) {
+	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(474);
@@ -18311,7 +18525,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod3(object $instance, object num) {
+	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(475);
@@ -18321,7 +18535,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod4(object $instance, object num) {
+	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(476);
@@ -18331,7 +18545,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod5(object $instance, object num) {
+	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(477);
@@ -18341,7 +18555,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod6(object $instance, object num) {
+	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(478);
@@ -18351,7 +18565,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod7(object $instance, object num) {
+	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(479);
@@ -18361,7 +18575,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod8(object $instance, object num) {
+	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(480);
@@ -18371,9 +18585,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod9(object $instance, object num) {
+	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(481);
 
 		var $result(getSpNumAt(0));
@@ -18381,7 +18595,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod10(object $instance, object num) {
+	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(482);
@@ -18391,9 +18605,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$mod11(object $instance, var& num) {
+	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(483);
 
 		var $result(getSpNumAt(0));
@@ -18401,7 +18615,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than(object $instance, object num) {
+	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(484);
@@ -18411,7 +18625,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than2(object $instance, object num) {
+	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(485);
@@ -18421,7 +18635,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than3(object $instance, object num) {
+	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(486);
@@ -18431,7 +18645,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than4(object $instance, object num) {
+	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(487);
@@ -18441,7 +18655,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than5(object $instance, object num) {
+	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(488);
@@ -18451,7 +18665,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than6(object $instance, object num) {
+	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(489);
@@ -18461,7 +18675,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than7(object $instance, object num) {
+	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(490);
@@ -18471,7 +18685,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than8(object $instance, object num) {
+	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(491);
@@ -18481,9 +18695,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than9(object $instance, object num) {
+	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(492);
 
 		var $result(getSpNumAt(0));
@@ -18491,7 +18705,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than10(object $instance, object num) {
+	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(493);
@@ -18501,9 +18715,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_than11(object $instance, var& num) {
+	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(494);
 
 		var $result(getSpNumAt(0));
@@ -18511,7 +18725,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than(object $instance, object num) {
+	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(495);
@@ -18521,7 +18735,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than2(object $instance, object num) {
+	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(496);
@@ -18531,7 +18745,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than3(object $instance, object num) {
+	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(497);
@@ -18541,7 +18755,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than4(object $instance, object num) {
+	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(498);
@@ -18551,7 +18765,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than5(object $instance, object num) {
+	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(499);
@@ -18561,7 +18775,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than6(object $instance, object num) {
+	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(500);
@@ -18571,7 +18785,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than7(object $instance, object num) {
+	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(501);
@@ -18581,7 +18795,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than8(object $instance, object num) {
+	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(502);
@@ -18591,9 +18805,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than9(object $instance, object num) {
+	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(503);
 
 		var $result(getSpNumAt(0));
@@ -18601,7 +18815,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than10(object $instance, object num) {
+	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(504);
@@ -18611,9 +18825,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$greater_than11(object $instance, var& num) {
+	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(505);
 
 		var $result(getSpNumAt(0));
@@ -18621,7 +18835,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals(object $instance, object num) {
+	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(506);
@@ -18631,7 +18845,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals2(object $instance, object num) {
+	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(507);
@@ -18641,7 +18855,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals3(object $instance, object num) {
+	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(508);
@@ -18651,7 +18865,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals4(object $instance, object num) {
+	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(509);
@@ -18661,7 +18875,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals5(object $instance, object num) {
+	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(510);
@@ -18671,7 +18885,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals6(object $instance, object num) {
+	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(511);
@@ -18681,7 +18895,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals7(object $instance, object num) {
+	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(512);
@@ -18691,7 +18905,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals8(object $instance, object num) {
+	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(513);
@@ -18701,9 +18915,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals9(object $instance, object num) {
+	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(514);
 
 		var $result(getSpNumAt(0));
@@ -18711,7 +18925,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals10(object $instance, object num) {
+	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(515);
@@ -18721,9 +18935,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$less_or_equals11(object $instance, var& num) {
+	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(516);
 
 		var $result(getSpNumAt(0));
@@ -18731,7 +18945,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow(object $instance, object num) {
+	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(517);
@@ -18741,7 +18955,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow2(object $instance, object num) {
+	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(518);
@@ -18751,7 +18965,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow3(object $instance, object num) {
+	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(519);
@@ -18761,7 +18975,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow4(object $instance, object num) {
+	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(520);
@@ -18771,7 +18985,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow5(object $instance, object num) {
+	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(521);
@@ -18781,7 +18995,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow6(object $instance, object num) {
+	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(522);
@@ -18791,7 +19005,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow7(object $instance, object num) {
+	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(523);
@@ -18801,7 +19015,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow8(object $instance, object num) {
+	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(524);
@@ -18811,9 +19025,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow9(object $instance, object num) {
+	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(525);
 
 		var $result(getSpNumAt(0));
@@ -18821,7 +19035,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow10(object $instance, object num) {
+	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(526);
@@ -18831,9 +19045,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$pow11(object $instance, var& num) {
+	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(527);
 
 		var $result(getSpNumAt(0));
@@ -18841,7 +19055,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift(object $instance, object num) {
+	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(528);
@@ -18851,7 +19065,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift2(object $instance, object num) {
+	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(529);
@@ -18861,7 +19075,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift3(object $instance, object num) {
+	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(530);
@@ -18871,7 +19085,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift4(object $instance, object num) {
+	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(531);
@@ -18881,7 +19095,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift5(object $instance, object num) {
+	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(532);
@@ -18891,7 +19105,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift6(object $instance, object num) {
+	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(533);
@@ -18901,7 +19115,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift7(object $instance, object num) {
+	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(534);
@@ -18911,7 +19125,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift8(object $instance, object num) {
+	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(535);
@@ -18921,9 +19135,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift9(object $instance, object num) {
+	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(536);
 
 		var $result(getSpNumAt(0));
@@ -18931,7 +19145,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift10(object $instance, object num) {
+	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(537);
@@ -18941,9 +19155,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$left_shift11(object $instance, var& num) {
+	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(538);
 
 		var $result(getSpNumAt(0));
@@ -18951,7 +19165,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift(object $instance, object num) {
+	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(539);
@@ -18961,7 +19175,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift2(object $instance, object num) {
+	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(540);
@@ -18971,7 +19185,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift3(object $instance, object num) {
+	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(541);
@@ -18981,7 +19195,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift4(object $instance, object num) {
+	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(542);
@@ -18991,7 +19205,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift5(object $instance, object num) {
+	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(543);
@@ -19001,7 +19215,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift6(object $instance, object num) {
+	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(544);
@@ -19011,7 +19225,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift7(object $instance, object num) {
+	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(545);
@@ -19021,7 +19235,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift8(object $instance, object num) {
+	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(546);
@@ -19031,9 +19245,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift9(object $instance, object num) {
+	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(547);
 
 		var $result(getSpNumAt(0));
@@ -19041,7 +19255,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift10(object $instance, object num) {
+	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(548);
@@ -19051,9 +19265,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$right_shift11(object $instance, var& num) {
+	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(549);
 
 		var $result(getSpNumAt(0));
@@ -19061,7 +19275,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor(object $instance, object num) {
+	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(550);
@@ -19071,7 +19285,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor2(object $instance, object num) {
+	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(551);
@@ -19081,7 +19295,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor3(object $instance, object num) {
+	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(552);
@@ -19091,7 +19305,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor4(object $instance, object num) {
+	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(553);
@@ -19101,7 +19315,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor5(object $instance, object num) {
+	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(554);
@@ -19111,7 +19325,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor6(object $instance, object num) {
+	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(555);
@@ -19121,7 +19335,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor7(object $instance, object num) {
+	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(556);
@@ -19131,7 +19345,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor8(object $instance, object num) {
+	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(557);
@@ -19141,9 +19355,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor9(object $instance, object num) {
+	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(558);
 
 		var $result(getSpNumAt(0));
@@ -19151,7 +19365,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor10(object $instance, object num) {
+	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(559);
@@ -19161,9 +19375,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$xor11(object $instance, var& num) {
+	var op_$and2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(560);
 
 		var $result(getSpNumAt(0));
@@ -19171,7 +19385,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and(object $instance, object num) {
+	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(561);
@@ -19181,7 +19395,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and2(object $instance, object num) {
+	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(562);
@@ -19191,7 +19405,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and3(object $instance, object num) {
+	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(563);
@@ -19201,7 +19415,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and4(object $instance, object num) {
+	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(564);
@@ -19211,7 +19425,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and5(object $instance, object num) {
+	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(565);
@@ -19221,7 +19435,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and6(object $instance, object num) {
+	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(566);
@@ -19231,7 +19445,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and7(object $instance, object num) {
+	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(567);
@@ -19241,7 +19455,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and8(object $instance, object num) {
+	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(568);
@@ -19251,9 +19465,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and9(object $instance, object num) {
+	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(569);
 
 		var $result(getSpNumAt(0));
@@ -19261,7 +19475,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and10(object $instance, object num) {
+	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(570);
@@ -19271,9 +19485,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$and11(object $instance, var& num) {
+	var op_$or2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(571);
 
 		var $result(getSpNumAt(0));
@@ -19281,7 +19495,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or(object $instance, object num) {
+	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(572);
@@ -19291,7 +19505,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or2(object $instance, object num) {
+	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(573);
@@ -19301,7 +19515,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or3(object $instance, object num) {
+	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(574);
@@ -19311,7 +19525,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or4(object $instance, object num) {
+	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(575);
@@ -19321,7 +19535,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or5(object $instance, object num) {
+	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(576);
@@ -19331,7 +19545,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or6(object $instance, object num) {
+	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(577);
@@ -19341,7 +19555,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or7(object $instance, object num) {
+	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(578);
@@ -19351,7 +19565,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or8(object $instance, object num) {
+	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(579);
@@ -19361,9 +19575,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or9(object $instance, object num) {
+	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(580);
 
 		var $result(getSpNumAt(0));
@@ -19371,9 +19585,9 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or10(object $instance, object num) {
+	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(581);
 
 		var $result(getSpNumAt(0));
@@ -19381,7 +19595,7 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$or11(object $instance, var& num) {
+	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
 		call(582);
@@ -19391,30 +19605,10 @@ scope_begin(std, integer$_uint32$)
 		return $result;
 	}
 
-	var op_$not_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(583);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(584);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
 	_uint32 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(585);
+		call(583);
 
 		_uint32 $result(getSpNumAt(0));
 		decSp(1);
@@ -19423,7 +19617,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(586);
+		call(584);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19432,7 +19626,7 @@ scope_begin(std, integer$_uint32$)
 
 	_uint32 parse(object s) {
 		pushObj(s);
-		call(587);
+		call(585);
 
 		_uint32 $result(getSpNumAt(0));
 		decSp(1);
@@ -19441,7 +19635,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(588);
+		call(586);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19450,7 +19644,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(589);
+		call(587);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19459,7 +19653,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(590);
+		call(588);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19468,7 +19662,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(591);
+		call(589);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19477,7 +19671,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(592);
+		call(590);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19486,7 +19680,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(593);
+		call(591);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19495,7 +19689,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(594);
+		call(592);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19504,7 +19698,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(595);
+		call(593);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19513,7 +19707,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(596);
+		call(594);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19522,7 +19716,7 @@ scope_begin(std, integer$_uint32$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(597);
+		call(595);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19531,7 +19725,7 @@ scope_begin(std, integer$_uint32$)
 
 	_uint32 get_value(object $instance) {
 		pushObj($instance);
-		call(598);
+		call(596);
 
 		_uint32 $result(getSpNumAt(0));
 		decSp(1);
@@ -19540,7 +19734,7 @@ scope_begin(std, integer$_uint32$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
-		call(599);
+		call(597);
 	}
 
 scope_end()
@@ -19550,12 +19744,12 @@ scope_begin(std, integer$_int32$)
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(600);
+		call(598);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(601);
+		call(599);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -19563,6 +19757,26 @@ scope_begin(std, integer$_int32$)
 	}
 
 	var op_$not_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(600);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(601);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(602);
@@ -19572,7 +19786,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals(object $instance, object num) {
+	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(603);
@@ -19582,7 +19796,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals2(object $instance, object num) {
+	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(604);
@@ -19592,7 +19806,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals2(object $instance, object num) {
+	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(605);
@@ -19602,7 +19816,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals3(object $instance, object num) {
+	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(606);
@@ -19612,7 +19826,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals3(object $instance, object num) {
+	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(607);
@@ -19622,7 +19836,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals4(object $instance, object num) {
+	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(608);
@@ -19632,7 +19846,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals4(object $instance, object num) {
+	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(609);
@@ -19642,7 +19856,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals5(object $instance, object num) {
+	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(610);
@@ -19652,7 +19866,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals5(object $instance, object num) {
+	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(611);
@@ -19662,7 +19876,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals6(object $instance, object num) {
+	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(612);
@@ -19672,7 +19886,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals6(object $instance, object num) {
+	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(613);
@@ -19682,7 +19896,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals7(object $instance, object num) {
+	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(614);
@@ -19692,7 +19906,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals7(object $instance, object num) {
+	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(615);
@@ -19702,7 +19916,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals8(object $instance, object num) {
+	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(616);
@@ -19712,7 +19926,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals8(object $instance, object num) {
+	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(617);
@@ -19722,7 +19936,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals9(object $instance, object num) {
+	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(618);
@@ -19732,7 +19946,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals9(object $instance, object num) {
+	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(619);
@@ -19742,7 +19956,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals10(object $instance, object num) {
+	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(620);
@@ -19752,7 +19966,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$equals_equals10(object $instance, object num) {
+	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(621);
@@ -19762,7 +19976,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus(object $instance, object num) {
+	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(622);
@@ -19772,7 +19986,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus2(object $instance, object num) {
+	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(623);
@@ -19782,7 +19996,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus3(object $instance, object num) {
+	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(624);
@@ -19792,7 +20006,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus4(object $instance, object num) {
+	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(625);
@@ -19802,7 +20016,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus5(object $instance, object num) {
+	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(626);
@@ -19812,7 +20026,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus6(object $instance, object num) {
+	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(627);
@@ -19822,7 +20036,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus7(object $instance, object num) {
+	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(628);
@@ -19832,7 +20046,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus8(object $instance, object num) {
+	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(629);
@@ -19842,9 +20056,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus9(object $instance, object num) {
+	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(630);
 
 		var $result(getSpNumAt(0));
@@ -19852,7 +20066,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus10(object $instance, object num) {
+	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(631);
@@ -19862,9 +20076,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$plus11(object $instance, var& num) {
+	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(632);
 
 		var $result(getSpNumAt(0));
@@ -19872,7 +20086,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus(object $instance, object num) {
+	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(633);
@@ -19882,7 +20096,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus2(object $instance, object num) {
+	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(634);
@@ -19892,7 +20106,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus3(object $instance, object num) {
+	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(635);
@@ -19902,7 +20116,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus4(object $instance, object num) {
+	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(636);
@@ -19912,7 +20126,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus5(object $instance, object num) {
+	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(637);
@@ -19922,7 +20136,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus6(object $instance, object num) {
+	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(638);
@@ -19932,7 +20146,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus7(object $instance, object num) {
+	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(639);
@@ -19942,7 +20156,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus8(object $instance, object num) {
+	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(640);
@@ -19952,9 +20166,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus9(object $instance, object num) {
+	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(641);
 
 		var $result(getSpNumAt(0));
@@ -19962,7 +20176,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus10(object $instance, object num) {
+	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(642);
@@ -19972,9 +20186,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$minus11(object $instance, var& num) {
+	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(643);
 
 		var $result(getSpNumAt(0));
@@ -19982,7 +20196,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult(object $instance, object num) {
+	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(644);
@@ -19992,7 +20206,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult2(object $instance, object num) {
+	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(645);
@@ -20002,7 +20216,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult3(object $instance, object num) {
+	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(646);
@@ -20012,7 +20226,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult4(object $instance, object num) {
+	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(647);
@@ -20022,7 +20236,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult5(object $instance, object num) {
+	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(648);
@@ -20032,7 +20246,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult6(object $instance, object num) {
+	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(649);
@@ -20042,7 +20256,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult7(object $instance, object num) {
+	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(650);
@@ -20052,7 +20266,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult8(object $instance, object num) {
+	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(651);
@@ -20062,9 +20276,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult9(object $instance, object num) {
+	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(652);
 
 		var $result(getSpNumAt(0));
@@ -20072,7 +20286,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult10(object $instance, object num) {
+	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(653);
@@ -20082,9 +20296,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mult11(object $instance, var& num) {
+	var op_$div2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(654);
 
 		var $result(getSpNumAt(0));
@@ -20092,7 +20306,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div(object $instance, object num) {
+	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(655);
@@ -20102,7 +20316,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div2(object $instance, object num) {
+	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(656);
@@ -20112,7 +20326,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div3(object $instance, object num) {
+	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(657);
@@ -20122,7 +20336,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div4(object $instance, object num) {
+	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(658);
@@ -20132,7 +20346,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div5(object $instance, object num) {
+	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(659);
@@ -20142,7 +20356,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div6(object $instance, object num) {
+	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(660);
@@ -20152,7 +20366,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div7(object $instance, object num) {
+	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(661);
@@ -20162,7 +20376,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div8(object $instance, object num) {
+	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(662);
@@ -20172,9 +20386,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div9(object $instance, object num) {
+	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(663);
 
 		var $result(getSpNumAt(0));
@@ -20182,7 +20396,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div10(object $instance, object num) {
+	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(664);
@@ -20192,9 +20406,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$div11(object $instance, var& num) {
+	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(665);
 
 		var $result(getSpNumAt(0));
@@ -20202,7 +20416,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod(object $instance, object num) {
+	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(666);
@@ -20212,7 +20426,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod2(object $instance, object num) {
+	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(667);
@@ -20222,7 +20436,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod3(object $instance, object num) {
+	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(668);
@@ -20232,7 +20446,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod4(object $instance, object num) {
+	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(669);
@@ -20242,7 +20456,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod5(object $instance, object num) {
+	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(670);
@@ -20252,7 +20466,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod6(object $instance, object num) {
+	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(671);
@@ -20262,7 +20476,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod7(object $instance, object num) {
+	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(672);
@@ -20272,7 +20486,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod8(object $instance, object num) {
+	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(673);
@@ -20282,9 +20496,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod9(object $instance, object num) {
+	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(674);
 
 		var $result(getSpNumAt(0));
@@ -20292,7 +20506,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod10(object $instance, object num) {
+	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(675);
@@ -20302,9 +20516,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$mod11(object $instance, var& num) {
+	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(676);
 
 		var $result(getSpNumAt(0));
@@ -20312,7 +20526,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than(object $instance, object num) {
+	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(677);
@@ -20322,7 +20536,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than2(object $instance, object num) {
+	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(678);
@@ -20332,7 +20546,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than3(object $instance, object num) {
+	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(679);
@@ -20342,7 +20556,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than4(object $instance, object num) {
+	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(680);
@@ -20352,7 +20566,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than5(object $instance, object num) {
+	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(681);
@@ -20362,7 +20576,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than6(object $instance, object num) {
+	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(682);
@@ -20372,7 +20586,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than7(object $instance, object num) {
+	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(683);
@@ -20382,7 +20596,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than8(object $instance, object num) {
+	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(684);
@@ -20392,9 +20606,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than9(object $instance, object num) {
+	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(685);
 
 		var $result(getSpNumAt(0));
@@ -20402,7 +20616,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than10(object $instance, object num) {
+	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(686);
@@ -20412,9 +20626,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_than11(object $instance, var& num) {
+	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(687);
 
 		var $result(getSpNumAt(0));
@@ -20422,7 +20636,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than(object $instance, object num) {
+	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(688);
@@ -20432,7 +20646,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than2(object $instance, object num) {
+	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(689);
@@ -20442,7 +20656,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than3(object $instance, object num) {
+	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(690);
@@ -20452,7 +20666,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than4(object $instance, object num) {
+	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(691);
@@ -20462,7 +20676,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than5(object $instance, object num) {
+	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(692);
@@ -20472,7 +20686,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than6(object $instance, object num) {
+	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(693);
@@ -20482,7 +20696,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than7(object $instance, object num) {
+	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(694);
@@ -20492,7 +20706,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than8(object $instance, object num) {
+	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(695);
@@ -20502,9 +20716,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than9(object $instance, object num) {
+	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(696);
 
 		var $result(getSpNumAt(0));
@@ -20512,7 +20726,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than10(object $instance, object num) {
+	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(697);
@@ -20522,9 +20736,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$greater_than11(object $instance, var& num) {
+	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(698);
 
 		var $result(getSpNumAt(0));
@@ -20532,7 +20746,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals(object $instance, object num) {
+	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(699);
@@ -20542,7 +20756,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals2(object $instance, object num) {
+	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(700);
@@ -20552,7 +20766,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals3(object $instance, object num) {
+	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(701);
@@ -20562,7 +20776,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals4(object $instance, object num) {
+	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(702);
@@ -20572,7 +20786,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals5(object $instance, object num) {
+	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(703);
@@ -20582,7 +20796,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals6(object $instance, object num) {
+	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(704);
@@ -20592,7 +20806,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals7(object $instance, object num) {
+	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(705);
@@ -20602,7 +20816,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals8(object $instance, object num) {
+	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(706);
@@ -20612,9 +20826,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals9(object $instance, object num) {
+	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(707);
 
 		var $result(getSpNumAt(0));
@@ -20622,7 +20836,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals10(object $instance, object num) {
+	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(708);
@@ -20632,9 +20846,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$less_or_equals11(object $instance, var& num) {
+	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(709);
 
 		var $result(getSpNumAt(0));
@@ -20642,7 +20856,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow(object $instance, object num) {
+	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(710);
@@ -20652,7 +20866,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow2(object $instance, object num) {
+	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(711);
@@ -20662,7 +20876,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow3(object $instance, object num) {
+	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(712);
@@ -20672,7 +20886,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow4(object $instance, object num) {
+	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(713);
@@ -20682,7 +20896,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow5(object $instance, object num) {
+	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(714);
@@ -20692,7 +20906,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow6(object $instance, object num) {
+	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(715);
@@ -20702,7 +20916,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow7(object $instance, object num) {
+	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(716);
@@ -20712,7 +20926,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow8(object $instance, object num) {
+	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(717);
@@ -20722,9 +20936,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow9(object $instance, object num) {
+	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(718);
 
 		var $result(getSpNumAt(0));
@@ -20732,7 +20946,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow10(object $instance, object num) {
+	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(719);
@@ -20742,9 +20956,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$pow11(object $instance, var& num) {
+	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(720);
 
 		var $result(getSpNumAt(0));
@@ -20752,7 +20966,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift(object $instance, object num) {
+	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(721);
@@ -20762,7 +20976,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift2(object $instance, object num) {
+	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(722);
@@ -20772,7 +20986,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift3(object $instance, object num) {
+	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(723);
@@ -20782,7 +20996,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift4(object $instance, object num) {
+	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(724);
@@ -20792,7 +21006,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift5(object $instance, object num) {
+	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(725);
@@ -20802,7 +21016,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift6(object $instance, object num) {
+	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(726);
@@ -20812,7 +21026,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift7(object $instance, object num) {
+	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(727);
@@ -20822,7 +21036,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift8(object $instance, object num) {
+	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(728);
@@ -20832,9 +21046,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift9(object $instance, object num) {
+	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(729);
 
 		var $result(getSpNumAt(0));
@@ -20842,7 +21056,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift10(object $instance, object num) {
+	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(730);
@@ -20852,9 +21066,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$left_shift11(object $instance, var& num) {
+	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(731);
 
 		var $result(getSpNumAt(0));
@@ -20862,7 +21076,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift(object $instance, object num) {
+	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(732);
@@ -20872,7 +21086,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift2(object $instance, object num) {
+	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(733);
@@ -20882,7 +21096,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift3(object $instance, object num) {
+	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(734);
@@ -20892,7 +21106,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift4(object $instance, object num) {
+	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(735);
@@ -20902,7 +21116,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift5(object $instance, object num) {
+	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(736);
@@ -20912,7 +21126,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift6(object $instance, object num) {
+	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(737);
@@ -20922,7 +21136,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift7(object $instance, object num) {
+	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(738);
@@ -20932,7 +21146,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift8(object $instance, object num) {
+	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(739);
@@ -20942,9 +21156,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift9(object $instance, object num) {
+	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(740);
 
 		var $result(getSpNumAt(0));
@@ -20952,7 +21166,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift10(object $instance, object num) {
+	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(741);
@@ -20962,9 +21176,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$right_shift11(object $instance, var& num) {
+	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(742);
 
 		var $result(getSpNumAt(0));
@@ -20972,7 +21186,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor(object $instance, object num) {
+	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(743);
@@ -20982,7 +21196,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor2(object $instance, object num) {
+	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(744);
@@ -20992,7 +21206,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor3(object $instance, object num) {
+	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(745);
@@ -21002,7 +21216,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor4(object $instance, object num) {
+	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(746);
@@ -21012,7 +21226,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor5(object $instance, object num) {
+	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(747);
@@ -21022,7 +21236,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor6(object $instance, object num) {
+	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(748);
@@ -21032,7 +21246,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor7(object $instance, object num) {
+	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(749);
@@ -21042,7 +21256,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor8(object $instance, object num) {
+	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(750);
@@ -21052,9 +21266,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor9(object $instance, object num) {
+	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(751);
 
 		var $result(getSpNumAt(0));
@@ -21062,7 +21276,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor10(object $instance, object num) {
+	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(752);
@@ -21072,9 +21286,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$xor11(object $instance, var& num) {
+	var op_$and2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(753);
 
 		var $result(getSpNumAt(0));
@@ -21082,7 +21296,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and(object $instance, object num) {
+	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(754);
@@ -21092,7 +21306,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and2(object $instance, object num) {
+	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(755);
@@ -21102,7 +21316,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and3(object $instance, object num) {
+	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(756);
@@ -21112,7 +21326,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and4(object $instance, object num) {
+	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(757);
@@ -21122,7 +21336,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and5(object $instance, object num) {
+	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(758);
@@ -21132,7 +21346,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and6(object $instance, object num) {
+	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(759);
@@ -21142,7 +21356,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and7(object $instance, object num) {
+	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(760);
@@ -21152,7 +21366,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and8(object $instance, object num) {
+	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(761);
@@ -21162,9 +21376,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and9(object $instance, object num) {
+	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(762);
 
 		var $result(getSpNumAt(0));
@@ -21172,7 +21386,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and10(object $instance, object num) {
+	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(763);
@@ -21182,9 +21396,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$and11(object $instance, var& num) {
+	var op_$or2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(764);
 
 		var $result(getSpNumAt(0));
@@ -21192,7 +21406,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or(object $instance, object num) {
+	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(765);
@@ -21202,7 +21416,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or2(object $instance, object num) {
+	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(766);
@@ -21212,7 +21426,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or3(object $instance, object num) {
+	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(767);
@@ -21222,7 +21436,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or4(object $instance, object num) {
+	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(768);
@@ -21232,7 +21446,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or5(object $instance, object num) {
+	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(769);
@@ -21242,7 +21456,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or6(object $instance, object num) {
+	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(770);
@@ -21252,7 +21466,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or7(object $instance, object num) {
+	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(771);
@@ -21262,7 +21476,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or8(object $instance, object num) {
+	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(772);
@@ -21272,9 +21486,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or9(object $instance, object num) {
+	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(773);
 
 		var $result(getSpNumAt(0));
@@ -21282,9 +21496,9 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or10(object $instance, object num) {
+	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(774);
 
 		var $result(getSpNumAt(0));
@@ -21292,7 +21506,7 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$or11(object $instance, var& num) {
+	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
 		call(775);
@@ -21302,30 +21516,10 @@ scope_begin(std, integer$_int32$)
 		return $result;
 	}
 
-	var op_$not_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(776);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(777);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
 	_int32 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(778);
+		call(776);
 
 		_int32 $result(getSpNumAt(0));
 		decSp(1);
@@ -21334,7 +21528,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(779);
+		call(777);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21343,7 +21537,7 @@ scope_begin(std, integer$_int32$)
 
 	_int32 parse(object s) {
 		pushObj(s);
-		call(780);
+		call(778);
 
 		_int32 $result(getSpNumAt(0));
 		decSp(1);
@@ -21352,7 +21546,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(781);
+		call(779);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21361,7 +21555,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(782);
+		call(780);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21370,7 +21564,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(783);
+		call(781);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21379,7 +21573,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(784);
+		call(782);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21388,7 +21582,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(785);
+		call(783);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21397,7 +21591,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(786);
+		call(784);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21406,7 +21600,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(787);
+		call(785);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21415,7 +21609,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(788);
+		call(786);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21424,7 +21618,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(789);
+		call(787);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21433,7 +21627,7 @@ scope_begin(std, integer$_int32$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(790);
+		call(788);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21442,7 +21636,7 @@ scope_begin(std, integer$_int32$)
 
 	_int32 get_value(object $instance) {
 		pushObj($instance);
-		call(791);
+		call(789);
 
 		_int32 $result(getSpNumAt(0));
 		decSp(1);
@@ -21451,7 +21645,7 @@ scope_begin(std, integer$_int32$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
-		call(792);
+		call(790);
 	}
 
 scope_end()
@@ -21461,12 +21655,12 @@ scope_begin(std, integer$_uint16$)
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(793);
+		call(791);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(794);
+		call(792);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -21474,6 +21668,26 @@ scope_begin(std, integer$_uint16$)
 	}
 
 	var op_$not_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(793);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(794);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(795);
@@ -21483,7 +21697,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals(object $instance, object num) {
+	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(796);
@@ -21493,7 +21707,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals2(object $instance, object num) {
+	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(797);
@@ -21503,7 +21717,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals2(object $instance, object num) {
+	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(798);
@@ -21513,7 +21727,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals3(object $instance, object num) {
+	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(799);
@@ -21523,7 +21737,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals3(object $instance, object num) {
+	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(800);
@@ -21533,7 +21747,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals4(object $instance, object num) {
+	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(801);
@@ -21543,7 +21757,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals4(object $instance, object num) {
+	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(802);
@@ -21553,7 +21767,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals5(object $instance, object num) {
+	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(803);
@@ -21563,7 +21777,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals5(object $instance, object num) {
+	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(804);
@@ -21573,7 +21787,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals6(object $instance, object num) {
+	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(805);
@@ -21583,7 +21797,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals6(object $instance, object num) {
+	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(806);
@@ -21593,7 +21807,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals7(object $instance, object num) {
+	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(807);
@@ -21603,7 +21817,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals7(object $instance, object num) {
+	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(808);
@@ -21613,7 +21827,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals8(object $instance, object num) {
+	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(809);
@@ -21623,7 +21837,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals8(object $instance, object num) {
+	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(810);
@@ -21633,7 +21847,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals9(object $instance, object num) {
+	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(811);
@@ -21643,7 +21857,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals9(object $instance, object num) {
+	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(812);
@@ -21653,7 +21867,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals10(object $instance, object num) {
+	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(813);
@@ -21663,7 +21877,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$equals_equals10(object $instance, object num) {
+	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(814);
@@ -21673,7 +21887,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus(object $instance, object num) {
+	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(815);
@@ -21683,7 +21897,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus2(object $instance, object num) {
+	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(816);
@@ -21693,7 +21907,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus3(object $instance, object num) {
+	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(817);
@@ -21703,7 +21917,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus4(object $instance, object num) {
+	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(818);
@@ -21713,7 +21927,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus5(object $instance, object num) {
+	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(819);
@@ -21723,7 +21937,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus6(object $instance, object num) {
+	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(820);
@@ -21733,7 +21947,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus7(object $instance, object num) {
+	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(821);
@@ -21743,7 +21957,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus8(object $instance, object num) {
+	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(822);
@@ -21753,9 +21967,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus9(object $instance, object num) {
+	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(823);
 
 		var $result(getSpNumAt(0));
@@ -21763,7 +21977,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus10(object $instance, object num) {
+	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(824);
@@ -21773,9 +21987,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$plus11(object $instance, var& num) {
+	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(825);
 
 		var $result(getSpNumAt(0));
@@ -21783,7 +21997,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus(object $instance, object num) {
+	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(826);
@@ -21793,7 +22007,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus2(object $instance, object num) {
+	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(827);
@@ -21803,7 +22017,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus3(object $instance, object num) {
+	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(828);
@@ -21813,7 +22027,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus4(object $instance, object num) {
+	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(829);
@@ -21823,7 +22037,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus5(object $instance, object num) {
+	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(830);
@@ -21833,7 +22047,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus6(object $instance, object num) {
+	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(831);
@@ -21843,7 +22057,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus7(object $instance, object num) {
+	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(832);
@@ -21853,7 +22067,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus8(object $instance, object num) {
+	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(833);
@@ -21863,9 +22077,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus9(object $instance, object num) {
+	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(834);
 
 		var $result(getSpNumAt(0));
@@ -21873,7 +22087,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus10(object $instance, object num) {
+	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(835);
@@ -21883,9 +22097,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$minus11(object $instance, var& num) {
+	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(836);
 
 		var $result(getSpNumAt(0));
@@ -21893,7 +22107,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult(object $instance, object num) {
+	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(837);
@@ -21903,7 +22117,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult2(object $instance, object num) {
+	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(838);
@@ -21913,7 +22127,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult3(object $instance, object num) {
+	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(839);
@@ -21923,7 +22137,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult4(object $instance, object num) {
+	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(840);
@@ -21933,7 +22147,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult5(object $instance, object num) {
+	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(841);
@@ -21943,7 +22157,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult6(object $instance, object num) {
+	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(842);
@@ -21953,7 +22167,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult7(object $instance, object num) {
+	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(843);
@@ -21963,7 +22177,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult8(object $instance, object num) {
+	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(844);
@@ -21973,9 +22187,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult9(object $instance, object num) {
+	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(845);
 
 		var $result(getSpNumAt(0));
@@ -21983,7 +22197,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult10(object $instance, object num) {
+	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(846);
@@ -21993,9 +22207,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mult11(object $instance, var& num) {
+	var op_$div2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(847);
 
 		var $result(getSpNumAt(0));
@@ -22003,7 +22217,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div(object $instance, object num) {
+	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(848);
@@ -22013,7 +22227,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div2(object $instance, object num) {
+	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(849);
@@ -22023,7 +22237,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div3(object $instance, object num) {
+	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(850);
@@ -22033,7 +22247,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div4(object $instance, object num) {
+	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(851);
@@ -22043,7 +22257,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div5(object $instance, object num) {
+	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(852);
@@ -22053,7 +22267,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div6(object $instance, object num) {
+	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(853);
@@ -22063,7 +22277,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div7(object $instance, object num) {
+	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(854);
@@ -22073,7 +22287,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div8(object $instance, object num) {
+	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(855);
@@ -22083,9 +22297,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div9(object $instance, object num) {
+	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(856);
 
 		var $result(getSpNumAt(0));
@@ -22093,7 +22307,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div10(object $instance, object num) {
+	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(857);
@@ -22103,9 +22317,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$div11(object $instance, var& num) {
+	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(858);
 
 		var $result(getSpNumAt(0));
@@ -22113,7 +22327,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod(object $instance, object num) {
+	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(859);
@@ -22123,7 +22337,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod2(object $instance, object num) {
+	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(860);
@@ -22133,7 +22347,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod3(object $instance, object num) {
+	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(861);
@@ -22143,7 +22357,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod4(object $instance, object num) {
+	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(862);
@@ -22153,7 +22367,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod5(object $instance, object num) {
+	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(863);
@@ -22163,7 +22377,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod6(object $instance, object num) {
+	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(864);
@@ -22173,7 +22387,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod7(object $instance, object num) {
+	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(865);
@@ -22183,7 +22397,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod8(object $instance, object num) {
+	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(866);
@@ -22193,9 +22407,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod9(object $instance, object num) {
+	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(867);
 
 		var $result(getSpNumAt(0));
@@ -22203,7 +22417,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod10(object $instance, object num) {
+	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(868);
@@ -22213,9 +22427,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$mod11(object $instance, var& num) {
+	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(869);
 
 		var $result(getSpNumAt(0));
@@ -22223,7 +22437,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than(object $instance, object num) {
+	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(870);
@@ -22233,7 +22447,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than2(object $instance, object num) {
+	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(871);
@@ -22243,7 +22457,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than3(object $instance, object num) {
+	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(872);
@@ -22253,7 +22467,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than4(object $instance, object num) {
+	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(873);
@@ -22263,7 +22477,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than5(object $instance, object num) {
+	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(874);
@@ -22273,7 +22487,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than6(object $instance, object num) {
+	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(875);
@@ -22283,7 +22497,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than7(object $instance, object num) {
+	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(876);
@@ -22293,7 +22507,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than8(object $instance, object num) {
+	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(877);
@@ -22303,9 +22517,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than9(object $instance, object num) {
+	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(878);
 
 		var $result(getSpNumAt(0));
@@ -22313,7 +22527,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than10(object $instance, object num) {
+	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(879);
@@ -22323,9 +22537,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_than11(object $instance, var& num) {
+	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(880);
 
 		var $result(getSpNumAt(0));
@@ -22333,7 +22547,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than(object $instance, object num) {
+	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(881);
@@ -22343,7 +22557,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than2(object $instance, object num) {
+	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(882);
@@ -22353,7 +22567,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than3(object $instance, object num) {
+	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(883);
@@ -22363,7 +22577,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than4(object $instance, object num) {
+	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(884);
@@ -22373,7 +22587,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than5(object $instance, object num) {
+	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(885);
@@ -22383,7 +22597,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than6(object $instance, object num) {
+	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(886);
@@ -22393,7 +22607,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than7(object $instance, object num) {
+	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(887);
@@ -22403,7 +22617,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than8(object $instance, object num) {
+	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(888);
@@ -22413,9 +22627,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than9(object $instance, object num) {
+	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(889);
 
 		var $result(getSpNumAt(0));
@@ -22423,7 +22637,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than10(object $instance, object num) {
+	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(890);
@@ -22433,9 +22647,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$greater_than11(object $instance, var& num) {
+	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(891);
 
 		var $result(getSpNumAt(0));
@@ -22443,7 +22657,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals(object $instance, object num) {
+	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(892);
@@ -22453,7 +22667,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals2(object $instance, object num) {
+	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(893);
@@ -22463,7 +22677,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals3(object $instance, object num) {
+	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(894);
@@ -22473,7 +22687,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals4(object $instance, object num) {
+	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(895);
@@ -22483,7 +22697,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals5(object $instance, object num) {
+	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(896);
@@ -22493,7 +22707,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals6(object $instance, object num) {
+	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(897);
@@ -22503,7 +22717,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals7(object $instance, object num) {
+	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(898);
@@ -22513,7 +22727,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals8(object $instance, object num) {
+	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(899);
@@ -22523,9 +22737,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals9(object $instance, object num) {
+	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(900);
 
 		var $result(getSpNumAt(0));
@@ -22533,7 +22747,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals10(object $instance, object num) {
+	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(901);
@@ -22543,9 +22757,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$less_or_equals11(object $instance, var& num) {
+	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(902);
 
 		var $result(getSpNumAt(0));
@@ -22553,7 +22767,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow(object $instance, object num) {
+	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(903);
@@ -22563,7 +22777,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow2(object $instance, object num) {
+	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(904);
@@ -22573,7 +22787,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow3(object $instance, object num) {
+	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(905);
@@ -22583,7 +22797,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow4(object $instance, object num) {
+	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(906);
@@ -22593,7 +22807,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow5(object $instance, object num) {
+	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(907);
@@ -22603,7 +22817,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow6(object $instance, object num) {
+	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(908);
@@ -22613,7 +22827,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow7(object $instance, object num) {
+	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(909);
@@ -22623,7 +22837,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow8(object $instance, object num) {
+	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(910);
@@ -22633,9 +22847,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow9(object $instance, object num) {
+	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(911);
 
 		var $result(getSpNumAt(0));
@@ -22643,7 +22857,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow10(object $instance, object num) {
+	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(912);
@@ -22653,9 +22867,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$pow11(object $instance, var& num) {
+	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(913);
 
 		var $result(getSpNumAt(0));
@@ -22663,7 +22877,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift(object $instance, object num) {
+	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(914);
@@ -22673,7 +22887,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift2(object $instance, object num) {
+	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(915);
@@ -22683,7 +22897,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift3(object $instance, object num) {
+	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(916);
@@ -22693,7 +22907,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift4(object $instance, object num) {
+	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(917);
@@ -22703,7 +22917,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift5(object $instance, object num) {
+	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(918);
@@ -22713,7 +22927,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift6(object $instance, object num) {
+	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(919);
@@ -22723,7 +22937,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift7(object $instance, object num) {
+	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(920);
@@ -22733,7 +22947,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift8(object $instance, object num) {
+	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(921);
@@ -22743,9 +22957,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift9(object $instance, object num) {
+	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(922);
 
 		var $result(getSpNumAt(0));
@@ -22753,7 +22967,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift10(object $instance, object num) {
+	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(923);
@@ -22763,9 +22977,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$left_shift11(object $instance, var& num) {
+	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(924);
 
 		var $result(getSpNumAt(0));
@@ -22773,7 +22987,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift(object $instance, object num) {
+	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(925);
@@ -22783,7 +22997,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift2(object $instance, object num) {
+	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(926);
@@ -22793,7 +23007,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift3(object $instance, object num) {
+	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(927);
@@ -22803,7 +23017,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift4(object $instance, object num) {
+	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(928);
@@ -22813,7 +23027,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift5(object $instance, object num) {
+	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(929);
@@ -22823,7 +23037,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift6(object $instance, object num) {
+	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(930);
@@ -22833,7 +23047,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift7(object $instance, object num) {
+	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(931);
@@ -22843,7 +23057,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift8(object $instance, object num) {
+	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(932);
@@ -22853,9 +23067,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift9(object $instance, object num) {
+	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(933);
 
 		var $result(getSpNumAt(0));
@@ -22863,7 +23077,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift10(object $instance, object num) {
+	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(934);
@@ -22873,9 +23087,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$right_shift11(object $instance, var& num) {
+	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(935);
 
 		var $result(getSpNumAt(0));
@@ -22883,7 +23097,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor(object $instance, object num) {
+	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(936);
@@ -22893,7 +23107,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor2(object $instance, object num) {
+	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(937);
@@ -22903,7 +23117,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor3(object $instance, object num) {
+	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(938);
@@ -22913,7 +23127,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor4(object $instance, object num) {
+	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(939);
@@ -22923,7 +23137,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor5(object $instance, object num) {
+	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(940);
@@ -22933,7 +23147,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor6(object $instance, object num) {
+	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(941);
@@ -22943,7 +23157,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor7(object $instance, object num) {
+	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(942);
@@ -22953,7 +23167,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor8(object $instance, object num) {
+	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(943);
@@ -22963,9 +23177,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor9(object $instance, object num) {
+	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(944);
 
 		var $result(getSpNumAt(0));
@@ -22973,7 +23187,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor10(object $instance, object num) {
+	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(945);
@@ -22983,9 +23197,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$xor11(object $instance, var& num) {
+	var op_$and2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(946);
 
 		var $result(getSpNumAt(0));
@@ -22993,7 +23207,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and(object $instance, object num) {
+	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(947);
@@ -23003,7 +23217,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and2(object $instance, object num) {
+	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(948);
@@ -23013,7 +23227,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and3(object $instance, object num) {
+	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(949);
@@ -23023,7 +23237,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and4(object $instance, object num) {
+	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(950);
@@ -23033,7 +23247,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and5(object $instance, object num) {
+	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(951);
@@ -23043,7 +23257,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and6(object $instance, object num) {
+	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(952);
@@ -23053,7 +23267,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and7(object $instance, object num) {
+	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(953);
@@ -23063,7 +23277,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and8(object $instance, object num) {
+	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(954);
@@ -23073,9 +23287,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and9(object $instance, object num) {
+	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(955);
 
 		var $result(getSpNumAt(0));
@@ -23083,7 +23297,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and10(object $instance, object num) {
+	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(956);
@@ -23093,9 +23307,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$and11(object $instance, var& num) {
+	var op_$or2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(957);
 
 		var $result(getSpNumAt(0));
@@ -23103,7 +23317,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or(object $instance, object num) {
+	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(958);
@@ -23113,7 +23327,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or2(object $instance, object num) {
+	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(959);
@@ -23123,7 +23337,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or3(object $instance, object num) {
+	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(960);
@@ -23133,7 +23347,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or4(object $instance, object num) {
+	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(961);
@@ -23143,7 +23357,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or5(object $instance, object num) {
+	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(962);
@@ -23153,7 +23367,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or6(object $instance, object num) {
+	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(963);
@@ -23163,7 +23377,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or7(object $instance, object num) {
+	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(964);
@@ -23173,7 +23387,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or8(object $instance, object num) {
+	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(965);
@@ -23183,9 +23397,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or9(object $instance, object num) {
+	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(966);
 
 		var $result(getSpNumAt(0));
@@ -23193,9 +23407,9 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or10(object $instance, object num) {
+	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(967);
 
 		var $result(getSpNumAt(0));
@@ -23203,7 +23417,7 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$or11(object $instance, var& num) {
+	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
 		call(968);
@@ -23213,30 +23427,10 @@ scope_begin(std, integer$_uint16$)
 		return $result;
 	}
 
-	var op_$not_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(969);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(970);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
 	_uint16 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(971);
+		call(969);
 
 		_uint16 $result(getSpNumAt(0));
 		decSp(1);
@@ -23245,7 +23439,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(972);
+		call(970);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23254,7 +23448,7 @@ scope_begin(std, integer$_uint16$)
 
 	_uint16 parse(object s) {
 		pushObj(s);
-		call(973);
+		call(971);
 
 		_uint16 $result(getSpNumAt(0));
 		decSp(1);
@@ -23263,7 +23457,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(974);
+		call(972);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23272,7 +23466,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(975);
+		call(973);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23281,7 +23475,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(976);
+		call(974);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23290,7 +23484,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(977);
+		call(975);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23299,7 +23493,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(978);
+		call(976);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23308,7 +23502,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(979);
+		call(977);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23317,7 +23511,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(980);
+		call(978);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23326,7 +23520,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(981);
+		call(979);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23335,7 +23529,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(982);
+		call(980);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23344,7 +23538,7 @@ scope_begin(std, integer$_uint16$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(983);
+		call(981);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23353,7 +23547,7 @@ scope_begin(std, integer$_uint16$)
 
 	_uint16 get_value(object $instance) {
 		pushObj($instance);
-		call(984);
+		call(982);
 
 		_uint16 $result(getSpNumAt(0));
 		decSp(1);
@@ -23362,7 +23556,7 @@ scope_begin(std, integer$_uint16$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
-		call(985);
+		call(983);
 	}
 
 scope_end()
@@ -23372,12 +23566,12 @@ scope_begin(std, integer$_int16$)
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(986);
+		call(984);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(987);
+		call(985);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -23385,6 +23579,26 @@ scope_begin(std, integer$_int16$)
 	}
 
 	var op_$not_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(986);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(987);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(988);
@@ -23394,7 +23608,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals(object $instance, object num) {
+	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(989);
@@ -23404,7 +23618,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals2(object $instance, object num) {
+	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(990);
@@ -23414,7 +23628,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals2(object $instance, object num) {
+	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(991);
@@ -23424,7 +23638,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals3(object $instance, object num) {
+	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(992);
@@ -23434,7 +23648,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals3(object $instance, object num) {
+	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(993);
@@ -23444,7 +23658,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals4(object $instance, object num) {
+	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(994);
@@ -23454,7 +23668,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals4(object $instance, object num) {
+	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(995);
@@ -23464,7 +23678,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals5(object $instance, object num) {
+	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(996);
@@ -23474,7 +23688,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals5(object $instance, object num) {
+	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(997);
@@ -23484,7 +23698,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals6(object $instance, object num) {
+	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(998);
@@ -23494,7 +23708,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals6(object $instance, object num) {
+	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(999);
@@ -23504,7 +23718,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals7(object $instance, object num) {
+	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1000);
@@ -23514,7 +23728,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals7(object $instance, object num) {
+	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1001);
@@ -23524,7 +23738,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals8(object $instance, object num) {
+	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1002);
@@ -23534,7 +23748,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals8(object $instance, object num) {
+	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1003);
@@ -23544,7 +23758,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals9(object $instance, object num) {
+	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1004);
@@ -23554,7 +23768,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals9(object $instance, object num) {
+	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1005);
@@ -23564,7 +23778,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals10(object $instance, object num) {
+	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1006);
@@ -23574,7 +23788,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$equals_equals10(object $instance, object num) {
+	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1007);
@@ -23584,7 +23798,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus(object $instance, object num) {
+	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1008);
@@ -23594,7 +23808,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus2(object $instance, object num) {
+	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1009);
@@ -23604,7 +23818,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus3(object $instance, object num) {
+	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1010);
@@ -23614,7 +23828,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus4(object $instance, object num) {
+	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1011);
@@ -23624,7 +23838,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus5(object $instance, object num) {
+	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1012);
@@ -23634,7 +23848,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus6(object $instance, object num) {
+	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1013);
@@ -23644,7 +23858,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus7(object $instance, object num) {
+	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1014);
@@ -23654,7 +23868,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus8(object $instance, object num) {
+	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1015);
@@ -23664,9 +23878,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus9(object $instance, object num) {
+	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1016);
 
 		var $result(getSpNumAt(0));
@@ -23674,7 +23888,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus10(object $instance, object num) {
+	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1017);
@@ -23684,9 +23898,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$plus11(object $instance, var& num) {
+	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1018);
 
 		var $result(getSpNumAt(0));
@@ -23694,7 +23908,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus(object $instance, object num) {
+	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1019);
@@ -23704,7 +23918,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus2(object $instance, object num) {
+	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1020);
@@ -23714,7 +23928,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus3(object $instance, object num) {
+	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1021);
@@ -23724,7 +23938,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus4(object $instance, object num) {
+	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1022);
@@ -23734,7 +23948,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus5(object $instance, object num) {
+	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1023);
@@ -23744,7 +23958,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus6(object $instance, object num) {
+	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1024);
@@ -23754,7 +23968,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus7(object $instance, object num) {
+	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1025);
@@ -23764,7 +23978,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus8(object $instance, object num) {
+	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1026);
@@ -23774,9 +23988,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus9(object $instance, object num) {
+	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1027);
 
 		var $result(getSpNumAt(0));
@@ -23784,7 +23998,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus10(object $instance, object num) {
+	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1028);
@@ -23794,9 +24008,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$minus11(object $instance, var& num) {
+	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1029);
 
 		var $result(getSpNumAt(0));
@@ -23804,7 +24018,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult(object $instance, object num) {
+	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1030);
@@ -23814,7 +24028,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult2(object $instance, object num) {
+	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1031);
@@ -23824,7 +24038,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult3(object $instance, object num) {
+	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1032);
@@ -23834,7 +24048,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult4(object $instance, object num) {
+	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1033);
@@ -23844,7 +24058,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult5(object $instance, object num) {
+	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1034);
@@ -23854,7 +24068,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult6(object $instance, object num) {
+	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1035);
@@ -23864,7 +24078,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult7(object $instance, object num) {
+	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1036);
@@ -23874,7 +24088,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult8(object $instance, object num) {
+	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1037);
@@ -23884,9 +24098,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult9(object $instance, object num) {
+	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1038);
 
 		var $result(getSpNumAt(0));
@@ -23894,7 +24108,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult10(object $instance, object num) {
+	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1039);
@@ -23904,9 +24118,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mult11(object $instance, var& num) {
+	var op_$div2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1040);
 
 		var $result(getSpNumAt(0));
@@ -23914,7 +24128,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div(object $instance, object num) {
+	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1041);
@@ -23924,7 +24138,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div2(object $instance, object num) {
+	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1042);
@@ -23934,7 +24148,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div3(object $instance, object num) {
+	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1043);
@@ -23944,7 +24158,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div4(object $instance, object num) {
+	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1044);
@@ -23954,7 +24168,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div5(object $instance, object num) {
+	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1045);
@@ -23964,7 +24178,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div6(object $instance, object num) {
+	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1046);
@@ -23974,7 +24188,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div7(object $instance, object num) {
+	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1047);
@@ -23984,7 +24198,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div8(object $instance, object num) {
+	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1048);
@@ -23994,9 +24208,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div9(object $instance, object num) {
+	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1049);
 
 		var $result(getSpNumAt(0));
@@ -24004,7 +24218,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div10(object $instance, object num) {
+	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1050);
@@ -24014,9 +24228,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$div11(object $instance, var& num) {
+	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1051);
 
 		var $result(getSpNumAt(0));
@@ -24024,7 +24238,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod(object $instance, object num) {
+	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1052);
@@ -24034,7 +24248,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod2(object $instance, object num) {
+	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1053);
@@ -24044,7 +24258,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod3(object $instance, object num) {
+	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1054);
@@ -24054,7 +24268,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod4(object $instance, object num) {
+	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1055);
@@ -24064,7 +24278,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod5(object $instance, object num) {
+	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1056);
@@ -24074,7 +24288,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod6(object $instance, object num) {
+	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1057);
@@ -24084,7 +24298,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod7(object $instance, object num) {
+	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1058);
@@ -24094,7 +24308,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod8(object $instance, object num) {
+	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1059);
@@ -24104,9 +24318,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod9(object $instance, object num) {
+	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1060);
 
 		var $result(getSpNumAt(0));
@@ -24114,7 +24328,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod10(object $instance, object num) {
+	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1061);
@@ -24124,9 +24338,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$mod11(object $instance, var& num) {
+	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1062);
 
 		var $result(getSpNumAt(0));
@@ -24134,7 +24348,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than(object $instance, object num) {
+	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1063);
@@ -24144,7 +24358,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than2(object $instance, object num) {
+	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1064);
@@ -24154,7 +24368,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than3(object $instance, object num) {
+	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1065);
@@ -24164,7 +24378,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than4(object $instance, object num) {
+	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1066);
@@ -24174,7 +24388,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than5(object $instance, object num) {
+	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1067);
@@ -24184,7 +24398,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than6(object $instance, object num) {
+	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1068);
@@ -24194,7 +24408,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than7(object $instance, object num) {
+	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1069);
@@ -24204,7 +24418,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than8(object $instance, object num) {
+	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1070);
@@ -24214,9 +24428,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than9(object $instance, object num) {
+	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1071);
 
 		var $result(getSpNumAt(0));
@@ -24224,7 +24438,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than10(object $instance, object num) {
+	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1072);
@@ -24234,9 +24448,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_than11(object $instance, var& num) {
+	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1073);
 
 		var $result(getSpNumAt(0));
@@ -24244,7 +24458,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than(object $instance, object num) {
+	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1074);
@@ -24254,7 +24468,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than2(object $instance, object num) {
+	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1075);
@@ -24264,7 +24478,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than3(object $instance, object num) {
+	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1076);
@@ -24274,7 +24488,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than4(object $instance, object num) {
+	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1077);
@@ -24284,7 +24498,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than5(object $instance, object num) {
+	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1078);
@@ -24294,7 +24508,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than6(object $instance, object num) {
+	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1079);
@@ -24304,7 +24518,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than7(object $instance, object num) {
+	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1080);
@@ -24314,7 +24528,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than8(object $instance, object num) {
+	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1081);
@@ -24324,9 +24538,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than9(object $instance, object num) {
+	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1082);
 
 		var $result(getSpNumAt(0));
@@ -24334,7 +24548,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than10(object $instance, object num) {
+	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1083);
@@ -24344,9 +24558,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$greater_than11(object $instance, var& num) {
+	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1084);
 
 		var $result(getSpNumAt(0));
@@ -24354,7 +24568,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals(object $instance, object num) {
+	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1085);
@@ -24364,7 +24578,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals2(object $instance, object num) {
+	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1086);
@@ -24374,7 +24588,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals3(object $instance, object num) {
+	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1087);
@@ -24384,7 +24598,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals4(object $instance, object num) {
+	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1088);
@@ -24394,7 +24608,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals5(object $instance, object num) {
+	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1089);
@@ -24404,7 +24618,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals6(object $instance, object num) {
+	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1090);
@@ -24414,7 +24628,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals7(object $instance, object num) {
+	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1091);
@@ -24424,7 +24638,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals8(object $instance, object num) {
+	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1092);
@@ -24434,9 +24648,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals9(object $instance, object num) {
+	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1093);
 
 		var $result(getSpNumAt(0));
@@ -24444,7 +24658,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals10(object $instance, object num) {
+	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1094);
@@ -24454,9 +24668,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$less_or_equals11(object $instance, var& num) {
+	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1095);
 
 		var $result(getSpNumAt(0));
@@ -24464,7 +24678,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow(object $instance, object num) {
+	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1096);
@@ -24474,7 +24688,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow2(object $instance, object num) {
+	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1097);
@@ -24484,7 +24698,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow3(object $instance, object num) {
+	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1098);
@@ -24494,7 +24708,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow4(object $instance, object num) {
+	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1099);
@@ -24504,7 +24718,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow5(object $instance, object num) {
+	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1100);
@@ -24514,7 +24728,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow6(object $instance, object num) {
+	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1101);
@@ -24524,7 +24738,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow7(object $instance, object num) {
+	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1102);
@@ -24534,7 +24748,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow8(object $instance, object num) {
+	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1103);
@@ -24544,9 +24758,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow9(object $instance, object num) {
+	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1104);
 
 		var $result(getSpNumAt(0));
@@ -24554,7 +24768,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow10(object $instance, object num) {
+	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1105);
@@ -24564,9 +24778,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$pow11(object $instance, var& num) {
+	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1106);
 
 		var $result(getSpNumAt(0));
@@ -24574,7 +24788,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift(object $instance, object num) {
+	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1107);
@@ -24584,7 +24798,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift2(object $instance, object num) {
+	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1108);
@@ -24594,7 +24808,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift3(object $instance, object num) {
+	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1109);
@@ -24604,7 +24818,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift4(object $instance, object num) {
+	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1110);
@@ -24614,7 +24828,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift5(object $instance, object num) {
+	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1111);
@@ -24624,7 +24838,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift6(object $instance, object num) {
+	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1112);
@@ -24634,7 +24848,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift7(object $instance, object num) {
+	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1113);
@@ -24644,7 +24858,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift8(object $instance, object num) {
+	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1114);
@@ -24654,9 +24868,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift9(object $instance, object num) {
+	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1115);
 
 		var $result(getSpNumAt(0));
@@ -24664,7 +24878,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift10(object $instance, object num) {
+	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1116);
@@ -24674,9 +24888,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$left_shift11(object $instance, var& num) {
+	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1117);
 
 		var $result(getSpNumAt(0));
@@ -24684,7 +24898,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift(object $instance, object num) {
+	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1118);
@@ -24694,7 +24908,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift2(object $instance, object num) {
+	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1119);
@@ -24704,7 +24918,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift3(object $instance, object num) {
+	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1120);
@@ -24714,7 +24928,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift4(object $instance, object num) {
+	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1121);
@@ -24724,7 +24938,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift5(object $instance, object num) {
+	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1122);
@@ -24734,7 +24948,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift6(object $instance, object num) {
+	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1123);
@@ -24744,7 +24958,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift7(object $instance, object num) {
+	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1124);
@@ -24754,7 +24968,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift8(object $instance, object num) {
+	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1125);
@@ -24764,9 +24978,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift9(object $instance, object num) {
+	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1126);
 
 		var $result(getSpNumAt(0));
@@ -24774,7 +24988,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift10(object $instance, object num) {
+	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1127);
@@ -24784,9 +24998,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$right_shift11(object $instance, var& num) {
+	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1128);
 
 		var $result(getSpNumAt(0));
@@ -24794,7 +25008,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor(object $instance, object num) {
+	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1129);
@@ -24804,7 +25018,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor2(object $instance, object num) {
+	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1130);
@@ -24814,7 +25028,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor3(object $instance, object num) {
+	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1131);
@@ -24824,7 +25038,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor4(object $instance, object num) {
+	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1132);
@@ -24834,7 +25048,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor5(object $instance, object num) {
+	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1133);
@@ -24844,7 +25058,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor6(object $instance, object num) {
+	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1134);
@@ -24854,7 +25068,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor7(object $instance, object num) {
+	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1135);
@@ -24864,7 +25078,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor8(object $instance, object num) {
+	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1136);
@@ -24874,9 +25088,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor9(object $instance, object num) {
+	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1137);
 
 		var $result(getSpNumAt(0));
@@ -24884,7 +25098,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor10(object $instance, object num) {
+	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1138);
@@ -24894,9 +25108,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$xor11(object $instance, var& num) {
+	var op_$and2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1139);
 
 		var $result(getSpNumAt(0));
@@ -24904,7 +25118,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and(object $instance, object num) {
+	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1140);
@@ -24914,7 +25128,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and2(object $instance, object num) {
+	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1141);
@@ -24924,7 +25138,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and3(object $instance, object num) {
+	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1142);
@@ -24934,7 +25148,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and4(object $instance, object num) {
+	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1143);
@@ -24944,7 +25158,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and5(object $instance, object num) {
+	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1144);
@@ -24954,7 +25168,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and6(object $instance, object num) {
+	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1145);
@@ -24964,7 +25178,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and7(object $instance, object num) {
+	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1146);
@@ -24974,7 +25188,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and8(object $instance, object num) {
+	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1147);
@@ -24984,9 +25198,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and9(object $instance, object num) {
+	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1148);
 
 		var $result(getSpNumAt(0));
@@ -24994,7 +25208,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and10(object $instance, object num) {
+	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1149);
@@ -25004,9 +25218,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$and11(object $instance, var& num) {
+	var op_$or2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1150);
 
 		var $result(getSpNumAt(0));
@@ -25014,7 +25228,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or(object $instance, object num) {
+	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1151);
@@ -25024,7 +25238,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or2(object $instance, object num) {
+	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1152);
@@ -25034,7 +25248,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or3(object $instance, object num) {
+	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1153);
@@ -25044,7 +25258,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or4(object $instance, object num) {
+	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1154);
@@ -25054,7 +25268,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or5(object $instance, object num) {
+	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1155);
@@ -25064,7 +25278,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or6(object $instance, object num) {
+	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1156);
@@ -25074,7 +25288,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or7(object $instance, object num) {
+	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1157);
@@ -25084,7 +25298,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or8(object $instance, object num) {
+	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1158);
@@ -25094,9 +25308,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or9(object $instance, object num) {
+	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1159);
 
 		var $result(getSpNumAt(0));
@@ -25104,9 +25318,9 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or10(object $instance, object num) {
+	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1160);
 
 		var $result(getSpNumAt(0));
@@ -25114,7 +25328,7 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$or11(object $instance, var& num) {
+	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
 		call(1161);
@@ -25124,30 +25338,10 @@ scope_begin(std, integer$_int16$)
 		return $result;
 	}
 
-	var op_$not_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1162);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1163);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
 	_int16 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1164);
+		call(1162);
 
 		_int16 $result(getSpNumAt(0));
 		decSp(1);
@@ -25156,7 +25350,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(1165);
+		call(1163);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25165,7 +25359,7 @@ scope_begin(std, integer$_int16$)
 
 	_int16 parse(object s) {
 		pushObj(s);
-		call(1166);
+		call(1164);
 
 		_int16 $result(getSpNumAt(0));
 		decSp(1);
@@ -25174,7 +25368,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(1167);
+		call(1165);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25183,7 +25377,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(1168);
+		call(1166);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25192,7 +25386,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(1169);
+		call(1167);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25201,7 +25395,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(1170);
+		call(1168);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25210,7 +25404,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(1171);
+		call(1169);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25219,7 +25413,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(1172);
+		call(1170);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25228,7 +25422,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(1173);
+		call(1171);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25237,7 +25431,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(1174);
+		call(1172);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25246,7 +25440,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(1175);
+		call(1173);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25255,7 +25449,7 @@ scope_begin(std, integer$_int16$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(1176);
+		call(1174);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25264,7 +25458,7 @@ scope_begin(std, integer$_int16$)
 
 	_int16 get_value(object $instance) {
 		pushObj($instance);
-		call(1177);
+		call(1175);
 
 		_int16 $result(getSpNumAt(0));
 		decSp(1);
@@ -25273,7 +25467,7 @@ scope_begin(std, integer$_int16$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
-		call(1178);
+		call(1176);
 	}
 
 scope_end()
@@ -25283,12 +25477,12 @@ scope_begin(std, integer$_uint8$)
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(1179);
+		call(1177);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(1180);
+		call(1178);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -25296,6 +25490,26 @@ scope_begin(std, integer$_uint8$)
 	}
 
 	var op_$not_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1179);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$equals_equals(object $instance, object num) {
+		pushObj($instance);
+		pushObj(num);
+		call(1180);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1181);
@@ -25305,7 +25519,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals(object $instance, object num) {
+	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1182);
@@ -25315,7 +25529,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals2(object $instance, object num) {
+	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1183);
@@ -25325,7 +25539,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals2(object $instance, object num) {
+	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1184);
@@ -25335,7 +25549,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals3(object $instance, object num) {
+	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1185);
@@ -25345,7 +25559,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals3(object $instance, object num) {
+	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1186);
@@ -25355,7 +25569,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals4(object $instance, object num) {
+	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1187);
@@ -25365,7 +25579,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals4(object $instance, object num) {
+	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1188);
@@ -25375,7 +25589,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals5(object $instance, object num) {
+	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1189);
@@ -25385,7 +25599,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals5(object $instance, object num) {
+	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1190);
@@ -25395,7 +25609,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals6(object $instance, object num) {
+	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1191);
@@ -25405,7 +25619,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals6(object $instance, object num) {
+	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1192);
@@ -25415,7 +25629,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals7(object $instance, object num) {
+	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1193);
@@ -25425,7 +25639,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals7(object $instance, object num) {
+	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1194);
@@ -25435,7 +25649,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals8(object $instance, object num) {
+	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1195);
@@ -25445,7 +25659,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals8(object $instance, object num) {
+	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1196);
@@ -25455,7 +25669,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals9(object $instance, object num) {
+	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1197);
@@ -25465,7 +25679,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals9(object $instance, object num) {
+	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1198);
@@ -25475,7 +25689,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals10(object $instance, object num) {
+	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1199);
@@ -25485,7 +25699,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$equals_equals10(object $instance, object num) {
+	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1200);
@@ -25495,7 +25709,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus(object $instance, object num) {
+	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1201);
@@ -25505,7 +25719,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus2(object $instance, object num) {
+	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1202);
@@ -25515,7 +25729,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus3(object $instance, object num) {
+	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1203);
@@ -25525,7 +25739,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus4(object $instance, object num) {
+	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1204);
@@ -25535,7 +25749,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus5(object $instance, object num) {
+	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1205);
@@ -25545,7 +25759,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus6(object $instance, object num) {
+	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1206);
@@ -25555,7 +25769,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus7(object $instance, object num) {
+	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1207);
@@ -25565,7 +25779,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus8(object $instance, object num) {
+	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1208);
@@ -25575,9 +25789,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus9(object $instance, object num) {
+	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1209);
 
 		var $result(getSpNumAt(0));
@@ -25585,7 +25799,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus10(object $instance, object num) {
+	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1210);
@@ -25595,9 +25809,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$plus11(object $instance, var& num) {
+	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1211);
 
 		var $result(getSpNumAt(0));
@@ -25605,7 +25819,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus(object $instance, object num) {
+	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1212);
@@ -25615,7 +25829,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus2(object $instance, object num) {
+	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1213);
@@ -25625,7 +25839,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus3(object $instance, object num) {
+	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1214);
@@ -25635,7 +25849,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus4(object $instance, object num) {
+	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1215);
@@ -25645,7 +25859,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus5(object $instance, object num) {
+	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1216);
@@ -25655,7 +25869,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus6(object $instance, object num) {
+	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1217);
@@ -25665,7 +25879,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus7(object $instance, object num) {
+	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1218);
@@ -25675,7 +25889,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus8(object $instance, object num) {
+	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1219);
@@ -25685,9 +25899,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus9(object $instance, object num) {
+	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1220);
 
 		var $result(getSpNumAt(0));
@@ -25695,7 +25909,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus10(object $instance, object num) {
+	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1221);
@@ -25705,9 +25919,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$minus11(object $instance, var& num) {
+	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1222);
 
 		var $result(getSpNumAt(0));
@@ -25715,7 +25929,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult(object $instance, object num) {
+	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1223);
@@ -25725,7 +25939,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult2(object $instance, object num) {
+	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1224);
@@ -25735,7 +25949,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult3(object $instance, object num) {
+	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1225);
@@ -25745,7 +25959,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult4(object $instance, object num) {
+	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1226);
@@ -25755,7 +25969,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult5(object $instance, object num) {
+	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1227);
@@ -25765,7 +25979,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult6(object $instance, object num) {
+	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1228);
@@ -25775,7 +25989,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult7(object $instance, object num) {
+	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1229);
@@ -25785,7 +25999,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult8(object $instance, object num) {
+	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1230);
@@ -25795,9 +26009,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult9(object $instance, object num) {
+	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1231);
 
 		var $result(getSpNumAt(0));
@@ -25805,7 +26019,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult10(object $instance, object num) {
+	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1232);
@@ -25815,9 +26029,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mult11(object $instance, var& num) {
+	var op_$div2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1233);
 
 		var $result(getSpNumAt(0));
@@ -25825,7 +26039,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div(object $instance, object num) {
+	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1234);
@@ -25835,7 +26049,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div2(object $instance, object num) {
+	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1235);
@@ -25845,7 +26059,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div3(object $instance, object num) {
+	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1236);
@@ -25855,7 +26069,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div4(object $instance, object num) {
+	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1237);
@@ -25865,7 +26079,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div5(object $instance, object num) {
+	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1238);
@@ -25875,7 +26089,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div6(object $instance, object num) {
+	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1239);
@@ -25885,7 +26099,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div7(object $instance, object num) {
+	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1240);
@@ -25895,7 +26109,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div8(object $instance, object num) {
+	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1241);
@@ -25905,9 +26119,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div9(object $instance, object num) {
+	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1242);
 
 		var $result(getSpNumAt(0));
@@ -25915,7 +26129,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div10(object $instance, object num) {
+	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1243);
@@ -25925,9 +26139,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$div11(object $instance, var& num) {
+	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1244);
 
 		var $result(getSpNumAt(0));
@@ -25935,7 +26149,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod(object $instance, object num) {
+	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1245);
@@ -25945,7 +26159,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod2(object $instance, object num) {
+	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1246);
@@ -25955,7 +26169,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod3(object $instance, object num) {
+	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1247);
@@ -25965,7 +26179,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod4(object $instance, object num) {
+	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1248);
@@ -25975,7 +26189,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod5(object $instance, object num) {
+	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1249);
@@ -25985,7 +26199,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod6(object $instance, object num) {
+	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1250);
@@ -25995,7 +26209,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod7(object $instance, object num) {
+	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1251);
@@ -26005,7 +26219,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod8(object $instance, object num) {
+	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1252);
@@ -26015,9 +26229,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod9(object $instance, object num) {
+	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1253);
 
 		var $result(getSpNumAt(0));
@@ -26025,7 +26239,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod10(object $instance, object num) {
+	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1254);
@@ -26035,9 +26249,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$mod11(object $instance, var& num) {
+	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1255);
 
 		var $result(getSpNumAt(0));
@@ -26045,7 +26259,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than(object $instance, object num) {
+	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1256);
@@ -26055,7 +26269,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than2(object $instance, object num) {
+	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1257);
@@ -26065,7 +26279,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than3(object $instance, object num) {
+	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1258);
@@ -26075,7 +26289,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than4(object $instance, object num) {
+	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1259);
@@ -26085,7 +26299,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than5(object $instance, object num) {
+	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1260);
@@ -26095,7 +26309,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than6(object $instance, object num) {
+	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1261);
@@ -26105,7 +26319,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than7(object $instance, object num) {
+	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1262);
@@ -26115,7 +26329,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than8(object $instance, object num) {
+	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1263);
@@ -26125,9 +26339,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than9(object $instance, object num) {
+	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1264);
 
 		var $result(getSpNumAt(0));
@@ -26135,7 +26349,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than10(object $instance, object num) {
+	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1265);
@@ -26145,9 +26359,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_than11(object $instance, var& num) {
+	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1266);
 
 		var $result(getSpNumAt(0));
@@ -26155,7 +26369,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than(object $instance, object num) {
+	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1267);
@@ -26165,7 +26379,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than2(object $instance, object num) {
+	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1268);
@@ -26175,7 +26389,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than3(object $instance, object num) {
+	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1269);
@@ -26185,7 +26399,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than4(object $instance, object num) {
+	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1270);
@@ -26195,7 +26409,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than5(object $instance, object num) {
+	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1271);
@@ -26205,7 +26419,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than6(object $instance, object num) {
+	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1272);
@@ -26215,7 +26429,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than7(object $instance, object num) {
+	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1273);
@@ -26225,7 +26439,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than8(object $instance, object num) {
+	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1274);
@@ -26235,9 +26449,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than9(object $instance, object num) {
+	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1275);
 
 		var $result(getSpNumAt(0));
@@ -26245,7 +26459,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than10(object $instance, object num) {
+	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1276);
@@ -26255,9 +26469,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$greater_than11(object $instance, var& num) {
+	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1277);
 
 		var $result(getSpNumAt(0));
@@ -26265,7 +26479,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals(object $instance, object num) {
+	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1278);
@@ -26275,7 +26489,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals2(object $instance, object num) {
+	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1279);
@@ -26285,7 +26499,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals3(object $instance, object num) {
+	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1280);
@@ -26295,7 +26509,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals4(object $instance, object num) {
+	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1281);
@@ -26305,7 +26519,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals5(object $instance, object num) {
+	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1282);
@@ -26315,7 +26529,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals6(object $instance, object num) {
+	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1283);
@@ -26325,7 +26539,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals7(object $instance, object num) {
+	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1284);
@@ -26335,7 +26549,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals8(object $instance, object num) {
+	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1285);
@@ -26345,9 +26559,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals9(object $instance, object num) {
+	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1286);
 
 		var $result(getSpNumAt(0));
@@ -26355,7 +26569,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals10(object $instance, object num) {
+	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1287);
@@ -26365,9 +26579,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$less_or_equals11(object $instance, var& num) {
+	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1288);
 
 		var $result(getSpNumAt(0));
@@ -26375,7 +26589,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow(object $instance, object num) {
+	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1289);
@@ -26385,7 +26599,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow2(object $instance, object num) {
+	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1290);
@@ -26395,7 +26609,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow3(object $instance, object num) {
+	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1291);
@@ -26405,7 +26619,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow4(object $instance, object num) {
+	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1292);
@@ -26415,7 +26629,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow5(object $instance, object num) {
+	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1293);
@@ -26425,7 +26639,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow6(object $instance, object num) {
+	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1294);
@@ -26435,7 +26649,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow7(object $instance, object num) {
+	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1295);
@@ -26445,7 +26659,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow8(object $instance, object num) {
+	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1296);
@@ -26455,9 +26669,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow9(object $instance, object num) {
+	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1297);
 
 		var $result(getSpNumAt(0));
@@ -26465,7 +26679,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow10(object $instance, object num) {
+	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1298);
@@ -26475,9 +26689,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$pow11(object $instance, var& num) {
+	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1299);
 
 		var $result(getSpNumAt(0));
@@ -26485,7 +26699,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift(object $instance, object num) {
+	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1300);
@@ -26495,7 +26709,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift2(object $instance, object num) {
+	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1301);
@@ -26505,7 +26719,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift3(object $instance, object num) {
+	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1302);
@@ -26515,7 +26729,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift4(object $instance, object num) {
+	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1303);
@@ -26525,7 +26739,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift5(object $instance, object num) {
+	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1304);
@@ -26535,7 +26749,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift6(object $instance, object num) {
+	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1305);
@@ -26545,7 +26759,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift7(object $instance, object num) {
+	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1306);
@@ -26555,7 +26769,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift8(object $instance, object num) {
+	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1307);
@@ -26565,9 +26779,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift9(object $instance, object num) {
+	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1308);
 
 		var $result(getSpNumAt(0));
@@ -26575,7 +26789,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift10(object $instance, object num) {
+	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1309);
@@ -26585,9 +26799,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$left_shift11(object $instance, var& num) {
+	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1310);
 
 		var $result(getSpNumAt(0));
@@ -26595,7 +26809,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift(object $instance, object num) {
+	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1311);
@@ -26605,7 +26819,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift2(object $instance, object num) {
+	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1312);
@@ -26615,7 +26829,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift3(object $instance, object num) {
+	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1313);
@@ -26625,7 +26839,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift4(object $instance, object num) {
+	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1314);
@@ -26635,7 +26849,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift5(object $instance, object num) {
+	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1315);
@@ -26645,7 +26859,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift6(object $instance, object num) {
+	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1316);
@@ -26655,7 +26869,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift7(object $instance, object num) {
+	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1317);
@@ -26665,7 +26879,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift8(object $instance, object num) {
+	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1318);
@@ -26675,9 +26889,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift9(object $instance, object num) {
+	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1319);
 
 		var $result(getSpNumAt(0));
@@ -26685,7 +26899,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift10(object $instance, object num) {
+	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1320);
@@ -26695,9 +26909,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$right_shift11(object $instance, var& num) {
+	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1321);
 
 		var $result(getSpNumAt(0));
@@ -26705,7 +26919,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor(object $instance, object num) {
+	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1322);
@@ -26715,7 +26929,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor2(object $instance, object num) {
+	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1323);
@@ -26725,7 +26939,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor3(object $instance, object num) {
+	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1324);
@@ -26735,7 +26949,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor4(object $instance, object num) {
+	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1325);
@@ -26745,7 +26959,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor5(object $instance, object num) {
+	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1326);
@@ -26755,7 +26969,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor6(object $instance, object num) {
+	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1327);
@@ -26765,7 +26979,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor7(object $instance, object num) {
+	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1328);
@@ -26775,7 +26989,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor8(object $instance, object num) {
+	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1329);
@@ -26785,9 +26999,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor9(object $instance, object num) {
+	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1330);
 
 		var $result(getSpNumAt(0));
@@ -26795,7 +27009,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor10(object $instance, object num) {
+	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1331);
@@ -26805,9 +27019,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$xor11(object $instance, var& num) {
+	var op_$and2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1332);
 
 		var $result(getSpNumAt(0));
@@ -26815,7 +27029,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and(object $instance, object num) {
+	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1333);
@@ -26825,7 +27039,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and2(object $instance, object num) {
+	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1334);
@@ -26835,7 +27049,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and3(object $instance, object num) {
+	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1335);
@@ -26845,7 +27059,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and4(object $instance, object num) {
+	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1336);
@@ -26855,7 +27069,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and5(object $instance, object num) {
+	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1337);
@@ -26865,7 +27079,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and6(object $instance, object num) {
+	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1338);
@@ -26875,7 +27089,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and7(object $instance, object num) {
+	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1339);
@@ -26885,7 +27099,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and8(object $instance, object num) {
+	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1340);
@@ -26895,9 +27109,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and9(object $instance, object num) {
+	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1341);
 
 		var $result(getSpNumAt(0));
@@ -26905,7 +27119,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and10(object $instance, object num) {
+	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1342);
@@ -26915,9 +27129,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$and11(object $instance, var& num) {
+	var op_$or2(object $instance, object num) {
 		pushObj($instance);
-		pushNum(num.value());
+		pushObj(num);
 		call(1343);
 
 		var $result(getSpNumAt(0));
@@ -26925,7 +27139,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or(object $instance, object num) {
+	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1344);
@@ -26935,7 +27149,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or2(object $instance, object num) {
+	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1345);
@@ -26945,7 +27159,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or3(object $instance, object num) {
+	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1346);
@@ -26955,7 +27169,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or4(object $instance, object num) {
+	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1347);
@@ -26965,7 +27179,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or5(object $instance, object num) {
+	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1348);
@@ -26975,7 +27189,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or6(object $instance, object num) {
+	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1349);
@@ -26985,7 +27199,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or7(object $instance, object num) {
+	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1350);
@@ -26995,7 +27209,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or8(object $instance, object num) {
+	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
 		call(1351);
@@ -27005,9 +27219,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or9(object $instance, object num) {
+	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1352);
 
 		var $result(getSpNumAt(0));
@@ -27015,9 +27229,9 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or10(object $instance, object num) {
+	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
-		pushObj(num);
+		pushNum(num.value());
 		call(1353);
 
 		var $result(getSpNumAt(0));
@@ -27025,7 +27239,7 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$or11(object $instance, var& num) {
+	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
 		call(1354);
@@ -27035,30 +27249,10 @@ scope_begin(std, integer$_uint8$)
 		return $result;
 	}
 
-	var op_$not_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1355);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	var op_$equals_equals11(object $instance, var& num) {
-		pushObj($instance);
-		pushNum(num.value());
-		call(1356);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
 	_uint8 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1357);
+		call(1355);
 
 		_uint8 $result(getSpNumAt(0));
 		decSp(1);
@@ -27067,7 +27261,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(1358);
+		call(1356);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27076,7 +27270,7 @@ scope_begin(std, integer$_uint8$)
 
 	_uint8 parse(object s) {
 		pushObj(s);
-		call(1359);
+		call(1357);
 
 		_uint8 $result(getSpNumAt(0));
 		decSp(1);
@@ -27085,7 +27279,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(1360);
+		call(1358);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27094,7 +27288,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(1361);
+		call(1359);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27103,7 +27297,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(1362);
+		call(1360);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27112,7 +27306,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(1363);
+		call(1361);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27121,7 +27315,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(1364);
+		call(1362);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27130,7 +27324,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(1365);
+		call(1363);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27139,7 +27333,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(1366);
+		call(1364);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27148,7 +27342,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(1367);
+		call(1365);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27157,7 +27351,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(1368);
+		call(1366);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27166,7 +27360,7 @@ scope_begin(std, integer$_uint8$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(1369);
+		call(1367);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27175,7 +27369,7 @@ scope_begin(std, integer$_uint8$)
 
 	_uint8 get_value(object $instance) {
 		pushObj($instance);
-		call(1370);
+		call(1368);
 
 		_uint8 $result(getSpNumAt(0));
 		decSp(1);
@@ -27184,7 +27378,7 @@ scope_begin(std, integer$_uint8$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
-		call(1371);
+		call(1369);
 	}
 
 scope_end()
@@ -27194,12 +27388,12 @@ scope_begin(std, integer$_int8$)
 	void integer(object $instance, var& initial_val) {
 		pushObj($instance);
 		pushNum(initial_val.value());
-		call(1372);
+		call(1370);
 	}
 
 	object hash(object $instance) {
 		pushObj($instance);
-		call(1373);
+		call(1371);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -27209,7 +27403,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1374);
+		call(1372);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27219,7 +27413,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1375);
+		call(1373);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27229,7 +27423,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1376);
+		call(1374);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27239,7 +27433,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1377);
+		call(1375);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27249,7 +27443,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1378);
+		call(1376);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27259,7 +27453,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1379);
+		call(1377);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27269,7 +27463,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1380);
+		call(1378);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27279,7 +27473,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1381);
+		call(1379);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27289,7 +27483,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1382);
+		call(1380);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27299,7 +27493,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1383);
+		call(1381);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27309,7 +27503,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1384);
+		call(1382);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27319,7 +27513,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1385);
+		call(1383);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27329,7 +27523,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1386);
+		call(1384);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27339,7 +27533,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1387);
+		call(1385);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27349,7 +27543,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1388);
+		call(1386);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27359,7 +27553,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1389);
+		call(1387);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27369,7 +27563,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1390);
+		call(1388);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27379,7 +27573,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1391);
+		call(1389);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27389,7 +27583,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1392);
+		call(1390);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27399,7 +27593,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1393);
+		call(1391);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27409,7 +27603,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1394);
+		call(1392);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27419,7 +27613,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1395);
+		call(1393);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27429,7 +27623,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1396);
+		call(1394);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27439,7 +27633,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1397);
+		call(1395);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27449,7 +27643,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1398);
+		call(1396);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27459,7 +27653,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1399);
+		call(1397);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27469,7 +27663,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1400);
+		call(1398);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27479,7 +27673,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1401);
+		call(1399);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27489,7 +27683,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1402);
+		call(1400);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27499,7 +27693,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1403);
+		call(1401);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27509,7 +27703,7 @@ scope_begin(std, integer$_int8$)
 	var op_$plus11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1404);
+		call(1402);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27519,7 +27713,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1405);
+		call(1403);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27529,7 +27723,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1406);
+		call(1404);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27539,7 +27733,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1407);
+		call(1405);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27549,7 +27743,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1408);
+		call(1406);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27559,7 +27753,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1409);
+		call(1407);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27569,7 +27763,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1410);
+		call(1408);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27579,7 +27773,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1411);
+		call(1409);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27589,7 +27783,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1412);
+		call(1410);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27599,7 +27793,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1413);
+		call(1411);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27609,7 +27803,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1414);
+		call(1412);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27619,7 +27813,7 @@ scope_begin(std, integer$_int8$)
 	var op_$minus11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1415);
+		call(1413);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27629,7 +27823,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1416);
+		call(1414);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27639,7 +27833,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1417);
+		call(1415);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27649,7 +27843,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1418);
+		call(1416);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27659,7 +27853,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1419);
+		call(1417);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27669,7 +27863,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1420);
+		call(1418);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27679,7 +27873,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1421);
+		call(1419);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27689,7 +27883,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1422);
+		call(1420);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27699,7 +27893,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1423);
+		call(1421);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27709,7 +27903,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1424);
+		call(1422);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27719,7 +27913,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1425);
+		call(1423);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27729,7 +27923,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mult11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1426);
+		call(1424);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27739,7 +27933,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1427);
+		call(1425);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27749,7 +27943,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1428);
+		call(1426);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27759,7 +27953,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1429);
+		call(1427);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27769,7 +27963,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1430);
+		call(1428);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27779,7 +27973,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1431);
+		call(1429);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27789,7 +27983,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1432);
+		call(1430);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27799,7 +27993,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1433);
+		call(1431);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27809,7 +28003,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1434);
+		call(1432);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27819,7 +28013,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1435);
+		call(1433);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27829,7 +28023,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1436);
+		call(1434);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27839,7 +28033,7 @@ scope_begin(std, integer$_int8$)
 	var op_$div11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1437);
+		call(1435);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27849,7 +28043,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1438);
+		call(1436);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27859,7 +28053,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1439);
+		call(1437);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27869,7 +28063,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1440);
+		call(1438);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27879,7 +28073,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1441);
+		call(1439);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27889,7 +28083,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1442);
+		call(1440);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27899,7 +28093,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1443);
+		call(1441);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27909,7 +28103,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1444);
+		call(1442);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27919,7 +28113,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1445);
+		call(1443);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27929,7 +28123,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1446);
+		call(1444);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27939,7 +28133,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1447);
+		call(1445);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27949,7 +28143,7 @@ scope_begin(std, integer$_int8$)
 	var op_$mod11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1448);
+		call(1446);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27959,7 +28153,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1449);
+		call(1447);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27969,7 +28163,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1450);
+		call(1448);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27979,7 +28173,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1451);
+		call(1449);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27989,7 +28183,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1452);
+		call(1450);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -27999,7 +28193,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1453);
+		call(1451);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28009,7 +28203,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1454);
+		call(1452);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28019,7 +28213,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1455);
+		call(1453);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28029,7 +28223,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1456);
+		call(1454);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28039,7 +28233,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1457);
+		call(1455);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28049,7 +28243,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1458);
+		call(1456);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28059,7 +28253,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1459);
+		call(1457);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28069,7 +28263,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1460);
+		call(1458);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28079,7 +28273,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1461);
+		call(1459);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28089,7 +28283,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1462);
+		call(1460);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28099,7 +28293,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1463);
+		call(1461);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28109,7 +28303,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1464);
+		call(1462);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28119,7 +28313,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1465);
+		call(1463);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28129,7 +28323,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1466);
+		call(1464);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28139,7 +28333,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1467);
+		call(1465);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28149,7 +28343,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1468);
+		call(1466);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28159,7 +28353,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1469);
+		call(1467);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28169,7 +28363,7 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1470);
+		call(1468);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28179,7 +28373,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1471);
+		call(1469);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28189,7 +28383,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1472);
+		call(1470);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28199,7 +28393,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1473);
+		call(1471);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28209,7 +28403,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1474);
+		call(1472);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28219,7 +28413,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1475);
+		call(1473);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28229,7 +28423,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1476);
+		call(1474);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28239,7 +28433,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1477);
+		call(1475);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28249,7 +28443,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1478);
+		call(1476);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28259,7 +28453,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1479);
+		call(1477);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28269,7 +28463,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1480);
+		call(1478);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28279,7 +28473,7 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1481);
+		call(1479);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28289,7 +28483,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1482);
+		call(1480);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28299,7 +28493,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1483);
+		call(1481);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28309,7 +28503,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1484);
+		call(1482);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28319,7 +28513,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1485);
+		call(1483);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28329,7 +28523,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1486);
+		call(1484);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28339,7 +28533,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1487);
+		call(1485);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28349,7 +28543,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1488);
+		call(1486);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28359,7 +28553,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1489);
+		call(1487);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28369,7 +28563,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1490);
+		call(1488);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28379,7 +28573,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1491);
+		call(1489);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28389,7 +28583,7 @@ scope_begin(std, integer$_int8$)
 	var op_$pow11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1492);
+		call(1490);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28399,7 +28593,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1493);
+		call(1491);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28409,7 +28603,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1494);
+		call(1492);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28419,7 +28613,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1495);
+		call(1493);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28429,7 +28623,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1496);
+		call(1494);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28439,7 +28633,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1497);
+		call(1495);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28449,7 +28643,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1498);
+		call(1496);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28459,7 +28653,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1499);
+		call(1497);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28469,7 +28663,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1500);
+		call(1498);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28479,7 +28673,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1501);
+		call(1499);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28489,7 +28683,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1502);
+		call(1500);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28499,7 +28693,7 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1503);
+		call(1501);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28509,7 +28703,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1504);
+		call(1502);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28519,7 +28713,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1505);
+		call(1503);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28529,7 +28723,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1506);
+		call(1504);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28539,7 +28733,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1507);
+		call(1505);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28549,7 +28743,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1508);
+		call(1506);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28559,7 +28753,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1509);
+		call(1507);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28569,7 +28763,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1510);
+		call(1508);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28579,7 +28773,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1511);
+		call(1509);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28589,7 +28783,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1512);
+		call(1510);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28599,7 +28793,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1513);
+		call(1511);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28609,7 +28803,7 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1514);
+		call(1512);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28619,7 +28813,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1515);
+		call(1513);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28629,7 +28823,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1516);
+		call(1514);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28639,7 +28833,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1517);
+		call(1515);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28649,7 +28843,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1518);
+		call(1516);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28659,7 +28853,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1519);
+		call(1517);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28669,7 +28863,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1520);
+		call(1518);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28679,7 +28873,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1521);
+		call(1519);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28689,7 +28883,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1522);
+		call(1520);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28699,7 +28893,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1523);
+		call(1521);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28709,7 +28903,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1524);
+		call(1522);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28719,7 +28913,7 @@ scope_begin(std, integer$_int8$)
 	var op_$xor11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1525);
+		call(1523);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28729,7 +28923,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1526);
+		call(1524);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28739,7 +28933,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1527);
+		call(1525);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28749,7 +28943,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1528);
+		call(1526);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28759,7 +28953,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1529);
+		call(1527);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28769,7 +28963,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1530);
+		call(1528);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28779,7 +28973,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1531);
+		call(1529);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28789,7 +28983,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1532);
+		call(1530);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28799,7 +28993,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1533);
+		call(1531);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28809,7 +29003,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1534);
+		call(1532);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28819,7 +29013,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1535);
+		call(1533);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28829,7 +29023,7 @@ scope_begin(std, integer$_int8$)
 	var op_$and11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1536);
+		call(1534);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28839,7 +29033,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1537);
+		call(1535);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28849,7 +29043,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or2(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1538);
+		call(1536);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28859,7 +29053,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or3(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1539);
+		call(1537);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28869,7 +29063,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or4(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1540);
+		call(1538);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28879,7 +29073,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or5(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1541);
+		call(1539);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28889,7 +29083,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or6(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1542);
+		call(1540);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28899,7 +29093,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or7(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1543);
+		call(1541);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28909,7 +29103,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or8(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1544);
+		call(1542);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28919,7 +29113,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or9(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1545);
+		call(1543);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28929,7 +29123,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or10(object $instance, object num) {
 		pushObj($instance);
 		pushObj(num);
-		call(1546);
+		call(1544);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28939,7 +29133,7 @@ scope_begin(std, integer$_int8$)
 	var op_$or11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1547);
+		call(1545);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28949,7 +29143,7 @@ scope_begin(std, integer$_int8$)
 	var op_$not_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1548);
+		call(1546);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28959,7 +29153,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals11(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1549);
+		call(1547);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -28969,7 +29163,7 @@ scope_begin(std, integer$_int8$)
 	_int8 op_$equals(object $instance, var& num) {
 		pushObj($instance);
 		pushNum(num.value());
-		call(1550);
+		call(1548);
 
 		_int8 $result(getSpNumAt(0));
 		decSp(1);
@@ -28978,7 +29172,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(1551);
+		call(1549);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -28987,7 +29181,7 @@ scope_begin(std, integer$_int8$)
 
 	_int8 parse(object s) {
 		pushObj(s);
-		call(1552);
+		call(1550);
 
 		_int8 $result(getSpNumAt(0));
 		decSp(1);
@@ -28996,7 +29190,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_ulong(object $instance) {
 		pushObj($instance);
-		call(1553);
+		call(1551);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29005,7 +29199,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_long(object $instance) {
 		pushObj($instance);
-		call(1554);
+		call(1552);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29014,7 +29208,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_uint(object $instance) {
 		pushObj($instance);
-		call(1555);
+		call(1553);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29023,7 +29217,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_int(object $instance) {
 		pushObj($instance);
-		call(1556);
+		call(1554);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29032,7 +29226,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_ushort(object $instance) {
 		pushObj($instance);
-		call(1557);
+		call(1555);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29041,7 +29235,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_short(object $instance) {
 		pushObj($instance);
-		call(1558);
+		call(1556);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29050,7 +29244,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_uchar(object $instance) {
 		pushObj($instance);
-		call(1559);
+		call(1557);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29059,7 +29253,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_char(object $instance) {
 		pushObj($instance);
-		call(1560);
+		call(1558);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29068,7 +29262,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_byte(object $instance) {
 		pushObj($instance);
-		call(1561);
+		call(1559);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29077,7 +29271,7 @@ scope_begin(std, integer$_int8$)
 
 	object to_bool(object $instance) {
 		pushObj($instance);
-		call(1562);
+		call(1560);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29086,7 +29280,7 @@ scope_begin(std, integer$_int8$)
 
 	_int8 get_value(object $instance) {
 		pushObj($instance);
-		call(1563);
+		call(1561);
 
 		_int8 $result(getSpNumAt(0));
 		decSp(1);
@@ -29095,7 +29289,235 @@ scope_begin(std, integer$_int8$)
 
 	void integer2(object $instance) {
 		pushObj($instance);
+		call(1562);
+	}
+
+scope_end()
+
+scope_begin(std, loopable$_int8$) 
+
+	_int8_array get_elements(object $instance) {
+		pushObj($instance);
+		call(1563);
+
+		object $tmpObj = getSpObjAt(0);
+		_int8_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
+	}
+
+	void loopable(object $instance) {
+		pushObj($instance);
 		call(1564);
+	}
+
+scope_end()
+
+scope_begin(std, list$std_string$) 
+
+	void list(object $instance) {
+		pushObj($instance);
+		call(3101);
+	}
+
+	void list2(object $instance, var& starting_capacity) {
+		pushObj($instance);
+		pushNum(starting_capacity.value());
+		call(3102);
+	}
+
+	void list3(object $instance, object initial_data) {
+		pushObj($instance);
+		pushObj(initial_data);
+		call(3103);
+	}
+
+	var empty(object $instance) {
+		pushObj($instance);
+		call(3104);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void set_compact(object $instance, var& compact_array) {
+		pushObj($instance);
+		pushNum(compact_array.value());
+		call(3105);
+	}
+
+	object get_elements(object $instance) {
+		pushObj($instance);
+		call(3106);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$array_at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3107);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3108);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object last(object $instance) {
+		pushObj($instance);
+		call(3109);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object put(object $instance, var& index, object element) {
+		pushObj($instance);
+		pushNum(index.value());
+		pushObj(element);
+		call(3110);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void expand(object $instance) {
+		pushObj($instance);
+		call(3111);
+	}
+
+	void clear(object $instance) {
+		pushObj($instance);
+		call(3112);
+	}
+
+	void add_all(object $instance, object lst) {
+		pushObj($instance);
+		pushObj(lst);
+		call(3113);
+	}
+
+	void add_all2(object $instance, object lst) {
+		pushObj($instance);
+		pushObj(lst);
+		call(3114);
+	}
+
+	void add(object $instance, object element) {
+		pushObj($instance);
+		pushObj(element);
+		call(3115);
+	}
+
+	var indexof(object $instance, object element) {
+		pushObj($instance);
+		pushObj(element);
+		call(3116);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void pop_back(object $instance) {
+		pushObj($instance);
+		call(3117);
+	}
+
+	var size(object $instance) {
+		pushObj($instance);
+		call(3118);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void insert(object $instance, var& index, object element) {
+		pushObj($instance);
+		pushNum(index.value());
+		pushObj(element);
+		call(3119);
+	}
+
+	void remove(object $instance, object val) {
+		pushObj($instance);
+		pushObj(val);
+		call(3120);
+	}
+
+	void remove2(object $instance, object val, var& compare_fun) {
+		pushObj($instance);
+		pushObj(val);
+		pushNum(compare_fun.value());
+		call(3121);
+	}
+
+	void remove_at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3122);
+	}
+
+	var indexof2(object $instance, object comparer, var& find_func) {
+		pushObj($instance);
+		pushObj(comparer);
+		pushNum(find_func.value());
+		call(3123);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(3124);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object out_of_bounds_msg(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3125);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(std, loopable$std_string$) 
+
+	object get_elements(object $instance) {
+		pushObj($instance);
+		call(3099);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void loopable(object $instance) {
+		pushObj($instance);
+		call(3100);
 	}
 
 scope_end()
@@ -29105,24 +29527,24 @@ scope_begin(std, hashmap$std_io_thread_0_std_io_task_job_controller$)
 	void hashmap(object $instance, var& initialCapacity) {
 		pushObj($instance);
 		pushNum(initialCapacity.value());
-		call(3076);
+		call(3126);
 	}
 
 	void hashmap2(object $instance) {
 		pushObj($instance);
-		call(3077);
+		call(3127);
 	}
 
 	void set_threshold(object $instance, var& threshold) {
 		pushObj($instance);
 		pushNum(threshold.value());
-		call(3078);
+		call(3128);
 	}
 
 	var hash(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3079);
+		call(3129);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29131,13 +29553,13 @@ scope_begin(std, hashmap$std_io_thread_0_std_io_task_job_controller$)
 
 	void resize(object $instance) {
 		pushObj($instance);
-		call(3080);
+		call(3130);
 	}
 
 	object at(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3081);
+		call(3131);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29148,7 +29570,7 @@ scope_begin(std, hashmap$std_io_thread_0_std_io_task_job_controller$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3082);
+		call(3132);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29158,7 +29580,7 @@ scope_begin(std, hashmap$std_io_thread_0_std_io_task_job_controller$)
 	var remove(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3083);
+		call(3133);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29172,24 +29594,24 @@ scope_begin(std, hashmap$std_int_0_std_io_thread$)
 	void hashmap(object $instance, var& initialCapacity) {
 		pushObj($instance);
 		pushNum(initialCapacity.value());
-		call(3084);
+		call(3134);
 	}
 
 	void hashmap2(object $instance) {
 		pushObj($instance);
-		call(3085);
+		call(3135);
 	}
 
 	void set_threshold(object $instance, var& threshold) {
 		pushObj($instance);
 		pushNum(threshold.value());
-		call(3086);
+		call(3136);
 	}
 
 	var hash(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3087);
+		call(3137);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29198,13 +29620,13 @@ scope_begin(std, hashmap$std_int_0_std_io_thread$)
 
 	void resize(object $instance) {
 		pushObj($instance);
-		call(3088);
+		call(3138);
 	}
 
 	object at(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3089);
+		call(3139);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29215,7 +29637,7 @@ scope_begin(std, hashmap$std_int_0_std_io_thread$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3090);
+		call(3140);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29225,7 +29647,7 @@ scope_begin(std, hashmap$std_int_0_std_io_thread$)
 	var remove(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3091);
+		call(3141);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29234,28 +29656,28 @@ scope_begin(std, hashmap$std_int_0_std_io_thread$)
 
 scope_end()
 
-scope_begin(std, list$std_string$) 
+scope_begin(std, list$std_io_thread$) 
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3094);
+		call(3143);
 	}
 
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3095);
+		call(3144);
 	}
 
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3096);
+		call(3145);
 	}
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3097);
+		call(3146);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29265,12 +29687,12 @@ scope_begin(std, list$std_string$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3098);
+		call(3147);
 	}
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3099);
+		call(3148);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29280,7 +29702,7 @@ scope_begin(std, list$std_string$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3100);
+		call(3149);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29290,7 +29712,7 @@ scope_begin(std, list$std_string$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3101);
+		call(3150);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29299,7 +29721,7 @@ scope_begin(std, list$std_string$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3102);
+		call(3151);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29310,7 +29732,7 @@ scope_begin(std, list$std_string$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3103);
+		call(3152);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29319,211 +29741,21 @@ scope_begin(std, list$std_string$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3104);
+		call(3153);
 	}
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3105);
+		call(3154);
 	}
 
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3106);
+		call(3155);
 	}
 
 	void add_all2(object $instance, object lst) {
-		pushObj($instance);
-		pushObj(lst);
-		call(3107);
-	}
-
-	void add(object $instance, object element) {
-		pushObj($instance);
-		pushObj(element);
-		call(3108);
-	}
-
-	var indexof(object $instance, object element) {
-		pushObj($instance);
-		pushObj(element);
-		call(3109);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void pop_back(object $instance) {
-		pushObj($instance);
-		call(3110);
-	}
-
-	var size(object $instance) {
-		pushObj($instance);
-		call(3111);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void insert(object $instance, var& index, object element) {
-		pushObj($instance);
-		pushNum(index.value());
-		pushObj(element);
-		call(3112);
-	}
-
-	void remove(object $instance, object val) {
-		pushObj($instance);
-		pushObj(val);
-		call(3113);
-	}
-
-	void remove2(object $instance, object val, var& compare_fun) {
-		pushObj($instance);
-		pushObj(val);
-		pushNum(compare_fun.value());
-		call(3114);
-	}
-
-	void remove_at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3115);
-	}
-
-	var indexof2(object $instance, object comparer, var& find_func) {
-		pushObj($instance);
-		pushObj(comparer);
-		pushNum(find_func.value());
-		call(3116);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(3117);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object out_of_bounds_msg(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3118);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(std, loopable$std_string$) 
-
-	object get_elements(object $instance) {
-		pushObj($instance);
-		call(3092);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void loopable(object $instance) {
-		pushObj($instance);
-		call(3093);
-	}
-
-scope_end()
-
-scope_begin(std, synced_list$std_io_task_job$) 
-
-	void synced_list(object $instance) {
-		pushObj($instance);
-		call(3121);
-	}
-
-	void synced_list2(object $instance, var& starting_capacity) {
-		pushObj($instance);
-		pushNum(starting_capacity.value());
-		call(3122);
-	}
-
-	void set_compact(object $instance, var& compact_array) {
-		pushObj($instance);
-		pushNum(compact_array.value());
-		call(3123);
-	}
-
-	object get_elements(object $instance) {
-		pushObj($instance);
-		call(3124);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$array_at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3125);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3126);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object last(object $instance) {
-		pushObj($instance);
-		call(3127);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object put(object $instance, var& index, object element) {
-		pushObj($instance);
-		pushNum(index.value());
-		pushObj(element);
-		call(3128);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void expand(object $instance) {
-		pushObj($instance);
-		call(3129);
-	}
-
-	void clear(object $instance) {
-		pushObj($instance);
-		call(3130);
-	}
-
-	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
 		call(3156);
@@ -29559,9 +29791,181 @@ scope_begin(std, synced_list$std_io_task_job$)
 		return $result;
 	}
 
+	void insert(object $instance, var& index, object element) {
+		pushObj($instance);
+		pushNum(index.value());
+		pushObj(element);
+		call(3161);
+	}
+
+	void remove(object $instance, object val) {
+		pushObj($instance);
+		pushObj(val);
+		call(3162);
+	}
+
+	void remove2(object $instance, object val, var& compare_fun) {
+		pushObj($instance);
+		pushObj(val);
+		pushNum(compare_fun.value());
+		call(3163);
+	}
+
+	void remove_at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3164);
+	}
+
+	var indexof2(object $instance, object comparer, var& find_func) {
+		pushObj($instance);
+		pushObj(comparer);
+		pushNum(find_func.value());
+		call(3165);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	object to_string(object $instance) {
+		pushObj($instance);
+		call(3166);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object out_of_bounds_msg(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3167);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+scope_end()
+
+scope_begin(std, synced_list$std_io_task_job$) 
+
+	void synced_list(object $instance) {
+		pushObj($instance);
+		call(3170);
+	}
+
+	void synced_list2(object $instance, var& starting_capacity) {
+		pushObj($instance);
+		pushNum(starting_capacity.value());
+		call(3171);
+	}
+
+	void set_compact(object $instance, var& compact_array) {
+		pushObj($instance);
+		pushNum(compact_array.value());
+		call(3172);
+	}
+
+	object get_elements(object $instance) {
+		pushObj($instance);
+		call(3173);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$array_at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3174);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3175);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object last(object $instance) {
+		pushObj($instance);
+		call(3176);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object put(object $instance, var& index, object element) {
+		pushObj($instance);
+		pushNum(index.value());
+		pushObj(element);
+		call(3177);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void expand(object $instance) {
+		pushObj($instance);
+		call(3178);
+	}
+
+	void clear(object $instance) {
+		pushObj($instance);
+		call(3179);
+	}
+
+	void add_all(object $instance, object lst) {
+		pushObj($instance);
+		pushObj(lst);
+		call(3205);
+	}
+
+	void add(object $instance, object element) {
+		pushObj($instance);
+		pushObj(element);
+		call(3206);
+	}
+
+	var indexof(object $instance, object element) {
+		pushObj($instance);
+		pushObj(element);
+		call(3207);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void pop_back(object $instance) {
+		pushObj($instance);
+		call(3208);
+	}
+
+	var size(object $instance) {
+		pushObj($instance);
+		call(3209);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3161);
+		call(3210);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29572,33 +29976,33 @@ scope_begin(std, synced_list$std_io_task_job$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3162);
+		call(3211);
 	}
 
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3163);
+		call(3212);
 	}
 
 	void remove2(object $instance, object val, var& compare_fun) {
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3164);
+		call(3213);
 	}
 
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3165);
+		call(3214);
 	}
 
 	var indexof2(object $instance, object comparer, var& find_func) {
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3166);
+		call(3215);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29607,7 +30011,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3167);
+		call(3216);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29617,7 +30021,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3168);
+		call(3217);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29630,7 +30034,7 @@ scope_begin(std, loopable$std_io_task_job$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3119);
+		call(3168);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -29639,7 +30043,7 @@ scope_begin(std, loopable$std_io_task_job$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3120);
+		call(3169);
 	}
 
 scope_end()
@@ -29648,310 +30052,117 @@ scope_begin(std, list$std_io_task_job$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3131);
-	}
-
-	void list2(object $instance, var& starting_capacity) {
-		pushObj($instance);
-		pushNum(starting_capacity.value());
-		call(3132);
-	}
-
-	void list3(object $instance, object initial_data) {
-		pushObj($instance);
-		pushObj(initial_data);
-		call(3133);
-	}
-
-	var empty(object $instance) {
-		pushObj($instance);
-		call(3134);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void set_compact(object $instance, var& compact_array) {
-		pushObj($instance);
-		pushNum(compact_array.value());
-		call(3135);
-	}
-
-	object get_elements(object $instance) {
-		pushObj($instance);
-		call(3136);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$array_at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3137);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3138);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object last(object $instance) {
-		pushObj($instance);
-		call(3139);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object put(object $instance, var& index, object element) {
-		pushObj($instance);
-		pushNum(index.value());
-		pushObj(element);
-		call(3140);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void expand(object $instance) {
-		pushObj($instance);
-		call(3141);
-	}
-
-	void clear(object $instance) {
-		pushObj($instance);
-		call(3142);
-	}
-
-	void add_all(object $instance, object lst) {
-		pushObj($instance);
-		pushObj(lst);
-		call(3143);
-	}
-
-	void add_all2(object $instance, object lst) {
-		pushObj($instance);
-		pushObj(lst);
-		call(3144);
-	}
-
-	void add(object $instance, object element) {
-		pushObj($instance);
-		pushObj(element);
-		call(3145);
-	}
-
-	var indexof(object $instance, object element) {
-		pushObj($instance);
-		pushObj(element);
-		call(3146);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void pop_back(object $instance) {
-		pushObj($instance);
-		call(3147);
-	}
-
-	var size(object $instance) {
-		pushObj($instance);
-		call(3148);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void insert(object $instance, var& index, object element) {
-		pushObj($instance);
-		pushNum(index.value());
-		pushObj(element);
-		call(3149);
-	}
-
-	void remove(object $instance, object val) {
-		pushObj($instance);
-		pushObj(val);
-		call(3150);
-	}
-
-	void remove2(object $instance, object val, var& compare_fun) {
-		pushObj($instance);
-		pushObj(val);
-		pushNum(compare_fun.value());
-		call(3151);
-	}
-
-	void remove_at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3152);
-	}
-
-	var indexof2(object $instance, object comparer, var& find_func) {
-		pushObj($instance);
-		pushObj(comparer);
-		pushNum(find_func.value());
-		call(3153);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	object to_string(object $instance) {
-		pushObj($instance);
-		call(3154);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object out_of_bounds_msg(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3155);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-scope_end()
-
-scope_begin(std, list$std_io_thread$) 
-
-	void list(object $instance) {
-		pushObj($instance);
-		call(3169);
-	}
-
-	void list2(object $instance, var& starting_capacity) {
-		pushObj($instance);
-		pushNum(starting_capacity.value());
-		call(3170);
-	}
-
-	void list3(object $instance, object initial_data) {
-		pushObj($instance);
-		pushObj(initial_data);
-		call(3171);
-	}
-
-	var empty(object $instance) {
-		pushObj($instance);
-		call(3172);
-
-		var $result(getSpNumAt(0));
-		decSp(1);
-		return $result;
-	}
-
-	void set_compact(object $instance, var& compact_array) {
-		pushObj($instance);
-		pushNum(compact_array.value());
-		call(3173);
-	}
-
-	object get_elements(object $instance) {
-		pushObj($instance);
-		call(3174);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object op_$array_at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3175);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object at(object $instance, var& index) {
-		pushObj($instance);
-		pushNum(index.value());
-		call(3176);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object last(object $instance) {
-		pushObj($instance);
-		call(3177);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object put(object $instance, var& index, object element) {
-		pushObj($instance);
-		pushNum(index.value());
-		pushObj(element);
-		call(3178);
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	void expand(object $instance) {
-		pushObj($instance);
-		call(3179);
-	}
-
-	void clear(object $instance) {
-		pushObj($instance);
 		call(3180);
 	}
 
+	void list2(object $instance, var& starting_capacity) {
+		pushObj($instance);
+		pushNum(starting_capacity.value());
+		call(3181);
+	}
+
+	void list3(object $instance, object initial_data) {
+		pushObj($instance);
+		pushObj(initial_data);
+		call(3182);
+	}
+
+	var empty(object $instance) {
+		pushObj($instance);
+		call(3183);
+
+		var $result(getSpNumAt(0));
+		decSp(1);
+		return $result;
+	}
+
+	void set_compact(object $instance, var& compact_array) {
+		pushObj($instance);
+		pushNum(compact_array.value());
+		call(3184);
+	}
+
+	object get_elements(object $instance) {
+		pushObj($instance);
+		call(3185);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object op_$array_at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3186);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object at(object $instance, var& index) {
+		pushObj($instance);
+		pushNum(index.value());
+		call(3187);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object last(object $instance) {
+		pushObj($instance);
+		call(3188);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object put(object $instance, var& index, object element) {
+		pushObj($instance);
+		pushNum(index.value());
+		pushObj(element);
+		call(3189);
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void expand(object $instance) {
+		pushObj($instance);
+		call(3190);
+	}
+
+	void clear(object $instance) {
+		pushObj($instance);
+		call(3191);
+	}
+
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3181);
+		call(3192);
 	}
 
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3182);
+		call(3193);
 	}
 
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3183);
+		call(3194);
 	}
 
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3184);
+		call(3195);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29960,12 +30171,12 @@ scope_begin(std, list$std_io_thread$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3185);
+		call(3196);
 	}
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3186);
+		call(3197);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -29976,33 +30187,33 @@ scope_begin(std, list$std_io_thread$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3187);
+		call(3198);
 	}
 
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3188);
+		call(3199);
 	}
 
 	void remove2(object $instance, object val, var& compare_fun) {
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3189);
+		call(3200);
 	}
 
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3190);
+		call(3201);
 	}
 
 	var indexof2(object $instance, object comparer, var& find_func) {
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3191);
+		call(3202);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30011,7 +30222,7 @@ scope_begin(std, list$std_io_thread$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3192);
+		call(3203);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30021,7 +30232,7 @@ scope_begin(std, list$std_io_thread$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3193);
+		call(3204);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30034,24 +30245,24 @@ scope_begin(std, list$var$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3196);
+		call(3220);
 	}
 
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3197);
+		call(3221);
 	}
 
 	void list3(object $instance, var_array& initial_data) {
 		pushObj($instance);
 		pushObj(initial_data.handle);
-		call(3198);
+		call(3222);
 	}
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3199);
+		call(3223);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30061,12 +30272,12 @@ scope_begin(std, list$var$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3200);
+		call(3224);
 	}
 
 	var_array get_elements(object $instance) {
 		pushObj($instance);
-		call(3201);
+		call(3225);
 
 		object $tmpObj = getSpObjAt(0);
 		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
@@ -30075,7 +30286,7 @@ scope_begin(std, list$var$)
 	var op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3202);
+		call(3226);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30085,7 +30296,7 @@ scope_begin(std, list$var$)
 	var at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3203);
+		call(3227);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30094,7 +30305,7 @@ scope_begin(std, list$var$)
 
 	var last(object $instance) {
 		pushObj($instance);
-		call(3204);
+		call(3228);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30105,7 +30316,7 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushNum(element.value());
-		call(3205);
+		call(3229);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30114,36 +30325,36 @@ scope_begin(std, list$var$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3206);
+		call(3230);
 	}
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3207);
+		call(3231);
 	}
 
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3208);
+		call(3232);
 	}
 
 	void add_all2(object $instance, var_array& lst) {
 		pushObj($instance);
 		pushObj(lst.handle);
-		call(3209);
+		call(3233);
 	}
 
 	void add(object $instance, var& element) {
 		pushObj($instance);
 		pushNum(element.value());
-		call(3210);
+		call(3234);
 	}
 
 	var indexof(object $instance, var& element) {
 		pushObj($instance);
 		pushNum(element.value());
-		call(3211);
+		call(3235);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30152,12 +30363,12 @@ scope_begin(std, list$var$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3212);
+		call(3236);
 	}
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3213);
+		call(3237);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30168,33 +30379,33 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushNum(element.value());
-		call(3214);
+		call(3238);
 	}
 
 	void remove(object $instance, var& val) {
 		pushObj($instance);
 		pushNum(val.value());
-		call(3215);
+		call(3239);
 	}
 
 	void remove2(object $instance, var& val, var& compare_fun) {
 		pushObj($instance);
 		pushNum(val.value());
 		pushNum(compare_fun.value());
-		call(3216);
+		call(3240);
 	}
 
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3217);
+		call(3241);
 	}
 
 	var indexof2(object $instance, var& comparer, var& find_func) {
 		pushObj($instance);
 		pushNum(comparer.value());
 		pushNum(find_func.value());
-		call(3218);
+		call(3242);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30203,7 +30414,7 @@ scope_begin(std, list$var$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3219);
+		call(3243);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30213,7 +30424,7 @@ scope_begin(std, list$var$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3220);
+		call(3244);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30226,7 +30437,7 @@ scope_begin(std, loopable$var$)
 
 	var_array get_elements(object $instance) {
 		pushObj($instance);
-		call(3194);
+		call(3218);
 
 		object $tmpObj = getSpObjAt(0);
 		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
@@ -30234,7 +30445,7 @@ scope_begin(std, loopable$var$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3195);
+		call(3219);
 	}
 
 scope_end()
@@ -30243,24 +30454,24 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3227);
+		call(3250);
 	}
 
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3228);
+		call(3251);
 	}
 
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3229);
+		call(3252);
 	}
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3230);
+		call(3253);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30270,12 +30481,12 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3231);
+		call(3254);
 	}
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3232);
+		call(3255);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30285,7 +30496,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3233);
+		call(3256);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30295,7 +30506,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3234);
+		call(3257);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30304,7 +30515,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3235);
+		call(3258);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30315,7 +30526,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3236);
+		call(3259);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30324,36 +30535,36 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3237);
+		call(3260);
 	}
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3238);
+		call(3261);
 	}
 
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3239);
+		call(3262);
 	}
 
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3240);
+		call(3263);
 	}
 
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3241);
+		call(3264);
 	}
 
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3242);
+		call(3265);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30362,12 +30573,12 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3243);
+		call(3266);
 	}
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3244);
+		call(3267);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30378,33 +30589,33 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3245);
+		call(3268);
 	}
 
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3246);
+		call(3269);
 	}
 
 	void remove2(object $instance, object val, var& compare_fun) {
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3247);
+		call(3270);
 	}
 
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3248);
+		call(3271);
 	}
 
 	var indexof2(object $instance, object comparer, var& find_func) {
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3249);
+		call(3272);
 
 		var $result(getSpNumAt(0));
 		decSp(1);
@@ -30413,7 +30624,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3250);
+		call(3273);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30423,7 +30634,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3251);
+		call(3274);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30436,7 +30647,7 @@ scope_begin(std, loopable$common_network_core_request_data_request_item$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3225);
+		call(3248);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30445,7 +30656,7 @@ scope_begin(std, loopable$common_network_core_request_data_request_item$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3226);
+		call(3249);
 	}
 
 scope_end()
@@ -30456,12 +30667,12 @@ scope_begin(std_io_task, entry$std_io_thread_0_std_io_task_job_controller$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3253);
+		call(3276);
 	}
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3254);
+		call(3277);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30470,7 +30681,7 @@ scope_begin(std_io_task, entry$std_io_thread_0_std_io_task_job_controller$)
 
 	void entry2(object $instance) {
 		pushObj($instance);
-		call(3255);
+		call(3278);
 	}
 
 scope_end()
@@ -30481,12 +30692,12 @@ scope_begin(std_io, entry$std_int_0_std_io_thread$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3256);
+		call(3279);
 	}
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3257);
+		call(3280);
 
 		object $result = getSpObjAt(0);
 		decSp(1);
@@ -30495,7 +30706,7 @@ scope_begin(std_io, entry$std_int_0_std_io_thread$)
 
 	void entry2(object $instance) {
 		pushObj($instance);
-		call(3258);
+		call(3281);
 	}
 
 scope_end()

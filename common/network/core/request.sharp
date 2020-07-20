@@ -37,7 +37,7 @@ class request
                 while(raw[i] != '=') { i++; }
                 key = raw.substring(startPos, i);
 
-                startPos = i;
+                startPos = ++i;
                 while(raw[i] != ',') {
                     i++;
                     if(!(i < raw.size()))
