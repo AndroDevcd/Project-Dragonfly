@@ -1,7 +1,9 @@
 mod common.network.data.request;
 
+import common.network.core;
+
 interface command_request
 {
     def listen(): command_response;
-    def basic_command(cmd: string);
+    def send_command(req: request_data, ack: var, timeout: var): var;
 }

@@ -13,23 +13,17 @@ def main(args: string[])
    common.gpio#setup();
    network.handshake();
    println("handshake established!");
-   println("please type a command: w, a, s, d, q: up, left, down, right, reconnect");
+   println("please type a command: s, r, h: sport mode, reg mode, reconnect");
 
    for(;;) {
       ch := read_char();
 
       when(ch) {
-         'w' -> {
-            network.send_command(constants.strings.UP);
-         }
          's' -> {
-            network.send_command(constants.strings.DOWN);
+            println("changed mode: ${network.change_mode(constants.strings.FLIGHT_MODE_SPORT)}");
          }
-         'a' -> {
-            network.send_command(constants.strings.LEFT);
-         }
-         'd' -> {
-            network.send_command(constants.strings.RIGHT);
+         'r' -> {
+            println("changed mode: ${network.change_mode(constants.strings.FLIGHT_MODE_NORM)}");
          }
          'q' -> {
             println("\nreconnecting...");
@@ -39,6 +33,5 @@ def main(args: string[])
       }
 
       println();
-      thread.sleep(50);
    }
 }

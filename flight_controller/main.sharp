@@ -17,21 +17,15 @@ def main(args: string[])
       response := network.listen();
 
       when(response.command) {
-         constants.strings.UP -> {
-            println("up");
-         }
-         constants.strings.DOWN -> {
-            println("down");
-         }
-         constants.strings.LEFT -> {
-            println("left");
-         }
-         constants.strings.RIGHT -> {
-            println("right");
+         constants.strings.CHANGE_MODE -> {
+            if(response.data.at(constants.strings.MODE) == constants.strings.FLIGHT_MODE_SPORT) {
+                println("sport mode");
+            } else
+                println("regular mode");
          }
          constants.strings.HANDSHAKE -> {
             println("reconnected");
-            network.send_acknowledge(true);
+            network.send_acknowledge();
          }
       }
 

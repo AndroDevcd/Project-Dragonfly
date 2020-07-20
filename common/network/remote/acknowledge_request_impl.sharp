@@ -7,11 +7,15 @@ import common;
 
 class acknowledge_request_impl base request : acknowledge_request
 {
-    def send(ack: acknowledge) {
-        req := new request_data();
-        req.add_item(constants.strings.RESPONSE, ack.success ? constants.strings.YES : constants.strings.NO);
+    acknowledge_request_impl()
+    {
+        _request = new request_data();
+        _request.add_item(constants.strings.RESPONSE, constants.strings.YES);
+    }
 
-        retry:
-        rw_inf(req, WRITE, constants.RW_LIMIT);
+    private _request : request_data;
+
+    def send() {
+        rw_inf(_request, WRITE, constants.RW_LIMIT);
     }
 }

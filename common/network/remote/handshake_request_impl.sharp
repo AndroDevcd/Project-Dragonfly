@@ -5,24 +5,17 @@ import common.network.data.*;
 import std.io;
 import common;
 
-class handshake_request_impl base request : handshake_request
+class handshake_request_impl base command_request_impl : handshake_request
 {
-    // server
+    handshake_request_impl()
+    {
+        _request = new request_data();
+        _request.add_item(constants.strings.CMD, constants.strings.HANDSHAKE);
+    }
+
+    private _request : request_data;
+
     def handshake() {
-        req := new request_data();
-        response := new request_data();
-        req.add_item(constants.strings.CMD, constants.strings.HANDSHAKE);
-
-        retry:
-        rw_inf(req, WRITE, constants.RW_LIMIT);
-        if(rw_inf(response, READ, constants.RW_LIMIT)) {
-            goto retry;
-        }
-
-        value := response.at(constants.strings.RESPONSE);
-        if(!(value != null && value == constants.strings.YES)) {
-            response.clear();
-            goto retry;
-        }
+        send_command(_request, true, false);
     }
 }

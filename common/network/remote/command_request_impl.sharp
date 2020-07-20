@@ -25,10 +25,42 @@ class command_request_impl base request : command_request
         return null; // for the compiler
     }
 
-    def basic_command(cmd: string) {
-       req := new request_data();
-       req.add_item(constants.strings.CMD, cmd);
+    def send_command(req: request_data, ack: var, timeout: var): var {
+        response := new request_data();
 
-       rw_inf(req, WRITE, constants.RW_LIMIT);
+        if(timeout)
+        {
+            if(write(req)) {
+                return 1;
+            }
+
+            if(ack) {
+                if(read(response)) {
+                    return 1;
+                }
+
+                value := response.at(constants.strings.RESPONSE);
+                if(!(value != null && value == constants.strings.YES)) {
+                    return 1;
+                }
+            }
+        } else {
+             retry:
+             rw_inf(req, WRITE, constants.RW_LIMIT);
+
+             if(ack) {
+                 if(rw_inf(response, READ, constants.RW_LIMIT)) {
+                     goto retry;
+                 }
+
+                 value := response.at(constants.strings.RESPONSE);
+                 if(!(value != null && value == constants.strings.YES)) {
+                     response.clear();
+                     goto retry;
+                 }
+             }
+        }
+
+        return 0;
     }
 }

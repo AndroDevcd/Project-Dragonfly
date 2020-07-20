@@ -31,11 +31,14 @@ class constants {
         static const CMD : string = "cmd";
         static const RESPONSE : string = "response";
         static const YES : string = "yes";
-        static const NO : string = "no";
+        static const MODE : string = "mode";
+        static const FLIGHT_MODE_NORM := "100";
+        static const FLIGHT_MODE_SPORT := "200";
         static const HANDSHAKE : string = "0";
         static const UP : string = "1";
         static const DOWN : string = "2";
         static const LEFT : string = "3";
         static const RIGHT : string = "4";
+        static const CHANGE_MODE : string = "5";
     }
 }

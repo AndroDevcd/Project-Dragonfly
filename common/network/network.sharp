@@ -15,6 +15,7 @@ class network {
 
     public handshake_req : handshake_request;
     public command_req : command_request;
+    public flight_mode_change_req : flight_mode_change_request;
     public acknowledge_req : acknowledge_request;
 
     static def handshake() {
@@ -25,11 +26,11 @@ class network {
        return INSTANCE.command_req.listen();
     }
 
-    static def send_acknowledge(ack: var) {
-        INSTANCE.acknowledge_req.send(new acknowledge(ack));
+    static def change_mode(mode: string): var {
+       return INSTANCE.flight_mode_change_req.change_mode(mode);
     }
 
-    static def send_command(cmd: string) {
-       return INSTANCE.command_req.basic_command(cmd);
+    static def send_acknowledge() {
+        INSTANCE.acknowledge_req.send();
     }
 }

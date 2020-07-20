@@ -6,5 +6,6 @@ import common.network.data.*;
 def initialize(net: network) {
     net.handshake_req = new handshake_request_impl();
     net.command_req = new command_request_impl();
+    net.flight_mode_change_req = new flight_mode_change_request_impl();
     net.acknowledge_req = new acknowledge_request_impl();
 }
