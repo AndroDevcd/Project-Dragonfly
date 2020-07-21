@@ -5,7 +5,7 @@ import common.network.data.*;
 import std.io;
 import common;
 
-class acknowledge_request_impl base request : acknowledge_request
+class acknowledge_request_impl base command_request_impl : acknowledge_request
 {
     acknowledge_request_impl()
     {
@@ -16,6 +16,6 @@ class acknowledge_request_impl base request : acknowledge_request
     private _request : request_data;
 
     def send() {
-        rw_inf(_request, WRITE, constants.RW_LIMIT);
+        send_command(_request, false, true);
     }
 }

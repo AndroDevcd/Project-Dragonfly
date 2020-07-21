@@ -160,7 +160,7 @@ scope_begin(common_network_driver)
 		if (timeout) {
 			if(withTimeout) return false;
 			else {
-                delayMicroseconds (TIMEOUT_US / 2);
+                delayMicroseconds (100);
 				goto retry;
 			}
 		} else {

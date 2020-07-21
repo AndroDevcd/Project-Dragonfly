@@ -30,12 +30,12 @@ class command_request_impl base request : command_request
 
         if(timeout)
         {
-            if(write(req)) {
+            if(rw_inf(req, WRITE, constants.RW_LIMIT)) {
                 return 1;
             }
 
             if(ack) {
-                if(read(response)) {
+                if(rw_inf(response, READ, constants.RW_LIMIT)) {
                     return 1;
                 }
 
