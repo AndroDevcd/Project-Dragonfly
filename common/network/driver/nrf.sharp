@@ -8,7 +8,6 @@ class nrf24 {
     has_power := false;
     transmission_level := constants.RF24_PA_MIN;
     transmission_rate := constants.RF24_1MBPS;
-    signal_strength := constants.SIGNAL_MED;
 
     nrf24()
     {
@@ -19,35 +18,47 @@ class nrf24 {
     }
 
 	def set_rf_lvl(level: var) {
-	    check_state();
-	    transmission_level = level;
-	    set_transmission_lvl(level);
+	    lock(self) {
+		check_state();
+		transmission_level = level;
+		set_transmission_lvl(level);
+	    }
 	}
 
 	def set_data_rate(level: var) {
-	    check_state();
-	    transmission_rate = level;
-	    set_transmission_rate(level);
+	    lock(self) {
+		check_state();
+		transmission_rate = level;
+		set_transmission_rate(level);
+	    }
 	}
 
 	def dump() {
-	    check_state();
-	    dump_details();
+	    lock(self) {
+		check_state();
+		dump_details();
+	    }
 	}
 
 	def update_retry_count(delay: var, count: var) {
-	    check_state();
-	    set_retry_count(delay, count);
+	    lock(self) {
+		check_state();
+		set_retry_count(delay, count);
+	    }
 	}
 
 	def shut_down() {
-	    has_power = false;
-	    power_down();
+	    lock(self) {
+		has_power = false;
+		power_down();
+	    }
 	}
 
-	def update_signal_strength() {
-	    check_state();
-	    signal_strength := get_signal_strength();
+	def get_signal_strength(): var {
+	    lock(self) {
+		check_state();
+		return common.network.driver#get_signal_strength();
+	    }
 	}
 
 	def read(response: string): var {

@@ -17,11 +17,14 @@ class request
         }
     }
 
-    static def write(rdata: request_data): var {
+    static def get_signal_strength()
+        := device.get_signal_strength();
+
+    private static def write(rdata: request_data): var {
         return device.send(rdata.to_string());
     }
 
-    static def read(rdata: request_data): var {
+    private static def read(rdata: request_data): var {
         raw := new string();
         result := device.read(raw);
 
@@ -58,34 +61,36 @@ class request
     }
 
     static def rw_inf(rdata: request_data, rw: var, count: var) : var {
-        if(rw == READ) {
-            for(;;) {
-                if(read(rdata) != 0) {
-                    thread.yield();
-                    thread.sleep(1);
-                    if(count != constants.INFINITE && count-- < 0) {
-                        return 1;
+	    lock(device) {
+            if(rw == READ) {
+                for(;;) {
+                    if(read(rdata) != 0) {
+                        thread.yield();
+                        thread.sleep(1);
+                        if(count != constants.INFINITE && count-- < 0) {
+                            return 1;
+                        }
+                        continue;
                     }
-                    continue;
+                    
+                    break;
                 }
-                
-                break;
-            }
-        } else {
-            for(;;) {
-                if(write(rdata) != 0) {
-                    thread.yield();
-                    thread.sleep(1);
-                    if(count != constants.INFINITE && count-- < 0) {
-                        return 1;
+            } else {
+                for(;;) {
+                    if(write(rdata) != 0) {
+                        thread.yield();
+                        thread.sleep(1);
+                        if(count != constants.INFINITE && count-- < 0) {
+                            return 1;
+                        }
+                        continue;
                     }
-                    continue;
+                    
+                    break;
                 }
-                
-                break;
             }
+            
+            return 0;
         }
-        
-        return 0;
     }
 }

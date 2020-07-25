@@ -1,0 +1,43 @@
+mod main;
+
+import std.io;
+import std.io.task;
+import common.network;
+import common;
+import common.gpio;
+
+LOCK := new _object_();
+signal_strength := constants.SIGNAL_MIN;
+disconnected := false;
+
+def setup_conn_tracker() {
+    pin_mode(constants.DEVICE_CONNECTING_PIN, constants.OUTPUT);
+    write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
+  
+    task.builder()
+     .recurring(constants.ONE_SECOND, milliseconds) 
+       = { ->
+	   	   write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
+		  
+                   if(!started || disconnected) {
+			   thread.sleep(500);
+			   write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
+		   }
+     };
+     
+     
+    task.builder()
+     .schedule(3000)
+     .recurring(constants.TWO_FIFTY, milliseconds) 
+       = { ->
+		   if(!started  || disconnected) return;
+		   signal_strength = network.get_signal_strength();
+		  
+		   if(signal_strength == constants.SIGNAL_MIN) {
+			  disconnected = true;
+		      network.handshake(); // reconnect to device
+		      disconnected = false;
+		   }
+     };
+}
+

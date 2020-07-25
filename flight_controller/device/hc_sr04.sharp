@@ -28,7 +28,7 @@ def setup_hc_sr04() {
   
   task.builder()
      .with_timeout(HIGH_ACCURACY_INTERVAL)
-    .recurring(LOW_ACCURACY_INTERVAL, milliseconds) = { args: object[] ->
+     .recurring(LOW_ACCURACY_INTERVAL, milliseconds) = { args: object[] ->
       jb := args[0] as job;
       
       dst := get_distance();

@@ -127,7 +127,7 @@ scope_begin(common_network_driver)
 		p.data[0x0] = len;
 	} 
 	
-	var get_signal_strength(object $instance) 
+	var get_signal_strength() 
 	{
 		var signalStrength = createLocalField<var>();
 		
@@ -141,6 +141,13 @@ scope_begin(common_network_driver)
 			}
 			
 			signalStrength = round((double)successfulPackets / 25);
+			
+			if(signalStrength.value() == 0) {
+				for(int i = 0; i < 25; i++) 
+				{
+					packetSuccess[i] = true;
+				}
+			}
 		}
 		
 		return signalStrength;

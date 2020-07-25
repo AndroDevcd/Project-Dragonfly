@@ -21,11 +21,18 @@ class constants {
     static const SIGNAL_LOW := 1;
     static const SIGNAL_MED := 2;
     static const SIGNAL_HIGH := 3;
+    static const SIGNAL_MAX := 4;
     static NETWORK_STATE := CLIENT;
     static const CLIENT := 1;
     static const SERVER := 0;
     static const RW_LIMIT := 3;
     static const INFINITE := -100;
+    static const CONNECTING_LED_INTERVAL := -100;
+    static const ONE_SECOND := 1000;
+    static const DEVICE_CONNECTING_PIN := 26;
+    static const INITIAL_START_DELAY := 3000;
+    static const DEVICE_UPDATE_INTERVAL := 50;
+    static const TWO_FIFTY:= 250;
 
     class strings {
         static const CMD : string = "cmd";

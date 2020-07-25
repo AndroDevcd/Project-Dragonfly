@@ -17,6 +17,7 @@ class network {
     public command_req : command_request;
     public flight_mode_change_req : flight_mode_change_request;
     public acknowledge_req : acknowledge_request;
+    public signal_strength_req : signal_strength_request;
 
     static def handshake() {
         INSTANCE.handshake_req.handshake();
@@ -28,6 +29,10 @@ class network {
 
     static def change_mode(mode: string): var {
        return INSTANCE.flight_mode_change_req.change_mode(mode);
+    }
+    
+    static def get_signal_strength() : var {
+        return INSTANCE.signal_strength_req.get_strength();
     }
 
     static def send_acknowledge() {
