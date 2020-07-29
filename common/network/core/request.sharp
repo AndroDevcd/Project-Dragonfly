@@ -7,8 +7,8 @@ import common;
 class request
 {
     private static device : nrf24;
-    public static READ := 0;
-    public static WRITE := 1;
+    public static const READ := 0;
+    public static const WRITE := 1;
 
     init {
         if(device == null) {

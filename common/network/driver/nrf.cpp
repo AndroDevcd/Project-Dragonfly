@@ -141,13 +141,6 @@ scope_begin(common_network_driver)
 			}
 			
 			signalStrength = round((double)successfulPackets / 25);
-			
-			if(signalStrength.value() == 0) {
-				for(int i = 0; i < 25; i++) 
-				{
-					packetSuccess[i] = true;
-				}
-			}
 		}
 		
 		return signalStrength;

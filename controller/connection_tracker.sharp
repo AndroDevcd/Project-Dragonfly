@@ -9,6 +9,7 @@ import common.gpio;
 LOCK := new _object_();
 signal_strength := constants.SIGNAL_MIN;
 disconnected := false;
+conn_upd_count := 0;
 
 def setup_conn_tracker() {
     pin_mode(constants.DEVICE_CONNECTING_PIN, constants.OUTPUT);
@@ -19,7 +20,7 @@ def setup_conn_tracker() {
        = { ->
 	   	   write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
 		  
-                   if(!started || disconnected) {
+           if(!started || disconnected) {
 			   thread.sleep(500);
 			   write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
 		   }
@@ -34,10 +35,16 @@ def setup_conn_tracker() {
 		   signal_strength = network.get_signal_strength();
 		  
 		   if(signal_strength == constants.SIGNAL_MIN) {
-			  disconnected = true;
-		      network.handshake(); // reconnect to device
-		      disconnected = false;
-		   }
+		      if(conn_upd_count > 0)
+		         conn_upd_count--;
+		      else {
+			     disconnected = true;
+		         network.handshake(); // reconnect to device
+		         disconnected = false;
+		         conn_upd_count = constants.SIGNAL_UPD_THRESHOLD;
+		      }
+		   } else
+		      conn_upd_count = 0;
      };
 }
 

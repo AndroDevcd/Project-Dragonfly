@@ -14,8 +14,7 @@ def main(args: string[])
    load_library("bin/dragonfly");
    constants.NETWORK_STATE = constants.SERVER;
    common.gpio#setup();
-   
-   set_thread_max(3);
+
    setup_conn_tracker();
    
    thread.sleep(3000);
