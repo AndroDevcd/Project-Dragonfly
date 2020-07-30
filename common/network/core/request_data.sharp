@@ -6,6 +6,24 @@ class request_data {
         { t1, t2 ->
             return t1.key == t2.key;
         };
+    request_string : string;
+       get {
+          if(request_string == null) {
+            sb := new string_builder();
+            for(i := 0; i < items.size(); i++) {
+                sb += items[i].key;
+                sb += "=" + items[i].value;
+
+                if((i + 1) < items.size()) {
+                    sb += ",";
+                }
+            }
+
+            request_string = sb.to_string();
+          }
+
+          return request_string;
+       }
 
     def add_item(key: string, value: string) : request_data {
         item := new request_item(key, value);
@@ -16,21 +34,12 @@ class request_data {
         else
             items.at(index).value = value;
 
+        request_string = null;
         return self;
     }
 
     def to_string() : string {
-        sb := new string_builder();
-        for(i := 0; i < items.size(); i++) {
-            sb += items[i].key;
-            sb += "=" + items[i].value;
-
-            if((i + 1) < items.size()) {
-                sb += ",";
-            }
-        }
-
-        return sb.to_string();
+        return request_string;
     }
 
     def at(key: string): string {
@@ -45,6 +54,7 @@ class request_data {
 
     def clear() {
         items.clear();
+        request_string = null;
     }
 
     class request_item
