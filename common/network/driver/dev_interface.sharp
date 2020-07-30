@@ -20,6 +20,8 @@ native def get_signal_strength(): var;
 
 native def read() : _int8[];
 
+native def listen() : _int8[];
+
 native def send(data: _int8[]);
 
 native def get_last_error() : var;

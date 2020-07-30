@@ -5,6 +5,7 @@ import platform;
 import device;
 import common.network;
 import common;
+import common.gpio;
 
 def main(args: string[])
 {
@@ -12,21 +13,26 @@ def main(args: string[])
    constants.NETWORK_STATE = constants.CLIENT;
 
    common.gpio#setup();
+   requests := 0;
+past := utc_mills_time();
    //setup_hc_sr04();
    for(;;) {
       response := network.listen();
 
+      requests++;
       when(response.command) {
          constants.strings.CHANGE_MODE -> {
-            println("reconnected");
             network.send_acknowledge();
          }
          constants.strings.HANDSHAKE -> {
-            println("reconnected");
             network.send_acknowledge();
          }
       }
 
-      thread.sleep(1);
+      if((utc_mills_time() - past) > 1000) {
+        past = utc_mills_time();
+        println("requests: $requests");
+        requests = 0;
+       }
    }
 }

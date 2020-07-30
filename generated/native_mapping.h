@@ -59,6 +59,9 @@ scope_end()
 scope_begin(std, _object_) 
 
 	object to_string(object $instance);
+	void wait(object $instance);
+	void notify(object $instance);
+	void notify2(object $instance, var& mills);
 	object hash(object $instance);
 	object guid(object $instance);
 	void _object_(object $instance);
@@ -183,10 +186,10 @@ scope_begin(std_io_task)
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
-	var anon_func$3303(object it, object it2);
-	var anon_func$3304(object it, object it2);
-	var anon_func$3305(object it, object it2);
-	var anon_func$3306(object t);
+	var anon_func$3313(object it, object it2);
+	var anon_func$3314(object it, object it2);
+	var anon_func$3315(object it, object it2);
+	var anon_func$3316(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -392,8 +395,8 @@ scope_begin(std_io, thread)
 	object start(object $instance, object args);
 	object start2(object $instance);
 	object suspend(object $instance);
-	object notify(object $instance);
-	object notify_and_wait(object $instance);
+	object unsuspend(object $instance);
+	object unsuspend_and_wait(object $instance);
 	object join(object $instance);
 	object interrupt(object $instance);
 	object current();
@@ -414,7 +417,6 @@ scope_begin(std_io, thread)
 	var is_daemon(object $instance);
 	var is_started(object $instance);
 	var is_suspended(object $instance);
-	var is_terminated(object $instance);
 	var set_main(object $instance, var& main);
 	var is_active(object $instance);
 	var get_exit_code(object $instance);
@@ -1776,6 +1778,7 @@ scope_begin(common_network_driver)
 	void power_down();
 	var get_signal_strength();
 	_int8_array read();
+	_int8_array listen();
 	void send(_int8_array& data);
 	var get_last_error();
 scope_end()
@@ -1790,6 +1793,7 @@ scope_begin(common_network_driver, nrf24)
 	void shut_down(object $instance);
 	var get_signal_strength(object $instance);
 	var read(object $instance, object response);
+	void listen(object $instance, object response);
 	var send(object $instance, object response);
 	void check_state(object $instance);
 scope_end()
@@ -1797,17 +1801,18 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3298(object t1, object t2);
+	var anon_func$3307(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
 
 	var get_signal_strength();
 	var write(object rdata);
+	void process_result(object raw, object rdata);
 	var read(object rdata);
+	void listen(object rdata);
 	var rw_inf(object rdata, var& rw, var& count);
 	void request(object $instance);
-	void $03internal_static_init();
 scope_end()
 
 scope_begin(common_network_core, request_data) 
@@ -1817,6 +1822,7 @@ scope_begin(common_network_core, request_data)
 	object at(object $instance, object key);
 	void clear(object $instance);
 	void request_data(object $instance);
+	object get_request_string(object $instance);
 scope_end()
 
 scope_begin(common_network_core, request_data_request_item) 
@@ -1946,11 +1952,17 @@ scope_begin(main)
 
 	void __srt_global(object $instance);
 	void main(object args);
-	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$3307();
-	void anon_func$3308();
-	void anon_func$3309();
+scope_end()
+
+scope_begin(device) 
+
+	void __srt_global(object $instance);
+	var get_dst_cm(var& trg, var& echo);
+	var get_distance();
+	void setup_hc_sr04();
+	void $03internal_static_init();
+	void anon_func$3317(object args);
 scope_end()
 
 scope_begin(std, loopable$_int8$) 

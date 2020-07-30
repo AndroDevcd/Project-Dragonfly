@@ -160,7 +160,7 @@ scope_begin(common_network_driver)
 		if (timeout) {
 			if(withTimeout) return false;
 			else {
-                delayMicroseconds (100);
+                delayMicroseconds (1000);
 				goto retry;
 			}
 		} else {
@@ -193,19 +193,11 @@ scope_begin(common_network_driver)
 		}
 	}
 	
-	var_array read() {
+	var_array process_packets() {
+		
 		stringstream data;
-        radio.startListening();
         var_array data_response(createLocalField<var_array>());
-		
-		if(!waitforResponse(true)) {
-            last_error = 1;
-			radio.stopListening();
-            return data_response;
-		}
-		
 		unsigned int packets = readHeaderPacket(data);
-		var success = createLocalField<var>();
 		
         last_error = 0;
 		for(unsigned int i = 1; i < packets; i++) {
@@ -228,6 +220,25 @@ scope_begin(common_network_driver)
 		
 		radio.stopListening();
 		return data_response;
+	}
+	
+	var_array read() {
+        radio.startListening();
+		
+		if(!waitforResponse(true)) {
+            last_error = 1;
+			radio.stopListening();
+            return data_response;
+		}
+		
+		return process_packets();
+	}
+	
+	var_array listen() {
+        radio.startListening();
+		
+		waitforResponse(false);
+		return process_packets();
 	}
 	
 	void send(_int8_array& data8) {
