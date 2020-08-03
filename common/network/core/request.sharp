@@ -23,6 +23,34 @@ class request
     private static def write(rdata: request_data): var {
         return device.send(rdata.to_string());
     }
+    
+    private static def process_result(raw: string, rdata: request_data) {
+        i := 0;
+        for(;;) {
+            key := new string();
+            value := new string();
+
+            startPos := i;
+            while(raw[i] != '=') { i++; }
+            key = raw.substring(startPos, i);
+
+            startPos = ++i;
+            while(raw[i] != ',') {
+                i++;
+                if(!(i < raw.size()))
+                    break;
+            }
+
+            value = raw.substring(startPos, i);
+            //println("read data: $key = $value");
+            rdata.add_item(key, value);
+            i++;
+
+            if((i + 1) >= raw.size()) {
+                break;
+            }
+        }
+    }
 
     private static def read(rdata: request_data): var {
         raw := new string();
@@ -31,33 +59,17 @@ class request
         //println("raw data: $raw result $result");
         if(result == 0)
         {
-            i := 0;
-            for(;;) {
-                key := new string();
-                value := new string();
-
-                startPos := i;
-                while(raw[i] != '=') { i++; }
-                key = raw.substring(startPos, i);
-
-                startPos = ++i;
-                while(raw[i] != ',') {
-                    i++;
-                    if(!(i < raw.size()))
-                        break;
-                }
-
-                value = raw.substring(startPos, i);
-                //println("read data: $key = $value");
-                rdata.add_item(key, value);
-                i++;
-
-                if((i + 1) >= raw.size()) {
-                    break;
-                }
-            }
+            process_result(raw, rdata);
             return 0;
         } else return result;
+    }
+
+    
+    static def listen(rdata: request_data) {
+        raw := new string();
+        device.listen(raw);
+
+        process_result(raw, rdata);
     }
 
     static def rw_inf(rdata: request_data, rw: var, count: var) : var {

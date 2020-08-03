@@ -67,6 +67,13 @@ class nrf24 {
 	    response = common.network.driver#read();
 	    return get_last_error();
 	}
+	
+	def listen(response: string) {
+	    lock(self) {
+		check_state();
+		response = common.network.driver#listen();
+	    }
+	}
 
 	def send(response: string): var {
 	    check_state();

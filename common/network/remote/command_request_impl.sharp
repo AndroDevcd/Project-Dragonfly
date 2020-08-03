@@ -12,7 +12,7 @@ class command_request_impl base request : command_request
         response := new request_data();
 
         retry:
-        rw_inf(response, READ, -1);
+        listen(response);
 
         value := response.at(constants.strings.CMD);
         if(value != null) {
