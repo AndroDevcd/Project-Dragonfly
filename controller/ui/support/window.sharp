@@ -1,0 +1,76 @@
+mod ui.support;
+
+import ui.driver;
+import ui.layout.config;
+import std.io.task;
+
+class window {
+    fragments : list<fragment>;
+    back_stack : list<fragment>;
+    id : _int8[];
+    launcher : var;
+    current_frag : fragment;
+    device : ssd1306;
+
+    window(name : _int8[]) {
+        id = name;
+        if(device == null)
+           device = new ssd1306();
+    }
+
+    public static def start_ui() {
+        configure_layout();
+        start();
+    }
+
+    def navigate(screen: var) {
+        if(current_frag != null && screen == current_frag.id) {
+            current_frag.on_destroy();
+            current_frag.on_create();
+            return;
+        }
+
+        frag : fragment;
+        for(i := 0; i < fragments.size(); i++) {
+            if(fragments.at(i).id == screen)
+               frag = fragments.at(i);
+        }
+
+        if(frag != null) {
+            frag.on_create();
+            current_frag = frag;
+        }
+    }
+
+    def starter_fragment(frag: var) {
+        launcher = frag;
+    }
+
+    protected def draw_text(tv: text_view) {
+        device.draw_word(tv.x, tv.y, tv.text_size, tv.width, tv.text);
+    }
+
+    def show() {
+        start_updater();
+        navigate(launcher);
+    }
+
+    def add_fragment(frag : fragment) {
+        frag.configure();
+        fragments.add(frag);
+    }
+
+    def start_updater() {
+       task.builder()
+       .with_args(new object[] {self})
+       .recurring(constants.window.UPDATE_INTERVAL, milliseconds)
+         = { args : object[] ->
+             wnd := args[1] as window;
+             wnd.device.clear();
+
+             if(wnd.current_frag != null)
+                wnd.current_frag.draw();
+             wnd.device.update_display();
+       };
+    }
+}

@@ -1,0 +1,22 @@
+mod ui.layout.config;
+
+import ui.support;
+import ui.layout;
+
+container : window;
+
+def configure_layout() {
+    if(container == null) {
+       container = new window("main-container");
+    }
+
+    // add all your pages here
+    container.add_fragment(new home_screen(container, constants.layout.HOME));
+
+    // set the starting page here
+    container.starter_fragment(constants.layout.HOME);
+}
+
+def start() {
+    container.show();
+}

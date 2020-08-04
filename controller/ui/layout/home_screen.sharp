@@ -1,0 +1,22 @@
+mod ui.layout;
+
+import ui.support;
+
+class home_screen base fragment {
+
+    home_screen(container : window, id: var) -> base(container, id) { }
+
+    def configure() {
+        add_view(new text_view(constants.resource.id.time)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+        );
+    }
+
+    def on_create() {
+        base->on_create();
+
+        time := find_view_by_id(constants.resource.id.time) as text_view;
+        time.text = "2:00 pm";
+    }
+}

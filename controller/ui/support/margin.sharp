@@ -1,0 +1,8 @@
+mod ui.support;
+
+class margin {
+    left : var;
+    right : var;
+    top : var;
+    bottom : var;
+}

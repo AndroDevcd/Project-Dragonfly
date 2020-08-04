@@ -1,0 +1,23 @@
+mod ui.support;
+
+class image_view base view {
+    byte_array : _int8[];
+
+    image_view(id: var) -> base(id) {}
+
+    def on_destroy() {
+        byte_array = null;
+    }
+
+    def transform_height() : var {
+        return height;
+    }
+
+    def transform_width() : var {
+        return width;
+    }
+
+    def draw() {
+        invalidate();
+    }
+}

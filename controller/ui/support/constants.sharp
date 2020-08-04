@@ -1,0 +1,48 @@
+mod ui.support;
+
+class constants {
+
+    class view {
+        public static const VISIBLE := 0;
+        public static const INVISIBLE := 1;
+        public static const MATCH_PARENT := -1;
+        public static const WRAP_CONTENT := -2;
+        public static const GRAVITY_LEFT := 0;
+        public static const GRAVITY_RIGHT := 1;
+        public static const GRAVITY_CENTER := 2;
+    }
+
+    class window {
+        public static const WIDTH := 128;
+        public static const HEIGHT := 32;
+        public static const UPDATE_INTERVAL := 30;
+    }
+
+    class lifecycle {
+        public static const DESTROYED := 0;
+        public static const CREATED := 1;
+    }
+
+    class layout {
+        public static const HOME := 0;
+    }
+
+    class margins {
+
+    }
+
+    class resource {
+
+         class id {
+            // main page view id's
+            public static const none := 0x0;
+            public static const parent := 0x1;
+            public static const time := 0x2;
+         }
+    }
+
+    class standard {
+        public static const text_size_height_multiplier := 6;
+        public static const text_size_width_multiplier := 4;
+    }
+}

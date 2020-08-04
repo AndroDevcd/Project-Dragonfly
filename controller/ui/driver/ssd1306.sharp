@@ -1,0 +1,40 @@
+mod ui.driver;
+
+import ui.support;
+import common.gpio;
+
+class ssd1306 {
+    private const power_pin := 25;
+
+    ssd1306() {
+        pin_mode(power_pin, common#constants.OUTPUT);
+        write_pin(power_pin, common#constants.HIGH);
+        setup();
+    }
+
+    def clear() {
+        clear_display();
+    }
+
+    def dim_display(yes: var) {
+        dim(yes);
+    }
+
+    def update_display() {
+        display();
+    }
+
+    def draw_word(x: var, y: var, text_size: var, width: var, text: _int8[]) {
+        move_cursor(x, y);
+
+        if(x + width > constants.window.WIDTH) {
+           overflow := (x + width) - constants.window.WIDTH;
+           draw_word(text, (width / overflow) - 1);
+        } else
+           draw_word(text, sizeof(text));
+    }
+
+    def shutdown() {
+        write_pin(power_pin, common#constants.LOW);
+    }
+}

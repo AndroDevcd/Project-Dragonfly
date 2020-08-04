@@ -1,0 +1,56 @@
+mod ui.support;
+
+class fragment : lifecycle {
+    views : list<view>;
+    container : window;
+    id: var;
+    protected state : var;
+
+    fragment(container : window, id: var) {
+        self->container = container;
+        self->id = id;
+    }
+
+    def add_view(v : view) {
+        v.container = container;
+        v.owner = self;
+        views.add(v);
+    }
+
+    def find_view_by_id(id: var) : view {
+        for(i := 0; i < views.size(); i++) {
+            if(views.at(i).id == id)
+               return views.at(i);
+        }
+
+        return null;
+    }
+
+    def on_create() {
+        state = constants.lifecycle.CREATED;
+        for(i := 0; i < views.size(); i++) {
+            views.at(i).invalidate();
+        }
+    }
+
+    def on_destroy() {
+        state = constants.lifecycle.DESTROYED;
+        for(i := 0; i < views.size(); i++) {
+            views.at(i).on_destroy();
+        }
+    }
+
+    def navigate(screen: var, finish: var) {
+        if(finish)
+           on_destroy();
+        container.navigate(screen);
+    }
+
+    def draw() {
+        for(i := 0; i < views.size(); i++) {
+            views.at(i).draw();
+        }
+    }
+
+    def configure();
+}

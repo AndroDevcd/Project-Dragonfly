@@ -1,0 +1,8 @@
+mod ui.driver;
+
+native def setup();
+native def clear_display();
+native def display();
+native def dim(yes: var);
+native def move_cursor(x: var, y: var);
+native def draw_word(str: _int8[], len: var);

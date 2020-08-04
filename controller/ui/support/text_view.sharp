@@ -1,0 +1,43 @@
+mod ui.support;
+
+class text_view base view {
+    text : _int8[];
+       set value -> {
+          text = value;
+
+          invalidate();
+       }
+
+    text_size : var;
+       set value -> {
+          text_size = value;
+
+          if(height >= 0 && transform_height() > height) {
+            throw new  ill_state_except("text size too large for view height: $height txt size: $text_size calc height: ${transform_height()}");
+          }
+
+          invalidate();
+       }
+
+    text_view(id: var) -> base(id) {}
+
+    def transform_height() : var {
+        return constants.standard.text_size_height_multiplier * text_size;
+    }
+
+    def transform_width() : var {
+        return sizeof(text) * (constants.standard.text_size_width_multiplier * text_size);
+    }
+
+    def draw() {
+       invalidate();
+
+       if(visibility == constants.view.VISIBLE && text != null)
+          container.draw_text(self);
+    }
+
+    def on_destroy() {
+
+        text = null;
+    }
+}

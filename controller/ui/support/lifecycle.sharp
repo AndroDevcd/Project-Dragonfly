@@ -1,0 +1,6 @@
+mod ui.support;
+
+interface lifecycle {
+    def on_create();
+    def on_destroy();
+}
