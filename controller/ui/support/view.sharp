@@ -20,7 +20,6 @@ class view {
     bottom_of : var;
     right_of : var;
     gravity : var;
-    transformed : var;
     protected container : window;
     protected owner : fragment;
 
@@ -28,7 +27,6 @@ class view {
 
     def set_width(size: var) : view {
         width = size;
-        transformed = false;
         return self;
     }
 
@@ -36,7 +34,6 @@ class view {
     def transform_width(): var;
 
     protected def invalidate() {
-        if(transformed) return;
         x = 0;
         y = 0;
 
@@ -67,12 +64,20 @@ class view {
                 throw new ill_state_except("cannot align view to bottom while also having top alignment");
 
             if(v == null || (v != null && v.id != bottom_of))
-               v = owner.find_view_by_id(top_of);
+               v = owner.find_view_by_id(bottom_of);
             v.invalidate();
             y = v.y + transform_height();
 
             if(v.margins != null) {
                 y += v.margins.bottom;
+            }
+        } else if(bottom_of == constants.resource.id.parent) {
+            if(top_of > constants.resource.id.none)
+                throw new ill_state_except("cannot align view to bottom while also having top alignment");
+            y = constants.window.HEIGHT - transform_height();
+            
+            if(margins != null) {
+                y -= margins.bottom;
             }
         }
 
@@ -81,43 +86,46 @@ class view {
                 throw new ill_state_except("cannot align view to right while also having left alignment");
 
             if(v == null || (v != null && v.id != right_of))
-               v = owner.find_view_by_id(top_of);
+               v = owner.find_view_by_id(right_of);
             v.invalidate();
-            x = v.transform_width() + 1;
-
+            x = v.x + v.transform_width();
+            println("x $x");
             if(v.margins != null) {
-                x += v.margins.right;
+                x -= v.margins.right;
             }
+        } else if(right_of == constants.resource.id.parent) {
+            if(left_of >= constants.resource.id.parent)
+                throw new ill_state_except("cannot align view to right while also having left alignment");
+            x = constants.window.WIDTH - transform_width();
         }
 
+                println("grav $gravity width $width");
         if(gravity == constants.view.GRAVITY_RIGHT) {
             if(width == constants.view.MATCH_PARENT) {
-                x = constants.window.WIDTH - (v.transform_width() - 1);
+                x = constants.window.WIDTH - (transform_width());
 
-                if(margins != null) {
-                    x -= margins.right;
-                }
+                println("x = $x trans ${transform_width()}");
             } else if(width >= 0) {
                 max := x + width;
-                x = max - (v.transform_width() - 1);
+                required_space := transform_width();
+                if(required_space < max) {
+                  x = max - required_space;
+                } 
+                println("x = $x trans ${transform_width()}");
             }
 
         } else if(gravity == constants.view.GRAVITY_CENTER) {
 
             if(width == constants.view.MATCH_PARENT) {
                 max_real_estate := constants.window.WIDTH - x;
-                leftover_space := max_real_estate - v.transform_width();
+                leftover_space := max_real_estate - transform_width();
 
                 if(leftover_space > 0) {
                     x += (leftover_space / 2) as _int8;
                 }
-
-                if(margins != null) {
-                    x -= margins.right;
-                }
             } else if(width >= 0) {
                 max_real_estate := (x + width) - x;
-                leftover_space := max_real_estate - v.transform_width();
+                leftover_space := max_real_estate - transform_width();
 
                 if(leftover_space > 0) {
                     x += (leftover_space / 2) as _int8;
@@ -135,50 +143,42 @@ class view {
            visibility = constants.view.INVISIBLE;
         else
            visibility = constants.view.VISIBLE;
-        transformed = true;
     }
 
     def draw();
 
     def set_height(size: var) : view {
-        width = size;
-        transformed = false;
+        height = size;
         return self;
     }
 
     def set_visibility(visible: var) : view {
         visibility = visible;
-        transformed = false;
         return self;
     }
 
     def to_left_of(id: var) : view {
         left_of = id;
-        transformed = false;
         return self;
     }
 
     def to_right_of(id: var) : view {
         right_of = id;
-        transformed = false;
         return self;
     }
 
     def to_top_of(id: var) : view {
         top_of = id;
-        transformed = false;
         return self;
     }
 
     def to_bottom_of(id: var) : view {
         bottom_of = id;
-        transformed = false;
         return self;
     }
 
     def set_gravity(grav: var) : view {
         gravity = grav;
-        transformed = false;
         return self;
     }
 
@@ -186,7 +186,6 @@ class view {
         if(margins == null)
            margins = new margin();
         margins.left = size;
-        transformed = false;
         return self;
     }
 
@@ -194,7 +193,6 @@ class view {
         if(margins == null)
            margins = new margin();
         margins.right = size;
-        transformed = false;
         return self;
     }
 
@@ -202,7 +200,6 @@ class view {
         if(margins == null)
            margins = new margin();
         margins.top = size;
-        transformed = false;
         return self;
     }
 
@@ -210,7 +207,6 @@ class view {
         if(margins == null)
            margins = new margin();
         margins.bottom = size;
-        transformed = false;
         return self;
     }
 }

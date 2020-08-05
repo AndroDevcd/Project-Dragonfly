@@ -228,6 +228,8 @@ scope_begin(common_network_driver)
 		if(!waitforResponse(true)) {
             last_error = 1;
 			radio.stopListening();
+			
+            var_array data_response(createLocalField<var_array>());
             return data_response;
 		}
 		

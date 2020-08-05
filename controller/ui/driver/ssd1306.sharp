@@ -24,14 +24,24 @@ class ssd1306 {
         display();
     }
 
-    def draw_word(x: var, y: var, text_size: var, width: var, text: _int8[]) {
+    def draw_word(x: var, y: var, text_size: var, width: var, transx : var, text: _int8[]) {
         move_cursor(x, y);
 
-        if(x + width > constants.window.WIDTH) {
-           overflow := (x + width) - constants.window.WIDTH;
-           draw_word(text, (width / overflow) - 1);
-        } else
+        if(x + transx > constants.window.WIDTH) {
+           overflow := (x + transx) - constants.window.WIDTH;
+           chars_drawn := ((transx - overflow) / constants.standard.text_size_width_multiplier) - 1;
+           draw_word(text, chars_drawn ? chars_drawn : 1);
+        } else {
+           if(width >= 0) {
+              if(transx > width) {
+                 overflow := (transx - width);
+                 
+                 return draw_word(text, (transx - overflow) / constants.standard.text_size_width_multiplier);
+              }
+           }
+           
            draw_word(text, sizeof(text));
+        }
     }
 
     def shutdown() {

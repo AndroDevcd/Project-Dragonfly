@@ -1,7 +1,7 @@
 //
 // Created by BNunnally on 8/4/2020.
 //
-#include "../../stdimports.h"
+#include "../../../stdimports.h"
 #include "ssd1306_i2c.h"
 #include <wiringPi.h>
 
@@ -32,9 +32,9 @@ void move_cursor(var &x, var &y) {
 }
 
 void draw_word(_int8_array &str, var &len) {
-    if(len > 0) {
+    if(len.value() > 0) {
         string data = "";
-        for(long i = 0; i < len; i++) {
+        for(long i = 0; i < len.value(); i++) {
             data += (char)str[i];
         }
 

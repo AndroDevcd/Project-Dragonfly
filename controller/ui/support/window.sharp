@@ -3,10 +3,11 @@ mod ui.support;
 import ui.driver;
 import ui.layout.config;
 import std.io.task;
+import std.io;
 
 class window {
-    fragments : list<fragment>;
-    back_stack : list<fragment>;
+    fragments := new list<fragment>();
+    back_stack := new list<fragment>();
     id : _int8[];
     launcher : var;
     current_frag : fragment;
@@ -24,9 +25,10 @@ class window {
     }
 
     def navigate(screen: var) {
+        println("nav");
         if(current_frag != null && screen == current_frag.id) {
-            current_frag.on_destroy();
-            current_frag.on_create();
+            (current_frag as lifecycle).on_destroy();
+            (current_frag as lifecycle).on_create();
             return;
         }
 
@@ -37,7 +39,8 @@ class window {
         }
 
         if(frag != null) {
-            frag.on_create();
+            println("fragment fount");
+            (frag as lifecycle).on_create();
             current_frag = frag;
         }
     }
@@ -47,12 +50,12 @@ class window {
     }
 
     protected def draw_text(tv: text_view) {
-        device.draw_word(tv.x, tv.y, tv.text_size, tv.width, tv.text);
+        device.draw_word(tv.x, tv.y, tv.text_size, tv.width, tv.transform_width(), tv.text.get_data());
     }
 
     def show() {
-        start_updater();
         navigate(launcher);
+        start_updater();
     }
 
     def add_fragment(frag : fragment) {
@@ -61,16 +64,16 @@ class window {
     }
 
     def start_updater() {
-       task.builder()
-       .with_args(new object[] {self})
-       .recurring(constants.window.UPDATE_INTERVAL, milliseconds)
-         = { args : object[] ->
-             wnd := args[1] as window;
-             wnd.device.clear();
+       for(;;) {
+          device.clear();
 
-             if(wnd.current_frag != null)
-                wnd.current_frag.draw();
-             wnd.device.update_display();
-       };
+          if(current_frag != null) {
+             current_frag.invalidate();
+             current_frag.draw();
+          }
+          
+          device.update_display();     
+          thread.sleep(30); 
+       }
     }
 }

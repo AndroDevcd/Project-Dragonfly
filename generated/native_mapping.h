@@ -183,13 +183,16 @@ scope_begin(std_io_task)
 	var get_thread_max();
 	var scheduler_main(object args);
 	object get_host(var& long_running);
+	void kill_threads();
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
-	var anon_func$3313(object it, object it2);
-	var anon_func$3314(object it, object it2);
-	var anon_func$3315(object it, object it2);
-	var anon_func$3316(object t);
+	var anon_func$3469(object it, object it2);
+	var anon_func$3470(object it, object it2);
+	var anon_func$3471(object it, object it2);
+	var anon_func$3472(object t);
+	var anon_func$3473(object t);
+	var anon_func$3474(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -1801,7 +1804,7 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3307(object t1, object t2);
+	var anon_func$3463(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
@@ -1952,17 +1955,194 @@ scope_begin(main)
 
 	void __srt_global(object $instance);
 	void main(object args);
+	void setup_conn_tracker();
 	void $03internal_static_init();
+	void anon_func$3475();
+	void anon_func$3476();
+	void anon_func$3478();
+	void anon_func$3479();
 scope_end()
 
-scope_begin(device) 
+scope_begin(ui_res_drawable) 
 
 	void __srt_global(object $instance);
-	var get_dst_cm(var& trg, var& echo);
-	var get_distance();
-	void setup_hc_sr04();
+scope_end()
+
+scope_begin(ui_support) 
+
+	void __srt_global(object $instance);
+scope_end()
+
+scope_begin(ui_support, text_view) 
+
+	void text_view(object $instance, var& id);
+	var transform_height(object $instance);
+	var transform_width(object $instance);
+	void draw(object $instance);
+	void on_destroy(object $instance);
+	void text_view2(object $instance);
+	void set_text(object $instance, object value);
+	void set_text_size(object $instance, var& value);
+scope_end()
+
+scope_begin(ui_support, margin) 
+
+	void margin(object $instance);
+scope_end()
+
+scope_begin(ui_support, window) 
+
+	void window(object $instance, _int8_array& name);
+	void start_ui();
+	void navigate(object $instance, var& screen);
+	void starter_fragment(object $instance, var& frag);
+	void draw_text(object $instance, object tv);
+	void show(object $instance);
+	void add_fragment(object $instance, object frag);
+	void start_updater(object $instance);
+	void window2(object $instance);
+scope_end()
+
+scope_begin(ui_support, fragment) 
+
+	void fragment(object $instance, object container, var& id);
+	void add_view(object $instance, object v);
+	object find_view_by_id(object $instance, var& id);
+	void on_create(object $instance);
+	void invalidate(object $instance);
+	void on_destroy(object $instance);
+	void navigate(object $instance, var& screen, var& finish);
+	void draw(object $instance);
+	void configure(object $instance);
+	void fragment2(object $instance);
+scope_end()
+
+scope_begin(ui_support, lifecycle) 
+
+	void on_create(object $instance);
+	void on_destroy(object $instance);
+	void lifecycle(object $instance);
+scope_end()
+
+scope_begin(ui_support, image_view) 
+
+	void image_view(object $instance, var& id);
+	void on_destroy(object $instance);
+	var transform_height(object $instance);
+	var transform_width(object $instance);
+	void draw(object $instance);
+	void image_view2(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants) 
+
+	void constants(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_view) 
+
+	void view(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_window) 
+
+	void window(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_lifecycle) 
+
+	void lifecycle(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_layout) 
+
+	void layout(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_margins) 
+
+	void margins(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_resource) 
+
+	void resource(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_resource_id) 
+
+	void id(object $instance);
+scope_end()
+
+scope_begin(ui_support, constants_standard) 
+
+	void standard(object $instance);
+scope_end()
+
+scope_begin(ui_support, view) 
+
+	void view(object $instance);
+	void view2(object $instance, var& id);
+	void on_destroy(object $instance);
+	object set_width(object $instance, var& size);
+	var transform_height(object $instance);
+	var transform_width(object $instance);
+	void invalidate(object $instance);
+	void draw(object $instance);
+	object set_height(object $instance, var& size);
+	object set_visibility(object $instance, var& visible);
+	object to_left_of(object $instance, var& id);
+	object to_right_of(object $instance, var& id);
+	object to_top_of(object $instance, var& id);
+	object to_bottom_of(object $instance, var& id);
+	object set_gravity(object $instance, var& grav);
+	object set_margin_left(object $instance, var& size);
+	object set_margin_right(object $instance, var& size);
+	object set_margin_top(object $instance, var& size);
+	object set_margin_bottom(object $instance, var& size);
+scope_end()
+
+scope_begin(ui_driver) 
+
+	void __srt_global(object $instance);
+	void setup();
+	void clear_display();
+	void display();
+	void dim(var& yes);
+	void move_cursor(var& x, var& y);
+	void draw_word(_int8_array& str, var& len);
+scope_end()
+
+scope_begin(ui_driver, ssd1306) 
+
+	void ssd1306(object $instance);
+	void clear(object $instance);
+	void dim_display(object $instance, var& yes);
+	void update_display(object $instance);
+	void draw_word(object $instance, var& x, var& y, var& text_size, var& width, var& transx, _int8_array& text);
+	void shutdown(object $instance);
+scope_end()
+
+scope_begin(ui_layout_config) 
+
+	void __srt_global(object $instance);
+	void configure_layout();
+	void start();
+scope_end()
+
+scope_begin(ui_layout) 
+
+	void __srt_global(object $instance);
 	void $03internal_static_init();
-	void anon_func$3317(object args);
+	void anon_func$3477(object args);
+scope_end()
+
+scope_begin(ui_layout, home_screen) 
+
+	void home_screen(object $instance, object container, var& id);
+	void configure(object $instance);
+	void on_create(object $instance);
+	void home_screen2(object $instance);
 scope_end()
 
 scope_begin(std, loopable$_int8$) 
@@ -3598,8 +3778,10 @@ scope_begin(std, list$std_string$)
 	void pop_back(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -3635,6 +3817,8 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void remove2(object $instance, object val, var& compare_fun);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
+	object find(object $instance, object comparer, var& find_func);
+	var replace(object $instance, object val, var& compare_fun);
 	object to_string(object $instance);
 	object out_of_bounds_msg(object $instance, var& index);
 scope_end()
@@ -3666,8 +3850,10 @@ scope_begin(std, list$std_io_task_job$)
 	void pop_back(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -3695,8 +3881,10 @@ scope_begin(std, list$std_io_thread$)
 	void pop_back(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -3724,8 +3912,10 @@ scope_begin(std, list$var$)
 	void pop_back(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, var& element);
+	var find(object $instance, var& comparer, var& find_func);
 	void remove(object $instance, var& val);
 	void remove2(object $instance, var& val, var& compare_fun);
+	void replace(object $instance, var& val, var& compare_fun);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, var& comparer, var& find_func);
 	object to_string(object $instance);
@@ -3759,8 +3949,10 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void pop_back(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -3768,6 +3960,80 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 scope_end()
 
 scope_begin(std, loopable$common_network_core_request_data_request_item$) 
+
+	object get_elements(object $instance);
+	void loopable(object $instance);
+scope_end()
+
+scope_begin(std, list$ui_support_fragment$) 
+
+	void list(object $instance);
+	void list2(object $instance, var& starting_capacity);
+	void list3(object $instance, object initial_data);
+	var empty(object $instance);
+	void set_compact(object $instance, var& compact_array);
+	object get_elements(object $instance);
+	object op_$array_at(object $instance, var& index);
+	object at(object $instance, var& index);
+	object last(object $instance);
+	object put(object $instance, var& index, object element);
+	void expand(object $instance);
+	void clear(object $instance);
+	void add_all(object $instance, object lst);
+	void add_all2(object $instance, object lst);
+	void add(object $instance, object element);
+	var indexof(object $instance, object element);
+	void pop_back(object $instance);
+	var size(object $instance);
+	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
+	void remove(object $instance, object val);
+	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
+	void remove_at(object $instance, var& index);
+	var indexof2(object $instance, object comparer, var& find_func);
+	object to_string(object $instance);
+	object out_of_bounds_msg(object $instance, var& index);
+scope_end()
+
+scope_begin(std, loopable$ui_support_fragment$) 
+
+	object get_elements(object $instance);
+	void loopable(object $instance);
+scope_end()
+
+scope_begin(std, list$ui_support_view$) 
+
+	void list(object $instance);
+	void list2(object $instance, var& starting_capacity);
+	void list3(object $instance, object initial_data);
+	var empty(object $instance);
+	void set_compact(object $instance, var& compact_array);
+	object get_elements(object $instance);
+	object op_$array_at(object $instance, var& index);
+	object at(object $instance, var& index);
+	object last(object $instance);
+	object put(object $instance, var& index, object element);
+	void expand(object $instance);
+	void clear(object $instance);
+	void add_all(object $instance, object lst);
+	void add_all2(object $instance, object lst);
+	void add(object $instance, object element);
+	var indexof(object $instance, object element);
+	void pop_back(object $instance);
+	var size(object $instance);
+	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
+	void remove(object $instance, object val);
+	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
+	void remove_at(object $instance, var& index);
+	var indexof2(object $instance, object comparer, var& find_func);
+	object to_string(object $instance);
+	object out_of_bounds_msg(object $instance, var& index);
+scope_end()
+
+scope_begin(std, loopable$ui_support_view$) 
 
 	object get_elements(object $instance);
 	void loopable(object $instance);

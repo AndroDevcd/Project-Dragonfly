@@ -1,7 +1,7 @@
 mod ui.support;
 
 class fragment : lifecycle {
-    views : list<view>;
+    views : list<view> = new list<view>();
     container : window;
     id: var;
     protected state : var;
@@ -19,6 +19,7 @@ class fragment : lifecycle {
 
     def find_view_by_id(id: var) : view {
         for(i := 0; i < views.size(); i++) {
+            println("view ${views.at(i).id} with $id");
             if(views.at(i).id == id)
                return views.at(i);
         }
@@ -27,7 +28,12 @@ class fragment : lifecycle {
     }
 
     def on_create() {
+        println("oncreate frag");
         state = constants.lifecycle.CREATED;
+        invalidate();
+    }
+    
+    def invalidate() {
         for(i := 0; i < views.size(); i++) {
             views.at(i).invalidate();
         }

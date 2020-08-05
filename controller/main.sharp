@@ -8,22 +8,20 @@ import common;
 import common.gpio;
 import ui.support;
 
-started := false;
-
 def main(args: string[])
 {
    load_library("bin/dragonfly");
    constants.NETWORK_STATE = constants.SERVER;
    common.gpio#setup();
-
    setup_conn_tracker();
-
-   window.start_ui();
-   thread.sleep(3000);
-   network.handshake();
-   started = true;
-
             
+   task.builder()
+      .schedule(3000)
+        = { ->
+         network.handshake();
+         disconnected = false;
+      };
+      
    task.builder()
     .long_term()
     .schedule(constants.INITIAL_START_DELAY)
@@ -35,10 +33,5 @@ def main(args: string[])
          // TODO: add controller state checks here
       };
       
-      // TODO: add lcd screen update task here
-      
-   for(;;) {
-      thread.yield();
-      thread.sleep(10);
-   }
+   window.start_ui();
 }

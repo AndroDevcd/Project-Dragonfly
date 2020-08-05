@@ -15,7 +15,7 @@ class constants {
     class window {
         public static const WIDTH := 128;
         public static const HEIGHT := 32;
-        public static const UPDATE_INTERVAL := 30;
+        public static const UPDATE_INTERVAL := 25;
     }
 
     class lifecycle {
@@ -38,11 +38,12 @@ class constants {
             public static const none := 0x0;
             public static const parent := 0x1;
             public static const time := 0x2;
+            public static const mode := 0x3;
          }
     }
 
     class standard {
-        public static const text_size_height_multiplier := 6;
-        public static const text_size_width_multiplier := 4;
+        public static const text_size_height_multiplier := 8;
+        public static const text_size_width_multiplier := 6;
     }
 }
