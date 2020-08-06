@@ -35,7 +35,7 @@ class text_view base view {
     }
 
     def on_destroy() {
-        text = null;
+        text = "";
         transformed = false;
     }
 }

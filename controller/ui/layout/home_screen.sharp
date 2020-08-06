@@ -18,7 +18,7 @@ class home_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .to_right_of(constants.resource.id.parent)
-            .set_margin_right(8)
+            .set_margin_right(4)
             .set_margin_top(2)
         );
         add_view(new image_view(constants.resource.id.signal_strength)
@@ -34,7 +34,6 @@ class home_screen base fragment {
             .set_width(constants.view.MATCH_PARENT)
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
-            .to_top_of(constants.resource.id.parent)
             .set_gravity(constants.view.GRAVITY_CENTER)
             .set_margin_top(5)
         );
@@ -43,13 +42,13 @@ class home_screen base fragment {
     def on_create() {
         base->on_create();
 
-        tm := find_view_by_id(constants.resource.id.time) as text_view;
+        time := find_view_by_id(constants.resource.id.time) as text_view;
         //sig := find_view_by_id(constants.resource.id.signal_strength) as image_view;
         
         
         task.builder()
           .recurring(1000, milliseconds)
-          .with_args(new object[] { tm })
+          .with_args(new object[] { time })
             = { args : object[] ->
              tv := args[1] as text_view;
              min_tm : _int32 = (time.mills_time() / 1000) / 60;
@@ -69,12 +68,15 @@ class home_screen base fragment {
                 hr = 12 + (utc_hr - 5);
              }
              
-             if(hr > 12) {
-               tod = "pm";
-               hr -= 12;
+             if(hr >= 12) {
+               if(utc_hr != 5)
+                  tod = "pm";
+
+               if(hr > 12)
+                  hr -= 12;
              }
              
-             tv.text  = ("${hr}:${utc_min}$tod").get_data();
+             tv.text  = "${hr}:${utc_min}$tod";
         };
     }
 }
