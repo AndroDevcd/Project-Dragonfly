@@ -1,0 +1,19 @@
+mod ui.res.drawable;
+
+import ui.support;
+import ui.res;
+
+ico_normal_mode_bytes
+ := {
+		0, 0, 0, 0, 0, 0, W, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, W, 0, W, W, W, 0, 0, 0, 0, 0,
+		0, 0, W, W, W, W, W, W, W, 0, 0, 0, 0,
+		0, 0, W, W, W, W, W, W, W, 0, 0, 0, 0,
+		0, 0, W, W, W, W, 0, W, W, 0, 0, 0, 0,
+		0, 0, W, 0, W, W, 0, W, W, 0, 0, 0, 0,
+		0, 0, W, 0, W, 0, W, W, W, 0, 0, 0, 0,
+		0, 0, 0, W, 0, W, W, W, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+ };
+ 
+ico_normal_mode := new drawable(constants.resource.id.ico_normal_mode, ico_normal_mode_bytes, 13, 9);

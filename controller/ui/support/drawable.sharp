@@ -1,0 +1,16 @@
+mod ui.support;
+
+class drawable {
+	
+	drawable(id : var, bytes: var[], w: var, h: var) {
+		self->id = id;
+		self->bytes = bytes;
+		width = w; 
+		height = h;
+	}
+	
+	id: var;
+	bytes: var[];
+	width: var;
+	height: var;
+}

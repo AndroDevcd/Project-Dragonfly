@@ -1,6 +1,7 @@
 mod ui.support;
 
 import ui.driver;
+import ui.res;
 import ui.layout.config;
 import std.io.task;
 import std.io;
@@ -20,18 +21,12 @@ class window {
     }
 
     public static def start_ui() {
+        resources.setup();
         configure_layout();
         start();
     }
 
     def navigate(screen: var) {
-        println("nav");
-        if(current_frag != null && screen == current_frag.id) {
-            (current_frag as lifecycle).on_destroy();
-            (current_frag as lifecycle).on_create();
-            return;
-        }
-
         frag : fragment;
         for(i := 0; i < fragments.size(); i++) {
             if(fragments.at(i).id == screen)
@@ -39,7 +34,6 @@ class window {
         }
 
         if(frag != null) {
-            println("fragment fount");
             (frag as lifecycle).on_create();
             current_frag = frag;
         }
@@ -51,6 +45,11 @@ class window {
 
     protected def draw_text(tv: text_view) {
         device.draw_word(tv.x, tv.y, tv.text_size, tv.width, tv.transform_width(), tv.text.get_data());
+    }
+
+    protected def draw_img(iv: image_view) {
+        img := iv.img;
+        device.draw_img(iv.x, iv.y, iv.width, iv.height, img.width, img.height, iv.img.bytes);
     }
 
     def show() {
@@ -68,7 +67,6 @@ class window {
           device.clear();
 
           if(current_frag != null) {
-             current_frag.invalidate();
              current_frag.draw();
           }
           

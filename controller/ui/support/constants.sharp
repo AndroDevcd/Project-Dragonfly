@@ -14,7 +14,7 @@ class constants {
 
     class window {
         public static const WIDTH := 128;
-        public static const HEIGHT := 32;
+        public static const HEIGHT := 64;
         public static const UPDATE_INTERVAL := 25;
     }
 
@@ -39,6 +39,14 @@ class constants {
             public static const parent := 0x1;
             public static const time := 0x2;
             public static const mode := 0x3;
+            public static const signal_strength := 0x4;
+            public static const ico_signal_0 := 0x5;
+            public static const ico_signal_1 := 0x6;
+            public static const ico_signal_2 := 0x7;
+            public static const ico_signal_3 := 0x8;
+            public static const ico_signal_4 := 0x9;
+            public static const ico_normal_mode := 0xA;
+            public static const ico_sport_mode := 0xB;
          }
     }
 

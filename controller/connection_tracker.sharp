@@ -21,7 +21,7 @@ def setup_conn_tracker() {
 	     write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
 		  
              if(disconnected) {
-		thread.sleep(500);
+		thread.sleep(constants.TWO_HUNDRED);
 	        write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
 	    }
      };

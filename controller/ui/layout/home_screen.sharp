@@ -1,5 +1,6 @@
 mod ui.layout;
 
+import ui.res;
 import ui.support;
 import std.io;
 import std.io.task;
@@ -11,19 +12,31 @@ class home_screen base fragment {
     home_screen(container : window, id: var) -> base(container, id) { }
 
     def configure() {
-        add_view(new text_view(constants.resource.id.time)
+        add_view(new image_view(constants.resource.id.mode)
+            .set_drawable(constants.resource.id.ico_normal_mode)
             .set_width(constants.view.WRAP_CONTENT)
             .set_height(constants.view.WRAP_CONTENT)
+            .to_start_of(constants.resource.id.parent)
+            .to_right_of(constants.resource.id.parent)
+            .set_margin_right(8)
             .set_margin_top(2)
-            .set_margin_left(5)
-            .set_margin_bottom(5)
         );
-        add_view(new text_view(constants.resource.id.mode)
+        add_view(new image_view(constants.resource.id.signal_strength)
+            .set_drawable(constants.resource.id.ico_signal_4)
             .set_width(constants.view.WRAP_CONTENT)
             .set_height(constants.view.WRAP_CONTENT)
-            .to_bottom_of(constants.resource.id.parent)
-            .to_left_of(constants.resource.id.time)
-            .set_margin_bottom(5)
+            .to_left_of(constants.resource.id.mode)
+            .to_top_of(constants.resource.id.parent)
+            .set_margin_right(4)
+            .set_margin_top(1)
+        );
+        add_view(new text_view(constants.resource.id.time)
+            .set_width(constants.view.MATCH_PARENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_start_of(constants.resource.id.parent)
+            .to_top_of(constants.resource.id.parent)
+            .set_gravity(constants.view.GRAVITY_CENTER)
+            .set_margin_top(4)
         );
     }
 
@@ -31,15 +44,15 @@ class home_screen base fragment {
         base->on_create();
 
         time := find_view_by_id(constants.resource.id.time) as text_view;
-        mode := find_view_by_id(constants.resource.id.mode) as text_view;
-        mode.text = "N";
+        //sig := find_view_by_id(constants.resource.id.signal_strength) as image_view;
+        
         
         task.builder()
           .recurring(1000, milliseconds)
           .with_args(new object[] { time })
             = { args : object[] ->
              tv := args[1] as text_view;
-             tv.text  = ("time running: ${counter++}").get_data();
-          };
+             tv.text  = ("time: ${counter++}").get_data();
+        };
     }
 }

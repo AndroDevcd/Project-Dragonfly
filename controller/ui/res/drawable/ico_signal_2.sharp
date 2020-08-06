@@ -1,0 +1,19 @@
+mod ui.res.drawable;
+
+import ui.support;
+import ui.res;
+
+ico_signal_2_bytes
+ := {
+		0, W, W, W, W, W, 0, 0, 0, 0, 0, 0, 0,
+		0, W, 0, W, 0, W, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, W, W, W, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, W, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, W, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, W, 0, 0, 0, W, 0, 0, 0, 0, 0,
+		0, 0, 0, W, 0, W, 0, W, 0, 0, 0, 0, 0,
+		0, 0, 0, W, 0, W, 0, W, 0, 0, 0, 0, 0,
+		0, 0, 0, W, 0, W, 0, W, 0, 0, 0, 0, 0
+ };
+ 
+ico_signal_2 := new drawable(constants.resource.id.ico_signal_2, ico_signal_2_bytes, 13, 9);

@@ -23,6 +23,50 @@ class ssd1306 {
     def update_display() {
         display();
     }
+    
+    def draw_img(x: var, y: var, width: var, height: var, img_width: var, img_height: var, bytes: var[]) {
+       skip_count := 0;
+       
+       if((img_width * img_height) != sizeof(bytes)) {
+          throw new ill_state_except("image has invalid size: $img_width x $img_height img size is: ${sizeof(bytes)}");
+       }
+       
+       if(width == constants.view.WRAP_CONTENT) {
+          width = img_width;
+       } else if(width == constants.view.MATCH_PARENT) {
+          if((x + img_width) <= constants.window.WIDTH) {
+             width = img_width;
+          } else {
+             width = constants.window.WIDTH - x;
+             skip_count = img_width - x;
+          }
+       } else {
+            if(img_width < width)
+              width = img_width;
+            else {
+               skip_count = img_width - width;
+            }
+       }
+       
+       if(height == constants.view.WRAP_CONTENT) {
+          height = img_height;
+       } else if(height == constants.view.MATCH_PARENT) {
+          if((y + img_height) <= constants.window.HEIGHT) {
+             height = img_height;
+          } else {
+             height = constants.window.HEIGHT - y;
+          }
+       } else {
+            if(img_height < height)
+              height = img_height;
+       }
+       
+       if(skip_count <  0)
+          throw new ill_state_except("skip count < 0: $skip_count");
+       
+       println("draw img: $width $height $img_width $img_height $x, $y");
+       return draw_img(bytes, width, height, x, y, skip_count);
+    }
 
     def draw_word(x: var, y: var, text_size: var, width: var, transx : var, text: _int8[]) {
         move_cursor(x, y);
@@ -30,21 +74,22 @@ class ssd1306 {
         if(x + transx > constants.window.WIDTH) {
            overflow := (x + transx) - constants.window.WIDTH;
            chars_drawn := ((transx - overflow) / constants.standard.text_size_width_multiplier) - 1;
-           draw_word(text, chars_drawn ? chars_drawn : 1);
+           draw_word(text, chars_drawn ? chars_drawn : 1, text_size);
         } else {
            if(width >= 0) {
               if(transx > width) {
                  overflow := (transx - width);
                  
-                 return draw_word(text, (transx - overflow) / constants.standard.text_size_width_multiplier);
+                 return draw_word(text, (transx - overflow) / constants.standard.text_size_width_multiplier, text_size);
               }
            }
            
-           draw_word(text, sizeof(text));
+           draw_word(text, sizeof(text), text_size);
         }
     }
 
     def shutdown() {
+        clear();
         write_pin(power_pin, common#constants.LOW);
     }
 }

@@ -28,14 +28,20 @@ class fragment : lifecycle {
     }
 
     def on_create() {
-        println("oncreate frag");
         state = constants.lifecycle.CREATED;
-        invalidate();
+        for(i := 0; i < views.size(); i++) {
+            v := views.at(i);
+            v.invalidate();
+        }
     }
     
-    def invalidate() {
+    def invalidate_refrences(id : var) {
         for(i := 0; i < views.size(); i++) {
-            views.at(i).invalidate();
+            v := views.at(i);
+            if(v.has_ref(id)) {
+               v.transformed = false;
+               v.invalidate();
+            }
         }
     }
 
