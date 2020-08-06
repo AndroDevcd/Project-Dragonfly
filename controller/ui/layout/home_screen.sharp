@@ -36,23 +36,45 @@ class home_screen base fragment {
             .to_start_of(constants.resource.id.parent)
             .to_top_of(constants.resource.id.parent)
             .set_gravity(constants.view.GRAVITY_CENTER)
-            .set_margin_top(4)
+            .set_margin_top(5)
         );
     }
 
     def on_create() {
         base->on_create();
 
-        time := find_view_by_id(constants.resource.id.time) as text_view;
+        tm := find_view_by_id(constants.resource.id.time) as text_view;
         //sig := find_view_by_id(constants.resource.id.signal_strength) as image_view;
         
         
         task.builder()
           .recurring(1000, milliseconds)
-          .with_args(new object[] { time })
+          .with_args(new object[] { tm })
             = { args : object[] ->
              tv := args[1] as text_view;
-             tv.text  = ("time: ${counter++}").get_data();
+             min_tm : _int32 = (time.mills_time() / 1000) / 60;
+             days_passed : _int32 = min_tm / constants.time.MIN_IN_DAY;
+             min_passed : _int32 = days_passed * constants.time.MIN_IN_DAY;
+             min_passed_today : _int32 = min_tm - min_passed;
+             utc_hr : _int32 = min_passed_today / constants.time.MIN_IN_HR;
+             utc_min : _int32 = min_passed_today - (utc_hr * constants.time.MIN_IN_HR);
+             
+             hr := 0;
+             tod := "am";
+             if(utc_hr == 5) {
+                hr = 12;
+             } else if(utc_hr > 5) {
+                hr = utc_hr - 5;
+             } else {
+                hr = 12 + (utc_hr - 5);
+             }
+             
+             if(hr > 12) {
+               tod = "pm";
+               hr -= 12;
+             }
+             
+             tv.text  = ("${hr}:${utc_min}$tod").get_data();
         };
     }
 }

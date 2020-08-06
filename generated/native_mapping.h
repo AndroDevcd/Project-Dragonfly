@@ -187,12 +187,12 @@ scope_begin(std_io_task)
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
-	var anon_func$3495(object it, object it2);
 	var anon_func$3496(object it, object it2);
 	var anon_func$3497(object it, object it2);
-	var anon_func$3498(object t);
+	var anon_func$3498(object it, object it2);
 	var anon_func$3499(object t);
 	var anon_func$3500(object t);
+	var anon_func$3501(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -1804,7 +1804,7 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3488(object t1, object t2);
+	var anon_func$3489(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
@@ -1957,10 +1957,10 @@ scope_begin(main)
 	void main(object args);
 	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$3501();
 	void anon_func$3502();
-	void anon_func$3504();
+	void anon_func$3503();
 	void anon_func$3505();
+	void anon_func$3506();
 scope_end()
 
 scope_begin(ui_res_drawable) 
@@ -2076,6 +2076,11 @@ scope_begin(ui_support, constants_lifecycle)
 	void lifecycle(object $instance);
 scope_end()
 
+scope_begin(ui_support, constants_time) 
+
+	void time(object $instance);
+scope_end()
+
 scope_begin(ui_support, constants_layout) 
 
 	void layout(object $instance);
@@ -2161,7 +2166,7 @@ scope_begin(ui_layout)
 
 	void __srt_global(object $instance);
 	void $03internal_static_init();
-	void anon_func$3503(object args);
+	void anon_func$3504(object args);
 scope_end()
 
 scope_begin(ui_layout, home_screen) 

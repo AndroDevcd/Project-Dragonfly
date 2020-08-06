@@ -22,6 +22,11 @@ class constants {
         public static const DESTROYED := 0;
         public static const CREATED := 1;
     }
+    
+    class time {
+       public static const MIN_IN_DAY := (60 * 24); 
+       public static const MIN_IN_HR := (60); 
+    }
 
     class layout {
         public static const HOME := 0;
