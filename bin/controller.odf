@@ -1,9 +1,9 @@
 ## Object Dump file for bin/controller:
 
-pre codebase size: 89276
-post codebase size: 80661
-optimized opcodes: 8615
-net % gain 9.64985
+pre codebase size: 89465
+post codebase size: 80828
+optimized opcodes: 8637
+net % gain 9.65405
 
 
 class: std#__srt_global[0] fields(1) methods(47)
@@ -241,7 +241,7 @@ generic: ui.res#entry<std#int,ui.support#drawable>[154] fields(3) methods(10)
 [73]: main-container
 [74]: ALT
 [75]: 999M
-[76]: 999
+[76]: 9
 [77]: Kph
 [78]: created
 [79]: active
@@ -307,7 +307,6 @@ generic: ui.res#entry<std#int,ui.support#drawable>[154] fields(3) methods(10)
 [139]: am
 [140]: pm
 [141]: :
-[142]: 00
 
  constants: 
 
@@ -60351,7 +60350,7 @@ function: platform.kernel#platform.static_init[2920] params(0) in file: /usr/inc
 931 [0x3a3]:          movn #0   
 933 [0x3a5]:          movn #0   
 935 [0x3a7]:          popobj   
-936 [0x3a8]:          movi #63270, ebx   
+936 [0x3a8]:          movi #7197, ebx   
 938 [0x3aa]:          movg @46 // @std.reflect#property_type   
 939 [0x3ab]:          movn #0   
 941 [0x3ad]:          movn #1   
@@ -60366,7 +60365,7 @@ function: platform.kernel#platform.static_init[2920] params(0) in file: /usr/inc
 953 [0x3b9]:          movn #1   
 955 [0x3bb]:          movn #0   
 957 [0x3bd]:          popobj   
-958 [0x3be]:          movi #63271, ebx   
+958 [0x3be]:          movi #7198, ebx   
 960 [0x3c0]:          movg @46 // @std.reflect#property_type   
 961 [0x3c1]:          movn #1   
 963 [0x3c3]:          movn #1   
@@ -60381,7 +60380,7 @@ function: platform.kernel#platform.static_init[2920] params(0) in file: /usr/inc
 975 [0x3cf]:          movn #2   
 977 [0x3d1]:          movn #0   
 979 [0x3d3]:          popobj   
-980 [0x3d4]:          movi #63272, ebx   
+980 [0x3d4]:          movi #7199, ebx   
 982 [0x3d6]:          movg @46 // @std.reflect#property_type   
 983 [0x3d7]:          movn #2   
 985 [0x3d9]:          movn #1   
@@ -65088,7 +65087,7 @@ function: ui.support#view.invalidate[3185] params(0) in file: controller//ui//su
 5 [0x5]:          iaload ebx, adx   
 6 [0x6]:          not ebx, ebx   
 7 [0x7]:          movr cmt, ebx   
-8 [0x8]:          jne 1446   
+8 [0x8]:          jne 1581   
 9 [0x9]: line: 49 movi #1, ebx   
 11 [0xb]:          movl 0   
 12 [0xc]:          movn #15   
@@ -65769,7 +65768,7 @@ function: ui.support#view.invalidate[3185] params(0) in file: controller//ui//su
 854 [0x356]:           gt ecx, ebx   
 855 [0x357]:           movr ebx, cmt   
 856 [0x358]:           movr cmt, ebx   
-857 [0x359]:           jne 1021   
+857 [0x359]:           jne 1156   
 858 [0x35a]: line: 147 movl 0   
 859 [0x35b]:           movn #7   
 861 [0x35d]:           movi #0, adx   
@@ -65834,7 +65833,7 @@ function: ui.support#view.invalidate[3185] params(0) in file: controller//ui//su
 932 [0x3a4]:           movn #0   
 934 [0x3a6]:           movi #0, adx   
 936 [0x3a8]:           rmov adx, ebx   
-937 [0x3a9]:           jmp @991   
+937 [0x3a9]:           jmp @1126   
 938 [0x3aa]:           movl 1   
 939 [0x3ab]:           movn #2   
 941 [0x3ad]:           movi #0, adx   
@@ -65843,742 +65842,849 @@ function: ui.support#view.invalidate[3185] params(0) in file: controller//ui//su
 945 [0x3b1]:           movi #-2, ebx   
 947 [0x3b3]:           loadval ecx   
 948 [0x3b4]:           tne ecx, ebx   
-949 [0x3b5]:           jne 972   
+949 [0x3b5]:           jne 1107   
 950 [0x3b6]: line: 156 movl 1   
-951 [0x3b7]:           movn #0   
+951 [0x3b7]:           movn #14   
 953 [0x3b9]:           movi #0, adx   
 955 [0x3bb]:           iaload ebx, adx   
 956 [0x3bc]:           rstore ebx   
-957 [0x3bd]:           movl 1   
-958 [0x3be]:           movn #2   
-960 [0x3c0]:           movi #0, adx   
-962 [0x3c2]:           iaload ebx, adx   
-963 [0x3c3]:           loadval ecx   
-964 [0x3c4]:           add ecx, ebx -> ebx   
-965 [0x3c5]:           movl 0   
-966 [0x3c6]:           movn #0   
-968 [0x3c8]:           movi #0, adx   
-970 [0x3ca]:           rmov adx, ebx   
-971 [0x3cb]:           jmp @991   
-972 [0x3cc]: line: 158 movl 1   
-973 [0x3cd]:           movn #0   
-975 [0x3cf]:           movi #0, adx   
-977 [0x3d1]:           iaload ebx, adx   
-978 [0x3d2]:           rstore ebx   
-979 [0x3d3]:           pushl 1   
-980 [0x3d4]:           invoke_delegate 3183 { static=0, args=0 }   
-982 [0x3d6]:           loadval ebx   
-983 [0x3d7]:           loadval ecx   
-984 [0x3d8]:           add ecx, ebx -> ebx   
-985 [0x3d9]:           movl 0   
-986 [0x3da]:           movn #0   
-988 [0x3dc]:           movi #0, adx   
-990 [0x3de]:           rmov adx, ebx   
-991 [0x3df]:           nop   
-992 [0x3e0]: line: 160 movl 1   
-993 [0x3e1]:           movn #4   
-995 [0x3e3]:           pushobj   
-996 [0x3e4]:           pushnull    
-997 [0x3e5]:           itest ebx   
-998 [0x3e6]:           not ebx, ebx   
-999 [0x3e7]:           movr cmt, ebx   
-1000 [0x3e8]:           jne 1019   
-1001 [0x3e9]: line: 161 movl 1   
-1002 [0x3ea]:           movn #4   
-1004 [0x3ec]:           movn #1   
-1006 [0x3ee]:           movi #0, adx   
-1008 [0x3f0]:           iaload ebx, adx   
-1009 [0x3f1]:           rstore ebx   
-1010 [0x3f2]:           movl 0   
-1011 [0x3f3]:           movn #0   
-1013 [0x3f5]:           movi #0, adx   
-1015 [0x3f7]:           iaload ecx, adx   
-1016 [0x3f8]:           loadval ebx   
-1017 [0x3f9]:           sub ecx, ebx -> ebx   
-1018 [0x3fa]:           rmov adx, ebx   
-1019 [0x3fb]:           nop   
-1020 [0x3fc]:           jmp @1065   
-1021 [0x3fd]:           movl 0   
-1022 [0x3fe]:           movn #11   
-1024 [0x400]:           movi #0, adx   
-1026 [0x402]:           iaload ebx, adx   
-1027 [0x403]:           rstore ebx   
-1028 [0x404]:           ldc ebx // 1   
-1029 [0x405]:           loadval ecx   
-1030 [0x406]:           test ecx, ebx   
-1031 [0x407]:           jne 1065   
-1032 [0x408]: line: 164 movl 0   
-1033 [0x409]:           movn #7   
-1035 [0x40b]:           movi #0, adx   
-1037 [0x40d]:           iaload ebx, adx   
-1038 [0x40e]:           rstore ebx   
-1039 [0x40f]:           ldc ebx // 1   
-1040 [0x410]:           loadval ecx   
-1041 [0x411]:           gte ecx, ebx   
-1042 [0x412]:           movr ebx, cmt   
-1043 [0x413]:           movr cmt, ebx   
-1044 [0x414]:           jne 1050   
-1045 [0x415]: line: 165 new_class @57 // std#illegal_state_exception   
-1046 [0x416]:           dup    
-1047 [0x417]:           newstr @65 // cannot align view to right while also having left alignment   
-1048 [0x418]:           call @3005 // <std#illegal_state_exception.illegal_state_exception>   
-1049 [0x419]:           throw    
-1050 [0x41a]:           nop   
-1051 [0x41b]: line: 166 istore 128   
-1053 [0x41d]:           pushl 0   
-1054 [0x41e]:           invoke_delegate 3183 { static=0, args=0 }   
-1056 [0x420]:           loadval ebx   
-1057 [0x421]:           loadval ecx   
-1058 [0x422]:           sub ecx, ebx -> ebx   
-1059 [0x423]:           movl 0   
-1060 [0x424]:           movn #0   
-1062 [0x426]:           movi #0, adx   
-1064 [0x428]:           rmov adx, ebx   
-1065 [0x429]:           nop   
-1066 [0x42a]: line: 169 movl 0   
-1067 [0x42b]:           movn #14   
-1069 [0x42d]:           movi #0, adx   
-1071 [0x42f]:           iaload ebx, adx   
-1072 [0x430]:           rstore ebx   
-1073 [0x431]:           ldc ebx // 1   
+957 [0x3bd]:           ldc ebx // 1   
+958 [0x3be]:           loadval ecx   
+959 [0x3bf]:           test ecx, ebx   
+960 [0x3c0]:           jne 981   
+961 [0x3c1]: line: 157 movl 1   
+962 [0x3c2]:           movn #0   
+964 [0x3c4]:           movi #0, adx   
+966 [0x3c6]:           iaload ebx, adx   
+967 [0x3c7]:           rstore ebx   
+968 [0x3c8]:           pushl 1   
+969 [0x3c9]:           invoke_delegate 3183 { static=0, args=0 }   
+971 [0x3cb]:           loadval ebx   
+972 [0x3cc]:           loadval ecx   
+973 [0x3cd]:           add ecx, ebx -> ebx   
+974 [0x3ce]:           movl 0   
+975 [0x3cf]:           movn #0   
+977 [0x3d1]:           movi #0, adx   
+979 [0x3d3]:           rmov adx, ebx   
+980 [0x3d4]:           jmp @1105   
+981 [0x3d5]:           movl 1   
+982 [0x3d6]:           movn #14   
+984 [0x3d8]:           movi #0, adx   
+986 [0x3da]:           iaload ebx, adx   
+987 [0x3db]:           rstore ebx   
+988 [0x3dc]:           movi #2, ebx   
+990 [0x3de]:           loadval ecx   
+991 [0x3df]:           test ecx, ebx   
+992 [0x3e0]:           jne 1084   
+993 [0x3e1]: line: 159 movl 1   
+994 [0x3e2]:           movn #2   
+996 [0x3e4]:           movi #0, adx   
+998 [0x3e6]:           iaload ebx, adx   
+999 [0x3e7]:           rstore ebx   
+1000 [0x3e8]:           movl 1   
+1001 [0x3e9]:           movn #0   
+1003 [0x3eb]:           movi #0, adx   
+1005 [0x3ed]:           iaload ebx, adx   
+1006 [0x3ee]:           rstore ebx   
+1007 [0x3ef]:           pushl 1   
+1008 [0x3f0]:           invoke_delegate 3183 { static=0, args=0 }   
+1010 [0x3f2]:           loadval ebx   
+1011 [0x3f3]:           loadval ecx   
+1012 [0x3f4]:           add ecx, ebx -> ebx   
+1013 [0x3f5]:           loadval ecx   
+1014 [0x3f6]:           sub ecx, ebx -> ebx   
+1015 [0x3f7]:           rstore ebx   
+1016 [0x3f8]:           pushl 1   
+1017 [0x3f9]:           invoke_delegate 3183 { static=0, args=0 }   
+1019 [0x3fb]:           loadval ebx   
+1020 [0x3fc]:           loadval ecx   
+1021 [0x3fd]:           add ecx, ebx -> ebx   
+1022 [0x3fe]:           smovr_2 ebx, fp+2   
+1023 [0x3ff]: line: 160 ipushl #2   
+1024 [0x400]:           movi #0, ebx   
+1026 [0x402]:           loadval ecx   
+1027 [0x403]:           gt ecx, ebx   
+1028 [0x404]:           movr ebx, cmt   
+1029 [0x405]:           skne ebx // pc = 1040   
+1030 [0x406]:           ipushl #2   
+1031 [0x407]:           movl 1   
+1032 [0x408]:           movn #2   
+1034 [0x40a]:           movi #0, adx   
+1036 [0x40c]:           iaload ebx, adx   
+1037 [0x40d]:           loadval ecx   
+1038 [0x40e]:           lt ecx, ebx   
+1039 [0x40f]:           movr ebx, cmt   
+1040 [0x410]:           movr cmt, ebx   
+1041 [0x411]:           jne 1063   
+1042 [0x412]: line: 161 movl 1   
+1043 [0x413]:           movn #0   
+1045 [0x415]:           movi #0, adx   
+1047 [0x417]:           iaload ebx, adx   
+1048 [0x418]:           rstore ebx   
+1049 [0x419]:           loadl ebx, fp+2   
+1050 [0x41a]:           loadval ecx   
+1051 [0x41b]:           add ecx, ebx -> ebx   
+1052 [0x41c]:           rstore ebx   
+1053 [0x41d]:           movl 0   
+1054 [0x41e]:           movn #0   
+1056 [0x420]:           movi #0, adx   
+1058 [0x422]:           iaload ecx, adx   
+1059 [0x423]:           loadval ebx   
+1060 [0x424]:           add ecx, ebx -> ebx   
+1061 [0x425]:           rmov adx, ebx   
+1062 [0x426]:           jmp @1082   
+1063 [0x427]: line: 163 movl 1   
+1064 [0x428]:           movn #0   
+1066 [0x42a]:           movi #0, adx   
+1068 [0x42c]:           iaload ebx, adx   
+1069 [0x42d]:           rstore ebx   
+1070 [0x42e]:           pushl 1   
+1071 [0x42f]:           invoke_delegate 3183 { static=0, args=0 }   
+1073 [0x431]:           loadval ebx   
 1074 [0x432]:           loadval ecx   
-1075 [0x433]:           test ecx, ebx   
-1076 [0x434]:           jne 1158   
-1077 [0x435]: line: 170 movl 0   
-1078 [0x436]:           movn #2   
-1080 [0x438]:           movi #0, adx   
-1082 [0x43a]:           iaload ebx, adx   
-1083 [0x43b]:           rstore ebx   
-1084 [0x43c]:           movi #-1, ebx   
-1086 [0x43e]:           loadval ecx   
-1087 [0x43f]:           test ecx, ebx   
-1088 [0x440]:           jne 1104   
-1089 [0x441]: line: 171 istore 128   
-1091 [0x443]:           pushl 0   
-1092 [0x444]:           invoke_delegate 3183 { static=0, args=0 }   
-1094 [0x446]:           loadval ebx   
-1095 [0x447]:           loadval ecx   
-1096 [0x448]:           sub ecx, ebx -> ebx   
-1097 [0x449]:           movl 0   
-1098 [0x44a]:           movn #0   
-1100 [0x44c]:           movi #0, adx   
-1102 [0x44e]:           rmov adx, ebx   
-1103 [0x44f]:           jmp @1156   
-1104 [0x450]:           movl 0   
-1105 [0x451]:           movn #2   
-1107 [0x453]:           movi #0, adx   
-1109 [0x455]:           iaload ebx, adx   
-1110 [0x456]:           rstore ebx   
-1111 [0x457]:           movi #0, ebx   
-1113 [0x459]:           loadval ecx   
-1114 [0x45a]:           gte ecx, ebx   
-1115 [0x45b]:           movr ebx, cmt   
-1116 [0x45c]:           movr cmt, ebx   
-1117 [0x45d]:           jne 1156   
-1118 [0x45e]: line: 173 movl 0   
-1119 [0x45f]:           movn #0   
-1121 [0x461]:           movi #0, adx   
-1123 [0x463]:           iaload ebx, adx   
-1124 [0x464]:           rstore ebx   
-1125 [0x465]:           movl 0   
-1126 [0x466]:           movn #2   
-1128 [0x468]:           movi #0, adx   
-1130 [0x46a]:           iaload ebx, adx   
-1131 [0x46b]:           loadval ecx   
-1132 [0x46c]:           add ecx, ebx -> ebx   
-1133 [0x46d]:           smovr_2 ebx, fp+2   
-1134 [0x46e]: line: 174 pushl 0   
-1135 [0x46f]:           invoke_delegate 3183 { static=0, args=0 }   
-1137 [0x471]:           ipopl 3   
-1138 [0x472]: line: 175 ipushl #3   
-1139 [0x473]:           loadl ebx, fp+2   
-1140 [0x474]:           loadval ecx   
-1141 [0x475]:           lt ecx, ebx   
-1142 [0x476]:           movr ebx, cmt   
-1143 [0x477]:           movr cmt, ebx   
-1144 [0x478]:           jne 1155   
-1145 [0x479]: line: 176 ipushl #2   
-1146 [0x47a]:           loadl ebx, fp+3   
-1147 [0x47b]:           loadval ecx   
-1148 [0x47c]:           sub ecx, ebx -> ebx   
-1149 [0x47d]:           movl 0   
-1150 [0x47e]:           movn #0   
-1152 [0x480]:           movi #0, adx   
-1154 [0x482]:           rmov adx, ebx   
-1155 [0x483]:           nop   
-1156 [0x484]:           nop   
-1157 [0x485]:           jmp @1300   
-1158 [0x486]:           movl 0   
-1159 [0x487]:           movn #14   
-1161 [0x489]:           movi #0, adx   
-1163 [0x48b]:           iaload ebx, adx   
-1164 [0x48c]:           rstore ebx   
-1165 [0x48d]:           movi #2, ebx   
-1167 [0x48f]:           loadval ecx   
-1168 [0x490]:           test ecx, ebx   
-1169 [0x491]:           jne 1300   
-1170 [0x492]: line: 182 movl 0   
-1171 [0x493]:           movn #2   
-1173 [0x495]:           movi #0, adx   
-1175 [0x497]:           iaload ebx, adx   
-1176 [0x498]:           rstore ebx   
-1177 [0x499]:           movi #-1, ebx   
-1179 [0x49b]:           loadval ecx   
-1180 [0x49c]:           test ecx, ebx   
-1181 [0x49d]:           jne 1227   
-1182 [0x49e]: line: 183 istore 128   
-1184 [0x4a0]:           movl 0   
-1185 [0x4a1]:           movn #0   
-1187 [0x4a3]:           movi #0, adx   
-1189 [0x4a5]:           iaload ebx, adx   
-1190 [0x4a6]:           loadval ecx   
-1191 [0x4a7]:           sub ecx, ebx -> ebx   
-1192 [0x4a8]:           smovr_2 ebx, fp+4   
-1193 [0x4a9]: line: 184 ipushl #4   
-1194 [0x4aa]:           pushl 0   
-1195 [0x4ab]:           invoke_delegate 3183 { static=0, args=0 }   
-1197 [0x4ad]:           loadval ebx   
-1198 [0x4ae]:           loadval ecx   
-1199 [0x4af]:           sub ecx, ebx -> ebx   
-1200 [0x4b0]:           smovr_2 ebx, fp+5   
-1201 [0x4b1]: line: 186 ipushl #5   
-1202 [0x4b2]:           movi #0, ebx   
-1204 [0x4b4]:           loadval ecx   
-1205 [0x4b5]:           gt ecx, ebx   
-1206 [0x4b6]:           movr ebx, cmt   
-1207 [0x4b7]:           movr cmt, ebx   
-1208 [0x4b8]:           jne 1225   
-1209 [0x4b9]: line: 187 ipushl #5   
-1210 [0x4ba]:           movi #2, ebx   
-1212 [0x4bc]:           loadval ecx   
-1213 [0x4bd]:           div ecx, ebx -> ebx   
-1214 [0x4be]:           mov8 ebx, ebx   
-1215 [0x4bf]:           rstore ebx   
-1216 [0x4c0]:           movl 0   
-1217 [0x4c1]:           movn #0   
-1219 [0x4c3]:           movi #0, adx   
-1221 [0x4c5]:           iaload ecx, adx   
-1222 [0x4c6]:           loadval ebx   
-1223 [0x4c7]:           add ecx, ebx -> ebx   
-1224 [0x4c8]:           rmov adx, ebx   
-1225 [0x4c9]:           nop   
-1226 [0x4ca]:           jmp @1299   
-1227 [0x4cb]:           movl 0   
-1228 [0x4cc]:           movn #2   
-1230 [0x4ce]:           movi #0, adx   
-1232 [0x4d0]:           iaload ebx, adx   
-1233 [0x4d1]:           rstore ebx   
-1234 [0x4d2]:           movi #0, ebx   
-1236 [0x4d4]:           loadval ecx   
-1237 [0x4d5]:           gte ecx, ebx   
-1238 [0x4d6]:           movr ebx, cmt   
-1239 [0x4d7]:           movr cmt, ebx   
-1240 [0x4d8]:           jne 1299   
-1241 [0x4d9]: line: 190 movl 0   
-1242 [0x4da]:           movn #0   
-1244 [0x4dc]:           movi #0, adx   
-1246 [0x4de]:           iaload ebx, adx   
-1247 [0x4df]:           rstore ebx   
-1248 [0x4e0]:           movl 0   
-1249 [0x4e1]:           movn #2   
-1251 [0x4e3]:           movi #0, adx   
-1253 [0x4e5]:           iaload ebx, adx   
-1254 [0x4e6]:           loadval ecx   
-1255 [0x4e7]:           add ecx, ebx -> ebx   
-1256 [0x4e8]:           rstore ebx   
-1257 [0x4e9]:           movl 0   
-1258 [0x4ea]:           movn #0   
-1260 [0x4ec]:           movi #0, adx   
-1262 [0x4ee]:           iaload ebx, adx   
-1263 [0x4ef]:           loadval ecx   
-1264 [0x4f0]:           sub ecx, ebx -> ebx   
-1265 [0x4f1]:           smovr_2 ebx, fp+6   
-1266 [0x4f2]: line: 191 ipushl #6   
-1267 [0x4f3]:           pushl 0   
-1268 [0x4f4]:           invoke_delegate 3183 { static=0, args=0 }   
-1270 [0x4f6]:           loadval ebx   
-1271 [0x4f7]:           loadval ecx   
-1272 [0x4f8]:           sub ecx, ebx -> ebx   
-1273 [0x4f9]:           smovr_2 ebx, fp+7   
-1274 [0x4fa]: line: 193 ipushl #7   
-1275 [0x4fb]:           movi #0, ebx   
-1277 [0x4fd]:           loadval ecx   
-1278 [0x4fe]:           gt ecx, ebx   
-1279 [0x4ff]:           movr ebx, cmt   
-1280 [0x500]:           movr cmt, ebx   
-1281 [0x501]:           jne 1298   
-1282 [0x502]: line: 194 ipushl #7   
-1283 [0x503]:           movi #2, ebx   
-1285 [0x505]:           loadval ecx   
-1286 [0x506]:           div ecx, ebx -> ebx   
-1287 [0x507]:           mov8 ebx, ebx   
-1288 [0x508]:           rstore ebx   
-1289 [0x509]:           movl 0   
-1290 [0x50a]:           movn #0   
-1292 [0x50c]:           movi #0, adx   
-1294 [0x50e]:           iaload ecx, adx   
-1295 [0x50f]:           loadval ebx   
-1296 [0x510]:           add ecx, ebx -> ebx   
-1297 [0x511]:           rmov adx, ebx   
-1298 [0x512]:           nop   
-1299 [0x513]:           nop   
-1300 [0x514]:           nop   
-1301 [0x515]: line: 199 movl 0   
-1302 [0x516]:           movn #4   
-1304 [0x518]:           pushobj   
-1305 [0x519]:           pushnull    
-1306 [0x51a]:           itest ebx   
-1307 [0x51b]:           not ebx, ebx   
-1308 [0x51c]:           movr cmt, ebx   
-1309 [0x51d]:           jne 1364   
-1310 [0x51e]: line: 200 movl 0   
-1311 [0x51f]:           movn #4   
-1313 [0x521]:           movn #0   
-1315 [0x523]:           movi #0, adx   
-1317 [0x525]:           iaload ebx, adx   
-1318 [0x526]:           rstore ebx   
+1075 [0x433]:           add ecx, ebx -> ebx   
+1076 [0x434]:           movl 0   
+1077 [0x435]:           movn #0   
+1079 [0x437]:           movi #0, adx   
+1081 [0x439]:           rmov adx, ebx   
+1082 [0x43a]:           nop   
+1083 [0x43b]:           jmp @1105   
+1084 [0x43c]: line: 166 movl 1   
+1085 [0x43d]:           movn #0   
+1087 [0x43f]:           movi #0, adx   
+1089 [0x441]:           iaload ebx, adx   
+1090 [0x442]:           rstore ebx   
+1091 [0x443]:           movl 1   
+1092 [0x444]:           movn #2   
+1094 [0x446]:           movi #0, adx   
+1096 [0x448]:           iaload ebx, adx   
+1097 [0x449]:           loadval ecx   
+1098 [0x44a]:           add ecx, ebx -> ebx   
+1099 [0x44b]:           movl 0   
+1100 [0x44c]:           movn #0   
+1102 [0x44e]:           movi #0, adx   
+1104 [0x450]:           rmov adx, ebx   
+1105 [0x451]:           nop   
+1106 [0x452]:           jmp @1126   
+1107 [0x453]: line: 169 movl 1   
+1108 [0x454]:           movn #0   
+1110 [0x456]:           movi #0, adx   
+1112 [0x458]:           iaload ebx, adx   
+1113 [0x459]:           rstore ebx   
+1114 [0x45a]:           pushl 1   
+1115 [0x45b]:           invoke_delegate 3183 { static=0, args=0 }   
+1117 [0x45d]:           loadval ebx   
+1118 [0x45e]:           loadval ecx   
+1119 [0x45f]:           add ecx, ebx -> ebx   
+1120 [0x460]:           movl 0   
+1121 [0x461]:           movn #0   
+1123 [0x463]:           movi #0, adx   
+1125 [0x465]:           rmov adx, ebx   
+1126 [0x466]:           nop   
+1127 [0x467]: line: 171 movl 1   
+1128 [0x468]:           movn #4   
+1130 [0x46a]:           pushobj   
+1131 [0x46b]:           pushnull    
+1132 [0x46c]:           itest ebx   
+1133 [0x46d]:           not ebx, ebx   
+1134 [0x46e]:           movr cmt, ebx   
+1135 [0x46f]:           jne 1154   
+1136 [0x470]: line: 172 movl 1   
+1137 [0x471]:           movn #4   
+1139 [0x473]:           movn #1   
+1141 [0x475]:           movi #0, adx   
+1143 [0x477]:           iaload ebx, adx   
+1144 [0x478]:           rstore ebx   
+1145 [0x479]:           movl 0   
+1146 [0x47a]:           movn #0   
+1148 [0x47c]:           movi #0, adx   
+1150 [0x47e]:           iaload ecx, adx   
+1151 [0x47f]:           loadval ebx   
+1152 [0x480]:           sub ecx, ebx -> ebx   
+1153 [0x481]:           rmov adx, ebx   
+1154 [0x482]:           nop   
+1155 [0x483]:           jmp @1200   
+1156 [0x484]:           movl 0   
+1157 [0x485]:           movn #11   
+1159 [0x487]:           movi #0, adx   
+1161 [0x489]:           iaload ebx, adx   
+1162 [0x48a]:           rstore ebx   
+1163 [0x48b]:           ldc ebx // 1   
+1164 [0x48c]:           loadval ecx   
+1165 [0x48d]:           test ecx, ebx   
+1166 [0x48e]:           jne 1200   
+1167 [0x48f]: line: 175 movl 0   
+1168 [0x490]:           movn #7   
+1170 [0x492]:           movi #0, adx   
+1172 [0x494]:           iaload ebx, adx   
+1173 [0x495]:           rstore ebx   
+1174 [0x496]:           ldc ebx // 1   
+1175 [0x497]:           loadval ecx   
+1176 [0x498]:           gte ecx, ebx   
+1177 [0x499]:           movr ebx, cmt   
+1178 [0x49a]:           movr cmt, ebx   
+1179 [0x49b]:           jne 1185   
+1180 [0x49c]: line: 176 new_class @57 // std#illegal_state_exception   
+1181 [0x49d]:           dup    
+1182 [0x49e]:           newstr @65 // cannot align view to right while also having left alignment   
+1183 [0x49f]:           call @3005 // <std#illegal_state_exception.illegal_state_exception>   
+1184 [0x4a0]:           throw    
+1185 [0x4a1]:           nop   
+1186 [0x4a2]: line: 177 istore 128   
+1188 [0x4a4]:           pushl 0   
+1189 [0x4a5]:           invoke_delegate 3183 { static=0, args=0 }   
+1191 [0x4a7]:           loadval ebx   
+1192 [0x4a8]:           loadval ecx   
+1193 [0x4a9]:           sub ecx, ebx -> ebx   
+1194 [0x4aa]:           movl 0   
+1195 [0x4ab]:           movn #0   
+1197 [0x4ad]:           movi #0, adx   
+1199 [0x4af]:           rmov adx, ebx   
+1200 [0x4b0]:           nop   
+1201 [0x4b1]: line: 180 movl 0   
+1202 [0x4b2]:           movn #14   
+1204 [0x4b4]:           movi #0, adx   
+1206 [0x4b6]:           iaload ebx, adx   
+1207 [0x4b7]:           rstore ebx   
+1208 [0x4b8]:           ldc ebx // 1   
+1209 [0x4b9]:           loadval ecx   
+1210 [0x4ba]:           test ecx, ebx   
+1211 [0x4bb]:           jne 1293   
+1212 [0x4bc]: line: 181 movl 0   
+1213 [0x4bd]:           movn #2   
+1215 [0x4bf]:           movi #0, adx   
+1217 [0x4c1]:           iaload ebx, adx   
+1218 [0x4c2]:           rstore ebx   
+1219 [0x4c3]:           movi #-1, ebx   
+1221 [0x4c5]:           loadval ecx   
+1222 [0x4c6]:           test ecx, ebx   
+1223 [0x4c7]:           jne 1239   
+1224 [0x4c8]: line: 182 istore 128   
+1226 [0x4ca]:           pushl 0   
+1227 [0x4cb]:           invoke_delegate 3183 { static=0, args=0 }   
+1229 [0x4cd]:           loadval ebx   
+1230 [0x4ce]:           loadval ecx   
+1231 [0x4cf]:           sub ecx, ebx -> ebx   
+1232 [0x4d0]:           movl 0   
+1233 [0x4d1]:           movn #0   
+1235 [0x4d3]:           movi #0, adx   
+1237 [0x4d5]:           rmov adx, ebx   
+1238 [0x4d6]:           jmp @1291   
+1239 [0x4d7]:           movl 0   
+1240 [0x4d8]:           movn #2   
+1242 [0x4da]:           movi #0, adx   
+1244 [0x4dc]:           iaload ebx, adx   
+1245 [0x4dd]:           rstore ebx   
+1246 [0x4de]:           movi #0, ebx   
+1248 [0x4e0]:           loadval ecx   
+1249 [0x4e1]:           gte ecx, ebx   
+1250 [0x4e2]:           movr ebx, cmt   
+1251 [0x4e3]:           movr cmt, ebx   
+1252 [0x4e4]:           jne 1291   
+1253 [0x4e5]: line: 184 movl 0   
+1254 [0x4e6]:           movn #0   
+1256 [0x4e8]:           movi #0, adx   
+1258 [0x4ea]:           iaload ebx, adx   
+1259 [0x4eb]:           rstore ebx   
+1260 [0x4ec]:           movl 0   
+1261 [0x4ed]:           movn #2   
+1263 [0x4ef]:           movi #0, adx   
+1265 [0x4f1]:           iaload ebx, adx   
+1266 [0x4f2]:           loadval ecx   
+1267 [0x4f3]:           add ecx, ebx -> ebx   
+1268 [0x4f4]:           smovr_2 ebx, fp+3   
+1269 [0x4f5]: line: 185 pushl 0   
+1270 [0x4f6]:           invoke_delegate 3183 { static=0, args=0 }   
+1272 [0x4f8]:           ipopl 4   
+1273 [0x4f9]: line: 186 ipushl #4   
+1274 [0x4fa]:           loadl ebx, fp+3   
+1275 [0x4fb]:           loadval ecx   
+1276 [0x4fc]:           lt ecx, ebx   
+1277 [0x4fd]:           movr ebx, cmt   
+1278 [0x4fe]:           movr cmt, ebx   
+1279 [0x4ff]:           jne 1290   
+1280 [0x500]: line: 187 ipushl #3   
+1281 [0x501]:           loadl ebx, fp+4   
+1282 [0x502]:           loadval ecx   
+1283 [0x503]:           sub ecx, ebx -> ebx   
+1284 [0x504]:           movl 0   
+1285 [0x505]:           movn #0   
+1287 [0x507]:           movi #0, adx   
+1289 [0x509]:           rmov adx, ebx   
+1290 [0x50a]:           nop   
+1291 [0x50b]:           nop   
+1292 [0x50c]:           jmp @1435   
+1293 [0x50d]:           movl 0   
+1294 [0x50e]:           movn #14   
+1296 [0x510]:           movi #0, adx   
+1298 [0x512]:           iaload ebx, adx   
+1299 [0x513]:           rstore ebx   
+1300 [0x514]:           movi #2, ebx   
+1302 [0x516]:           loadval ecx   
+1303 [0x517]:           test ecx, ebx   
+1304 [0x518]:           jne 1435   
+1305 [0x519]: line: 193 movl 0   
+1306 [0x51a]:           movn #2   
+1308 [0x51c]:           movi #0, adx   
+1310 [0x51e]:           iaload ebx, adx   
+1311 [0x51f]:           rstore ebx   
+1312 [0x520]:           movi #-1, ebx   
+1314 [0x522]:           loadval ecx   
+1315 [0x523]:           test ecx, ebx   
+1316 [0x524]:           jne 1362   
+1317 [0x525]: line: 194 istore 128   
 1319 [0x527]:           movl 0   
 1320 [0x528]:           movn #0   
 1322 [0x52a]:           movi #0, adx   
-1324 [0x52c]:           iaload ecx, adx   
-1325 [0x52d]:           loadval ebx   
-1326 [0x52e]:           add ecx, ebx -> ebx   
-1327 [0x52f]:           rmov adx, ebx   
-1328 [0x530]: line: 201 movl 0   
-1329 [0x531]:           movn #4   
-1331 [0x533]:           movn #2   
-1333 [0x535]:           movi #0, adx   
-1335 [0x537]:           iaload ebx, adx   
-1336 [0x538]:           rstore ebx   
-1337 [0x539]:           movl 0   
-1338 [0x53a]:           movn #1   
-1340 [0x53c]:           movi #0, adx   
-1342 [0x53e]:           iaload ecx, adx   
-1343 [0x53f]:           loadval ebx   
-1344 [0x540]:           add ecx, ebx -> ebx   
-1345 [0x541]:           rmov adx, ebx   
-1346 [0x542]: line: 202 movl 0   
-1347 [0x543]:           movn #4   
-1349 [0x545]:           movn #1   
-1351 [0x547]:           movi #0, adx   
-1353 [0x549]:           iaload ebx, adx   
-1354 [0x54a]:           rstore ebx   
-1355 [0x54b]:           movl 0   
-1356 [0x54c]:           movn #0   
-1358 [0x54e]:           movi #0, adx   
-1360 [0x550]:           iaload ecx, adx   
-1361 [0x551]:           loadval ebx   
-1362 [0x552]:           sub ecx, ebx -> ebx   
-1363 [0x553]:           rmov adx, ebx   
-1364 [0x554]:           nop   
-1365 [0x555]: line: 205 movl 0   
-1366 [0x556]:           movn #1   
-1368 [0x558]:           movi #0, adx   
-1370 [0x55a]:           iaload ebx, adx   
-1371 [0x55b]:           rstore ebx   
-1372 [0x55c]:           movi #0, ebx   
-1374 [0x55e]:           loadval ecx   
-1375 [0x55f]:           lt ecx, ebx   
-1376 [0x560]:           movr ebx, cmt   
-1377 [0x561]:           skpe ebx // pc = 1416   
-1378 [0x562]:           movl 0   
-1379 [0x563]:           movn #0   
-1381 [0x565]:           movi #0, adx   
-1383 [0x567]:           iaload ebx, adx   
-1384 [0x568]:           rstore ebx   
-1385 [0x569]:           movi #0, ebx   
-1387 [0x56b]:           loadval ecx   
-1388 [0x56c]:           lt ecx, ebx   
-1389 [0x56d]:           movr ebx, cmt   
-1390 [0x56e]:           skpe ebx // pc = 1416   
-1391 [0x56f]:           movl 0   
-1392 [0x570]:           movn #1   
-1394 [0x572]:           movi #0, adx   
-1396 [0x574]:           iaload ebx, adx   
-1397 [0x575]:           rstore ebx   
-1398 [0x576]:           movi #64, ebx   
-1400 [0x578]:           loadval ecx   
-1401 [0x579]:           gt ecx, ebx   
-1402 [0x57a]:           movr ebx, cmt   
-1403 [0x57b]:           skpe ebx // pc = 1416   
-1404 [0x57c]:           movl 0   
-1405 [0x57d]:           movn #0   
-1407 [0x57f]:           movi #0, adx   
-1409 [0x581]:           iaload ebx, adx   
-1410 [0x582]:           rstore ebx   
-1411 [0x583]:           movi #128, ebx   
-1413 [0x585]:           loadval ecx   
-1414 [0x586]:           gt ecx, ebx   
-1415 [0x587]:           movr ebx, cmt   
-1416 [0x588]:           movr cmt, ebx   
-1417 [0x589]:           jne 1426   
-1418 [0x58a]: line: 206 ldc ebx // 1   
-1419 [0x58b]:           movl 0   
-1420 [0x58c]:           movn #5   
-1422 [0x58e]:           movi #0, adx   
-1424 [0x590]:           rmov adx, ebx   
-1425 [0x591]:           jmp @1433   
-1426 [0x592]: line: 208 ldc ebx // 0   
-1427 [0x593]:           movl 0   
-1428 [0x594]:           movn #5   
-1430 [0x596]:           movi #0, adx   
+1324 [0x52c]:           iaload ebx, adx   
+1325 [0x52d]:           loadval ecx   
+1326 [0x52e]:           sub ecx, ebx -> ebx   
+1327 [0x52f]:           smovr_2 ebx, fp+5   
+1328 [0x530]: line: 195 ipushl #5   
+1329 [0x531]:           pushl 0   
+1330 [0x532]:           invoke_delegate 3183 { static=0, args=0 }   
+1332 [0x534]:           loadval ebx   
+1333 [0x535]:           loadval ecx   
+1334 [0x536]:           sub ecx, ebx -> ebx   
+1335 [0x537]:           smovr_2 ebx, fp+6   
+1336 [0x538]: line: 197 ipushl #6   
+1337 [0x539]:           movi #0, ebx   
+1339 [0x53b]:           loadval ecx   
+1340 [0x53c]:           gt ecx, ebx   
+1341 [0x53d]:           movr ebx, cmt   
+1342 [0x53e]:           movr cmt, ebx   
+1343 [0x53f]:           jne 1360   
+1344 [0x540]: line: 198 ipushl #6   
+1345 [0x541]:           movi #2, ebx   
+1347 [0x543]:           loadval ecx   
+1348 [0x544]:           div ecx, ebx -> ebx   
+1349 [0x545]:           mov8 ebx, ebx   
+1350 [0x546]:           rstore ebx   
+1351 [0x547]:           movl 0   
+1352 [0x548]:           movn #0   
+1354 [0x54a]:           movi #0, adx   
+1356 [0x54c]:           iaload ecx, adx   
+1357 [0x54d]:           loadval ebx   
+1358 [0x54e]:           add ecx, ebx -> ebx   
+1359 [0x54f]:           rmov adx, ebx   
+1360 [0x550]:           nop   
+1361 [0x551]:           jmp @1434   
+1362 [0x552]:           movl 0   
+1363 [0x553]:           movn #2   
+1365 [0x555]:           movi #0, adx   
+1367 [0x557]:           iaload ebx, adx   
+1368 [0x558]:           rstore ebx   
+1369 [0x559]:           movi #0, ebx   
+1371 [0x55b]:           loadval ecx   
+1372 [0x55c]:           gte ecx, ebx   
+1373 [0x55d]:           movr ebx, cmt   
+1374 [0x55e]:           movr cmt, ebx   
+1375 [0x55f]:           jne 1434   
+1376 [0x560]: line: 201 movl 0   
+1377 [0x561]:           movn #0   
+1379 [0x563]:           movi #0, adx   
+1381 [0x565]:           iaload ebx, adx   
+1382 [0x566]:           rstore ebx   
+1383 [0x567]:           movl 0   
+1384 [0x568]:           movn #2   
+1386 [0x56a]:           movi #0, adx   
+1388 [0x56c]:           iaload ebx, adx   
+1389 [0x56d]:           loadval ecx   
+1390 [0x56e]:           add ecx, ebx -> ebx   
+1391 [0x56f]:           rstore ebx   
+1392 [0x570]:           movl 0   
+1393 [0x571]:           movn #0   
+1395 [0x573]:           movi #0, adx   
+1397 [0x575]:           iaload ebx, adx   
+1398 [0x576]:           loadval ecx   
+1399 [0x577]:           sub ecx, ebx -> ebx   
+1400 [0x578]:           smovr_2 ebx, fp+7   
+1401 [0x579]: line: 202 ipushl #7   
+1402 [0x57a]:           pushl 0   
+1403 [0x57b]:           invoke_delegate 3183 { static=0, args=0 }   
+1405 [0x57d]:           loadval ebx   
+1406 [0x57e]:           loadval ecx   
+1407 [0x57f]:           sub ecx, ebx -> ebx   
+1408 [0x580]:           smovr_2 ebx, fp+8   
+1409 [0x581]: line: 204 ipushl #8   
+1410 [0x582]:           movi #0, ebx   
+1412 [0x584]:           loadval ecx   
+1413 [0x585]:           gt ecx, ebx   
+1414 [0x586]:           movr ebx, cmt   
+1415 [0x587]:           movr cmt, ebx   
+1416 [0x588]:           jne 1433   
+1417 [0x589]: line: 205 ipushl #8   
+1418 [0x58a]:           movi #2, ebx   
+1420 [0x58c]:           loadval ecx   
+1421 [0x58d]:           div ecx, ebx -> ebx   
+1422 [0x58e]:           mov8 ebx, ebx   
+1423 [0x58f]:           rstore ebx   
+1424 [0x590]:           movl 0   
+1425 [0x591]:           movn #0   
+1427 [0x593]:           movi #0, adx   
+1429 [0x595]:           iaload ecx, adx   
+1430 [0x596]:           loadval ebx   
+1431 [0x597]:           add ecx, ebx -> ebx   
 1432 [0x598]:           rmov adx, ebx   
 1433 [0x599]:           nop   
-1434 [0x59a]: line: 209 movl 0   
-1435 [0x59b]:           movn #17   
-1437 [0x59d]:           pushobj   
-1438 [0x59e]:           movl 0   
-1439 [0x59f]:           movn #6   
-1441 [0x5a1]:           movi #0, adx   
-1443 [0x5a3]:           iaload ebx, adx   
-1444 [0x5a4]:           rstore ebx   
-1445 [0x5a5]:           call @3152 // <ui.support#fragment.invalidate_refrences>   
-1446 [0x5a6]:           nop   
-1447 [0x5a7]:           ret   
+1434 [0x59a]:           nop   
+1435 [0x59b]:           nop   
+1436 [0x59c]: line: 210 movl 0   
+1437 [0x59d]:           movn #4   
+1439 [0x59f]:           pushobj   
+1440 [0x5a0]:           pushnull    
+1441 [0x5a1]:           itest ebx   
+1442 [0x5a2]:           not ebx, ebx   
+1443 [0x5a3]:           movr cmt, ebx   
+1444 [0x5a4]:           jne 1499   
+1445 [0x5a5]: line: 211 movl 0   
+1446 [0x5a6]:           movn #4   
+1448 [0x5a8]:           movn #0   
+1450 [0x5aa]:           movi #0, adx   
+1452 [0x5ac]:           iaload ebx, adx   
+1453 [0x5ad]:           rstore ebx   
+1454 [0x5ae]:           movl 0   
+1455 [0x5af]:           movn #0   
+1457 [0x5b1]:           movi #0, adx   
+1459 [0x5b3]:           iaload ecx, adx   
+1460 [0x5b4]:           loadval ebx   
+1461 [0x5b5]:           add ecx, ebx -> ebx   
+1462 [0x5b6]:           rmov adx, ebx   
+1463 [0x5b7]: line: 212 movl 0   
+1464 [0x5b8]:           movn #4   
+1466 [0x5ba]:           movn #2   
+1468 [0x5bc]:           movi #0, adx   
+1470 [0x5be]:           iaload ebx, adx   
+1471 [0x5bf]:           rstore ebx   
+1472 [0x5c0]:           movl 0   
+1473 [0x5c1]:           movn #1   
+1475 [0x5c3]:           movi #0, adx   
+1477 [0x5c5]:           iaload ecx, adx   
+1478 [0x5c6]:           loadval ebx   
+1479 [0x5c7]:           add ecx, ebx -> ebx   
+1480 [0x5c8]:           rmov adx, ebx   
+1481 [0x5c9]: line: 213 movl 0   
+1482 [0x5ca]:           movn #4   
+1484 [0x5cc]:           movn #1   
+1486 [0x5ce]:           movi #0, adx   
+1488 [0x5d0]:           iaload ebx, adx   
+1489 [0x5d1]:           rstore ebx   
+1490 [0x5d2]:           movl 0   
+1491 [0x5d3]:           movn #0   
+1493 [0x5d5]:           movi #0, adx   
+1495 [0x5d7]:           iaload ecx, adx   
+1496 [0x5d8]:           loadval ebx   
+1497 [0x5d9]:           sub ecx, ebx -> ebx   
+1498 [0x5da]:           rmov adx, ebx   
+1499 [0x5db]:           nop   
+1500 [0x5dc]: line: 216 movl 0   
+1501 [0x5dd]:           movn #1   
+1503 [0x5df]:           movi #0, adx   
+1505 [0x5e1]:           iaload ebx, adx   
+1506 [0x5e2]:           rstore ebx   
+1507 [0x5e3]:           movi #0, ebx   
+1509 [0x5e5]:           loadval ecx   
+1510 [0x5e6]:           lt ecx, ebx   
+1511 [0x5e7]:           movr ebx, cmt   
+1512 [0x5e8]:           skpe ebx // pc = 1551   
+1513 [0x5e9]:           movl 0   
+1514 [0x5ea]:           movn #0   
+1516 [0x5ec]:           movi #0, adx   
+1518 [0x5ee]:           iaload ebx, adx   
+1519 [0x5ef]:           rstore ebx   
+1520 [0x5f0]:           movi #0, ebx   
+1522 [0x5f2]:           loadval ecx   
+1523 [0x5f3]:           lt ecx, ebx   
+1524 [0x5f4]:           movr ebx, cmt   
+1525 [0x5f5]:           skpe ebx // pc = 1551   
+1526 [0x5f6]:           movl 0   
+1527 [0x5f7]:           movn #1   
+1529 [0x5f9]:           movi #0, adx   
+1531 [0x5fb]:           iaload ebx, adx   
+1532 [0x5fc]:           rstore ebx   
+1533 [0x5fd]:           movi #64, ebx   
+1535 [0x5ff]:           loadval ecx   
+1536 [0x600]:           gt ecx, ebx   
+1537 [0x601]:           movr ebx, cmt   
+1538 [0x602]:           skpe ebx // pc = 1551   
+1539 [0x603]:           movl 0   
+1540 [0x604]:           movn #0   
+1542 [0x606]:           movi #0, adx   
+1544 [0x608]:           iaload ebx, adx   
+1545 [0x609]:           rstore ebx   
+1546 [0x60a]:           movi #128, ebx   
+1548 [0x60c]:           loadval ecx   
+1549 [0x60d]:           gt ecx, ebx   
+1550 [0x60e]:           movr ebx, cmt   
+1551 [0x60f]:           movr cmt, ebx   
+1552 [0x610]:           jne 1561   
+1553 [0x611]: line: 217 ldc ebx // 1   
+1554 [0x612]:           movl 0   
+1555 [0x613]:           movn #5   
+1557 [0x615]:           movi #0, adx   
+1559 [0x617]:           rmov adx, ebx   
+1560 [0x618]:           jmp @1568   
+1561 [0x619]: line: 219 ldc ebx // 0   
+1562 [0x61a]:           movl 0   
+1563 [0x61b]:           movn #5   
+1565 [0x61d]:           movi #0, adx   
+1567 [0x61f]:           rmov adx, ebx   
+1568 [0x620]:           nop   
+1569 [0x621]: line: 220 movl 0   
+1570 [0x622]:           movn #17   
+1572 [0x624]:           pushobj   
+1573 [0x625]:           movl 0   
+1574 [0x626]:           movn #6   
+1576 [0x628]:           movi #0, adx   
+1578 [0x62a]:           iaload ebx, adx   
+1579 [0x62b]:           rstore ebx   
+1580 [0x62c]:           call @3152 // <ui.support#fragment.invalidate_refrences>   
+1581 [0x62d]:           nop   
+1582 [0x62e]:           ret   
 
 
-ui.support#view.draw[3186] params(0) in file: controller//ui//support//view.sharp:213:8: note:  
+ui.support#view.draw[3186] params(0) in file: controller//ui//support//view.sharp:224:8: note:  
 		    def draw();
 		       ^
 
 
 
-function: ui.support#view.set_height[3187] params(1) in file: controller//ui//support//view.sharp:215:8: note:  
+function: ui.support#view.set_height[3187] params(1) in file: controller//ui//support//view.sharp:226:8: note:  
 		    def set_height(size: var) : view {
 		       ^
 
-0 [0x0]: line: 216 ipushl #1   
+0 [0x0]: line: 227 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #3   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 217 movi #0, ebx   
+8 [0x8]: line: 228 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 218 movl 0   
+16 [0x10]: line: 229 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.set_visibility[3188] params(1) in file: controller//ui//support//view.sharp:221:8: note:  
+function: ui.support#view.set_visibility[3188] params(1) in file: controller//ui//support//view.sharp:232:8: note:  
 		    def set_visibility(visible: var) : view {
 		       ^
 
-0 [0x0]: line: 222 ipushl #1   
+0 [0x0]: line: 233 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #5   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 223 movi #0, ebx   
+8 [0x8]: line: 234 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 224 movl 0   
+16 [0x10]: line: 235 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.to_left_of[3189] params(1) in file: controller//ui//support//view.sharp:227:8: note:  
+function: ui.support#view.to_left_of[3189] params(1) in file: controller//ui//support//view.sharp:238:8: note:  
 		    def to_left_of(id: var) : view {
 		       ^
 
-0 [0x0]: line: 228 ipushl #1   
+0 [0x0]: line: 239 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #7   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 229 movi #0, ebx   
+8 [0x8]: line: 240 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 230 movl 0   
+16 [0x10]: line: 241 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.to_start_of[3190] params(1) in file: controller//ui//support//view.sharp:233:8: note:  
+function: ui.support#view.to_start_of[3190] params(1) in file: controller//ui//support//view.sharp:244:8: note:  
 		    def to_start_of(id: var) : view {
 		       ^
 
-0 [0x0]: line: 234 ipushl #1   
+0 [0x0]: line: 245 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #8   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 235 movi #0, ebx   
+8 [0x8]: line: 246 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 236 movl 0   
+16 [0x10]: line: 247 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.to_right_of[3191] params(1) in file: controller//ui//support//view.sharp:239:8: note:  
+function: ui.support#view.to_right_of[3191] params(1) in file: controller//ui//support//view.sharp:250:8: note:  
 		    def to_right_of(id: var) : view {
 		       ^
 
-0 [0x0]: line: 240 ipushl #1   
+0 [0x0]: line: 251 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #11   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 241 movi #0, ebx   
+8 [0x8]: line: 252 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 242 movl 0   
+16 [0x10]: line: 253 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.to_top_of[3192] params(1) in file: controller//ui//support//view.sharp:245:8: note:  
+function: ui.support#view.to_top_of[3192] params(1) in file: controller//ui//support//view.sharp:256:8: note:  
 		    def to_top_of(id: var) : view {
 		       ^
 
-0 [0x0]: line: 246 ipushl #1   
+0 [0x0]: line: 257 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #9   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 247 movi #0, ebx   
+8 [0x8]: line: 258 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 248 movl 0   
+16 [0x10]: line: 259 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.to_bottom_of[3193] params(1) in file: controller//ui//support//view.sharp:251:8: note:  
+function: ui.support#view.to_bottom_of[3193] params(1) in file: controller//ui//support//view.sharp:262:8: note:  
 		    def to_bottom_of(id: var) : view {
 		       ^
 
-0 [0x0]: line: 252 ipushl #1   
+0 [0x0]: line: 263 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #10   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 253 movi #0, ebx   
+8 [0x8]: line: 264 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 254 movl 0   
+16 [0x10]: line: 265 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.set_gravity[3194] params(1) in file: controller//ui//support//view.sharp:257:8: note:  
+function: ui.support#view.set_gravity[3194] params(1) in file: controller//ui//support//view.sharp:268:8: note:  
 		    def set_gravity(grav: var) : view {
 		       ^
 
-0 [0x0]: line: 258 ipushl #1   
+0 [0x0]: line: 269 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #14   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 259 movi #0, ebx   
+8 [0x8]: line: 270 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 260 movl 0   
+16 [0x10]: line: 271 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.above[3195] params(1) in file: controller//ui//support//view.sharp:263:8: note:  
+function: ui.support#view.above[3195] params(1) in file: controller//ui//support//view.sharp:274:8: note:  
 		    def above(id: var) : view {
 		       ^
 
-0 [0x0]: line: 264 ipushl #1   
+0 [0x0]: line: 275 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #12   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 265 movi #0, ebx   
+8 [0x8]: line: 276 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 266 movl 0   
+16 [0x10]: line: 277 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.below[3196] params(1) in file: controller//ui//support//view.sharp:269:8: note:  
+function: ui.support#view.below[3196] params(1) in file: controller//ui//support//view.sharp:280:8: note:  
 		    def below(id: var) : view {
 		       ^
 
-0 [0x0]: line: 270 ipushl #1   
+0 [0x0]: line: 281 ipushl #1   
 1 [0x1]:           movl 0   
 2 [0x2]:           movn #13   
 4 [0x4]:           loadval ebx   
 5 [0x5]:           movi #0, adx   
 7 [0x7]:           rmov adx, ebx   
-8 [0x8]: line: 271 movi #0, ebx   
+8 [0x8]: line: 282 movi #0, ebx   
 10 [0xa]:           movl 0   
 11 [0xb]:           movn #15   
 13 [0xd]:           movi #0, adx   
 15 [0xf]:           rmov adx, ebx   
-16 [0x10]: line: 272 movl 0   
+16 [0x10]: line: 283 movl 0   
 17 [0x11]:           returnobj   
 18 [0x12]:           ret   
 
 
-function: ui.support#view.set_margin_left[3197] params(1) in file: controller//ui//support//view.sharp:275:8: note:  
+function: ui.support#view.set_margin_left[3197] params(1) in file: controller//ui//support//view.sharp:286:8: note:  
 		    def set_margin_left(size: var) : view {
 		       ^
 
-0 [0x0]: line: 276 movl 0   
+0 [0x0]: line: 287 movl 0   
 1 [0x1]:           movn #4   
 3 [0x3]:           pushobj   
 4 [0x4]:           pushnull    
 5 [0x5]:           itest ebx   
 6 [0x6]:           movr cmt, ebx   
 7 [0x7]:           jne 15   
-8 [0x8]: line: 277 new_class @103 // ui.support#margin   
+8 [0x8]: line: 288 new_class @103 // ui.support#margin   
 9 [0x9]:           dup    
 10 [0xa]:           call @3135 // <ui.support#margin.margin>   
 11 [0xb]:           movl 0   
 12 [0xc]:           movn #4   
 14 [0xe]:           popobj   
 15 [0xf]:           nop   
-16 [0x10]: line: 278 ipushl #1   
+16 [0x10]: line: 289 ipushl #1   
 17 [0x11]:           movl 0   
 18 [0x12]:           movn #4   
 20 [0x14]:           movn #0   
 22 [0x16]:           loadval ebx   
 23 [0x17]:           movi #0, adx   
 25 [0x19]:           rmov adx, ebx   
-26 [0x1a]: line: 279 movi #0, ebx   
+26 [0x1a]: line: 290 movi #0, ebx   
 28 [0x1c]:           movl 0   
 29 [0x1d]:           movn #15   
 31 [0x1f]:           movi #0, adx   
 33 [0x21]:           rmov adx, ebx   
-34 [0x22]: line: 280 movl 0   
+34 [0x22]: line: 291 movl 0   
 35 [0x23]:           returnobj   
 36 [0x24]:           ret   
 
 
-function: ui.support#view.set_margin_right[3198] params(1) in file: controller//ui//support//view.sharp:283:8: note:  
+function: ui.support#view.set_margin_right[3198] params(1) in file: controller//ui//support//view.sharp:294:8: note:  
 		    def set_margin_right(size: var) : view {
 		       ^
 
-0 [0x0]: line: 284 movl 0   
+0 [0x0]: line: 295 movl 0   
 1 [0x1]:           movn #4   
 3 [0x3]:           pushobj   
 4 [0x4]:           pushnull    
 5 [0x5]:           itest ebx   
 6 [0x6]:           movr cmt, ebx   
 7 [0x7]:           jne 15   
-8 [0x8]: line: 285 new_class @103 // ui.support#margin   
+8 [0x8]: line: 296 new_class @103 // ui.support#margin   
 9 [0x9]:           dup    
 10 [0xa]:           call @3135 // <ui.support#margin.margin>   
 11 [0xb]:           movl 0   
 12 [0xc]:           movn #4   
 14 [0xe]:           popobj   
 15 [0xf]:           nop   
-16 [0x10]: line: 286 ipushl #1   
+16 [0x10]: line: 297 ipushl #1   
 17 [0x11]:           movl 0   
 18 [0x12]:           movn #4   
 20 [0x14]:           movn #1   
 22 [0x16]:           loadval ebx   
 23 [0x17]:           movi #0, adx   
 25 [0x19]:           rmov adx, ebx   
-26 [0x1a]: line: 287 movi #0, ebx   
+26 [0x1a]: line: 298 movi #0, ebx   
 28 [0x1c]:           movl 0   
 29 [0x1d]:           movn #15   
 31 [0x1f]:           movi #0, adx   
 33 [0x21]:           rmov adx, ebx   
-34 [0x22]: line: 288 movl 0   
+34 [0x22]: line: 299 movl 0   
 35 [0x23]:           returnobj   
 36 [0x24]:           ret   
 
 
-function: ui.support#view.set_margin_top[3199] params(1) in file: controller//ui//support//view.sharp:291:8: note:  
+function: ui.support#view.set_margin_top[3199] params(1) in file: controller//ui//support//view.sharp:302:8: note:  
 		    def set_margin_top(size: var) : view {
 		       ^
 
-0 [0x0]: line: 292 movl 0   
+0 [0x0]: line: 303 movl 0   
 1 [0x1]:           movn #4   
 3 [0x3]:           pushobj   
 4 [0x4]:           pushnull    
 5 [0x5]:           itest ebx   
 6 [0x6]:           movr cmt, ebx   
 7 [0x7]:           jne 15   
-8 [0x8]: line: 293 new_class @103 // ui.support#margin   
+8 [0x8]: line: 304 new_class @103 // ui.support#margin   
 9 [0x9]:           dup    
 10 [0xa]:           call @3135 // <ui.support#margin.margin>   
 11 [0xb]:           movl 0   
 12 [0xc]:           movn #4   
 14 [0xe]:           popobj   
 15 [0xf]:           nop   
-16 [0x10]: line: 294 ipushl #1   
+16 [0x10]: line: 305 ipushl #1   
 17 [0x11]:           movl 0   
 18 [0x12]:           movn #4   
 20 [0x14]:           movn #2   
 22 [0x16]:           loadval ebx   
 23 [0x17]:           movi #0, adx   
 25 [0x19]:           rmov adx, ebx   
-26 [0x1a]: line: 295 movi #0, ebx   
+26 [0x1a]: line: 306 movi #0, ebx   
 28 [0x1c]:           movl 0   
 29 [0x1d]:           movn #15   
 31 [0x1f]:           movi #0, adx   
 33 [0x21]:           rmov adx, ebx   
-34 [0x22]: line: 296 movl 0   
+34 [0x22]: line: 307 movl 0   
 35 [0x23]:           returnobj   
 36 [0x24]:           ret   
 
 
-function: ui.support#view.set_margin_bottom[3200] params(1) in file: controller//ui//support//view.sharp:299:8: note:  
+function: ui.support#view.set_margin_bottom[3200] params(1) in file: controller//ui//support//view.sharp:310:8: note:  
 		    def set_margin_bottom(size: var) : view {
 		       ^
 
-0 [0x0]: line: 300 movl 0   
+0 [0x0]: line: 311 movl 0   
 1 [0x1]:           movn #4   
 3 [0x3]:           pushobj   
 4 [0x4]:           pushnull    
 5 [0x5]:           itest ebx   
 6 [0x6]:           movr cmt, ebx   
 7 [0x7]:           jne 15   
-8 [0x8]: line: 301 new_class @103 // ui.support#margin   
+8 [0x8]: line: 312 new_class @103 // ui.support#margin   
 9 [0x9]:           dup    
 10 [0xa]:           call @3135 // <ui.support#margin.margin>   
 11 [0xb]:           movl 0   
 12 [0xc]:           movn #4   
 14 [0xe]:           popobj   
 15 [0xf]:           nop   
-16 [0x10]: line: 302 ipushl #1   
+16 [0x10]: line: 313 ipushl #1   
 17 [0x11]:           movl 0   
 18 [0x12]:           movn #4   
 20 [0x14]:           movn #3   
 22 [0x16]:           loadval ebx   
 23 [0x17]:           movi #0, adx   
 25 [0x19]:           rmov adx, ebx   
-26 [0x1a]: line: 303 movi #0, ebx   
+26 [0x1a]: line: 314 movi #0, ebx   
 28 [0x1c]:           movl 0   
 29 [0x1d]:           movn #15   
 31 [0x1f]:           movi #0, adx   
 33 [0x21]:           rmov adx, ebx   
-34 [0x22]: line: 304 movl 0   
+34 [0x22]: line: 315 movl 0   
 35 [0x23]:           returnobj   
 36 [0x24]:           ret   
 
@@ -66899,91 +67005,119 @@ function: ui.driver#ssd1306.draw_word[3213] params(6) in file: controller//ui//d
 38 [0x26]:          loadval ecx   
 39 [0x27]:          sub ecx, ebx -> ebx   
 40 [0x28]:          smovr_2 ebx, fp+8   
-41 [0x29]: line: 77 new_class @3 // std#string   
-42 [0x2a]:          dup    
-43 [0x2b]:          newstr @17 //    
-44 [0x2c]:          call @1622 // <std#string.string>   
-45 [0x2d]:          movl 6   
-46 [0x2e]:          sizeof ebx   
-47 [0x2f]:          rstore ebx   
-48 [0x30]:          call @1654 // <std#string.operator+>   
-49 [0x31]:          newstr @71 //     
-50 [0x32]:          call @1634 // <std#string.operator+>   
-51 [0x33]:          ipushl #8   
-52 [0x34]:          call @1654 // <std#string.operator+>   
-53 [0x35]:          newstr @71 //     
-54 [0x36]:          call @1634 // <std#string.operator+>   
-55 [0x37]:          ipushl #3   
-56 [0x38]:          call @1654 // <std#string.operator+>   
-57 [0x39]:          newstr @71 //     
-58 [0x3a]:          call @1634 // <std#string.operator+>   
-59 [0x3b]:          pushl 6   
-60 [0x3c]:          call @1634 // <std#string.operator+>   
-61 [0x3d]:          call @1926 // <std#__srt_global.println>   
-62 [0x3e]: line: 78 pushl 6   
-63 [0x3f]:          loadl ebx, fp+8   
-64 [0x40]:          skne ebx // pc = 67   
-65 [0x41]:          loadl ebx, fp+8   
-66 [0x42]:          skip @2 // pc = 68   
-67 [0x43]:          istore 1   
-69 [0x45]:          ipushl #3   
-70 [0x46]:          invoke_delegate 3206 { static=1, args=3 }   
-72 [0x48]:          jmp @117   
-73 [0x49]: line: 80 ipushl #4   
+41 [0x29]: line: 77 ipushl #8   
+42 [0x2a]:          movi #0, ebx   
+44 [0x2c]:          loadval ecx   
+45 [0x2d]:          gt ecx, ebx   
+46 [0x2e]:          movr ebx, cmt   
+47 [0x2f]:          movr cmt, ebx   
+48 [0x30]:          jne 71   
+49 [0x31]: line: 78 ipushl #8   
+50 [0x32]:          movl 6   
+51 [0x33]:          sizeof ebx   
+52 [0x34]:          loadval ecx   
+53 [0x35]:          gt ecx, ebx   
+54 [0x36]:          movr ebx, cmt   
+55 [0x37]:          movr cmt, ebx   
+56 [0x38]:          jne 65   
+57 [0x39]: line: 79 movl 6   
+58 [0x3a]:          sizeof ebx   
+59 [0x3b]:          rstore ebx   
+60 [0x3c]:          movi #1, ebx   
+62 [0x3e]:          loadval ecx   
+63 [0x3f]:          sub ecx, ebx -> ebx   
+64 [0x40]:          smovr_2 ebx, fp+8   
+65 [0x41]:          nop   
+66 [0x42]: line: 81 pushl 6   
+67 [0x43]:          ipushl #8   
+68 [0x44]:          ipushl #3   
+69 [0x45]:          invoke_delegate 3206 { static=1, args=3 }   
+71 [0x47]:          nop   
+72 [0x48]:          jmp @149   
+73 [0x49]: line: 84 ipushl #4   
 74 [0x4a]:          movi #0, ebx   
 76 [0x4c]:          loadval ecx   
 77 [0x4d]:          gte ecx, ebx   
 78 [0x4e]:          movr ebx, cmt   
 79 [0x4f]:          movr cmt, ebx   
-80 [0x50]:          jne 109   
-81 [0x51]: line: 81 ipushl #5   
+80 [0x50]:          jne 141   
+81 [0x51]: line: 85 ipushl #5   
 82 [0x52]:          loadl ebx, fp+4   
 83 [0x53]:          loadval ecx   
 84 [0x54]:          gt ecx, ebx   
 85 [0x55]:          movr ebx, cmt   
 86 [0x56]:          movr cmt, ebx   
-87 [0x57]:          jne 108   
-88 [0x58]: line: 82 ipushl #5   
+87 [0x57]:          jne 140   
+88 [0x58]: line: 86 ipushl #5   
 89 [0x59]:          loadl ebx, fp+4   
 90 [0x5a]:          loadval ecx   
 91 [0x5b]:          sub ecx, ebx -> ebx   
 92 [0x5c]:          smovr_2 ebx, fp+9   
-93 [0x5d]: line: 84 pushl 6   
-94 [0x5e]:          ipushl #5   
-95 [0x5f]:          loadl ebx, fp+9   
-96 [0x60]:          loadval ecx   
-97 [0x61]:          sub ecx, ebx -> ebx   
-98 [0x62]:          rstore ebx   
-99 [0x63]:          movi #6, ebx   
-101 [0x65]:          loadval ecx   
-102 [0x66]:          div ecx, ebx -> ebx   
-103 [0x67]:          rstore ebx   
-104 [0x68]:          ipushl #3   
-105 [0x69]:          invoke_delegate 3206 { static=1, args=3 }   
-107 [0x6b]:          ret   
-108 [0x6c]:          nop   
-109 [0x6d]:          nop   
-110 [0x6e]: line: 88 pushl 6   
-111 [0x6f]:          movl 6   
-112 [0x70]:          sizeof ebx   
-113 [0x71]:          rstore ebx   
-114 [0x72]:          ipushl #3   
-115 [0x73]:          invoke_delegate 3206 { static=1, args=3 }   
-117 [0x75]:          nop   
-118 [0x76]:          ret   
+93 [0x5d]: line: 87 ipushl #5   
+94 [0x5e]:          loadl ebx, fp+9   
+95 [0x5f]:          loadval ecx   
+96 [0x60]:          sub ecx, ebx -> ebx   
+97 [0x61]:          rstore ebx   
+98 [0x62]:          movi #6, ebx   
+100 [0x64]:          loadval ecx   
+101 [0x65]:          div ecx, ebx -> ebx   
+102 [0x66]:          rstore ebx   
+103 [0x67]:          movi #1, ebx   
+105 [0x69]:          loadval ecx   
+106 [0x6a]:          sub ecx, ebx -> ebx   
+107 [0x6b]:          smovr_2 ebx, fp+10   
+108 [0x6c]: line: 88 ipushl #10   
+109 [0x6d]:          movi #0, ebx   
+111 [0x6f]:          loadval ecx   
+112 [0x70]:          gt ecx, ebx   
+113 [0x71]:          movr ebx, cmt   
+114 [0x72]:          movr cmt, ebx   
+115 [0x73]:          jne 139   
+116 [0x74]: line: 89 ipushl #10   
+117 [0x75]:          movl 6   
+118 [0x76]:          sizeof ebx   
+119 [0x77]:          loadval ecx   
+120 [0x78]:          gt ecx, ebx   
+121 [0x79]:          movr ebx, cmt   
+122 [0x7a]:          movr cmt, ebx   
+123 [0x7b]:          jne 132   
+124 [0x7c]: line: 90 movl 6   
+125 [0x7d]:          sizeof ebx   
+126 [0x7e]:          rstore ebx   
+127 [0x7f]:          movi #1, ebx   
+129 [0x81]:          loadval ecx   
+130 [0x82]:          sub ecx, ebx -> ebx   
+131 [0x83]:          smovr_2 ebx, fp+10   
+132 [0x84]:          nop   
+133 [0x85]: line: 92 pushl 6   
+134 [0x86]:          ipushl #10   
+135 [0x87]:          ipushl #3   
+136 [0x88]:          invoke_delegate 3206 { static=1, args=3 }   
+138 [0x8a]:          ret   
+139 [0x8b]:          nop   
+140 [0x8c]:          nop   
+141 [0x8d]:          nop   
+142 [0x8e]: line: 97 pushl 6   
+143 [0x8f]:          movl 6   
+144 [0x90]:          sizeof ebx   
+145 [0x91]:          rstore ebx   
+146 [0x92]:          ipushl #3   
+147 [0x93]:          invoke_delegate 3206 { static=1, args=3 }   
+149 [0x95]:          nop   
+150 [0x96]:          ret   
 
 
-function: ui.driver#ssd1306.shutdown[3214] params(0) in file: controller//ui//driver//ssd1306.sharp:92:8: note:  
+function: ui.driver#ssd1306.shutdown[3214] params(0) in file: controller//ui//driver//ssd1306.sharp:101:8: note:  
 		    def shutdown() {
 		       ^
 
-0 [0x0]: line: 93 pushl 0   
-1 [0x1]:          call @3209 // <ui.driver#ssd1306.clear>   
-2 [0x2]: line: 94 istore 25   
-4 [0x4]:          ldc ebx // 0   
-5 [0x5]:          rstore ebx   
-6 [0x6]:          invoke_delegate 3046 { static=1, args=2 }   
-8 [0x8]:          ret   
+0 [0x0]: line: 102 pushl 0   
+1 [0x1]:           call @3209 // <ui.driver#ssd1306.clear>   
+2 [0x2]: line: 103 istore 25   
+4 [0x4]:           ldc ebx // 0   
+5 [0x5]:           rstore ebx   
+6 [0x6]:           invoke_delegate 3046 { static=1, args=2 }   
+8 [0x8]:           ret   
 
 
 function: ui.layout.config#__srt_global.configure_layout[3215] params(0) in file: controller//ui//layout//config//layout_config.sharp:8:4: note:  
@@ -67170,11 +67304,12 @@ function: ui.layout#home_screen.configure[3218] params(0) in file: controller//u
 152 [0x98]:          dup    
 153 [0x99]:          istore 20   
 155 [0x9b]:          call @3129 // <ui.support#text_view.text_view>   
-156 [0x9c]:          istore 4294967294   
+156 [0x9c]:          istore 55   
 158 [0x9e]:          call @3181 // <ui.support#view.set_width>   
 159 [0x9f]:          istore 4294967294   
 161 [0xa1]:          call @3187 // <ui.support#view.set_height>   
-162 [0xa2]:          istore 2   
+162 [0xa2]:          ldc ebx // 1   
+163 [0xa3]:          rstore ebx   
 164 [0xa4]:          call @3194 // <ui.support#view.set_gravity>   
 165 [0xa5]:          ldc ebx // 1   
 166 [0xa6]:          rstore ebx   
@@ -67268,7 +67403,7 @@ function: ui.layout#home_screen.on_create[3219] params(0) in file: controller//u
 68 [0x44]: line: 97 pushl 2   
 69 [0x45]:          new_class @3 // std#string   
 70 [0x46]:          dup    
-71 [0x47]:          newstr @76 // 999   
+71 [0x47]:          newstr @76 // 9   
 72 [0x48]:          call @1622 // <std#string.string>   
 73 [0x49]:          call @3423 // <ui.support#text_view.set_text>   
 74 [0x4a]: line: 98 pushl 3   
@@ -67278,7 +67413,7 @@ function: ui.layout#home_screen.on_create[3219] params(0) in file: controller//u
 78 [0x4e]:          call @1622 // <std#string.string>   
 79 [0x4f]:          call @3423 // <ui.support#text_view.set_text>   
 80 [0x50]: line: 99 pushl 2   
-81 [0x51]:          istore 4   
+81 [0x51]:          istore 3   
 83 [0x53]:          call @3424 // <ui.support#text_view.set_text_size>   
 84 [0x54]: line: 101 call @1680 // <std.io.task#task.builder>   
 85 [0x55]:           movg @124 // @ui.layout#home_screen   
@@ -85016,21 +85151,21 @@ lambda: ui.layout#__srt_global.anon_func$3519[3519] params(1) in file: controlle
 140 [0x8c]:           call @1634 // <std#string.operator+>   
 141 [0x8d]:           popobj2    
 142 [0x8e]:           smovr_3 fp+10   
-143 [0x8f]: line: 163 ipushl #7   
-144 [0x90]:           movi #0, ebx   
-146 [0x92]:           loadval ecx   
-147 [0x93]:           test ecx, ebx   
-148 [0x94]:           jne 154   
-149 [0x95]: line: 164 pushl 10   
-150 [0x96]:           newstr @142 // 00   
-151 [0x97]:           call @1668 // <std#string.operator+=>   
-152 [0x98]:           pop   
-153 [0x99]:           jmp @158   
-154 [0x9a]: line: 165 pushl 10   
-155 [0x9b]:           ipushl #7   
-156 [0x9c]:           call @1662 // <std#string.operator+=>   
-157 [0x9d]:           pop   
-158 [0x9e]:           nop   
+143 [0x8f]: line: 163 loadl ecx, fp+7   
+144 [0x90]:           movi #10, ebx   
+146 [0x92]:           lt ecx, ebx   
+147 [0x93]:           movr ebx, cmt   
+148 [0x94]:           movr cmt, ebx   
+149 [0x95]:           jne 154   
+150 [0x96]: line: 164 pushl 10   
+151 [0x97]:           newstr @9 // 0   
+152 [0x98]:           call @1668 // <std#string.operator+=>   
+153 [0x99]:           pop   
+154 [0x9a]:           nop   
+155 [0x9b]: line: 165 pushl 10   
+156 [0x9c]:           ipushl #7   
+157 [0x9d]:           call @1662 // <std#string.operator+=>   
+158 [0x9e]:           pop   
 159 [0x9f]: line: 166 pushl 10   
 160 [0xa0]:           pushl 9   
 161 [0xa1]:           call @1668 // <std#string.operator+=>   

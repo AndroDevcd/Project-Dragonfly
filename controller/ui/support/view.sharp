@@ -152,8 +152,19 @@ class view {
                 v.invalidate();
                 if(v.width == constants.view.MATCH_PARENT)
                    x = constants.window.WIDTH + 1; // out of bounds
-                else if(v.width != constants.view.WRAP_CONTENT)
-                   x = v.x + v.width; 
+                else if(v.width != constants.view.WRAP_CONTENT) {
+                   if(v.gravity == constants.view.GRAVITY_RIGHT)
+                      x = v.x + v.transform_width();
+                   else if(v.gravity == constants.view.GRAVITY_CENTER) {
+                        offset := (v.width - (v.x + v.transform_width())) + v.transform_width();
+                        if(offset > 0 && offset < v.width) {
+                           x += v.x + offset;
+                        } else
+                           x = v.x + v.transform_width();
+                   }   
+                   else
+                      x = v.x + v.width; 
+                }
                 else 
                    x = v.x + v.transform_width();
                    

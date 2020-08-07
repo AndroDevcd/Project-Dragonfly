@@ -74,14 +74,23 @@ class ssd1306 {
         if(x + transx > constants.window.WIDTH) {
            overflow := (x + transx) - constants.window.WIDTH;
            chars_drawn := ((transx - overflow) / constants.standard.text_size_width_multiplier) - 1;
-           println("${sizeof(text)} ${chars_drawn} ${text_size} $text");
-           draw_word(text, chars_drawn ? chars_drawn : 1, text_size);
+           if(chars_drawn > 0) {
+             if(chars_drawn > sizeof(text)) 
+                chars_drawn = sizeof(text) - 1;
+             
+             draw_word(text, chars_drawn, text_size);
+           }
         } else {
            if(width >= 0) {
               if(transx > width) {
                  overflow := (transx - width);
-                 
-                 return draw_word(text, (transx - overflow) / constants.standard.text_size_width_multiplier, text_size);
+                 chars_drawn := ((transx - overflow) / constants.standard.text_size_width_multiplier) - 1;
+                 if(chars_drawn > 0) {
+                    if(chars_drawn > sizeof(text)) 
+                       chars_drawn = sizeof(text) - 1;
+             
+                    return draw_word(text, chars_drawn, text_size);
+                 }
               }
            }
            

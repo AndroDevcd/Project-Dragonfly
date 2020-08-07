@@ -65,9 +65,9 @@ class home_screen base fragment {
             .set_margin_top(2)
         );
         add_view(new text_view(constants.resource.id.speed)
-            .set_width(constants.view.WRAP_CONTENT)
+            .set_width(55)
             .set_height(constants.view.WRAP_CONTENT)
-            .set_gravity(constants.view.GRAVITY_CENTER)
+            .set_gravity(constants.view.GRAVITY_RIGHT)
             .to_start_of(constants.resource.id.parent)
             .below(constants.resource.id.battery_status)
             .set_margin_top(18)
@@ -94,9 +94,9 @@ class home_screen base fragment {
         
         altitude_title.text = "ALT";
         altitude_txt.text = "999M";
-        speed.text = "999";
+        speed.text = "9";
         speed_unit.text = "Kph";
-        speed.text_size = 4;
+        speed.text_size = 3;
         
         task.builder()
           .with_name(SIGNAL_UPDATER_TASK)
@@ -160,9 +160,9 @@ class home_screen base fragment {
              
              real_time : string = "${hr}:";
              
-             if(utc_min == 0)
-               real_time += "00";
-             else real_time += utc_min;
+             if(utc_min < 10)
+               real_time += "0";
+             real_time += utc_min;
              real_time += tod;
              tv.text = real_time;
         };
