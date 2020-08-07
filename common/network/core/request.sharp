@@ -17,6 +17,9 @@ class request
         }
     }
 
+    static def get_network_quality()
+        := device.get_network_quality();
+
     static def get_signal_strength()
         := device.get_signal_strength();
 

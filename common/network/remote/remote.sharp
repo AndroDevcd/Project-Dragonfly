@@ -9,4 +9,5 @@ def initialize(net: network) {
     net.flight_mode_change_req = new flight_mode_change_request_impl();
     net.acknowledge_req = new acknowledge_request_impl();
     net.signal_strength_req = new signal_strength_request_impl();
+    net.network_scan_req = new network_scan_request_impl();
 }

@@ -14,7 +14,19 @@ def main(args: string[])
    constants.NETWORK_STATE = constants.SERVER;
    common.gpio#setup();
    setup_conn_tracker();
-            
+
+   res := network.scan_network();
+   for(i := 0; i < 50; i++) {
+     for(j := 0; j < 128; j++) {
+        if(res[j] > 0) {
+          res[j]--;
+          print("*");
+        } else print(" ");
+     }
+     println();
+   }
+
+     println();
    task.builder()
       .schedule(3000)
         = { ->
@@ -27,11 +39,11 @@ def main(args: string[])
     .schedule(constants.INITIAL_START_DELAY)
     .recurring(constants.DEVICE_UPDATE_INTERVAL, milliseconds) 
       = { ->
-         if(!disconnected) {
+         if(!disconnected && transmission_status == constants.TRANSMISSION_STATUS_NORM) {
             network.change_mode(constants.strings.FLIGHT_MODE_NORM);
          }
          // TODO: add controller state checks here
       };
-      
+
    window.start_ui();
 }

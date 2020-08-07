@@ -35,6 +35,8 @@ class constants {
     static const TWO_FIFTY:= 250;
     static const TWO_HUNDRED:= 200;
     static const SIGNAL_UPD_THRESHOLD:= 4;
+    static const TRANSMISSION_STATUS_NORM:= 0;
+    static const TRANSMISSION_STATUS_SCANNING:= 0;
 
     class strings {
         static const CMD : string = "cmd";

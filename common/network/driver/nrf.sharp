@@ -54,6 +54,13 @@ class nrf24 {
 	    }
 	}
 
+    def get_network_quality() : var[] {
+       lock(self) {
+    	   check_state();
+    	   return common.network.driver#get_network_quality();
+       }
+    }
+
 	def get_signal_strength(): var {
 	    lock(self) {
 		check_state();

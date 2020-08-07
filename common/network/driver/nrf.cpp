@@ -110,6 +110,30 @@ scope_begin(common_network_driver)
 	void power_down(object $instance) {
 		radio.powerDown();
 	}
+
+	var_array get_network_quality() {
+        var_array quality = createLocalField<var_array>();
+        createVarArray(quality, 128);
+        radio.setAutoAck(false);
+        uint8_t channel = radio.getChannel();
+
+        for(int i = 0; i < 50; i++) {
+            for(int j = 0; j < 128; j++) {
+                radio.setChannel(i);
+
+                radio.startListening();
+                delayMicroseconds (128);
+                radio.stopListening();
+
+                if( radio.testCarrier() )
+                    quality[i]++;
+            }
+        }
+
+        radio.setAutoAck(false);
+        radio.setChannel(channel);
+        return quality;
+    }
 	
 	void addHeader(packet &p, uint32_t packet_count, uint8_t len) 
 	{

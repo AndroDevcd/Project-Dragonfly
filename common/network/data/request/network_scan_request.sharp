@@ -1,0 +1,6 @@
+mod common.network.data.request;
+
+interface network_scan_request
+{
+    def scan_network(): var[];
+}
