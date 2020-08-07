@@ -15,18 +15,6 @@ def main(args: string[])
    common.gpio#setup();
    setup_conn_tracker();
 
-   res := network.scan_network();
-   for(i := 0; i < 50; i++) {
-     for(j := 0; j < 128; j++) {
-        if(res[j] > 0) {
-          res[j]--;
-          print("*");
-        } else print(" ");
-     }
-     println();
-   }
-
-     println();
    task.builder()
       .schedule(3000)
         = { ->

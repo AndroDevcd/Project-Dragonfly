@@ -23,6 +23,11 @@ class resources {
 		res.images.put(constants.resource.id.ico_signal_4, ico_signal_4);
 		res.images.put(constants.resource.id.ico_normal_mode, ico_normal_mode);
 		res.images.put(constants.resource.id.ico_sport_mode, ico_sport_mode);
+		res.images.put(constants.resource.id.ico_battery_0, ico_battery_0);
+		res.images.put(constants.resource.id.ico_battery_1, ico_battery_1);
+		res.images.put(constants.resource.id.ico_battery_2, ico_battery_2);
+		res.images.put(constants.resource.id.ico_battery_3, ico_battery_3);
+		res.images.put(constants.resource.id.ico_battery_4, ico_battery_4);
 	}
 	
 	static def get_drawable(res_id: var) : drawable {

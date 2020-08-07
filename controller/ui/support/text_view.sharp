@@ -30,7 +30,7 @@ class text_view base view {
     def draw() {
        invalidate();
 
-       if(visibility == constants.view.VISIBLE && text != null)
+       if(visibility == constants.view.VISIBLE && text != null && text.get_data() != null)
           container.draw_text(self);
     }
 

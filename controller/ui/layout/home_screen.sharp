@@ -4,12 +4,16 @@ import ui.res;
 import ui.support;
 import std.io;
 import std.io.task;
+import main;
 
 counter := 0;
 
 class home_screen base fragment {
 
     home_screen(container : window, id: var) -> base(container, id) { }
+
+    static const SIGNAL_UPDATER_TASK : string = "signal-updater";
+    static const CLOCK_TASK : string = "clock-updater";
 
     def configure() {
         add_view(new image_view(constants.resource.id.mode)
@@ -22,7 +26,6 @@ class home_screen base fragment {
             .set_margin_top(2)
         );
         add_view(new image_view(constants.resource.id.signal_strength)
-            .set_drawable(constants.resource.id.ico_signal_4)
             .set_width(constants.view.WRAP_CONTENT)
             .set_height(constants.view.WRAP_CONTENT)
             .to_left_of(constants.resource.id.mode)
@@ -37,16 +40,95 @@ class home_screen base fragment {
             .set_gravity(constants.view.GRAVITY_CENTER)
             .set_margin_top(5)
         );
+        add_view(new image_view(constants.resource.id.battery_status)
+            .set_drawable(constants.resource.id.ico_battery_4)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_start_of(constants.resource.id.parent)
+            .set_margin_top(2)
+            .set_margin_left(4)
+        );
+        add_view(new text_view(constants.resource.id.altitude_title)
+            .set_width(30)
+            .set_height(constants.view.WRAP_CONTENT)
+            .set_gravity(constants.view.GRAVITY_CENTER)
+            .to_start_of(constants.resource.id.battery_status)
+            .below(constants.resource.id.battery_status)
+            .set_margin_top(20)
+        );
+        add_view(new text_view(constants.resource.id.altitude_txt)
+            .set_width(30)
+            .set_height(constants.view.WRAP_CONTENT)
+            .set_gravity(constants.view.GRAVITY_CENTER)
+            .to_start_of(constants.resource.id.battery_status)
+            .below(constants.resource.id.altitude_title)
+            .set_margin_top(2)
+        );
+        add_view(new text_view(constants.resource.id.speed)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .set_gravity(constants.view.GRAVITY_CENTER)
+            .to_start_of(constants.resource.id.parent)
+            .below(constants.resource.id.battery_status)
+            .set_margin_top(18)
+            .set_margin_left(40)
+        );
+        add_view(new text_view(constants.resource.id.speed_unit)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_right_of(constants.resource.id.speed)
+            .to_bottom_of(constants.resource.id.speed)
+            .set_margin_left(2)
+        );
     }
 
     def on_create() {
         base->on_create();
 
         time := find_view_by_id(constants.resource.id.time) as text_view;
-        //sig := find_view_by_id(constants.resource.id.signal_strength) as image_view;
+        speed := find_view_by_id(constants.resource.id.speed) as text_view;
+        speed_unit := find_view_by_id(constants.resource.id.speed_unit) as text_view;
+        altitude_title := find_view_by_id(constants.resource.id.altitude_title) as text_view;
+        altitude_txt := find_view_by_id(constants.resource.id.altitude_txt) as text_view;
+        sig_view := find_view_by_id(constants.resource.id.signal_strength) as image_view;
+        
+        altitude_title.text = "ALT";
+        altitude_txt.text = "999M";
+        speed.text = "999";
+        speed_unit.text = "Kph";
+        speed.text_size = 4;
+        
+        task.builder()
+          .with_name(SIGNAL_UPDATER_TASK)
+          .recurring(1000, milliseconds)
+          .with_args(new object[] { sig_view })
+            = { args : object[] ->
+             iv := args[1] as image_view;
+             when (signal_strength) {
+                0 -> {
+                   iv.set_drawable(constants.resource.id.ico_signal_0);
+                }
+                1 -> {
+                   iv.set_drawable(constants.resource.id.ico_signal_1);
+                }
+                2 -> {
+                   iv.set_drawable(constants.resource.id.ico_signal_2);
+                }
+                3 -> {
+                   iv.set_drawable(constants.resource.id.ico_signal_3);
+                }
+                4 -> {
+                   iv.set_drawable(constants.resource.id.ico_signal_4);
+                }
+                else -> {
+                   iv.set_drawable(constants.resource.id.ico_signal_4);
+                }
+             }
+            };
         
         
         task.builder()
+          .with_name(CLOCK_TASK)
           .recurring(1000, milliseconds)
           .with_args(new object[] { time })
             = { args : object[] ->
@@ -76,7 +158,19 @@ class home_screen base fragment {
                   hr -= 12;
              }
              
-             tv.text  = "${hr}:${utc_min}$tod";
+             real_time : string = "${hr}:";
+             
+             if(utc_min == 0)
+               real_time += "00";
+             else real_time += utc_min;
+             real_time += tod;
+             tv.text = real_time;
         };
+    }
+    
+    def on_destroy() {
+       task.cancel_all_jobs_by_name(SIGNAL_UPDATER_TASK);
+       task.cancel_all_jobs_by_name(CLOCK_TASK);
+       base->on_destroy();
     }
 }

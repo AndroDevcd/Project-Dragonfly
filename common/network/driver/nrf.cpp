@@ -117,16 +117,16 @@ scope_begin(common_network_driver)
         radio.setAutoAck(false);
         uint8_t channel = radio.getChannel();
 
-        for(int i = 0; i < 50; i++) {
+        for(int i = 0; i < 25; i++) {
             for(int j = 0; j < 128; j++) {
-                radio.setChannel(i);
+                radio.setChannel(j);
 
                 radio.startListening();
-                delayMicroseconds (128);
+                delayMicroseconds (100);
                 radio.stopListening();
 
                 if( radio.testCarrier() )
-                    quality[i]++;
+                    quality[j]++;
             }
         }
 

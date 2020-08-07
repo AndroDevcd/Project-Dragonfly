@@ -21,6 +21,7 @@ class view {
     bottom_of : var;
     right_of : var;
     above_view : var;
+    below_view : var;
     gravity : var;
     transformed : var;
     protected container : window;
@@ -77,8 +78,9 @@ class view {
             }
             
             if(above_view > constants.resource.id.parent) {
-                if(top_of >= constants.resource.id.parent || bottom_of >= constants.resource.id.parent) {
-                    throw new ill_state_except("cannot align view to top of another view to whom we are not left aligned to");
+                if(top_of >= constants.resource.id.parent || bottom_of >= constants.resource.id.parent
+                  || below_view >= constants.resource.id.parent) {
+                    throw new ill_state_except("cannot align view to top of another view with top or bottom alignment");
                 }
 
                 if(v == null)
@@ -93,6 +95,27 @@ class view {
                throw new ill_state_except("cannot align view above parent view, use 'to_top_of(parent)' instead");
             }
 
+            if(below_view > constants.resource.id.parent) {
+                if(top_of >= constants.resource.id.parent || above_view >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to bottom while also having top alignment");
+
+                if(v == null || (v != null && v.id != bottom_of))
+                   v = owner.find_view_by_id(below_view);
+                v.invalidate();
+                if(v.height == constants.view.MATCH_PARENT)
+                   y = constants.window.HEIGHT + 1; // out of bounds
+                else if(v.height != constants.view.WRAP_CONTENT)
+                   y = v.y + v.height; 
+                else 
+                   y = v.y + v.transform_height();
+
+                if(v.margins != null) {
+                    y += v.margins.bottom;
+                }
+            } else if(below_view == constants.resource.id.parent) {
+                throw new ill_state_except("cannot align view below the parent, use 'to_bottom_of(parent)' instead");
+            }
+            
             if(bottom_of > constants.resource.id.parent) {
                 if(top_of >= constants.resource.id.parent)
                     throw new ill_state_except("cannot align view to bottom while also having top alignment");
@@ -101,11 +124,11 @@ class view {
                    v = owner.find_view_by_id(bottom_of);
                 v.invalidate();
                 if(v.height == constants.view.MATCH_PARENT)
-                   y = constants.window.HEIGHT + 1; // out of bounds
-                else if(v.width != constants.view.WRAP_CONTENT)
-                   y = v.y + v.height; 
+                   y = constants.window.HEIGHT - transform_height(); 
+                else if(v.height != constants.view.WRAP_CONTENT)
+                   y = (v.y + v.height) - transform_height(); 
                 else 
-                   y = v.y + v.transform_height();
+                   y = (v.y + v.transform_height()) - transform_height();
 
                 if(v.margins != null) {
                     y += v.margins.bottom;
@@ -239,6 +262,12 @@ class view {
 
     def above(id: var) : view {
         above_view = id;
+        transformed = false;
+        return self;
+    }
+
+    def below(id: var) : view {
+        below_view = id;
         transformed = false;
         return self;
     }

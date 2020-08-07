@@ -39,7 +39,7 @@ class constants {
     class resource {
 
          class id {
-            // main page view id's
+            // full list of all resource view id's
             public static const none := 0x0;
             public static const parent := 0x1;
             public static const time := 0x2;
@@ -50,8 +50,18 @@ class constants {
             public static const ico_signal_2 := 0x7;
             public static const ico_signal_3 := 0x8;
             public static const ico_signal_4 := 0x9;
-            public static const ico_normal_mode := 0xA;
-            public static const ico_sport_mode := 0xB;
+            public static const ico_normal_mode := 0xa;
+            public static const ico_sport_mode := 0xb;
+            public static const battery_status := 0xc;
+            public static const ico_battery_0 := 0xd;
+            public static const ico_battery_1 := 0xe;
+            public static const ico_battery_2 := 0xf;
+            public static const ico_battery_3 := 0x10;
+            public static const ico_battery_4 := 0x11;
+            public static const altitude_title := 0x12;
+            public static const altitude_txt := 0x13;
+            public static const speed := 0x14;
+            public static const speed_unit := 0x15;
          }
     }
 

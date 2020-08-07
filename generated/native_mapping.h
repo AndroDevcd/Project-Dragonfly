@@ -187,12 +187,12 @@ scope_begin(std_io_task)
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
-	var anon_func$3496(object it, object it2);
-	var anon_func$3497(object it, object it2);
-	var anon_func$3498(object it, object it2);
-	var anon_func$3499(object t);
-	var anon_func$3500(object t);
-	var anon_func$3501(object t);
+	var anon_func$3510(object it, object it2);
+	var anon_func$3511(object it, object it2);
+	var anon_func$3512(object it, object it2);
+	var anon_func$3513(object t);
+	var anon_func$3514(object t);
+	var anon_func$3515(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -204,6 +204,7 @@ scope_begin(std_io_task, task)
 	object block();
 	object long_term();
 	object builder();
+	void cancel_all_jobs_by_name(object name);
 	void task(object $instance);
 scope_end()
 
@@ -223,6 +224,7 @@ scope_begin(std_io_task, job_master)
 	void start_job(object $instance, object scheduled_job);
 	object get_host_controller(object $instance, object host);
 	void cleanup_job(object $instance, object scheduled_job);
+	void cancel_jobs_by_name(object $instance, object name);
 scope_end()
 
 scope_begin(std_io_task, job_builder) 
@@ -1780,6 +1782,7 @@ scope_begin(common_network_driver)
 	void set_retry_count(var& delay, var& count);
 	void power_down();
 	var get_signal_strength();
+	var_array get_network_quality();
 	_int8_array read();
 	_int8_array listen();
 	void send(_int8_array& data);
@@ -1794,6 +1797,7 @@ scope_begin(common_network_driver, nrf24)
 	void dump(object $instance);
 	void update_retry_count(object $instance, var& delay, var& count);
 	void shut_down(object $instance);
+	var_array get_network_quality(object $instance);
 	var get_signal_strength(object $instance);
 	var read(object $instance, object response);
 	void listen(object $instance, object response);
@@ -1804,11 +1808,12 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3489(object t1, object t2);
+	var anon_func$3502(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
 
+	var_array get_network_quality();
 	var get_signal_strength();
 	var write(object rdata);
 	void process_result(object raw, object rdata);
@@ -1844,6 +1849,12 @@ scope_begin(common_network_remote, acknowledge_request_impl)
 
 	void acknowledge_request_impl(object $instance);
 	void send(object $instance);
+scope_end()
+
+scope_begin(common_network_remote, network_scan_request_impl) 
+
+	var_array scan_network(object $instance);
+	void network_scan_request_impl(object $instance);
 scope_end()
 
 scope_begin(common_network_remote, command_request_impl) 
@@ -1882,6 +1893,7 @@ scope_begin(common_network, network)
 	object listen();
 	var change_mode(object mode);
 	var get_signal_strength();
+	var_array scan_network();
 	void send_acknowledge();
 	void network(object $instance);
 	object get_INSTANCE();
@@ -1890,6 +1902,12 @@ scope_end()
 scope_begin(common_network_data_request) 
 
 	void __srt_global(object $instance);
+scope_end()
+
+scope_begin(common_network_data_request, network_scan_request) 
+
+	var_array scan_network(object $instance);
+	void network_scan_request(object $instance);
 scope_end()
 
 scope_begin(common_network_data_request, acknowledge_request) 
@@ -1955,12 +1973,13 @@ scope_begin(main)
 
 	void __srt_global(object $instance);
 	void main(object args);
+	void set_transmission_status(var& ts);
 	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$3502();
-	void anon_func$3503();
-	void anon_func$3505();
-	void anon_func$3506();
+	void anon_func$3516();
+	void anon_func$3517();
+	void anon_func$3520();
+	void anon_func$3521();
 scope_end()
 
 scope_begin(ui_res_drawable) 
@@ -2126,6 +2145,7 @@ scope_begin(ui_support, view)
 	object to_bottom_of(object $instance, var& id);
 	object set_gravity(object $instance, var& grav);
 	object above(object $instance, var& id);
+	object below(object $instance, var& id);
 	object set_margin_left(object $instance, var& size);
 	object set_margin_right(object $instance, var& size);
 	object set_margin_top(object $instance, var& size);
@@ -2166,7 +2186,8 @@ scope_begin(ui_layout)
 
 	void __srt_global(object $instance);
 	void $03internal_static_init();
-	void anon_func$3504(object args);
+	void anon_func$3518(object args);
+	void anon_func$3519(object args);
 scope_end()
 
 scope_begin(ui_layout, home_screen) 
@@ -2174,7 +2195,9 @@ scope_begin(ui_layout, home_screen)
 	void home_screen(object $instance, object container, var& id);
 	void configure(object $instance);
 	void on_create(object $instance);
+	void on_destroy(object $instance);
 	void home_screen2(object $instance);
+	void $03internal_static_init();
 scope_end()
 
 scope_begin(std, loopable$_int8$) 
@@ -3777,10 +3800,10 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 	var remove(object $instance, object key);
 scope_end()
 
-scope_begin(std, hashmap$std_int_0_std_io_thread$) 
+scope_begin(std, hashtable$std_int_0_std_io_thread$) 
 
-	void hashmap(object $instance, var& initialCapacity);
-	void hashmap2(object $instance);
+	void hashtable(object $instance, var& initialCapacity);
+	void hashtable2(object $instance);
 	void set_threshold(object $instance, var& threshold);
 	var hash(object $instance, object key);
 	void resize(object $instance);
