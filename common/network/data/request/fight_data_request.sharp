@@ -1,0 +1,9 @@
+mod common.network.data.request;
+
+import common.network.data.response;
+
+interface flight_data_request
+{
+    def _get(): flight_data_response;
+    def post(data: flight_data_response);
+}

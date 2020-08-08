@@ -43,6 +43,9 @@ class constants {
         static const RESPONSE : string = "response";
         static const YES : string = "yes";
         static const MODE : string = "mode";
+        static const ALT : string = "altitude";
+        static const BAT : string = "bat_lvl";
+        static const SPEED : string = "speed";
         static const FLIGHT_MODE_NORM := "100";
         static const FLIGHT_MODE_SPORT := "200";
         static const HANDSHAKE : string = "0";
@@ -51,5 +54,6 @@ class constants {
         static const LEFT : string = "3";
         static const RIGHT : string = "4";
         static const CHANGE_MODE : string = "5";
+        static const FLIGHT_DATA : string = "6";
     }
 }

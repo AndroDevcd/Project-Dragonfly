@@ -19,6 +19,7 @@ class network {
     public acknowledge_req : acknowledge_request;
     public signal_strength_req : signal_strength_request;
     public network_scan_req : network_scan_request;
+    public flight_data_req : flight_data_request;
 
     static def handshake() {
         INSTANCE.handshake_req.handshake();
@@ -38,6 +39,14 @@ class network {
 
     static def scan_network() : var[] {
         return INSTANCE.network_scan_req.scan_network();
+    }
+    
+    static def get_flight_data() : flight_data_response {
+        return INSTANCE.flight_data_req._get();
+    }
+    
+    static def post_flight_data(data: flight_data_response) {
+        INSTANCE.flight_data_req.post(data);
     }
 
     static def send_acknowledge() {

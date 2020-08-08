@@ -5,6 +5,7 @@ import ui.support;
 import std.io;
 import std.io.task;
 import main;
+import common.network;
 
 counter := 0;
 
@@ -14,6 +15,7 @@ class home_screen base fragment {
 
     static const SIGNAL_UPDATER_TASK : string = "signal-updater";
     static const CLOCK_TASK : string = "clock-updater";
+    static const FLIGHT_DATA_TASK : string = "flight-data-updater";
 
     def configure() {
         add_view(new image_view(constants.resource.id.mode)
@@ -91,12 +93,53 @@ class home_screen base fragment {
         altitude_title := find_view_by_id(constants.resource.id.altitude_title) as text_view;
         altitude_txt := find_view_by_id(constants.resource.id.altitude_txt) as text_view;
         sig_view := find_view_by_id(constants.resource.id.signal_strength) as image_view;
+        bat_view := find_view_by_id(constants.resource.id.battery_status) as image_view;
         
         altitude_title.text = "ALT";
         altitude_txt.text = "999M";
         speed.text = "9";
         speed_unit.text = "Kph";
         speed.text_size = 3;
+        
+        task.builder()
+          .with_name(FLIGHT_DATA_TASK)
+          .recurring(250, milliseconds)
+          .with_args(new object[] { speed, altitude_txt, bat_view })
+            = { args: object[]  -> 
+               speed := args[1] as text_view;
+               altitude := args[2] as text_view;
+               battery := args[3] as image_view;
+               
+               if(!disconnected) {
+                   data := network.get_flight_data();
+                   
+                   if(data != null) {
+                      speed.text = "${data.speed}";
+                      altitude.text = "${data.altitude}M";
+                      
+                      when (data.bat_lvl) {
+                        0 -> {
+                           battery.set_drawable(constants.resource.id.ico_battery_0);
+                        }
+                        1 -> {
+                           battery.set_drawable(constants.resource.id.ico_battery_1);
+                        }
+                        2 -> {
+                           battery.set_drawable(constants.resource.id.ico_battery_2);
+                        }
+                        3 -> {
+                           battery.set_drawable(constants.resource.id.ico_battery_3);
+                        }
+                        4 -> {
+                           battery.set_drawable(constants.resource.id.ico_battery_4);
+                        }
+                        else -> {
+                           battery.set_drawable(constants.resource.id.ico_battery_0);
+                        }
+                      }
+                   }
+               }
+            };
         
         task.builder()
           .with_name(SIGNAL_UPDATER_TASK)
@@ -171,6 +214,7 @@ class home_screen base fragment {
     def on_destroy() {
        task.cancel_all_jobs_by_name(SIGNAL_UPDATER_TASK);
        task.cancel_all_jobs_by_name(CLOCK_TASK);
+       task.cancel_all_jobs_by_name(FLIGHT_DATA_TASK);
        base->on_destroy();
     }
 }

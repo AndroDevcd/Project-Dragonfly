@@ -458,7 +458,7 @@ scope_begin(std)
 	}
 
 	void $03internal_static_init() {
-		call(3492);
+		call(3502);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1124,7 +1124,7 @@ scope_begin(std, string_builder)
 	}
 
 	void $03internal_static_init() {
-		call(3493);
+		call(3503);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1801,7 +1801,7 @@ scope_begin(std, string)
 	}
 
 	void $03internal_static_init() {
-		call(3494);
+		call(3504);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1923,17 +1923,17 @@ scope_begin(std_io_task)
 	}
 
 	void $03internal_static_init() {
-		call(3495);
+		call(3505);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
 		}
 	}
 
-	var anon_func$3510(object it, object it2) {
+	var anon_func$3521(object it, object it2) {
 		pushObj(it);
 		pushObj(it2);
-		call(3510);
+		call(3521);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1944,10 +1944,10 @@ scope_begin(std_io_task)
 		return $result;
 	}
 
-	var anon_func$3511(object it, object it2) {
+	var anon_func$3522(object it, object it2) {
 		pushObj(it);
 		pushObj(it2);
-		call(3511);
+		call(3522);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1958,10 +1958,10 @@ scope_begin(std_io_task)
 		return $result;
 	}
 
-	var anon_func$3512(object it, object it2) {
+	var anon_func$3523(object it, object it2) {
 		pushObj(it);
 		pushObj(it2);
-		call(3512);
+		call(3523);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1972,9 +1972,9 @@ scope_begin(std_io_task)
 		return $result;
 	}
 
-	var anon_func$3513(object t) {
+	var anon_func$3524(object t) {
 		pushObj(t);
-		call(3513);
+		call(3524);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1985,9 +1985,9 @@ scope_begin(std_io_task)
 		return $result;
 	}
 
-	var anon_func$3514(object t) {
+	var anon_func$3525(object t) {
 		pushObj(t);
-		call(3514);
+		call(3525);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -1998,9 +1998,9 @@ scope_begin(std_io_task)
 		return $result;
 	}
 
-	var anon_func$3515(object t) {
+	var anon_func$3526(object t) {
 		pushObj(t);
-		call(3515);
+		call(3526);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -2676,7 +2676,7 @@ scope_begin(std_io_task, job)
 	}
 
 	void $03internal_static_init() {
-		call(3496);
+		call(3506);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -3236,7 +3236,7 @@ scope_begin(std_io)
 	}
 
 	void $03internal_static_init() {
-		call(3498);
+		call(3508);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -3391,7 +3391,7 @@ scope_begin(std_io, thread_group)
 	}
 
 	void $03internal_static_init() {
-		call(3497);
+		call(3507);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -3517,7 +3517,7 @@ scope_begin(std_io, thread_result)
 	}
 
 	void $03internal_static_init() {
-		call(3509);
+		call(3520);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -4887,7 +4887,7 @@ scope_begin(std_io, file)
 	}
 
 	void $03internal_static_init() {
-		call(3499);
+		call(3509);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -17957,6 +17957,14 @@ scope_begin(platform, build)
 		}
 	}
 
+	void $03internal_static_init() {
+		call(3510);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
 scope_end()
 
 scope_begin(platform_kernel) 
@@ -18739,7 +18747,7 @@ scope_begin(std_reflect, reflect)
 	void set_reflect_obj(object $instance, object value) {
 		pushObj($instance);
 		pushObj(value);
-		call(3379);
+		call(3389);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -18748,7 +18756,7 @@ scope_begin(std_reflect, reflect)
 
 	object get_reflect_obj(object $instance) {
 		pushObj($instance);
-		call(3380);
+		call(3390);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -18957,7 +18965,7 @@ scope_begin(std, time)
 	}
 
 	void $03internal_static_init() {
-		call(3500);
+		call(3511);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -18992,7 +19000,7 @@ scope_begin(std, _nil_)
 
 	void set_instance(object value) {
 		pushObj(value);
-		call(3381);
+		call(3391);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -19000,7 +19008,7 @@ scope_begin(std, _nil_)
 	}
 
 	void $03internal_static_init() {
-		call(3501);
+		call(3512);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -19055,7 +19063,7 @@ scope_begin(std, throwable)
 
 	object get_stack_trace(object $instance) {
 		pushObj($instance);
-		call(3382);
+		call(3392);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -19701,10 +19709,10 @@ scope_begin(common_network_core)
 		}
 	}
 
-	var anon_func$3502(object t1, object t2) {
+	var anon_func$3513(object t1, object t2) {
 		pushObj(t1);
 		pushObj(t2);
-		call(3502);
+		call(3513);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -19877,7 +19885,7 @@ scope_begin(common_network_core, request_data)
 
 	object get_request_string(object $instance) {
 		pushObj($instance);
-		call(3412);
+		call(3422);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20073,11 +20081,47 @@ scope_begin(common_network_remote, handshake_request_impl)
 
 scope_end()
 
+scope_begin(common_network_remote, flight_data_request_impl) 
+
+	object _get(object $instance) {
+		pushObj($instance);
+		call(3099);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void post(object $instance, object data) {
+		pushObj($instance);
+		pushObj(data);
+		call(3100);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
+	void flight_data_request_impl(object $instance) {
+		pushObj($instance);
+		call(3101);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
+scope_end()
+
 scope_begin(common_network_remote, flight_mode_change_request_impl) 
 
 	void flight_mode_change_request_impl(object $instance) {
 		pushObj($instance);
-		call(3099);
+		call(3102);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20087,7 +20131,7 @@ scope_begin(common_network_remote, flight_mode_change_request_impl)
 	var change_mode(object $instance, object mode) {
 		pushObj($instance);
 		pushObj(mode);
-		call(3100);
+		call(3103);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20116,7 +20160,7 @@ scope_end()
 scope_begin(common_network, network) 
 
 	void handshake() {
-		call(3101);
+		call(3104);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20124,7 +20168,7 @@ scope_begin(common_network, network)
 	}
 
 	object listen() {
-		call(3102);
+		call(3105);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20137,7 +20181,7 @@ scope_begin(common_network, network)
 
 	var change_mode(object mode) {
 		pushObj(mode);
-		call(3103);
+		call(3106);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20149,7 +20193,7 @@ scope_begin(common_network, network)
 	}
 
 	var get_signal_strength() {
-		call(3104);
+		call(3107);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20161,7 +20205,7 @@ scope_begin(common_network, network)
 	}
 
 	var_array scan_network() {
-		call(3105);
+		call(3108);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20171,8 +20215,29 @@ scope_begin(common_network, network)
 		var_array $result(getVarPtr($tmpObj), getSize($tmpObj), $tmpObj);		return $result;
 	}
 
+	object get_flight_data() {
+		call(3109);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void post_flight_data(object data) {
+		pushObj(data);
+		call(3110);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
 	void send_acknowledge() {
-		call(3106);
+		call(3111);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20181,7 +20246,7 @@ scope_begin(common_network, network)
 
 	void network(object $instance) {
 		pushObj($instance);
-		call(3107);
+		call(3112);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20189,7 +20254,7 @@ scope_begin(common_network, network)
 	}
 
 	object get_INSTANCE() {
-		call(3413);
+		call(3423);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20219,7 +20284,7 @@ scope_begin(common_network_data_request, network_scan_request)
 
 	var_array scan_network(object $instance) {
 		pushObj($instance);
-		call(3108);
+		call(3113);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20231,7 +20296,7 @@ scope_begin(common_network_data_request, network_scan_request)
 
 	void network_scan_request(object $instance) {
 		pushObj($instance);
-		call(3109);
+		call(3114);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20244,7 +20309,7 @@ scope_begin(common_network_data_request, acknowledge_request)
 
 	void send(object $instance) {
 		pushObj($instance);
-		call(3110);
+		call(3115);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20253,7 +20318,7 @@ scope_begin(common_network_data_request, acknowledge_request)
 
 	void acknowledge_request(object $instance) {
 		pushObj($instance);
-		call(3111);
+		call(3116);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20267,7 +20332,7 @@ scope_begin(common_network_data_request, flight_mode_change_request)
 	var change_mode(object $instance, object mode) {
 		pushObj($instance);
 		pushObj(mode);
-		call(3112);
+		call(3117);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20280,7 +20345,7 @@ scope_begin(common_network_data_request, flight_mode_change_request)
 
 	void flight_mode_change_request(object $instance) {
 		pushObj($instance);
-		call(3113);
+		call(3118);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20293,7 +20358,7 @@ scope_begin(common_network_data_request, command_request)
 
 	object listen(object $instance) {
 		pushObj($instance);
-		call(3114);
+		call(3119);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20309,7 +20374,7 @@ scope_begin(common_network_data_request, command_request)
 		pushObj(req);
 		pushNum(ack.value());
 		pushNum(timeout.value());
-		call(3115);
+		call(3120);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20322,7 +20387,7 @@ scope_begin(common_network_data_request, command_request)
 
 	void command_request(object $instance) {
 		pushObj($instance);
-		call(3116);
+		call(3121);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20335,7 +20400,7 @@ scope_begin(common_network_data_request, signal_strength_request)
 
 	var get_strength(object $instance) {
 		pushObj($instance);
-		call(3117);
+		call(3122);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20348,7 +20413,43 @@ scope_begin(common_network_data_request, signal_strength_request)
 
 	void signal_strength_request(object $instance) {
 		pushObj($instance);
-		call(3118);
+		call(3123);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
+scope_end()
+
+scope_begin(common_network_data_request, flight_data_request) 
+
+	object _get(object $instance) {
+		pushObj($instance);
+		call(3124);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	void post(object $instance, object data) {
+		pushObj($instance);
+		pushObj(data);
+		call(3125);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
+	void flight_data_request(object $instance) {
+		pushObj($instance);
+		call(3126);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20361,7 +20462,7 @@ scope_begin(common_network_data_request, handshake_request)
 
 	void handshake(object $instance) {
 		pushObj($instance);
-		call(3119);
+		call(3127);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20370,7 +20471,7 @@ scope_begin(common_network_data_request, handshake_request)
 
 	void handshake_request(object $instance) {
 		pushObj($instance);
-		call(3120);
+		call(3128);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20392,13 +20493,38 @@ scope_begin(common_network_data_response)
 
 scope_end()
 
+scope_begin(common_network_data_response, flight_data_response) 
+
+	void flight_data_response(object $instance, var& bat_lvl, var& altitude, var& speed) {
+		pushObj($instance);
+		pushNum(bat_lvl.value());
+		pushNum(altitude.value());
+		pushNum(speed.value());
+		call(3129);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
+	void flight_data_response2(object $instance) {
+		pushObj($instance);
+		call(3130);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
+scope_end()
+
 scope_begin(common_network_data_response, command_response) 
 
 	void command_response(object $instance, object cmd, object req) {
 		pushObj($instance);
 		pushObj(cmd);
 		pushObj(req);
-		call(3121);
+		call(3131);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20407,7 +20533,7 @@ scope_begin(common_network_data_response, command_response)
 
 	void command_response2(object $instance) {
 		pushObj($instance);
-		call(3122);
+		call(3132);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20433,7 +20559,7 @@ scope_begin(common, constants)
 
 	void constants(object $instance) {
 		pushObj($instance);
-		call(3124);
+		call(3134);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20441,7 +20567,7 @@ scope_begin(common, constants)
 	}
 
 	void $03internal_static_init() {
-		call(3503);
+		call(3514);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20454,7 +20580,7 @@ scope_begin(common, constants_strings)
 
 	void strings(object $instance) {
 		pushObj($instance);
-		call(3123);
+		call(3133);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20462,7 +20588,7 @@ scope_begin(common, constants_strings)
 	}
 
 	void $03internal_static_init() {
-		call(3504);
+		call(3515);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20484,7 +20610,7 @@ scope_begin(main)
 
 	void main(object args) {
 		pushObj(args);
-		call(3125);
+		call(3135);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20493,7 +20619,7 @@ scope_begin(main)
 
 	void set_transmission_status(var& ts) {
 		pushNum(ts.value());
-		call(3222);
+		call(3232);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20501,7 +20627,7 @@ scope_begin(main)
 	}
 
 	void setup_conn_tracker() {
-		call(3223);
+		call(3233);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20509,39 +20635,39 @@ scope_begin(main)
 	}
 
 	void $03internal_static_init() {
-		call(3508);
+		call(3519);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
 		}
 	}
 
-	void anon_func$3516() {
-		call(3516);
+	void anon_func$3527() {
+		call(3527);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
 		}
 	}
 
-	void anon_func$3517() {
-		call(3517);
+	void anon_func$3528() {
+		call(3528);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
 		}
 	}
 
-	void anon_func$3520() {
-		call(3520);
+	void anon_func$3532() {
+		call(3532);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
 		}
 	}
 
-	void anon_func$3521() {
-		call(3521);
+	void anon_func$3533() {
+		call(3533);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20562,7 +20688,7 @@ scope_begin(ui_res_drawable)
 	}
 
 	void $03internal_static_init() {
-		call(3505);
+		call(3516);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20587,7 +20713,7 @@ scope_end()
 scope_begin(ui_res, resources) 
 
 	void setup() {
-		call(3126);
+		call(3136);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20596,7 +20722,7 @@ scope_begin(ui_res, resources)
 
 	object get_drawable(var& res_id) {
 		pushNum(res_id.value());
-		call(3127);
+		call(3137);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20609,7 +20735,7 @@ scope_begin(ui_res, resources)
 
 	void resources(object $instance) {
 		pushObj($instance);
-		call(3128);
+		call(3138);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20617,7 +20743,7 @@ scope_begin(ui_res, resources)
 	}
 
 	object get_res() {
-		call(3414);
+		call(3424);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20648,7 +20774,7 @@ scope_begin(ui_support, text_view)
 	void text_view(object $instance, var& id) {
 		pushObj($instance);
 		pushNum(id.value());
-		call(3129);
+		call(3139);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20657,7 +20783,7 @@ scope_begin(ui_support, text_view)
 
 	var transform_height(object $instance) {
 		pushObj($instance);
-		call(3130);
+		call(3140);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20670,7 +20796,7 @@ scope_begin(ui_support, text_view)
 
 	var transform_width(object $instance) {
 		pushObj($instance);
-		call(3131);
+		call(3141);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20683,7 +20809,7 @@ scope_begin(ui_support, text_view)
 
 	void draw(object $instance) {
 		pushObj($instance);
-		call(3132);
+		call(3142);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20692,7 +20818,7 @@ scope_begin(ui_support, text_view)
 
 	void on_destroy(object $instance) {
 		pushObj($instance);
-		call(3133);
+		call(3143);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20701,7 +20827,7 @@ scope_begin(ui_support, text_view)
 
 	void text_view2(object $instance) {
 		pushObj($instance);
-		call(3134);
+		call(3144);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20711,7 +20837,7 @@ scope_begin(ui_support, text_view)
 	void set_text(object $instance, object value) {
 		pushObj($instance);
 		pushObj(value);
-		call(3423);
+		call(3433);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20721,7 +20847,7 @@ scope_begin(ui_support, text_view)
 	void set_text_size(object $instance, var& value) {
 		pushObj($instance);
 		pushNum(value.value());
-		call(3424);
+		call(3434);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20734,7 +20860,7 @@ scope_begin(ui_support, margin)
 
 	void margin(object $instance) {
 		pushObj($instance);
-		call(3135);
+		call(3145);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20751,7 +20877,7 @@ scope_begin(ui_support, drawable)
 		pushObj(bytes.handle);
 		pushNum(w.value());
 		pushNum(h.value());
-		call(3136);
+		call(3146);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20760,7 +20886,7 @@ scope_begin(ui_support, drawable)
 
 	void drawable2(object $instance) {
 		pushObj($instance);
-		call(3137);
+		call(3147);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20774,7 +20900,7 @@ scope_begin(ui_support, window)
 	void window(object $instance, _int8_array& name) {
 		pushObj($instance);
 		pushObj(name.handle);
-		call(3138);
+		call(3148);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20782,7 +20908,7 @@ scope_begin(ui_support, window)
 	}
 
 	void start_ui() {
-		call(3139);
+		call(3149);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20792,7 +20918,7 @@ scope_begin(ui_support, window)
 	void navigate(object $instance, var& screen) {
 		pushObj($instance);
 		pushNum(screen.value());
-		call(3140);
+		call(3150);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20802,7 +20928,7 @@ scope_begin(ui_support, window)
 	void starter_fragment(object $instance, var& frag) {
 		pushObj($instance);
 		pushNum(frag.value());
-		call(3141);
+		call(3151);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20812,7 +20938,7 @@ scope_begin(ui_support, window)
 	void draw_text(object $instance, object tv) {
 		pushObj($instance);
 		pushObj(tv);
-		call(3142);
+		call(3152);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20822,7 +20948,7 @@ scope_begin(ui_support, window)
 	void draw_img(object $instance, object iv) {
 		pushObj($instance);
 		pushObj(iv);
-		call(3143);
+		call(3153);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20831,7 +20957,7 @@ scope_begin(ui_support, window)
 
 	void show(object $instance) {
 		pushObj($instance);
-		call(3144);
+		call(3154);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20841,7 +20967,7 @@ scope_begin(ui_support, window)
 	void add_fragment(object $instance, object frag) {
 		pushObj($instance);
 		pushObj(frag);
-		call(3145);
+		call(3155);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20850,7 +20976,7 @@ scope_begin(ui_support, window)
 
 	void start_updater(object $instance) {
 		pushObj($instance);
-		call(3146);
+		call(3156);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20859,7 +20985,7 @@ scope_begin(ui_support, window)
 
 	void window2(object $instance) {
 		pushObj($instance);
-		call(3147);
+		call(3157);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20874,7 +21000,7 @@ scope_begin(ui_support, fragment)
 		pushObj($instance);
 		pushObj(container);
 		pushNum(id.value());
-		call(3148);
+		call(3158);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20884,7 +21010,7 @@ scope_begin(ui_support, fragment)
 	void add_view(object $instance, object v) {
 		pushObj($instance);
 		pushObj(v);
-		call(3149);
+		call(3159);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20894,7 +21020,7 @@ scope_begin(ui_support, fragment)
 	object find_view_by_id(object $instance, var& id) {
 		pushObj($instance);
 		pushNum(id.value());
-		call(3150);
+		call(3160);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20907,7 +21033,7 @@ scope_begin(ui_support, fragment)
 
 	void on_create(object $instance) {
 		pushObj($instance);
-		call(3151);
+		call(3161);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20917,7 +21043,7 @@ scope_begin(ui_support, fragment)
 	void invalidate_refrences(object $instance, var& id) {
 		pushObj($instance);
 		pushNum(id.value());
-		call(3152);
+		call(3162);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20926,7 +21052,7 @@ scope_begin(ui_support, fragment)
 
 	void on_destroy(object $instance) {
 		pushObj($instance);
-		call(3153);
+		call(3163);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20937,7 +21063,7 @@ scope_begin(ui_support, fragment)
 		pushObj($instance);
 		pushNum(screen.value());
 		pushNum(finish.value());
-		call(3154);
+		call(3164);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20946,7 +21072,7 @@ scope_begin(ui_support, fragment)
 
 	void draw(object $instance) {
 		pushObj($instance);
-		call(3155);
+		call(3165);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20955,7 +21081,7 @@ scope_begin(ui_support, fragment)
 
 	void configure(object $instance) {
 		pushObj($instance);
-		call(3156);
+		call(3166);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20964,7 +21090,7 @@ scope_begin(ui_support, fragment)
 
 	void fragment2(object $instance) {
 		pushObj($instance);
-		call(3157);
+		call(3167);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20977,7 +21103,7 @@ scope_begin(ui_support, lifecycle)
 
 	void on_create(object $instance) {
 		pushObj($instance);
-		call(3158);
+		call(3168);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20986,7 +21112,7 @@ scope_begin(ui_support, lifecycle)
 
 	void on_destroy(object $instance) {
 		pushObj($instance);
-		call(3159);
+		call(3169);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -20995,7 +21121,7 @@ scope_begin(ui_support, lifecycle)
 
 	void lifecycle(object $instance) {
 		pushObj($instance);
-		call(3160);
+		call(3170);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21009,7 +21135,7 @@ scope_begin(ui_support, image_view)
 	void image_view(object $instance, var& id) {
 		pushObj($instance);
 		pushNum(id.value());
-		call(3161);
+		call(3171);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21018,7 +21144,7 @@ scope_begin(ui_support, image_view)
 
 	var transform_height(object $instance) {
 		pushObj($instance);
-		call(3162);
+		call(3172);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21031,7 +21157,7 @@ scope_begin(ui_support, image_view)
 
 	var transform_width(object $instance) {
 		pushObj($instance);
-		call(3163);
+		call(3173);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21045,7 +21171,7 @@ scope_begin(ui_support, image_view)
 	object set_drawable(object $instance, var& res_id) {
 		pushObj($instance);
 		pushNum(res_id.value());
-		call(3164);
+		call(3174);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21058,7 +21184,7 @@ scope_begin(ui_support, image_view)
 
 	void draw(object $instance) {
 		pushObj($instance);
-		call(3165);
+		call(3175);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21067,7 +21193,7 @@ scope_begin(ui_support, image_view)
 
 	void on_destroy(object $instance) {
 		pushObj($instance);
-		call(3166);
+		call(3176);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21076,7 +21202,7 @@ scope_begin(ui_support, image_view)
 
 	void image_view2(object $instance) {
 		pushObj($instance);
-		call(3167);
+		call(3177);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21089,7 +21215,7 @@ scope_begin(ui_support, constants)
 
 	void constants(object $instance) {
 		pushObj($instance);
-		call(3177);
+		call(3187);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21102,7 +21228,7 @@ scope_begin(ui_support, constants_view)
 
 	void view(object $instance) {
 		pushObj($instance);
-		call(3168);
+		call(3178);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21115,7 +21241,7 @@ scope_begin(ui_support, constants_window)
 
 	void window(object $instance) {
 		pushObj($instance);
-		call(3169);
+		call(3179);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21128,7 +21254,7 @@ scope_begin(ui_support, constants_lifecycle)
 
 	void lifecycle(object $instance) {
 		pushObj($instance);
-		call(3170);
+		call(3180);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21141,7 +21267,7 @@ scope_begin(ui_support, constants_time)
 
 	void time(object $instance) {
 		pushObj($instance);
-		call(3171);
+		call(3181);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21154,7 +21280,7 @@ scope_begin(ui_support, constants_layout)
 
 	void layout(object $instance) {
 		pushObj($instance);
-		call(3172);
+		call(3182);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21167,7 +21293,7 @@ scope_begin(ui_support, constants_margins)
 
 	void margins(object $instance) {
 		pushObj($instance);
-		call(3173);
+		call(3183);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21180,7 +21306,7 @@ scope_begin(ui_support, constants_resource)
 
 	void resource(object $instance) {
 		pushObj($instance);
-		call(3175);
+		call(3185);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21193,7 +21319,7 @@ scope_begin(ui_support, constants_resource_id)
 
 	void id(object $instance) {
 		pushObj($instance);
-		call(3174);
+		call(3184);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21206,7 +21332,7 @@ scope_begin(ui_support, constants_standard)
 
 	void standard(object $instance) {
 		pushObj($instance);
-		call(3176);
+		call(3186);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21219,7 +21345,7 @@ scope_begin(ui_support, view)
 
 	void view(object $instance) {
 		pushObj($instance);
-		call(3178);
+		call(3188);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21229,7 +21355,7 @@ scope_begin(ui_support, view)
 	void view2(object $instance, var& id) {
 		pushObj($instance);
 		pushNum(id.value());
-		call(3179);
+		call(3189);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21238,7 +21364,7 @@ scope_begin(ui_support, view)
 
 	void on_destroy(object $instance) {
 		pushObj($instance);
-		call(3180);
+		call(3190);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21248,7 +21374,7 @@ scope_begin(ui_support, view)
 	object set_width(object $instance, var& size) {
 		pushObj($instance);
 		pushNum(size.value());
-		call(3181);
+		call(3191);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21261,7 +21387,7 @@ scope_begin(ui_support, view)
 
 	var transform_height(object $instance) {
 		pushObj($instance);
-		call(3182);
+		call(3192);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21274,7 +21400,7 @@ scope_begin(ui_support, view)
 
 	var transform_width(object $instance) {
 		pushObj($instance);
-		call(3183);
+		call(3193);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21288,7 +21414,7 @@ scope_begin(ui_support, view)
 	var has_ref(object $instance, var& id) {
 		pushObj($instance);
 		pushNum(id.value());
-		call(3184);
+		call(3194);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21301,7 +21427,7 @@ scope_begin(ui_support, view)
 
 	void invalidate(object $instance) {
 		pushObj($instance);
-		call(3185);
+		call(3195);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21310,7 +21436,7 @@ scope_begin(ui_support, view)
 
 	void draw(object $instance) {
 		pushObj($instance);
-		call(3186);
+		call(3196);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21318,146 +21444,6 @@ scope_begin(ui_support, view)
 	}
 
 	object set_height(object $instance, var& size) {
-		pushObj($instance);
-		pushNum(size.value());
-		call(3187);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object set_visibility(object $instance, var& visible) {
-		pushObj($instance);
-		pushNum(visible.value());
-		call(3188);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_left_of(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(3189);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_start_of(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(3190);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_right_of(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(3191);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_top_of(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(3192);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object to_bottom_of(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(3193);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object set_gravity(object $instance, var& grav) {
-		pushObj($instance);
-		pushNum(grav.value());
-		call(3194);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object above(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(3195);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object below(object $instance, var& id) {
-		pushObj($instance);
-		pushNum(id.value());
-		call(3196);
-
-		if(internal::exceptionCheck()) {
-			throw Exception(internal::getExceptionObject(), "");
-		}
-
-		object $result = getSpObjAt(0);
-		decSp(1);
-		return $result;
-	}
-
-	object set_margin_left(object $instance, var& size) {
 		pushObj($instance);
 		pushNum(size.value());
 		call(3197);
@@ -21471,10 +21457,150 @@ scope_begin(ui_support, view)
 		return $result;
 	}
 
+	object set_visibility(object $instance, var& visible) {
+		pushObj($instance);
+		pushNum(visible.value());
+		call(3198);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_left_of(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(3199);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_start_of(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(3200);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_right_of(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(3201);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_top_of(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(3202);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object to_bottom_of(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(3203);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object set_gravity(object $instance, var& grav) {
+		pushObj($instance);
+		pushNum(grav.value());
+		call(3204);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object above(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(3205);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object below(object $instance, var& id) {
+		pushObj($instance);
+		pushNum(id.value());
+		call(3206);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
+	object set_margin_left(object $instance, var& size) {
+		pushObj($instance);
+		pushNum(size.value());
+		call(3207);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+
+		object $result = getSpObjAt(0);
+		decSp(1);
+		return $result;
+	}
+
 	object set_margin_right(object $instance, var& size) {
 		pushObj($instance);
 		pushNum(size.value());
-		call(3198);
+		call(3208);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21488,7 +21614,7 @@ scope_begin(ui_support, view)
 	object set_margin_top(object $instance, var& size) {
 		pushObj($instance);
 		pushNum(size.value());
-		call(3199);
+		call(3209);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21502,7 +21628,7 @@ scope_begin(ui_support, view)
 	object set_margin_bottom(object $instance, var& size) {
 		pushObj($instance);
 		pushNum(size.value());
-		call(3200);
+		call(3210);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21532,7 +21658,7 @@ scope_begin(ui_driver, ssd1306)
 
 	void ssd1306(object $instance) {
 		pushObj($instance);
-		call(3208);
+		call(3218);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21541,7 +21667,7 @@ scope_begin(ui_driver, ssd1306)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3209);
+		call(3219);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21551,7 +21677,7 @@ scope_begin(ui_driver, ssd1306)
 	void dim_display(object $instance, var& yes) {
 		pushObj($instance);
 		pushNum(yes.value());
-		call(3210);
+		call(3220);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21560,7 +21686,7 @@ scope_begin(ui_driver, ssd1306)
 
 	void update_display(object $instance) {
 		pushObj($instance);
-		call(3211);
+		call(3221);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21576,7 +21702,7 @@ scope_begin(ui_driver, ssd1306)
 		pushNum(img_width.value());
 		pushNum(img_height.value());
 		pushObj(bytes.handle);
-		call(3212);
+		call(3222);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21591,7 +21717,7 @@ scope_begin(ui_driver, ssd1306)
 		pushNum(width.value());
 		pushNum(transx.value());
 		pushObj(text.handle);
-		call(3213);
+		call(3223);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21600,7 +21726,7 @@ scope_begin(ui_driver, ssd1306)
 
 	void shutdown(object $instance) {
 		pushObj($instance);
-		call(3214);
+		call(3224);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21621,7 +21747,7 @@ scope_begin(ui_layout_config)
 	}
 
 	void configure_layout() {
-		call(3215);
+		call(3225);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21629,7 +21755,7 @@ scope_begin(ui_layout_config)
 	}
 
 	void start() {
-		call(3216);
+		call(3226);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21650,25 +21776,34 @@ scope_begin(ui_layout)
 	}
 
 	void $03internal_static_init() {
-		call(3506);
+		call(3517);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
 		}
 	}
 
-	void anon_func$3518(object args) {
+	void anon_func$3529(object args) {
 		pushObj(args);
-		call(3518);
+		call(3529);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
 		}
 	}
 
-	void anon_func$3519(object args) {
+	void anon_func$3530(object args) {
 		pushObj(args);
-		call(3519);
+		call(3530);
+
+		if(internal::exceptionCheck()) {
+			throw Exception(internal::getExceptionObject(), "");
+		}
+	}
+
+	void anon_func$3531(object args) {
+		pushObj(args);
+		call(3531);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21683,7 +21818,7 @@ scope_begin(ui_layout, home_screen)
 		pushObj($instance);
 		pushObj(container);
 		pushNum(id.value());
-		call(3217);
+		call(3227);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21692,7 +21827,7 @@ scope_begin(ui_layout, home_screen)
 
 	void configure(object $instance) {
 		pushObj($instance);
-		call(3218);
+		call(3228);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21701,7 +21836,7 @@ scope_begin(ui_layout, home_screen)
 
 	void on_create(object $instance) {
 		pushObj($instance);
-		call(3219);
+		call(3229);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21710,7 +21845,7 @@ scope_begin(ui_layout, home_screen)
 
 	void on_destroy(object $instance) {
 		pushObj($instance);
-		call(3220);
+		call(3230);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21719,7 +21854,7 @@ scope_begin(ui_layout, home_screen)
 
 	void home_screen2(object $instance) {
 		pushObj($instance);
-		call(3221);
+		call(3231);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -21727,7 +21862,7 @@ scope_begin(ui_layout, home_screen)
 	}
 
 	void $03internal_static_init() {
-		call(3507);
+		call(3518);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43256,7 +43391,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 	void hashtable(object $instance, var& initialCapacity) {
 		pushObj($instance);
 		pushNum(initialCapacity.value());
-		call(3224);
+		call(3234);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43265,7 +43400,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 
 	void hashtable2(object $instance) {
 		pushObj($instance);
-		call(3225);
+		call(3235);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43275,7 +43410,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 	void set_threshold(object $instance, var& threshold) {
 		pushObj($instance);
 		pushNum(threshold.value());
-		call(3226);
+		call(3236);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43285,7 +43420,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 	var hash(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3227);
+		call(3237);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43298,7 +43433,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 
 	void resize(object $instance) {
 		pushObj($instance);
-		call(3228);
+		call(3238);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43308,7 +43443,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 	object at(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3229);
+		call(3239);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43323,7 +43458,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3230);
+		call(3240);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43337,7 +43472,7 @@ scope_begin(std, hashtable$std_io_thread_0_std_io_task_job_controller$)
 	var remove(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3231);
+		call(3241);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43355,7 +43490,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 	void hashtable(object $instance, var& initialCapacity) {
 		pushObj($instance);
 		pushNum(initialCapacity.value());
-		call(3232);
+		call(3242);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43364,7 +43499,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 
 	void hashtable2(object $instance) {
 		pushObj($instance);
-		call(3233);
+		call(3243);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43374,7 +43509,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 	void set_threshold(object $instance, var& threshold) {
 		pushObj($instance);
 		pushNum(threshold.value());
-		call(3234);
+		call(3244);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43384,7 +43519,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 	var hash(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3235);
+		call(3245);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43397,7 +43532,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 
 	void resize(object $instance) {
 		pushObj($instance);
-		call(3236);
+		call(3246);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43407,7 +43542,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 	object at(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3237);
+		call(3247);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43422,7 +43557,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3238);
+		call(3248);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43436,7 +43571,7 @@ scope_begin(std, hashtable$std_int_0_std_io_thread$)
 	var remove(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3239);
+		call(3249);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43453,7 +43588,7 @@ scope_begin(std, list$std_string$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3242);
+		call(3252);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43463,7 +43598,7 @@ scope_begin(std, list$std_string$)
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3243);
+		call(3253);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43473,7 +43608,7 @@ scope_begin(std, list$std_string$)
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3244);
+		call(3254);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43482,7 +43617,7 @@ scope_begin(std, list$std_string$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3245);
+		call(3255);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43496,7 +43631,7 @@ scope_begin(std, list$std_string$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3246);
+		call(3256);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43505,7 +43640,7 @@ scope_begin(std, list$std_string$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3247);
+		call(3257);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43519,7 +43654,7 @@ scope_begin(std, list$std_string$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3248);
+		call(3258);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43533,7 +43668,7 @@ scope_begin(std, list$std_string$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3249);
+		call(3259);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43546,7 +43681,7 @@ scope_begin(std, list$std_string$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3250);
+		call(3260);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43561,7 +43696,7 @@ scope_begin(std, list$std_string$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3251);
+		call(3261);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43574,7 +43709,7 @@ scope_begin(std, list$std_string$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3252);
+		call(3262);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43583,7 +43718,7 @@ scope_begin(std, list$std_string$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3253);
+		call(3263);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43593,7 +43728,7 @@ scope_begin(std, list$std_string$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3254);
+		call(3264);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43603,7 +43738,7 @@ scope_begin(std, list$std_string$)
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3255);
+		call(3265);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43613,7 +43748,7 @@ scope_begin(std, list$std_string$)
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3256);
+		call(3266);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43623,7 +43758,7 @@ scope_begin(std, list$std_string$)
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3257);
+		call(3267);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43636,7 +43771,7 @@ scope_begin(std, list$std_string$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3258);
+		call(3268);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43645,7 +43780,7 @@ scope_begin(std, list$std_string$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3259);
+		call(3269);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43660,7 +43795,7 @@ scope_begin(std, list$std_string$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3260);
+		call(3270);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43671,7 +43806,7 @@ scope_begin(std, list$std_string$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3261);
+		call(3271);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43685,7 +43820,7 @@ scope_begin(std, list$std_string$)
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3262);
+		call(3272);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43696,7 +43831,7 @@ scope_begin(std, list$std_string$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3263);
+		call(3273);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43707,7 +43842,7 @@ scope_begin(std, list$std_string$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3264);
+		call(3274);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43717,7 +43852,7 @@ scope_begin(std, list$std_string$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3265);
+		call(3275);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43728,7 +43863,7 @@ scope_begin(std, list$std_string$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3266);
+		call(3276);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43741,7 +43876,7 @@ scope_begin(std, list$std_string$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3267);
+		call(3277);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43755,7 +43890,7 @@ scope_begin(std, list$std_string$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3268);
+		call(3278);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43772,7 +43907,7 @@ scope_begin(std, loopable$std_string$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3240);
+		call(3250);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43785,7 +43920,7 @@ scope_begin(std, loopable$std_string$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3241);
+		call(3251);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43798,7 +43933,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	void synced_list(object $instance) {
 		pushObj($instance);
-		call(3271);
+		call(3281);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43808,7 +43943,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void synced_list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3272);
+		call(3282);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43818,7 +43953,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3273);
+		call(3283);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43827,7 +43962,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3274);
+		call(3284);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43841,7 +43976,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3275);
+		call(3285);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43855,7 +43990,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3276);
+		call(3286);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43868,7 +44003,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3277);
+		call(3287);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43883,7 +44018,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3278);
+		call(3288);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43896,7 +44031,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3279);
+		call(3289);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43905,7 +44040,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3280);
+		call(3290);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43915,7 +44050,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3308);
+		call(3318);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43925,7 +44060,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3309);
+		call(3319);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43935,7 +44070,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3310);
+		call(3320);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43948,7 +44083,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3311);
+		call(3321);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43957,7 +44092,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3312);
+		call(3322);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43970,7 +44105,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3313);
+		call(3323);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43985,7 +44120,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3314);
+		call(3324);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -43995,7 +44130,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3315);
+		call(3325);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44006,7 +44141,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3316);
+		call(3326);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44016,7 +44151,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3317);
+		call(3327);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44027,7 +44162,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3318);
+		call(3328);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44042,7 +44177,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3319);
+		call(3329);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44057,7 +44192,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3320);
+		call(3330);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44070,7 +44205,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3321);
+		call(3331);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44084,7 +44219,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3322);
+		call(3332);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44101,7 +44236,7 @@ scope_begin(std, loopable$std_io_task_job$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3269);
+		call(3279);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44114,7 +44249,7 @@ scope_begin(std, loopable$std_io_task_job$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3270);
+		call(3280);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44127,7 +44262,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3281);
+		call(3291);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44137,7 +44272,7 @@ scope_begin(std, list$std_io_task_job$)
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3282);
+		call(3292);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44147,7 +44282,7 @@ scope_begin(std, list$std_io_task_job$)
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3283);
+		call(3293);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44156,7 +44291,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3284);
+		call(3294);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44170,7 +44305,7 @@ scope_begin(std, list$std_io_task_job$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3285);
+		call(3295);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44179,7 +44314,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3286);
+		call(3296);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44193,7 +44328,7 @@ scope_begin(std, list$std_io_task_job$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3287);
+		call(3297);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44207,7 +44342,7 @@ scope_begin(std, list$std_io_task_job$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3288);
+		call(3298);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44220,7 +44355,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3289);
+		call(3299);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44235,7 +44370,7 @@ scope_begin(std, list$std_io_task_job$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3290);
+		call(3300);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44248,7 +44383,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3291);
+		call(3301);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44257,7 +44392,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3292);
+		call(3302);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44267,7 +44402,7 @@ scope_begin(std, list$std_io_task_job$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3293);
+		call(3303);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44277,7 +44412,7 @@ scope_begin(std, list$std_io_task_job$)
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3294);
+		call(3304);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44287,7 +44422,7 @@ scope_begin(std, list$std_io_task_job$)
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3295);
+		call(3305);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44297,7 +44432,7 @@ scope_begin(std, list$std_io_task_job$)
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3296);
+		call(3306);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44310,7 +44445,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3297);
+		call(3307);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44319,7 +44454,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3298);
+		call(3308);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44334,7 +44469,7 @@ scope_begin(std, list$std_io_task_job$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3299);
+		call(3309);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44345,7 +44480,7 @@ scope_begin(std, list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3300);
+		call(3310);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44359,7 +44494,7 @@ scope_begin(std, list$std_io_task_job$)
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3301);
+		call(3311);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44370,7 +44505,7 @@ scope_begin(std, list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3302);
+		call(3312);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44381,7 +44516,7 @@ scope_begin(std, list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3303);
+		call(3313);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44391,7 +44526,7 @@ scope_begin(std, list$std_io_task_job$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3304);
+		call(3314);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44402,7 +44537,7 @@ scope_begin(std, list$std_io_task_job$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3305);
+		call(3315);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44415,7 +44550,7 @@ scope_begin(std, list$std_io_task_job$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3306);
+		call(3316);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44429,7 +44564,7 @@ scope_begin(std, list$std_io_task_job$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3307);
+		call(3317);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44446,7 +44581,7 @@ scope_begin(std, list$std_io_thread$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3323);
+		call(3333);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44456,7 +44591,7 @@ scope_begin(std, list$std_io_thread$)
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3324);
+		call(3334);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44466,7 +44601,7 @@ scope_begin(std, list$std_io_thread$)
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3325);
+		call(3335);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44475,7 +44610,7 @@ scope_begin(std, list$std_io_thread$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3326);
+		call(3336);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44489,7 +44624,7 @@ scope_begin(std, list$std_io_thread$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3327);
+		call(3337);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44498,7 +44633,7 @@ scope_begin(std, list$std_io_thread$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3328);
+		call(3338);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44512,7 +44647,7 @@ scope_begin(std, list$std_io_thread$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3329);
+		call(3339);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44526,7 +44661,7 @@ scope_begin(std, list$std_io_thread$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3330);
+		call(3340);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44539,7 +44674,7 @@ scope_begin(std, list$std_io_thread$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3331);
+		call(3341);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44554,7 +44689,7 @@ scope_begin(std, list$std_io_thread$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3332);
+		call(3342);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44567,7 +44702,7 @@ scope_begin(std, list$std_io_thread$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3333);
+		call(3343);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44576,7 +44711,7 @@ scope_begin(std, list$std_io_thread$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3334);
+		call(3344);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44586,7 +44721,7 @@ scope_begin(std, list$std_io_thread$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3335);
+		call(3345);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44596,7 +44731,7 @@ scope_begin(std, list$std_io_thread$)
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3336);
+		call(3346);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44606,7 +44741,7 @@ scope_begin(std, list$std_io_thread$)
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3337);
+		call(3347);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44616,7 +44751,7 @@ scope_begin(std, list$std_io_thread$)
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3338);
+		call(3348);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44629,7 +44764,7 @@ scope_begin(std, list$std_io_thread$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3339);
+		call(3349);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44638,7 +44773,7 @@ scope_begin(std, list$std_io_thread$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3340);
+		call(3350);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44653,7 +44788,7 @@ scope_begin(std, list$std_io_thread$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3341);
+		call(3351);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44664,7 +44799,7 @@ scope_begin(std, list$std_io_thread$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3342);
+		call(3352);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44678,7 +44813,7 @@ scope_begin(std, list$std_io_thread$)
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3343);
+		call(3353);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44689,7 +44824,7 @@ scope_begin(std, list$std_io_thread$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3344);
+		call(3354);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44700,7 +44835,7 @@ scope_begin(std, list$std_io_thread$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3345);
+		call(3355);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44710,7 +44845,7 @@ scope_begin(std, list$std_io_thread$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3346);
+		call(3356);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44721,7 +44856,7 @@ scope_begin(std, list$std_io_thread$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3347);
+		call(3357);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44734,7 +44869,7 @@ scope_begin(std, list$std_io_thread$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3348);
+		call(3358);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44748,7 +44883,7 @@ scope_begin(std, list$std_io_thread$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3349);
+		call(3359);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44765,7 +44900,7 @@ scope_begin(std, list$var$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3352);
+		call(3362);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44775,7 +44910,7 @@ scope_begin(std, list$var$)
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3353);
+		call(3363);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44785,7 +44920,7 @@ scope_begin(std, list$var$)
 	void list3(object $instance, var_array& initial_data) {
 		pushObj($instance);
 		pushObj(initial_data.handle);
-		call(3354);
+		call(3364);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44794,7 +44929,7 @@ scope_begin(std, list$var$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3355);
+		call(3365);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44808,7 +44943,7 @@ scope_begin(std, list$var$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3356);
+		call(3366);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44817,7 +44952,7 @@ scope_begin(std, list$var$)
 
 	var_array get_elements(object $instance) {
 		pushObj($instance);
-		call(3357);
+		call(3367);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44830,7 +44965,7 @@ scope_begin(std, list$var$)
 	var op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3358);
+		call(3368);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44844,7 +44979,7 @@ scope_begin(std, list$var$)
 	var at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3359);
+		call(3369);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44857,7 +44992,7 @@ scope_begin(std, list$var$)
 
 	var last(object $instance) {
 		pushObj($instance);
-		call(3360);
+		call(3370);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44872,7 +45007,7 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushNum(element.value());
-		call(3361);
+		call(3371);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44885,7 +45020,7 @@ scope_begin(std, list$var$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3362);
+		call(3372);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44894,7 +45029,7 @@ scope_begin(std, list$var$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3363);
+		call(3373);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44904,7 +45039,7 @@ scope_begin(std, list$var$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3364);
+		call(3374);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44914,7 +45049,7 @@ scope_begin(std, list$var$)
 	void add_all2(object $instance, var_array& lst) {
 		pushObj($instance);
 		pushObj(lst.handle);
-		call(3365);
+		call(3375);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44924,7 +45059,7 @@ scope_begin(std, list$var$)
 	void add(object $instance, var& element) {
 		pushObj($instance);
 		pushNum(element.value());
-		call(3366);
+		call(3376);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44934,7 +45069,7 @@ scope_begin(std, list$var$)
 	var indexof(object $instance, var& element) {
 		pushObj($instance);
 		pushNum(element.value());
-		call(3367);
+		call(3377);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44947,7 +45082,7 @@ scope_begin(std, list$var$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3368);
+		call(3378);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44956,7 +45091,7 @@ scope_begin(std, list$var$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3369);
+		call(3379);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44971,7 +45106,7 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushNum(element.value());
-		call(3370);
+		call(3380);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44982,7 +45117,7 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(comparer.value());
 		pushNum(find_func.value());
-		call(3371);
+		call(3381);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -44996,7 +45131,7 @@ scope_begin(std, list$var$)
 	void remove(object $instance, var& val) {
 		pushObj($instance);
 		pushNum(val.value());
-		call(3372);
+		call(3382);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45007,7 +45142,7 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(val.value());
 		pushNum(compare_fun.value());
-		call(3373);
+		call(3383);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45018,7 +45153,7 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(val.value());
 		pushNum(compare_fun.value());
-		call(3374);
+		call(3384);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45028,7 +45163,7 @@ scope_begin(std, list$var$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3375);
+		call(3385);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45039,7 +45174,7 @@ scope_begin(std, list$var$)
 		pushObj($instance);
 		pushNum(comparer.value());
 		pushNum(find_func.value());
-		call(3376);
+		call(3386);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45052,7 +45187,7 @@ scope_begin(std, list$var$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3377);
+		call(3387);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45066,7 +45201,7 @@ scope_begin(std, list$var$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3378);
+		call(3388);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45083,7 +45218,7 @@ scope_begin(std, loopable$var$)
 
 	var_array get_elements(object $instance) {
 		pushObj($instance);
-		call(3350);
+		call(3360);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45095,7 +45230,7 @@ scope_begin(std, loopable$var$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3351);
+		call(3361);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45108,7 +45243,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3385);
+		call(3395);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45118,7 +45253,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3386);
+		call(3396);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45128,7 +45263,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3387);
+		call(3397);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45137,7 +45272,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3388);
+		call(3398);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45151,7 +45286,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3389);
+		call(3399);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45160,7 +45295,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3390);
+		call(3400);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45174,7 +45309,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3391);
+		call(3401);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45188,7 +45323,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3392);
+		call(3402);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45201,7 +45336,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3393);
+		call(3403);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45216,7 +45351,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3394);
+		call(3404);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45229,7 +45364,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3395);
+		call(3405);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45238,7 +45373,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3396);
+		call(3406);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45248,7 +45383,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3397);
+		call(3407);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45258,7 +45393,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3398);
+		call(3408);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45268,7 +45403,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3399);
+		call(3409);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45278,7 +45413,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3400);
+		call(3410);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45291,7 +45426,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3401);
+		call(3411);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45300,7 +45435,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3402);
+		call(3412);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45315,7 +45450,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3403);
+		call(3413);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45326,7 +45461,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3404);
+		call(3414);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45340,7 +45475,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3405);
+		call(3415);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45351,7 +45486,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3406);
+		call(3416);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45362,7 +45497,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3407);
+		call(3417);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45372,7 +45507,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3408);
+		call(3418);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45383,7 +45518,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3409);
+		call(3419);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45396,7 +45531,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3410);
+		call(3420);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45410,7 +45545,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3411);
+		call(3421);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45427,7 +45562,7 @@ scope_begin(std, loopable$common_network_core_request_data_request_item$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3383);
+		call(3393);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45440,7 +45575,7 @@ scope_begin(std, loopable$common_network_core_request_data_request_item$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3384);
+		call(3394);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45454,7 +45589,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 	void hashmap(object $instance, var& initialCapacity) {
 		pushObj($instance);
 		pushNum(initialCapacity.value());
-		call(3415);
+		call(3425);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45463,7 +45598,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 
 	void hashmap2(object $instance) {
 		pushObj($instance);
-		call(3416);
+		call(3426);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45473,7 +45608,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 	void set_threshold(object $instance, var& threshold) {
 		pushObj($instance);
 		pushNum(threshold.value());
-		call(3417);
+		call(3427);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45483,7 +45618,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 	var hash(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3418);
+		call(3428);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45496,7 +45631,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 
 	void resize(object $instance) {
 		pushObj($instance);
-		call(3419);
+		call(3429);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45506,7 +45641,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 	object at(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3420);
+		call(3430);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45521,7 +45656,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3421);
+		call(3431);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45535,7 +45670,7 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 	var remove(object $instance, object key) {
 		pushObj($instance);
 		pushObj(key);
-		call(3422);
+		call(3432);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45552,7 +45687,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3427);
+		call(3437);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45562,7 +45697,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3428);
+		call(3438);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45572,7 +45707,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3429);
+		call(3439);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45581,7 +45716,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3430);
+		call(3440);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45595,7 +45730,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3431);
+		call(3441);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45604,7 +45739,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3432);
+		call(3442);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45618,7 +45753,7 @@ scope_begin(std, list$ui_support_fragment$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3433);
+		call(3443);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45632,7 +45767,7 @@ scope_begin(std, list$ui_support_fragment$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3434);
+		call(3444);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45645,7 +45780,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3435);
+		call(3445);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45660,7 +45795,7 @@ scope_begin(std, list$ui_support_fragment$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3436);
+		call(3446);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45673,7 +45808,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3437);
+		call(3447);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45682,7 +45817,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3438);
+		call(3448);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45692,7 +45827,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3439);
+		call(3449);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45702,7 +45837,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3440);
+		call(3450);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45712,7 +45847,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3441);
+		call(3451);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45722,7 +45857,7 @@ scope_begin(std, list$ui_support_fragment$)
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3442);
+		call(3452);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45735,7 +45870,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3443);
+		call(3453);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45744,7 +45879,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3444);
+		call(3454);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45759,7 +45894,7 @@ scope_begin(std, list$ui_support_fragment$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3445);
+		call(3455);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45770,7 +45905,7 @@ scope_begin(std, list$ui_support_fragment$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3446);
+		call(3456);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45784,7 +45919,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3447);
+		call(3457);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45795,7 +45930,7 @@ scope_begin(std, list$ui_support_fragment$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3448);
+		call(3458);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45806,7 +45941,7 @@ scope_begin(std, list$ui_support_fragment$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3449);
+		call(3459);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45816,7 +45951,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3450);
+		call(3460);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45827,7 +45962,7 @@ scope_begin(std, list$ui_support_fragment$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3451);
+		call(3461);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45840,7 +45975,7 @@ scope_begin(std, list$ui_support_fragment$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3452);
+		call(3462);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45854,7 +45989,7 @@ scope_begin(std, list$ui_support_fragment$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3453);
+		call(3463);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45871,7 +46006,7 @@ scope_begin(std, loopable$ui_support_fragment$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3425);
+		call(3435);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45884,7 +46019,7 @@ scope_begin(std, loopable$ui_support_fragment$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3426);
+		call(3436);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45897,7 +46032,7 @@ scope_begin(std, list$ui_support_view$)
 
 	void list(object $instance) {
 		pushObj($instance);
-		call(3456);
+		call(3466);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45907,7 +46042,7 @@ scope_begin(std, list$ui_support_view$)
 	void list2(object $instance, var& starting_capacity) {
 		pushObj($instance);
 		pushNum(starting_capacity.value());
-		call(3457);
+		call(3467);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45917,7 +46052,7 @@ scope_begin(std, list$ui_support_view$)
 	void list3(object $instance, object initial_data) {
 		pushObj($instance);
 		pushObj(initial_data);
-		call(3458);
+		call(3468);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45926,7 +46061,7 @@ scope_begin(std, list$ui_support_view$)
 
 	var empty(object $instance) {
 		pushObj($instance);
-		call(3459);
+		call(3469);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45940,7 +46075,7 @@ scope_begin(std, list$ui_support_view$)
 	void set_compact(object $instance, var& compact_array) {
 		pushObj($instance);
 		pushNum(compact_array.value());
-		call(3460);
+		call(3470);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45949,7 +46084,7 @@ scope_begin(std, list$ui_support_view$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3461);
+		call(3471);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45963,7 +46098,7 @@ scope_begin(std, list$ui_support_view$)
 	object op_$array_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3462);
+		call(3472);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45977,7 +46112,7 @@ scope_begin(std, list$ui_support_view$)
 	object at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3463);
+		call(3473);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -45990,7 +46125,7 @@ scope_begin(std, list$ui_support_view$)
 
 	object last(object $instance) {
 		pushObj($instance);
-		call(3464);
+		call(3474);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46005,7 +46140,7 @@ scope_begin(std, list$ui_support_view$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3465);
+		call(3475);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46018,7 +46153,7 @@ scope_begin(std, list$ui_support_view$)
 
 	void expand(object $instance) {
 		pushObj($instance);
-		call(3466);
+		call(3476);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46027,7 +46162,7 @@ scope_begin(std, list$ui_support_view$)
 
 	void clear(object $instance) {
 		pushObj($instance);
-		call(3467);
+		call(3477);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46037,7 +46172,7 @@ scope_begin(std, list$ui_support_view$)
 	void add_all(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3468);
+		call(3478);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46047,7 +46182,7 @@ scope_begin(std, list$ui_support_view$)
 	void add_all2(object $instance, object lst) {
 		pushObj($instance);
 		pushObj(lst);
-		call(3469);
+		call(3479);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46057,7 +46192,7 @@ scope_begin(std, list$ui_support_view$)
 	void add(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3470);
+		call(3480);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46067,7 +46202,7 @@ scope_begin(std, list$ui_support_view$)
 	var indexof(object $instance, object element) {
 		pushObj($instance);
 		pushObj(element);
-		call(3471);
+		call(3481);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46080,7 +46215,7 @@ scope_begin(std, list$ui_support_view$)
 
 	void pop_back(object $instance) {
 		pushObj($instance);
-		call(3472);
+		call(3482);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46089,7 +46224,7 @@ scope_begin(std, list$ui_support_view$)
 
 	var size(object $instance) {
 		pushObj($instance);
-		call(3473);
+		call(3483);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46104,7 +46239,7 @@ scope_begin(std, list$ui_support_view$)
 		pushObj($instance);
 		pushNum(index.value());
 		pushObj(element);
-		call(3474);
+		call(3484);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46115,7 +46250,7 @@ scope_begin(std, list$ui_support_view$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3475);
+		call(3485);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46129,7 +46264,7 @@ scope_begin(std, list$ui_support_view$)
 	void remove(object $instance, object val) {
 		pushObj($instance);
 		pushObj(val);
-		call(3476);
+		call(3486);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46140,7 +46275,7 @@ scope_begin(std, list$ui_support_view$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3477);
+		call(3487);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46151,7 +46286,7 @@ scope_begin(std, list$ui_support_view$)
 		pushObj($instance);
 		pushObj(val);
 		pushNum(compare_fun.value());
-		call(3478);
+		call(3488);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46161,7 +46296,7 @@ scope_begin(std, list$ui_support_view$)
 	void remove_at(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3479);
+		call(3489);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46172,7 +46307,7 @@ scope_begin(std, list$ui_support_view$)
 		pushObj($instance);
 		pushObj(comparer);
 		pushNum(find_func.value());
-		call(3480);
+		call(3490);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46185,7 +46320,7 @@ scope_begin(std, list$ui_support_view$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3481);
+		call(3491);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46199,7 +46334,7 @@ scope_begin(std, list$ui_support_view$)
 	object out_of_bounds_msg(object $instance, var& index) {
 		pushObj($instance);
 		pushNum(index.value());
-		call(3482);
+		call(3492);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46216,7 +46351,7 @@ scope_begin(std, loopable$ui_support_view$)
 
 	object get_elements(object $instance) {
 		pushObj($instance);
-		call(3454);
+		call(3464);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46229,7 +46364,7 @@ scope_begin(std, loopable$ui_support_view$)
 
 	void loopable(object $instance) {
 		pushObj($instance);
-		call(3455);
+		call(3465);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46244,7 +46379,7 @@ scope_begin(std_io_task, entry$std_io_thread_0_std_io_task_job_controller$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3483);
+		call(3493);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46253,7 +46388,7 @@ scope_begin(std_io_task, entry$std_io_thread_0_std_io_task_job_controller$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3484);
+		call(3494);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46266,7 +46401,7 @@ scope_begin(std_io_task, entry$std_io_thread_0_std_io_task_job_controller$)
 
 	void entry2(object $instance) {
 		pushObj($instance);
-		call(3485);
+		call(3495);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46281,7 +46416,7 @@ scope_begin(std_io, entry$std_int_0_std_io_thread$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3486);
+		call(3496);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46290,7 +46425,7 @@ scope_begin(std_io, entry$std_int_0_std_io_thread$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3487);
+		call(3497);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46303,7 +46438,7 @@ scope_begin(std_io, entry$std_int_0_std_io_thread$)
 
 	void entry2(object $instance) {
 		pushObj($instance);
-		call(3488);
+		call(3498);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46318,7 +46453,7 @@ scope_begin(ui_res, entry$std_int_0_ui_support_drawable$)
 		pushObj($instance);
 		pushObj(key);
 		pushObj(value);
-		call(3489);
+		call(3499);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46327,7 +46462,7 @@ scope_begin(ui_res, entry$std_int_0_ui_support_drawable$)
 
 	object to_string(object $instance) {
 		pushObj($instance);
-		call(3490);
+		call(3500);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");
@@ -46340,7 +46475,7 @@ scope_begin(ui_res, entry$std_int_0_ui_support_drawable$)
 
 	void entry2(object $instance) {
 		pushObj($instance);
-		call(3491);
+		call(3501);
 
 		if(internal::exceptionCheck()) {
 			throw Exception(internal::getExceptionObject(), "");

@@ -26,13 +26,13 @@ EXPORTED uint32_t snb_link_proc(const char* funcName) {
 	else if(name == "common.network.driver#__srt_global.listen") {  return 3057;  }
 	else if(name == "common.network.driver#__srt_global.send") {  return 3058;  }
 	else if(name == "common.network.driver#__srt_global.get_last_error") {  return 3059;  }
-	else if(name == "ui.driver#__srt_global.setup") {  return 3201;  }
-	else if(name == "ui.driver#__srt_global.clear_display") {  return 3202;  }
-	else if(name == "ui.driver#__srt_global.display") {  return 3203;  }
-	else if(name == "ui.driver#__srt_global.dim") {  return 3204;  }
-	else if(name == "ui.driver#__srt_global.move_cursor") {  return 3205;  }
-	else if(name == "ui.driver#__srt_global.draw_word") {  return 3206;  }
-	else if(name == "ui.driver#__srt_global.draw_img") {  return 3207;  }
+	else if(name == "ui.driver#__srt_global.setup") {  return 3211;  }
+	else if(name == "ui.driver#__srt_global.clear_display") {  return 3212;  }
+	else if(name == "ui.driver#__srt_global.display") {  return 3213;  }
+	else if(name == "ui.driver#__srt_global.dim") {  return 3214;  }
+	else if(name == "ui.driver#__srt_global.move_cursor") {  return 3215;  }
+	else if(name == "ui.driver#__srt_global.draw_word") {  return 3216;  }
+	else if(name == "ui.driver#__srt_global.draw_img") {  return 3217;  }
 	else return -1;
 }
 
@@ -264,25 +264,25 @@ EXPORTED void snb_main(long procAddr) {
 			case 3059: 
 				call_common_network_driver$__srt_global_get_last_error();
 				break;
-			case 3201: 
+			case 3211: 
 				call_ui_driver$__srt_global_setup();
 				break;
-			case 3202: 
+			case 3212: 
 				call_ui_driver$__srt_global_clear_display();
 				break;
-			case 3203: 
+			case 3213: 
 				call_ui_driver$__srt_global_display();
 				break;
-			case 3204: 
+			case 3214: 
 				call_ui_driver$__srt_global_dim();
 				break;
-			case 3205: 
+			case 3215: 
 				call_ui_driver$__srt_global_move_cursor();
 				break;
-			case 3206: 
+			case 3216: 
 				call_ui_driver$__srt_global_draw_word();
 				break;
-			case 3207: 
+			case 3217: 
 				call_ui_driver$__srt_global_draw_img();
 				break;
 		}

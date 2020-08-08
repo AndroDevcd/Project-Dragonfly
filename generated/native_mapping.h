@@ -187,12 +187,12 @@ scope_begin(std_io_task)
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
-	var anon_func$3510(object it, object it2);
-	var anon_func$3511(object it, object it2);
-	var anon_func$3512(object it, object it2);
-	var anon_func$3513(object t);
-	var anon_func$3514(object t);
-	var anon_func$3515(object t);
+	var anon_func$3521(object it, object it2);
+	var anon_func$3522(object it, object it2);
+	var anon_func$3523(object it, object it2);
+	var anon_func$3524(object t);
+	var anon_func$3525(object t);
+	var anon_func$3526(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -1505,6 +1505,7 @@ scope_begin(platform, build)
 	var is_windows();
 	var is_linux();
 	void build(object $instance);
+	void $03internal_static_init();
 scope_end()
 
 scope_begin(platform_kernel) 
@@ -1808,7 +1809,7 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3502(object t1, object t2);
+	var anon_func$3513(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
@@ -1876,6 +1877,13 @@ scope_begin(common_network_remote, handshake_request_impl)
 	void handshake(object $instance);
 scope_end()
 
+scope_begin(common_network_remote, flight_data_request_impl) 
+
+	object _get(object $instance);
+	void post(object $instance, object data);
+	void flight_data_request_impl(object $instance);
+scope_end()
+
 scope_begin(common_network_remote, flight_mode_change_request_impl) 
 
 	void flight_mode_change_request_impl(object $instance);
@@ -1894,6 +1902,8 @@ scope_begin(common_network, network)
 	var change_mode(object mode);
 	var get_signal_strength();
 	var_array scan_network();
+	object get_flight_data();
+	void post_flight_data(object data);
 	void send_acknowledge();
 	void network(object $instance);
 	object get_INSTANCE();
@@ -1935,6 +1945,13 @@ scope_begin(common_network_data_request, signal_strength_request)
 	void signal_strength_request(object $instance);
 scope_end()
 
+scope_begin(common_network_data_request, flight_data_request) 
+
+	object _get(object $instance);
+	void post(object $instance, object data);
+	void flight_data_request(object $instance);
+scope_end()
+
 scope_begin(common_network_data_request, handshake_request) 
 
 	void handshake(object $instance);
@@ -1944,6 +1961,12 @@ scope_end()
 scope_begin(common_network_data_response) 
 
 	void __srt_global(object $instance);
+scope_end()
+
+scope_begin(common_network_data_response, flight_data_response) 
+
+	void flight_data_response(object $instance, var& bat_lvl, var& altitude, var& speed);
+	void flight_data_response2(object $instance);
 scope_end()
 
 scope_begin(common_network_data_response, command_response) 
@@ -1976,10 +1999,10 @@ scope_begin(main)
 	void set_transmission_status(var& ts);
 	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$3516();
-	void anon_func$3517();
-	void anon_func$3520();
-	void anon_func$3521();
+	void anon_func$3527();
+	void anon_func$3528();
+	void anon_func$3532();
+	void anon_func$3533();
 scope_end()
 
 scope_begin(ui_res_drawable) 
@@ -2186,8 +2209,9 @@ scope_begin(ui_layout)
 
 	void __srt_global(object $instance);
 	void $03internal_static_init();
-	void anon_func$3518(object args);
-	void anon_func$3519(object args);
+	void anon_func$3529(object args);
+	void anon_func$3530(object args);
+	void anon_func$3531(object args);
 scope_end()
 
 scope_begin(ui_layout, home_screen) 

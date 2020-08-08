@@ -1,0 +1,40 @@
+mod common.network.remote;
+
+import common.network.core;
+import common.network.data.*;
+import common;
+
+class flight_data_request_impl base command_request_impl : flight_data_request
+{
+    def _get() : flight_data_response {
+        response := new request_data();
+        req := new request_data();
+        req.add_item(constants.strings.CMD, constants.strings.FLIGHT_DATA);
+
+        
+        if(rw_inf(req, WRITE, constants.RW_LIMIT)) {
+            return null;
+        }
+        
+        if(rw_inf(response, READ, constants.RW_LIMIT)) {
+            return null;
+        }
+
+        value := response.at(constants.strings.RESPONSE);
+        if(value != null && value == "data") {
+            return new flight_data_response(int.parse(response.at(constants.strings.BAT)), int.parse(response.at(constants.strings.ALT)),
+               int.parse(response.at(constants.strings.SPEED)));
+        }
+
+        return null;
+    }
+
+    def post(data: flight_data_response) {
+        _request := new request_data();
+        _request.add_item(constants.strings.RESPONSE, "data");
+        _request.add_item(constants.strings.ALT, "${data.altitude}");
+        _request.add_item(constants.strings.SPEED, "${data.speed}");
+        _request.add_item(constants.strings.BAT, "${data.bat_lvl}");
+        send_command(_request, false, true);
+    }
+}

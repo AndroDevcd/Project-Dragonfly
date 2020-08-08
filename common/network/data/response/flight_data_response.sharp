@@ -1,0 +1,17 @@
+mod common.network.data.response;
+
+import common.network.core;
+
+class flight_data_response
+{
+    flight_data_response(bat_lvl: var, altitude: var, speed: var)
+    {
+        self->bat_lvl = bat_lvl;
+        self->altitude = altitude;
+        self->speed = speed;
+    } 
+
+    bat_lvl: var;
+    altitude: var;
+    speed: var;
+}
