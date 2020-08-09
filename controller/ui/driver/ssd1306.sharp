@@ -64,7 +64,7 @@ class ssd1306 {
        if(skip_count <  0)
           throw new ill_state_except("skip count < 0: $skip_count");
        
-       println("draw img: $width $height $img_width $img_height $x, $y");
+       //println("draw img: $width $height $img_width $img_height $x, $y");
        return draw_img(bytes, width, height, x, y, skip_count);
     }
 

@@ -64,6 +64,7 @@ class window {
 
     def start_updater() {
        for(;;) {
+          thread.yield();
           device.clear();
 
           if(current_frag != null) {

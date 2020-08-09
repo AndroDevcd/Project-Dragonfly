@@ -21,7 +21,8 @@ class flight_data_request_impl base command_request_impl : flight_data_request
         }
 
         value := response.at(constants.strings.RESPONSE);
-        if(value != null && value == "data") {
+        if(value != null && value == "data" && response.at(constants.strings.BAT) != null 
+           && response.at(constants.strings.ALT) != null && response.at(constants.strings.SPEED) != null) {
             return new flight_data_response(int.parse(response.at(constants.strings.BAT)), int.parse(response.at(constants.strings.ALT)),
                int.parse(response.at(constants.strings.SPEED)));
         }

@@ -187,12 +187,12 @@ scope_begin(std_io_task)
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
+	var anon_func$3519(object it, object it2);
+	var anon_func$3520(object it, object it2);
 	var anon_func$3521(object it, object it2);
-	var anon_func$3522(object it, object it2);
-	var anon_func$3523(object it, object it2);
+	var anon_func$3522(object t);
+	var anon_func$3523(object t);
 	var anon_func$3524(object t);
-	var anon_func$3525(object t);
-	var anon_func$3526(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -1505,7 +1505,6 @@ scope_begin(platform, build)
 	var is_windows();
 	var is_linux();
 	void build(object $instance);
-	void $03internal_static_init();
 scope_end()
 
 scope_begin(platform_kernel) 
@@ -1809,7 +1808,7 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3513(object t1, object t2);
+	var anon_func$3511(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
@@ -1996,13 +1995,12 @@ scope_begin(main)
 
 	void __srt_global(object $instance);
 	void main(object args);
-	void set_transmission_status(var& ts);
 	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$3527();
-	void anon_func$3528();
-	void anon_func$3532();
-	void anon_func$3533();
+	void anon_func$3525();
+	void anon_func$3526();
+	void anon_func$3530();
+	void anon_func$3531();
 scope_end()
 
 scope_begin(ui_res_drawable) 
@@ -2209,9 +2207,9 @@ scope_begin(ui_layout)
 
 	void __srt_global(object $instance);
 	void $03internal_static_init();
+	void anon_func$3527(object args);
+	void anon_func$3528(object args);
 	void anon_func$3529(object args);
-	void anon_func$3530(object args);
-	void anon_func$3531(object args);
 scope_end()
 
 scope_begin(ui_layout, home_screen) 

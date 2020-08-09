@@ -4,6 +4,7 @@ import std.io;
 import std.io.task;
 import platform;
 import common.network;
+import common.network.data.response;
 import common;
 import common.gpio;
 import ui.support;
@@ -12,22 +13,23 @@ def main(args: string[])
 {
    load_library("bin/dragonfly");
    constants.NETWORK_STATE = constants.SERVER;
+   
    common.gpio#setup();
    setup_conn_tracker();
 
    task.builder()
-      .schedule(3000)
+     .long_term()
+     .schedule(3000)
         = { ->
          network.handshake();
          disconnected = false;
       };
       
    task.builder()
-    .long_term()
     .schedule(constants.INITIAL_START_DELAY)
     .recurring(constants.DEVICE_UPDATE_INTERVAL, milliseconds) 
       = { ->
-         if(!disconnected && transmission_status == constants.TRANSMISSION_STATUS_NORM) {
+         if(!disconnected) {
             network.change_mode(constants.strings.FLIGHT_MODE_NORM);
          }
          // TODO: add controller state checks here

@@ -30,7 +30,9 @@ class network {
     }
 
     static def change_mode(mode: string): var {
-       return INSTANCE.flight_mode_change_req.change_mode(mode);
+       lock(INSTANCE) {
+          return INSTANCE.flight_mode_change_req.change_mode(mode);
+       }
     }
     
     static def get_signal_strength() : var {
@@ -38,18 +40,26 @@ class network {
     }
 
     static def scan_network() : var[] {
-        return INSTANCE.network_scan_req.scan_network();
+        lock(INSTANCE) {
+           return INSTANCE.network_scan_req.scan_network();
+        }
     }
     
     static def get_flight_data() : flight_data_response {
-        return INSTANCE.flight_data_req._get();
+        lock(INSTANCE) {
+           return INSTANCE.flight_data_req._get();
+        }
     }
     
     static def post_flight_data(data: flight_data_response) {
-        INSTANCE.flight_data_req.post(data);
+        lock(INSTANCE) {
+           INSTANCE.flight_data_req.post(data);
+        }
     }
 
     static def send_acknowledge() {
-        INSTANCE.acknowledge_req.send();
+        lock(INSTANCE) {
+           INSTANCE.acknowledge_req.send();
+        }
     }
 }

@@ -9,12 +9,7 @@ import common.gpio;
 LOCK := new _object_();
 signal_strength := constants.SIGNAL_MIN;
 disconnected := true;
-transmission_status := constants.TRANSMISSION_STATUS_NORM;
 conn_upd_count := 0;
-
-def set_transmission_status(ts : var) {
-   transmission_status = ts;
-}
 
 def setup_conn_tracker() {
     pin_mode(constants.DEVICE_CONNECTING_PIN, constants.OUTPUT);
@@ -33,10 +28,11 @@ def setup_conn_tracker() {
      
      
     task.builder()
+     .long_term()
      .schedule(3000)
      .recurring(constants.TWO_FIFTY, milliseconds) 
        = { ->
-		   if(disconnected || transmission_status != constants.TRANSMISSION_STATUS_NORM) return;
+		   if(disconnected) return;
 		   signal_strength = network.get_signal_strength();
 		  
 		   if(signal_strength == constants.SIGNAL_MIN) {

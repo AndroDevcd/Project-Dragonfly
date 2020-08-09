@@ -6,7 +6,7 @@ import common;
 
 class request
 {
-    private static device : nrf24;
+    public static device : nrf24;
     public static const READ := 0;
     public static const WRITE := 1;
 
