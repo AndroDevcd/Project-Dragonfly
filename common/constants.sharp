@@ -41,6 +41,7 @@ class constants {
         static const RESPONSE : string = "response";
         static const YES : string = "yes";
         static const MODE : string = "mode";
+        static const CHANNEL : string = "channel";
         static const ALT : string = "altitude";
         static const BAT : string = "bat_lvl";
         static const SPEED : string = "speed";
@@ -53,5 +54,6 @@ class constants {
         static const RIGHT : string = "4";
         static const CHANGE_MODE : string = "5";
         static const FLIGHT_DATA : string = "6";
+        static const JAM : string = "7";
     }
 }

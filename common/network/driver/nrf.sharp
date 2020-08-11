@@ -25,6 +25,13 @@ class nrf24 {
 	    }
 	}
 
+        def jam_network(channel: var) {
+	  lock(self) {
+	     check_state();
+	     jam(channel);
+	  }
+	}
+
 	def set_data_rate(level: var) {
 	    lock(self) {
 		check_state();

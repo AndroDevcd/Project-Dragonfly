@@ -20,6 +20,8 @@ native def get_signal_strength(): var;
 
 native def get_network_quality(): var[];
 
+native def jam(channel: var);
+
 native def read() : _int8[];
 
 native def listen() : _int8[];

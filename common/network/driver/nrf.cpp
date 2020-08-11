@@ -22,6 +22,8 @@ bool packetSuccess[TRACKED_PACKETS];
 uint8_t packetsSent = 0;
 bool trackingFilled = false;
 packet pdata;
+int retryDelay = 0;
+int retryCount = 0;
 
 uint8_t response[TX_PACKET_WIDTH];
 
@@ -105,6 +107,8 @@ scope_begin(common_network_driver)
 	void set_retry_count(var &delay, var &count) {
 		radio.setRetries((uint8_t)delay.value(), (uint8_t)count.value() % 16);
 		TIMEOUT_US = (250 * (int)delay.value()) * (int)count.value();
+		retryCount = (uint8_t)count.value() % 16;
+		retryDelay = (uint8_t)delay.value();
 	}
 	
 	void power_down(object $instance) {
@@ -244,6 +248,37 @@ scope_begin(common_network_driver)
 		
 		radio.stopListening();
 		return data_response;
+	}
+	
+	void jam(var &wifiChannel) {
+		int channel = (int)wifiChannel.value() % 20;
+		long past = micros();
+		int oldChannel = radio.getChannel();
+        const char *text = "{fmju=j\"!@#$%^&\",hygt3454fr7";
+        
+	    radio.setRetries(1, 1);
+		radio.setAutoAck(false);
+		
+		for(;;) {
+			for(int i = ((channel *5) + 1); i < ((channel *5) + 25); i++) {
+				radio.setChannel(i);
+				radio.write(text, sizeof(char) * 30);
+			}
+			
+			if(((micros() - past) / 1000) > 5000) {
+				past = micros();
+				
+				radio.startListening();
+				if (radio.available()) {
+		           radio.setAutoAck(true);
+		           radio.setChannel(oldChannel);
+	               radio.setRetries(retryDelay, retryCount);
+				   return;
+				} else {
+					radio.stopListening();
+				}
+			}
+		}
 	}
 	
 	var_array read() {

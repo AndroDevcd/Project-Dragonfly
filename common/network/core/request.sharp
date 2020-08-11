@@ -16,6 +16,9 @@ class request
             device.dump();
         }
     }
+    
+    static def jam_network(channel: var)
+        := device.jam_network(channel);
 
     static def get_network_quality()
         := device.get_network_quality();

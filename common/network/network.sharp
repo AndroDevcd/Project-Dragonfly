@@ -20,6 +20,7 @@ class network {
     public signal_strength_req : signal_strength_request;
     public network_scan_req : network_scan_request;
     public flight_data_req : flight_data_request;
+    public jam_req : jam_request;
 
     static def handshake() {
         INSTANCE.handshake_req.handshake();
@@ -32,6 +33,12 @@ class network {
     static def change_mode(mode: string): var {
        lock(INSTANCE) {
           return INSTANCE.flight_mode_change_req.change_mode(mode);
+       }
+    }
+    
+    static def jam(channel: var): var {
+       lock(INSTANCE) {
+          return INSTANCE.jam_req.post(channel);
        }
     }
     

@@ -187,12 +187,12 @@ scope_begin(std_io_task)
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
-	var anon_func$3519(object it, object it2);
-	var anon_func$3520(object it, object it2);
-	var anon_func$3521(object it, object it2);
-	var anon_func$3522(object t);
-	var anon_func$3523(object t);
-	var anon_func$3524(object t);
+	var anon_func$3529(object it, object it2);
+	var anon_func$3530(object it, object it2);
+	var anon_func$3531(object it, object it2);
+	var anon_func$3532(object t);
+	var anon_func$3533(object t);
+	var anon_func$3534(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -1783,6 +1783,7 @@ scope_begin(common_network_driver)
 	void power_down();
 	var get_signal_strength();
 	var_array get_network_quality();
+	void jam(var& channel);
 	_int8_array read();
 	_int8_array listen();
 	void send(_int8_array& data);
@@ -1793,6 +1794,7 @@ scope_begin(common_network_driver, nrf24)
 
 	void nrf24(object $instance);
 	void set_rf_lvl(object $instance, var& level);
+	void jam_network(object $instance, var& channel);
 	void set_data_rate(object $instance, var& level);
 	void dump(object $instance);
 	void update_retry_count(object $instance, var& delay, var& count);
@@ -1808,11 +1810,12 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3511(object t1, object t2);
+	var anon_func$3521(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
 
+	void jam_network(var& channel);
 	var_array get_network_quality();
 	var get_signal_strength();
 	var write(object rdata);
@@ -1843,6 +1846,13 @@ scope_begin(common_network_remote)
 
 	void __srt_global(object $instance);
 	void initialize(object net);
+scope_end()
+
+scope_begin(common_network_remote, jam_request_impl) 
+
+	void jam_request_impl(object $instance);
+	void jam(object $instance, var& channel);
+	var post(object $instance, var& channel);
 scope_end()
 
 scope_begin(common_network_remote, acknowledge_request_impl) 
@@ -1899,6 +1909,7 @@ scope_begin(common_network, network)
 	void handshake();
 	object listen();
 	var change_mode(object mode);
+	var jam(var& channel);
 	var get_signal_strength();
 	var_array scan_network();
 	object get_flight_data();
@@ -1917,6 +1928,13 @@ scope_begin(common_network_data_request, network_scan_request)
 
 	var_array scan_network(object $instance);
 	void network_scan_request(object $instance);
+scope_end()
+
+scope_begin(common_network_data_request, jam_request) 
+
+	void jam(object $instance, var& channel);
+	var post(object $instance, var& channel);
+	void jam_request(object $instance);
 scope_end()
 
 scope_begin(common_network_data_request, acknowledge_request) 
@@ -1997,10 +2015,10 @@ scope_begin(main)
 	void main(object args);
 	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$3525();
-	void anon_func$3526();
-	void anon_func$3530();
-	void anon_func$3531();
+	void anon_func$3535();
+	void anon_func$3536();
+	void anon_func$3540();
+	void anon_func$3541();
 scope_end()
 
 scope_begin(ui_res_drawable) 
@@ -2207,9 +2225,9 @@ scope_begin(ui_layout)
 
 	void __srt_global(object $instance);
 	void $03internal_static_init();
-	void anon_func$3527(object args);
-	void anon_func$3528(object args);
-	void anon_func$3529(object args);
+	void anon_func$3537(object args);
+	void anon_func$3538(object args);
+	void anon_func$3539(object args);
 scope_end()
 
 scope_begin(ui_layout, home_screen) 
