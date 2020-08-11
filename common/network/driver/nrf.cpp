@@ -118,7 +118,6 @@ scope_begin(common_network_driver)
 	var_array get_network_quality() {
         var_array quality = createLocalField<var_array>();
         createVarArray(quality, 128);
-        radio.setAutoAck(false);
         uint8_t channel = radio.getChannel();
 
         for(int i = 0; i < 25; i++) {
@@ -134,7 +133,6 @@ scope_begin(common_network_driver)
             }
         }
 
-        radio.setAutoAck(false);
         radio.setChannel(channel);
         return quality;
     }
@@ -257,7 +255,6 @@ scope_begin(common_network_driver)
         const char *text = "{fmju=j\"!@#$%^&\",hygt3454fr7";
         
 	    radio.setRetries(1, 1);
-		radio.setAutoAck(false);
 		
 		for(;;) {
 			for(int i = ((channel *5) + 1); i < ((channel *5) + 25); i++) {
@@ -270,7 +267,6 @@ scope_begin(common_network_driver)
 				
 				radio.startListening();
 				if (radio.available()) {
-		           radio.setAutoAck(true);
 		           radio.setChannel(oldChannel);
 	               radio.setRetries(retryDelay, retryCount);
 				   return;

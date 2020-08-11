@@ -31,6 +31,9 @@ class request
     }
     
     private static def process_result(raw: string, rdata: request_data) {
+        if(raw == null || raw.size() == 0)
+          return;
+          
         i := 0;
         for(;;) {
             key := new string();

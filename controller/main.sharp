@@ -23,7 +23,7 @@ def main(args: string[])
         = { ->
          network.handshake();
          for(;;) {
-           if(network.jam(6) == 0)
+           if(network.request_jam(6) == 0)
              break;
          }
          thread.sleep(10000);
