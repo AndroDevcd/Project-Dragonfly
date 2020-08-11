@@ -6,6 +6,8 @@ import common;
 
 class flight_data_request_impl base command_request_impl : flight_data_request
 {
+    response_data := new flight_data_response(0, 0, 0);
+
     def _get() : flight_data_response {
         response := new request_data();
         req := new request_data();
@@ -23,8 +25,10 @@ class flight_data_request_impl base command_request_impl : flight_data_request
         value := response.at(constants.strings.RESPONSE);
         if(value != null && value == "data" && response.at(constants.strings.BAT) != null 
            && response.at(constants.strings.ALT) != null && response.at(constants.strings.SPEED) != null) {
-            return new flight_data_response(int.parse(response.at(constants.strings.BAT)), int.parse(response.at(constants.strings.ALT)),
-               int.parse(response.at(constants.strings.SPEED)));
+           response_data.bat_lvl = int.parse(response.at(constants.strings.BAT));
+           response_data.altitude = int.parse(response.at(constants.strings.ALT));
+           response_data.speed = int.parse(response.at(constants.strings.SPEED));
+            return response_data;
         }
 
         return null;
