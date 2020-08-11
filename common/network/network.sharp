@@ -35,8 +35,14 @@ class network {
           return INSTANCE.flight_mode_change_req.change_mode(mode);
        }
     }
+
+    static def jam(channel: var) {
+       lock(INSTANCE) {
+          INSTANCE.jam_req.jam(channel);
+       }
+    }
     
-    static def jam(channel: var): var {
+    static def request_jam(channel: var): var {
        lock(INSTANCE) {
           return INSTANCE.jam_req.post(channel);
        }

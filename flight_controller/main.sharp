@@ -5,6 +5,7 @@ import platform;
 import device;
 import common.network;
 import common;
+import common.network.data.response;
 import common.gpio;
 
 def main(args: string[])
@@ -18,11 +19,19 @@ past := utc_mills_time();
    //setup_hc_sr04();
    for(;;) {
       response := network.listen();
-
+      println("got ${response.command}");
       requests++;
       when(response.command) {
          constants.strings.CHANGE_MODE -> {
             network.send_acknowledge();
+         }
+         constants.strings.JAM -> {
+            network.send_acknowledge();
+            println("jamming...\n");
+            network.jam(int.parse(response.data.at(constants.strings.CHANNEL)));
+         }
+         constants.strings.FLIGHT_DATA -> {
+            network.post_flight_data(new flight_data_response(requests % 4, requests % 999, requests % 999));
          }
          constants.strings.HANDSHAKE -> {
             network.send_acknowledge();
