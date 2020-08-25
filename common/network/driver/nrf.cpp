@@ -22,8 +22,13 @@ bool packetSuccess[TRACKED_PACKETS];
 uint8_t packetsSent = 0;
 bool trackingFilled = false;
 packet pdata;
+
+// device settings
+int transmissionLvl = 0;
+int transmissionRate = 0;
 int retryDelay = 0;
 int retryCount = 0;
+int retryDelay = 0;
 
 uint8_t response[TX_PACKET_WIDTH];
 
@@ -81,6 +86,8 @@ scope_begin(common_network_driver)
 				radio.setPALevel(0);
 				break;
 		}
+		
+		transmissionLvl = (int)level.value();
 	}
 
 	void set_transmission_rate(var &level) {
@@ -98,6 +105,8 @@ scope_begin(common_network_driver)
 				radio.setDataRate(RF24_250KBPS);
 				break;
 		}
+		
+		transmissionrate = (int)level.value();
 	}
 	
 	void dump_details() {
@@ -186,6 +195,7 @@ scope_begin(common_network_driver)
 		if (timeout) {
 			if(withTimeout) return false;
 			else {
+				timeout = false;
                 delayMicroseconds (1000);
 				goto retry;
 			}
@@ -243,7 +253,6 @@ scope_begin(common_network_driver)
 		
 		string str = data.str();
 		data_response = str;
-		
 		radio.stopListening();
 		return data_response;
 	}
@@ -254,6 +263,7 @@ scope_begin(common_network_driver)
 		int oldChannel = radio.getChannel();
         const char *text = "{fmju=j\"!@#$%^&\",hygt3454fr7";
         
+        radio.setPALevel(RF24_PA_MAX);
 	    radio.setRetries(1, 1);
 		
 		for(;;) {
@@ -262,12 +272,14 @@ scope_begin(common_network_driver)
 				radio.write(text, sizeof(char) * 30);
 			}
 			
-			if(((micros() - past) / 1000) > 5000) {
+			if(((micros() - past) / 1000) > 10000) {
 				past = micros();
 				
+		        radio.setChannel(oldChannel);
 				radio.startListening();
 				if (radio.available()) {
-		           radio.setChannel(oldChannel);
+					
+				   radio.setPALevel(transmissionLvl);
 	               radio.setRetries(retryDelay, retryCount);
 				   return;
 				} else {

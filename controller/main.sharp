@@ -22,11 +22,12 @@ def main(args: string[])
      .schedule(3000)
         = { ->
          network.handshake();
+         println("handshaked!");
          for(;;) {
-           if(network.request_jam(6) == 0)
+           if(network.request_jam(1) == 0)
              break;
          }
-         thread.sleep(10000);
+         thread.sleep(100000);
          disconnected = false;
       };
       
