@@ -100,23 +100,23 @@ class home_screen base fragment {
         speed.text = "9";
         speed_unit.text = "Kph";
         speed.text_size = 3;
-        
+
         task.builder()
           .with_name(FLIGHT_DATA_TASK)
           .recurring(250, milliseconds)
           .with_args(new object[] { speed, altitude_txt, bat_view })
-            = { args: object[]  -> 
+            = { args: object[]  ->
                speed := args[1] as text_view;
                altitude := args[2] as text_view;
                battery := args[3] as image_view;
-               
+
                if(!disconnected) {
                    data := network.get_flight_data();
-                   
+
                    if(data != null) {
                       speed.text = "${data.speed}";
                       altitude.text = "${data.altitude}M";
-                      
+
                       when (data.bat_lvl) {
                         0 -> {
                            battery.set_drawable(constants.resource.id.ico_battery_0);
@@ -140,7 +140,7 @@ class home_screen base fragment {
                    }
                }
             };
-        
+
         task.builder()
           .with_name(SIGNAL_UPDATER_TASK)
           .recurring(1000, milliseconds)
@@ -168,41 +168,29 @@ class home_screen base fragment {
                 }
              }
             };
-        
-        
+
+
         task.builder()
           .with_name(CLOCK_TASK)
           .recurring(1000, milliseconds)
           .with_args(new object[] { time })
             = { args : object[] ->
              tv := args[1] as text_view;
-             min_tm : _int32 = (time.mills_time() / 1000) / 60;
-             days_passed : _int32 = min_tm / constants.time.MIN_IN_DAY;
-             min_passed : _int32 = days_passed * constants.time.MIN_IN_DAY;
-             min_passed_today : _int32 = min_tm - min_passed;
-             utc_hr : _int32 = min_passed_today / constants.time.MIN_IN_HR;
-             utc_min : _int32 = min_passed_today - (utc_hr * constants.time.MIN_IN_HR);
-             
-             hr := 0;
-             tod := "am";
-             if(utc_hr == 5) {
-                hr = 12;
-             } else if(utc_hr > 5) {
-                hr = utc_hr - 5;
-             } else {
-                hr = 12 + (utc_hr - 5);
-             }
-             
-             if(hr >= 12) {
-               if(utc_hr != 5)
-                  tod = "pm";
+             utc_hr := time.get_os_time(tm_hour);
+             utc_min := time.get_os_time(tm_minutes);
 
-               if(hr > 12)
-                  hr -= 12;
-             }
-             
-             real_time : string = "${hr}:";
-             
+             tod := "am";
+
+//             if(hr >= 12) {
+//               if(utc_hr != 5)
+//                  tod = "pm";
+//
+//               if(hr > 12)
+//                  hr -= 12;
+//             }
+
+             real_time : string = "${utc_hr}:";
+
              if(utc_min < 10)
                real_time += "0";
              real_time += utc_min;

@@ -12,9 +12,10 @@ def configure_layout() {
 
     // add all your pages here
     container.add_fragment(new home_screen(container, constants.layout.HOME));
+    container.add_fragment(new splash_screen(container, constants.layout.SPLASH));
 
     // set the starting page here
-    container.starter_fragment(constants.layout.HOME);
+    container.starter_fragment(constants.layout.SPLASH);
 }
 
 def start() {

@@ -30,6 +30,7 @@ class constants {
 
     class layout {
         public static const HOME := 0;
+        public static const SPLASH := 1;
     }
 
     class margins {
@@ -62,6 +63,10 @@ class constants {
             public static const altitude_txt := 0x13;
             public static const speed := 0x14;
             public static const speed_unit := 0x15;
+            public static const product_name_1 := 0x16;
+            public static const product_name_1 := 0x17;
+            public static const product_icon := 0x18;
+            public static const ico_product := 0x19;
          }
     }
 

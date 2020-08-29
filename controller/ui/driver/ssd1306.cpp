@@ -9,9 +9,6 @@ scope_begin(ui_driver)
 
 void setup() {
     ssd1306_begin(SSD1306_SWITCHCAPVCC, SSD1306_I2C_ADDRESS);
-
-    ssd1306_display(); //Adafruit logo is visible
-    delay(1000);
     ssd1306_clearDisplay();
 }
 

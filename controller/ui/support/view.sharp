@@ -17,6 +17,7 @@ class view {
     id : var;
     left_of : var;
     start_of : var;
+    end_of : var;
     top_of : var;
     bottom_of : var;
     right_of : var;
@@ -174,6 +175,40 @@ class view {
             } else if(right_of == constants.resource.id.parent) {
                 if(left_of >= constants.resource.id.parent)
                     throw new ill_state_except("cannot align view to right while also having left alignment");
+                x = constants.window.WIDTH - transform_width();
+            }
+
+            if(end_of > constants.resource.id.parent) {
+                if(left_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of view ${end_of} while also having left alignment");
+                if(right_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of view ${end_of} while also having right alignment");
+
+                if(v == null || (v != null && v.id != right_of))
+                   v = owner.find_view_by_id(right_of);
+                v.invalidate();
+                if(v.width == constants.view.MATCH_PARENT)
+                   x = constants.window.WIDTH - transform_width();
+                else if(v.width != constants.view.WRAP_CONTENT) {
+                   if(v.gravity == constants.view.GRAVITY_RIGHT)
+                      x = v.x + v.transform_width() - transform_width();
+                   else if(v.gravity == constants.view.GRAVITY_CENTER) {
+                        offset := (v.width - (v.x + v.transform_width())) - v.transform_width();
+                        if(offset > 0 && offset < v.width) {
+                           x += v.x + offset - transform_width();
+                        } else
+                           x = v.x - v.transform_width() - transform_width();
+                   }
+                   else
+                      x = v.x + v.width - transform_width();
+                }
+                else
+                   x = v.x + v.transform_width() - transform_width();
+            } else if(end_of == constants.resource.id.parent) {
+                if(left_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of parent while also having left alignment");
+                if(right_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of parent while also having left alignment");
                 x = constants.window.WIDTH - transform_width();
             }
 
