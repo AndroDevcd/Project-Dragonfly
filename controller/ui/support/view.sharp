@@ -288,6 +288,12 @@ class view {
         return self;
     }
 
+    def to_end_of(id: var) : view {
+        end_of = id;
+        transformed = false;
+        return self;
+    }
+
     def to_top_of(id: var) : view {
         top_of = id;
         transformed = false;

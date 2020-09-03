@@ -8,7 +8,9 @@ using namespace snb_api;
 scope_begin(std) 
 
 	void __srt_global(object $instance);
+	var strtod(object str);
 	var_array snprintf(var& fmt, var& num, var& precision);
+	var sys(object str);
 	void print(_int8_array& data);
 	void print2(object str);
 	void println(var_array& data);
@@ -50,9 +52,17 @@ scope_begin(std)
 	void print_numbers8(_uint64_array& str);
 	void print_chars2(_int16_array& str);
 	var read_ch(var& hide);
+	var rand();
+	var rand_int(var& min, var& max);
+	var rand_double(var& min, var& max);
+	var rand_int2();
+	var rand_double2();
+	void set_seed(var& seed);
 	object runtime_error(object message);
 	object runtime_error2();
 	void todo(object message);
+	void assert(var& cond);
+	void assert2(var& cond, object message);
 	void $03internal_static_init();
 scope_end()
 
@@ -152,6 +162,14 @@ scope_begin(std, string)
 	var find(object $instance, object str);
 	var ends_with(object $instance, object postfix);
 	object op_$plus4(object $instance, var& num);
+	object op_$plus5(object $instance, _int8& num);
+	object op_$plus6(object $instance, _int16& num);
+	object op_$plus7(object $instance, _int32& num);
+	object op_$plus8(object $instance, _int64& num);
+	object op_$plus9(object $instance, _uint8& num);
+	object op_$plus10(object $instance, _uint16& num);
+	object op_$plus11(object $instance, _uint32& num);
+	object op_$plus12(object $instance, _uint64& num);
 	var size(object $instance);
 	object parse(var& number);
 	object op_$plus_equal(object $instance, var& num);
@@ -187,12 +205,12 @@ scope_begin(std_io_task)
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
 	void $03internal_static_init();
-	var anon_func$3530(object it, object it2);
-	var anon_func$3531(object it, object it2);
-	var anon_func$3532(object it, object it2);
-	var anon_func$3533(object t);
-	var anon_func$3534(object t);
-	var anon_func$3535(object t);
+	var anon_func$4099(object it, object it2);
+	var anon_func$4100(object it, object it2);
+	var anon_func$4101(object it, object it2);
+	var anon_func$4102(object t);
+	var anon_func$4103(object t);
+	var anon_func$4104(object t);
 scope_end()
 
 scope_begin(std_io_task, task) 
@@ -201,6 +219,7 @@ scope_begin(std_io_task, task)
 	object schedule(var& future);
 	object with_name(object job_name);
 	object with_args(object args);
+	object recurring(object $instance, var& tm, object interval);
 	object block();
 	object long_term();
 	object builder();
@@ -406,8 +425,7 @@ scope_begin(std_io, thread)
 	object interrupt(object $instance);
 	object current();
 	void sleep(var& mills_time);
-	void wait();
-	void wait2(var& mills_time);
+	void suspend_for(var& mills_time);
 	void exit(var& code);
 	object hash(object $instance);
 	void yield();
@@ -499,6 +517,12 @@ scope_begin(std, _enum_)
 	void _enum_3(object $instance);
 scope_end()
 
+scope_begin(std, tmp) 
+
+	void tmp(object $instance);
+	void $03internal_static_init();
+scope_end()
+
 scope_begin(std, ulong) 
 
 	void ulong(object $instance, object i);
@@ -511,7 +535,8 @@ scope_begin(std, ulong)
 	void ulong8(object $instance, object i);
 	void ulong9(object $instance, object i);
 	void ulong10(object $instance, object i);
-	void ulong11(object $instance, var& i);
+	void ulong11(object $instance, object i);
+	void ulong12(object $instance, var& i);
 	_uint64 op_$not(object $instance);
 	_uint64 op_$plus_plus(object $instance);
 	_uint64 op_$plus_plus2(object $instance, var& num);
@@ -527,7 +552,8 @@ scope_begin(std, ulong)
 	_uint64 op_$plus_equal8(object $instance, object num);
 	_uint64 op_$plus_equal9(object $instance, object num);
 	_uint64 op_$plus_equal10(object $instance, object num);
-	_uint64 op_$plus_equal11(object $instance, var& num);
+	_uint64 op_$plus_equal11(object $instance, object num);
+	_uint64 op_$plus_equal12(object $instance, var& num);
 	_uint64 op_$minus_equal(object $instance, object num);
 	_uint64 op_$minus_equal2(object $instance, object num);
 	_uint64 op_$minus_equal3(object $instance, object num);
@@ -538,7 +564,8 @@ scope_begin(std, ulong)
 	_uint64 op_$minus_equal8(object $instance, object num);
 	_uint64 op_$minus_equal9(object $instance, object num);
 	_uint64 op_$minus_equal10(object $instance, object num);
-	_uint64 op_$minus_equal11(object $instance, var& num);
+	_uint64 op_$minus_equal11(object $instance, object num);
+	_uint64 op_$minus_equal12(object $instance, var& num);
 	_uint64 op_$mult_equal(object $instance, object num);
 	_uint64 op_$mult_equal2(object $instance, object num);
 	_uint64 op_$mult_equal3(object $instance, object num);
@@ -549,7 +576,8 @@ scope_begin(std, ulong)
 	_uint64 op_$mult_equal8(object $instance, object num);
 	_uint64 op_$mult_equal9(object $instance, object num);
 	_uint64 op_$mult_equal10(object $instance, object num);
-	_uint64 op_$mult_equal11(object $instance, var& num);
+	_uint64 op_$mult_equal11(object $instance, object num);
+	_uint64 op_$mult_equal12(object $instance, var& num);
 	_uint64 op_$div_equal(object $instance, object num);
 	_uint64 op_$div_equal2(object $instance, object num);
 	_uint64 op_$div_equal3(object $instance, object num);
@@ -560,7 +588,8 @@ scope_begin(std, ulong)
 	_uint64 op_$div_equal8(object $instance, object num);
 	_uint64 op_$div_equal9(object $instance, object num);
 	_uint64 op_$div_equal10(object $instance, object num);
-	_uint64 op_$div_equal11(object $instance, var& num);
+	_uint64 op_$div_equal11(object $instance, object num);
+	_uint64 op_$div_equal12(object $instance, var& num);
 	_uint64 op_$mod_equal(object $instance, object num);
 	_uint64 op_$mod_equal2(object $instance, object num);
 	_uint64 op_$mod_equal3(object $instance, object num);
@@ -571,7 +600,8 @@ scope_begin(std, ulong)
 	_uint64 op_$mod_equal8(object $instance, object num);
 	_uint64 op_$mod_equal9(object $instance, object num);
 	_uint64 op_$mod_equal10(object $instance, object num);
-	_uint64 op_$mod_equal11(object $instance, var& num);
+	_uint64 op_$mod_equal11(object $instance, object num);
+	_uint64 op_$mod_equal12(object $instance, var& num);
 	_uint64 op_$and_equal(object $instance, object num);
 	_uint64 op_$and_equal2(object $instance, object num);
 	_uint64 op_$and_equal3(object $instance, object num);
@@ -582,7 +612,8 @@ scope_begin(std, ulong)
 	_uint64 op_$and_equal8(object $instance, object num);
 	_uint64 op_$and_equal9(object $instance, object num);
 	_uint64 op_$and_equal10(object $instance, object num);
-	_uint64 op_$and_equal11(object $instance, var& num);
+	_uint64 op_$and_equal11(object $instance, object num);
+	_uint64 op_$and_equal12(object $instance, var& num);
 	_uint64 op_$or_equal(object $instance, object num);
 	_uint64 op_$or_equal2(object $instance, object num);
 	_uint64 op_$or_equal3(object $instance, object num);
@@ -593,8 +624,9 @@ scope_begin(std, ulong)
 	_uint64 op_$or_equal8(object $instance, object num);
 	_uint64 op_$or_equal9(object $instance, object num);
 	_uint64 op_$or_equal10(object $instance, object num);
-	_uint64 op_$or_equal11(object $instance, var& num);
-	void ulong12(object $instance);
+	_uint64 op_$or_equal11(object $instance, object num);
+	_uint64 op_$or_equal12(object $instance, var& num);
+	void ulong13(object $instance);
 scope_end()
 
 scope_begin(std, _long) 
@@ -609,7 +641,8 @@ scope_begin(std, _long)
 	void _long8(object $instance, object i);
 	void _long9(object $instance, object i);
 	void _long10(object $instance, object i);
-	void _long11(object $instance, var& i);
+	void _long11(object $instance, object i);
+	void _long12(object $instance, var& i);
 	_int64 op_$not(object $instance);
 	_int64 op_$plus_plus(object $instance);
 	_int64 op_$plus_plus2(object $instance, var& num);
@@ -625,7 +658,8 @@ scope_begin(std, _long)
 	_int64 op_$plus_equal8(object $instance, object num);
 	_int64 op_$plus_equal9(object $instance, object num);
 	_int64 op_$plus_equal10(object $instance, object num);
-	_int64 op_$plus_equal11(object $instance, var& num);
+	_int64 op_$plus_equal11(object $instance, object num);
+	_int64 op_$plus_equal12(object $instance, var& num);
 	_int64 op_$minus_equal(object $instance, object num);
 	_int64 op_$minus_equal2(object $instance, object num);
 	_int64 op_$minus_equal3(object $instance, object num);
@@ -636,7 +670,8 @@ scope_begin(std, _long)
 	_int64 op_$minus_equal8(object $instance, object num);
 	_int64 op_$minus_equal9(object $instance, object num);
 	_int64 op_$minus_equal10(object $instance, object num);
-	_int64 op_$minus_equal11(object $instance, var& num);
+	_int64 op_$minus_equal11(object $instance, object num);
+	_int64 op_$minus_equal12(object $instance, var& num);
 	_int64 op_$mult_equal(object $instance, object num);
 	_int64 op_$mult_equal2(object $instance, object num);
 	_int64 op_$mult_equal3(object $instance, object num);
@@ -647,7 +682,8 @@ scope_begin(std, _long)
 	_int64 op_$mult_equal8(object $instance, object num);
 	_int64 op_$mult_equal9(object $instance, object num);
 	_int64 op_$mult_equal10(object $instance, object num);
-	_int64 op_$mult_equal11(object $instance, var& num);
+	_int64 op_$mult_equal11(object $instance, object num);
+	_int64 op_$mult_equal12(object $instance, var& num);
 	_int64 op_$div_equal(object $instance, object num);
 	_int64 op_$div_equal2(object $instance, object num);
 	_int64 op_$div_equal3(object $instance, object num);
@@ -658,7 +694,8 @@ scope_begin(std, _long)
 	_int64 op_$div_equal8(object $instance, object num);
 	_int64 op_$div_equal9(object $instance, object num);
 	_int64 op_$div_equal10(object $instance, object num);
-	_int64 op_$div_equal11(object $instance, var& num);
+	_int64 op_$div_equal11(object $instance, object num);
+	_int64 op_$div_equal12(object $instance, var& num);
 	_int64 op_$mod_equal(object $instance, object num);
 	_int64 op_$mod_equal2(object $instance, object num);
 	_int64 op_$mod_equal3(object $instance, object num);
@@ -669,7 +706,8 @@ scope_begin(std, _long)
 	_int64 op_$mod_equal8(object $instance, object num);
 	_int64 op_$mod_equal9(object $instance, object num);
 	_int64 op_$mod_equal10(object $instance, object num);
-	_int64 op_$mod_equal11(object $instance, var& num);
+	_int64 op_$mod_equal11(object $instance, object num);
+	_int64 op_$mod_equal12(object $instance, var& num);
 	_int64 op_$and_equal(object $instance, object num);
 	_int64 op_$and_equal2(object $instance, object num);
 	_int64 op_$and_equal3(object $instance, object num);
@@ -680,7 +718,8 @@ scope_begin(std, _long)
 	_int64 op_$and_equal8(object $instance, object num);
 	_int64 op_$and_equal9(object $instance, object num);
 	_int64 op_$and_equal10(object $instance, object num);
-	_int64 op_$and_equal11(object $instance, var& num);
+	_int64 op_$and_equal11(object $instance, object num);
+	_int64 op_$and_equal12(object $instance, var& num);
 	_int64 op_$or_equal(object $instance, object num);
 	_int64 op_$or_equal2(object $instance, object num);
 	_int64 op_$or_equal3(object $instance, object num);
@@ -691,8 +730,9 @@ scope_begin(std, _long)
 	_int64 op_$or_equal8(object $instance, object num);
 	_int64 op_$or_equal9(object $instance, object num);
 	_int64 op_$or_equal10(object $instance, object num);
-	_int64 op_$or_equal11(object $instance, var& num);
-	void _long12(object $instance);
+	_int64 op_$or_equal11(object $instance, object num);
+	_int64 op_$or_equal12(object $instance, var& num);
+	void _long13(object $instance);
 scope_end()
 
 scope_begin(std, uint) 
@@ -707,7 +747,8 @@ scope_begin(std, uint)
 	void uint8(object $instance, object i);
 	void uint9(object $instance, object i);
 	void uint10(object $instance, object i);
-	void uint11(object $instance, var& i);
+	void uint11(object $instance, object i);
+	void uint12(object $instance, var& i);
 	_uint32 op_$not(object $instance);
 	_uint32 op_$plus_plus(object $instance);
 	_uint32 op_$plus_plus2(object $instance, var& num);
@@ -723,7 +764,8 @@ scope_begin(std, uint)
 	_uint32 op_$plus_equal8(object $instance, object num);
 	_uint32 op_$plus_equal9(object $instance, object num);
 	_uint32 op_$plus_equal10(object $instance, object num);
-	_uint32 op_$plus_equal11(object $instance, var& num);
+	_uint32 op_$plus_equal11(object $instance, object num);
+	_uint32 op_$plus_equal12(object $instance, var& num);
 	_uint32 op_$minus_equal(object $instance, object num);
 	_uint32 op_$minus_equal2(object $instance, object num);
 	_uint32 op_$minus_equal3(object $instance, object num);
@@ -734,7 +776,8 @@ scope_begin(std, uint)
 	_uint32 op_$minus_equal8(object $instance, object num);
 	_uint32 op_$minus_equal9(object $instance, object num);
 	_uint32 op_$minus_equal10(object $instance, object num);
-	_uint32 op_$minus_equal11(object $instance, var& num);
+	_uint32 op_$minus_equal11(object $instance, object num);
+	_uint32 op_$minus_equal12(object $instance, var& num);
 	_uint32 op_$mult_equal(object $instance, object num);
 	_uint32 op_$mult_equal2(object $instance, object num);
 	_uint32 op_$mult_equal3(object $instance, object num);
@@ -745,7 +788,8 @@ scope_begin(std, uint)
 	_uint32 op_$mult_equal8(object $instance, object num);
 	_uint32 op_$mult_equal9(object $instance, object num);
 	_uint32 op_$mult_equal10(object $instance, object num);
-	_uint32 op_$mult_equal11(object $instance, var& num);
+	_uint32 op_$mult_equal11(object $instance, object num);
+	_uint32 op_$mult_equal12(object $instance, var& num);
 	_uint32 op_$div_equal(object $instance, object num);
 	_uint32 op_$div_equal2(object $instance, object num);
 	_uint32 op_$div_equal3(object $instance, object num);
@@ -756,7 +800,8 @@ scope_begin(std, uint)
 	_uint32 op_$div_equal8(object $instance, object num);
 	_uint32 op_$div_equal9(object $instance, object num);
 	_uint32 op_$div_equal10(object $instance, object num);
-	_uint32 op_$div_equal11(object $instance, var& num);
+	_uint32 op_$div_equal11(object $instance, object num);
+	_uint32 op_$div_equal12(object $instance, var& num);
 	_uint32 op_$mod_equal(object $instance, object num);
 	_uint32 op_$mod_equal2(object $instance, object num);
 	_uint32 op_$mod_equal3(object $instance, object num);
@@ -767,7 +812,8 @@ scope_begin(std, uint)
 	_uint32 op_$mod_equal8(object $instance, object num);
 	_uint32 op_$mod_equal9(object $instance, object num);
 	_uint32 op_$mod_equal10(object $instance, object num);
-	_uint32 op_$mod_equal11(object $instance, var& num);
+	_uint32 op_$mod_equal11(object $instance, object num);
+	_uint32 op_$mod_equal12(object $instance, var& num);
 	_uint32 op_$and_equal(object $instance, object num);
 	_uint32 op_$and_equal2(object $instance, object num);
 	_uint32 op_$and_equal3(object $instance, object num);
@@ -778,7 +824,8 @@ scope_begin(std, uint)
 	_uint32 op_$and_equal8(object $instance, object num);
 	_uint32 op_$and_equal9(object $instance, object num);
 	_uint32 op_$and_equal10(object $instance, object num);
-	_uint32 op_$and_equal11(object $instance, var& num);
+	_uint32 op_$and_equal11(object $instance, object num);
+	_uint32 op_$and_equal12(object $instance, var& num);
 	_uint32 op_$or_equal(object $instance, object num);
 	_uint32 op_$or_equal2(object $instance, object num);
 	_uint32 op_$or_equal3(object $instance, object num);
@@ -789,8 +836,9 @@ scope_begin(std, uint)
 	_uint32 op_$or_equal8(object $instance, object num);
 	_uint32 op_$or_equal9(object $instance, object num);
 	_uint32 op_$or_equal10(object $instance, object num);
-	_uint32 op_$or_equal11(object $instance, var& num);
-	void uint12(object $instance);
+	_uint32 op_$or_equal11(object $instance, object num);
+	_uint32 op_$or_equal12(object $instance, var& num);
+	void uint13(object $instance);
 scope_end()
 
 scope_begin(std, _int) 
@@ -805,7 +853,8 @@ scope_begin(std, _int)
 	void _int8(object $instance, object i);
 	void _int9(object $instance, object i);
 	void _int10(object $instance, object i);
-	void _int11(object $instance, var& i);
+	void _int11(object $instance, object i);
+	void _int12(object $instance, var& i);
 	_int32 op_$not(object $instance);
 	_int32 op_$plus_plus(object $instance);
 	_int32 op_$plus_plus2(object $instance, var& num);
@@ -821,7 +870,8 @@ scope_begin(std, _int)
 	_int32 op_$plus_equal8(object $instance, object num);
 	_int32 op_$plus_equal9(object $instance, object num);
 	_int32 op_$plus_equal10(object $instance, object num);
-	_int32 op_$plus_equal11(object $instance, var& num);
+	_int32 op_$plus_equal11(object $instance, object num);
+	_int32 op_$plus_equal12(object $instance, var& num);
 	_int32 op_$minus_equal(object $instance, object num);
 	_int32 op_$minus_equal2(object $instance, object num);
 	_int32 op_$minus_equal3(object $instance, object num);
@@ -832,7 +882,8 @@ scope_begin(std, _int)
 	_int32 op_$minus_equal8(object $instance, object num);
 	_int32 op_$minus_equal9(object $instance, object num);
 	_int32 op_$minus_equal10(object $instance, object num);
-	_int32 op_$minus_equal11(object $instance, var& num);
+	_int32 op_$minus_equal11(object $instance, object num);
+	_int32 op_$minus_equal12(object $instance, var& num);
 	_int32 op_$mult_equal(object $instance, object num);
 	_int32 op_$mult_equal2(object $instance, object num);
 	_int32 op_$mult_equal3(object $instance, object num);
@@ -843,7 +894,8 @@ scope_begin(std, _int)
 	_int32 op_$mult_equal8(object $instance, object num);
 	_int32 op_$mult_equal9(object $instance, object num);
 	_int32 op_$mult_equal10(object $instance, object num);
-	_int32 op_$mult_equal11(object $instance, var& num);
+	_int32 op_$mult_equal11(object $instance, object num);
+	_int32 op_$mult_equal12(object $instance, var& num);
 	_int32 op_$div_equal(object $instance, object num);
 	_int32 op_$div_equal2(object $instance, object num);
 	_int32 op_$div_equal3(object $instance, object num);
@@ -854,7 +906,8 @@ scope_begin(std, _int)
 	_int32 op_$div_equal8(object $instance, object num);
 	_int32 op_$div_equal9(object $instance, object num);
 	_int32 op_$div_equal10(object $instance, object num);
-	_int32 op_$div_equal11(object $instance, var& num);
+	_int32 op_$div_equal11(object $instance, object num);
+	_int32 op_$div_equal12(object $instance, var& num);
 	_int32 op_$mod_equal(object $instance, object num);
 	_int32 op_$mod_equal2(object $instance, object num);
 	_int32 op_$mod_equal3(object $instance, object num);
@@ -865,7 +918,8 @@ scope_begin(std, _int)
 	_int32 op_$mod_equal8(object $instance, object num);
 	_int32 op_$mod_equal9(object $instance, object num);
 	_int32 op_$mod_equal10(object $instance, object num);
-	_int32 op_$mod_equal11(object $instance, var& num);
+	_int32 op_$mod_equal11(object $instance, object num);
+	_int32 op_$mod_equal12(object $instance, var& num);
 	_int32 op_$and_equal(object $instance, object num);
 	_int32 op_$and_equal2(object $instance, object num);
 	_int32 op_$and_equal3(object $instance, object num);
@@ -876,7 +930,8 @@ scope_begin(std, _int)
 	_int32 op_$and_equal8(object $instance, object num);
 	_int32 op_$and_equal9(object $instance, object num);
 	_int32 op_$and_equal10(object $instance, object num);
-	_int32 op_$and_equal11(object $instance, var& num);
+	_int32 op_$and_equal11(object $instance, object num);
+	_int32 op_$and_equal12(object $instance, var& num);
 	_int32 op_$or_equal(object $instance, object num);
 	_int32 op_$or_equal2(object $instance, object num);
 	_int32 op_$or_equal3(object $instance, object num);
@@ -887,8 +942,9 @@ scope_begin(std, _int)
 	_int32 op_$or_equal8(object $instance, object num);
 	_int32 op_$or_equal9(object $instance, object num);
 	_int32 op_$or_equal10(object $instance, object num);
-	_int32 op_$or_equal11(object $instance, var& num);
-	void _int12(object $instance);
+	_int32 op_$or_equal11(object $instance, object num);
+	_int32 op_$or_equal12(object $instance, var& num);
+	void _int13(object $instance);
 scope_end()
 
 scope_begin(std, ushort) 
@@ -903,7 +959,8 @@ scope_begin(std, ushort)
 	void ushort8(object $instance, object i);
 	void ushort9(object $instance, object i);
 	void ushort10(object $instance, object i);
-	void ushort11(object $instance, var& i);
+	void ushort11(object $instance, object i);
+	void ushort12(object $instance, var& i);
 	_uint16 op_$not(object $instance);
 	_uint16 op_$plus_plus(object $instance);
 	_uint16 op_$plus_plus2(object $instance, var& num);
@@ -919,7 +976,8 @@ scope_begin(std, ushort)
 	_uint16 op_$plus_equal8(object $instance, object num);
 	_uint16 op_$plus_equal9(object $instance, object num);
 	_uint16 op_$plus_equal10(object $instance, object num);
-	_uint16 op_$plus_equal11(object $instance, var& num);
+	_uint16 op_$plus_equal11(object $instance, object num);
+	_uint16 op_$plus_equal12(object $instance, var& num);
 	_uint16 op_$minus_equal(object $instance, object num);
 	_uint16 op_$minus_equal2(object $instance, object num);
 	_uint16 op_$minus_equal3(object $instance, object num);
@@ -930,7 +988,8 @@ scope_begin(std, ushort)
 	_uint16 op_$minus_equal8(object $instance, object num);
 	_uint16 op_$minus_equal9(object $instance, object num);
 	_uint16 op_$minus_equal10(object $instance, object num);
-	_uint16 op_$minus_equal11(object $instance, var& num);
+	_uint16 op_$minus_equal11(object $instance, object num);
+	_uint16 op_$minus_equal12(object $instance, var& num);
 	_uint16 op_$mult_equal(object $instance, object num);
 	_uint16 op_$mult_equal2(object $instance, object num);
 	_uint16 op_$mult_equal3(object $instance, object num);
@@ -941,7 +1000,8 @@ scope_begin(std, ushort)
 	_uint16 op_$mult_equal8(object $instance, object num);
 	_uint16 op_$mult_equal9(object $instance, object num);
 	_uint16 op_$mult_equal10(object $instance, object num);
-	_uint16 op_$mult_equal11(object $instance, var& num);
+	_uint16 op_$mult_equal11(object $instance, object num);
+	_uint16 op_$mult_equal12(object $instance, var& num);
 	_uint16 op_$div_equal(object $instance, object num);
 	_uint16 op_$div_equal2(object $instance, object num);
 	_uint16 op_$div_equal3(object $instance, object num);
@@ -952,7 +1012,8 @@ scope_begin(std, ushort)
 	_uint16 op_$div_equal8(object $instance, object num);
 	_uint16 op_$div_equal9(object $instance, object num);
 	_uint16 op_$div_equal10(object $instance, object num);
-	_uint16 op_$div_equal11(object $instance, var& num);
+	_uint16 op_$div_equal11(object $instance, object num);
+	_uint16 op_$div_equal12(object $instance, var& num);
 	_uint16 op_$mod_equal(object $instance, object num);
 	_uint16 op_$mod_equal2(object $instance, object num);
 	_uint16 op_$mod_equal3(object $instance, object num);
@@ -963,7 +1024,8 @@ scope_begin(std, ushort)
 	_uint16 op_$mod_equal8(object $instance, object num);
 	_uint16 op_$mod_equal9(object $instance, object num);
 	_uint16 op_$mod_equal10(object $instance, object num);
-	_uint16 op_$mod_equal11(object $instance, var& num);
+	_uint16 op_$mod_equal11(object $instance, object num);
+	_uint16 op_$mod_equal12(object $instance, var& num);
 	_uint16 op_$and_equal(object $instance, object num);
 	_uint16 op_$and_equal2(object $instance, object num);
 	_uint16 op_$and_equal3(object $instance, object num);
@@ -974,7 +1036,8 @@ scope_begin(std, ushort)
 	_uint16 op_$and_equal8(object $instance, object num);
 	_uint16 op_$and_equal9(object $instance, object num);
 	_uint16 op_$and_equal10(object $instance, object num);
-	_uint16 op_$and_equal11(object $instance, var& num);
+	_uint16 op_$and_equal11(object $instance, object num);
+	_uint16 op_$and_equal12(object $instance, var& num);
 	_uint16 op_$or_equal(object $instance, object num);
 	_uint16 op_$or_equal2(object $instance, object num);
 	_uint16 op_$or_equal3(object $instance, object num);
@@ -985,8 +1048,9 @@ scope_begin(std, ushort)
 	_uint16 op_$or_equal8(object $instance, object num);
 	_uint16 op_$or_equal9(object $instance, object num);
 	_uint16 op_$or_equal10(object $instance, object num);
-	_uint16 op_$or_equal11(object $instance, var& num);
-	void ushort12(object $instance);
+	_uint16 op_$or_equal11(object $instance, object num);
+	_uint16 op_$or_equal12(object $instance, var& num);
+	void ushort13(object $instance);
 scope_end()
 
 scope_begin(std, _short) 
@@ -1001,7 +1065,8 @@ scope_begin(std, _short)
 	void _short8(object $instance, object i);
 	void _short9(object $instance, object i);
 	void _short10(object $instance, object i);
-	void _short11(object $instance, var& i);
+	void _short11(object $instance, object i);
+	void _short12(object $instance, var& i);
 	_int16 op_$not(object $instance);
 	_int16 op_$plus_plus(object $instance);
 	_int16 op_$plus_plus2(object $instance, var& num);
@@ -1017,7 +1082,8 @@ scope_begin(std, _short)
 	_int16 op_$plus_equal8(object $instance, object num);
 	_int16 op_$plus_equal9(object $instance, object num);
 	_int16 op_$plus_equal10(object $instance, object num);
-	_int16 op_$plus_equal11(object $instance, var& num);
+	_int16 op_$plus_equal11(object $instance, object num);
+	_int16 op_$plus_equal12(object $instance, var& num);
 	_int16 op_$minus_equal(object $instance, object num);
 	_int16 op_$minus_equal2(object $instance, object num);
 	_int16 op_$minus_equal3(object $instance, object num);
@@ -1028,7 +1094,8 @@ scope_begin(std, _short)
 	_int16 op_$minus_equal8(object $instance, object num);
 	_int16 op_$minus_equal9(object $instance, object num);
 	_int16 op_$minus_equal10(object $instance, object num);
-	_int16 op_$minus_equal11(object $instance, var& num);
+	_int16 op_$minus_equal11(object $instance, object num);
+	_int16 op_$minus_equal12(object $instance, var& num);
 	_int16 op_$mult_equal(object $instance, object num);
 	_int16 op_$mult_equal2(object $instance, object num);
 	_int16 op_$mult_equal3(object $instance, object num);
@@ -1039,7 +1106,8 @@ scope_begin(std, _short)
 	_int16 op_$mult_equal8(object $instance, object num);
 	_int16 op_$mult_equal9(object $instance, object num);
 	_int16 op_$mult_equal10(object $instance, object num);
-	_int16 op_$mult_equal11(object $instance, var& num);
+	_int16 op_$mult_equal11(object $instance, object num);
+	_int16 op_$mult_equal12(object $instance, var& num);
 	_int16 op_$div_equal(object $instance, object num);
 	_int16 op_$div_equal2(object $instance, object num);
 	_int16 op_$div_equal3(object $instance, object num);
@@ -1050,7 +1118,8 @@ scope_begin(std, _short)
 	_int16 op_$div_equal8(object $instance, object num);
 	_int16 op_$div_equal9(object $instance, object num);
 	_int16 op_$div_equal10(object $instance, object num);
-	_int16 op_$div_equal11(object $instance, var& num);
+	_int16 op_$div_equal11(object $instance, object num);
+	_int16 op_$div_equal12(object $instance, var& num);
 	_int16 op_$mod_equal(object $instance, object num);
 	_int16 op_$mod_equal2(object $instance, object num);
 	_int16 op_$mod_equal3(object $instance, object num);
@@ -1061,7 +1130,8 @@ scope_begin(std, _short)
 	_int16 op_$mod_equal8(object $instance, object num);
 	_int16 op_$mod_equal9(object $instance, object num);
 	_int16 op_$mod_equal10(object $instance, object num);
-	_int16 op_$mod_equal11(object $instance, var& num);
+	_int16 op_$mod_equal11(object $instance, object num);
+	_int16 op_$mod_equal12(object $instance, var& num);
 	_int16 op_$and_equal(object $instance, object num);
 	_int16 op_$and_equal2(object $instance, object num);
 	_int16 op_$and_equal3(object $instance, object num);
@@ -1072,7 +1142,8 @@ scope_begin(std, _short)
 	_int16 op_$and_equal8(object $instance, object num);
 	_int16 op_$and_equal9(object $instance, object num);
 	_int16 op_$and_equal10(object $instance, object num);
-	_int16 op_$and_equal11(object $instance, var& num);
+	_int16 op_$and_equal11(object $instance, object num);
+	_int16 op_$and_equal12(object $instance, var& num);
 	_int16 op_$or_equal(object $instance, object num);
 	_int16 op_$or_equal2(object $instance, object num);
 	_int16 op_$or_equal3(object $instance, object num);
@@ -1083,8 +1154,9 @@ scope_begin(std, _short)
 	_int16 op_$or_equal8(object $instance, object num);
 	_int16 op_$or_equal9(object $instance, object num);
 	_int16 op_$or_equal10(object $instance, object num);
-	_int16 op_$or_equal11(object $instance, var& num);
-	void _short12(object $instance);
+	_int16 op_$or_equal11(object $instance, object num);
+	_int16 op_$or_equal12(object $instance, var& num);
+	void _short13(object $instance);
 scope_end()
 
 scope_begin(std, uchar) 
@@ -1099,7 +1171,8 @@ scope_begin(std, uchar)
 	void uchar8(object $instance, object i);
 	void uchar9(object $instance, object i);
 	void uchar10(object $instance, object i);
-	void uchar11(object $instance, var& i);
+	void uchar11(object $instance, object i);
+	void uchar12(object $instance, var& i);
 	_uint8 op_$not(object $instance);
 	_uint8 op_$plus_plus(object $instance);
 	_uint8 op_$plus_plus2(object $instance, var& num);
@@ -1115,7 +1188,8 @@ scope_begin(std, uchar)
 	_uint8 op_$plus_equal8(object $instance, object num);
 	_uint8 op_$plus_equal9(object $instance, object num);
 	_uint8 op_$plus_equal10(object $instance, object num);
-	_uint8 op_$plus_equal11(object $instance, var& num);
+	_uint8 op_$plus_equal11(object $instance, object num);
+	_uint8 op_$plus_equal12(object $instance, var& num);
 	_uint8 op_$minus_equal(object $instance, object num);
 	_uint8 op_$minus_equal2(object $instance, object num);
 	_uint8 op_$minus_equal3(object $instance, object num);
@@ -1126,7 +1200,8 @@ scope_begin(std, uchar)
 	_uint8 op_$minus_equal8(object $instance, object num);
 	_uint8 op_$minus_equal9(object $instance, object num);
 	_uint8 op_$minus_equal10(object $instance, object num);
-	_uint8 op_$minus_equal11(object $instance, var& num);
+	_uint8 op_$minus_equal11(object $instance, object num);
+	_uint8 op_$minus_equal12(object $instance, var& num);
 	_uint8 op_$mult_equal(object $instance, object num);
 	_uint8 op_$mult_equal2(object $instance, object num);
 	_uint8 op_$mult_equal3(object $instance, object num);
@@ -1137,7 +1212,8 @@ scope_begin(std, uchar)
 	_uint8 op_$mult_equal8(object $instance, object num);
 	_uint8 op_$mult_equal9(object $instance, object num);
 	_uint8 op_$mult_equal10(object $instance, object num);
-	_uint8 op_$mult_equal11(object $instance, var& num);
+	_uint8 op_$mult_equal11(object $instance, object num);
+	_uint8 op_$mult_equal12(object $instance, var& num);
 	_uint8 op_$div_equal(object $instance, object num);
 	_uint8 op_$div_equal2(object $instance, object num);
 	_uint8 op_$div_equal3(object $instance, object num);
@@ -1148,7 +1224,8 @@ scope_begin(std, uchar)
 	_uint8 op_$div_equal8(object $instance, object num);
 	_uint8 op_$div_equal9(object $instance, object num);
 	_uint8 op_$div_equal10(object $instance, object num);
-	_uint8 op_$div_equal11(object $instance, var& num);
+	_uint8 op_$div_equal11(object $instance, object num);
+	_uint8 op_$div_equal12(object $instance, var& num);
 	_uint8 op_$mod_equal(object $instance, object num);
 	_uint8 op_$mod_equal2(object $instance, object num);
 	_uint8 op_$mod_equal3(object $instance, object num);
@@ -1159,7 +1236,8 @@ scope_begin(std, uchar)
 	_uint8 op_$mod_equal8(object $instance, object num);
 	_uint8 op_$mod_equal9(object $instance, object num);
 	_uint8 op_$mod_equal10(object $instance, object num);
-	_uint8 op_$mod_equal11(object $instance, var& num);
+	_uint8 op_$mod_equal11(object $instance, object num);
+	_uint8 op_$mod_equal12(object $instance, var& num);
 	_uint8 op_$and_equal(object $instance, object num);
 	_uint8 op_$and_equal2(object $instance, object num);
 	_uint8 op_$and_equal3(object $instance, object num);
@@ -1170,7 +1248,8 @@ scope_begin(std, uchar)
 	_uint8 op_$and_equal8(object $instance, object num);
 	_uint8 op_$and_equal9(object $instance, object num);
 	_uint8 op_$and_equal10(object $instance, object num);
-	_uint8 op_$and_equal11(object $instance, var& num);
+	_uint8 op_$and_equal11(object $instance, object num);
+	_uint8 op_$and_equal12(object $instance, var& num);
 	_uint8 op_$or_equal(object $instance, object num);
 	_uint8 op_$or_equal2(object $instance, object num);
 	_uint8 op_$or_equal3(object $instance, object num);
@@ -1181,8 +1260,9 @@ scope_begin(std, uchar)
 	_uint8 op_$or_equal8(object $instance, object num);
 	_uint8 op_$or_equal9(object $instance, object num);
 	_uint8 op_$or_equal10(object $instance, object num);
-	_uint8 op_$or_equal11(object $instance, var& num);
-	void uchar12(object $instance);
+	_uint8 op_$or_equal11(object $instance, object num);
+	_uint8 op_$or_equal12(object $instance, var& num);
+	void uchar13(object $instance);
 scope_end()
 
 scope_begin(std, _char) 
@@ -1197,7 +1277,8 @@ scope_begin(std, _char)
 	void _char8(object $instance, object i);
 	void _char9(object $instance, object i);
 	void _char10(object $instance, object i);
-	void _char11(object $instance, var& i);
+	void _char11(object $instance, object i);
+	void _char12(object $instance, var& i);
 	_int8 op_$not(object $instance);
 	_int8 op_$plus_plus(object $instance);
 	_int8 op_$plus_plus2(object $instance, var& num);
@@ -1213,7 +1294,8 @@ scope_begin(std, _char)
 	_int8 op_$plus_equal8(object $instance, object num);
 	_int8 op_$plus_equal9(object $instance, object num);
 	_int8 op_$plus_equal10(object $instance, object num);
-	_int8 op_$plus_equal11(object $instance, var& num);
+	_int8 op_$plus_equal11(object $instance, object num);
+	_int8 op_$plus_equal12(object $instance, var& num);
 	_int8 op_$minus_equal(object $instance, object num);
 	_int8 op_$minus_equal2(object $instance, object num);
 	_int8 op_$minus_equal3(object $instance, object num);
@@ -1224,7 +1306,8 @@ scope_begin(std, _char)
 	_int8 op_$minus_equal8(object $instance, object num);
 	_int8 op_$minus_equal9(object $instance, object num);
 	_int8 op_$minus_equal10(object $instance, object num);
-	_int8 op_$minus_equal11(object $instance, var& num);
+	_int8 op_$minus_equal11(object $instance, object num);
+	_int8 op_$minus_equal12(object $instance, var& num);
 	_int8 op_$mult_equal(object $instance, object num);
 	_int8 op_$mult_equal2(object $instance, object num);
 	_int8 op_$mult_equal3(object $instance, object num);
@@ -1235,7 +1318,8 @@ scope_begin(std, _char)
 	_int8 op_$mult_equal8(object $instance, object num);
 	_int8 op_$mult_equal9(object $instance, object num);
 	_int8 op_$mult_equal10(object $instance, object num);
-	_int8 op_$mult_equal11(object $instance, var& num);
+	_int8 op_$mult_equal11(object $instance, object num);
+	_int8 op_$mult_equal12(object $instance, var& num);
 	_int8 op_$div_equal(object $instance, object num);
 	_int8 op_$div_equal2(object $instance, object num);
 	_int8 op_$div_equal3(object $instance, object num);
@@ -1246,7 +1330,8 @@ scope_begin(std, _char)
 	_int8 op_$div_equal8(object $instance, object num);
 	_int8 op_$div_equal9(object $instance, object num);
 	_int8 op_$div_equal10(object $instance, object num);
-	_int8 op_$div_equal11(object $instance, var& num);
+	_int8 op_$div_equal11(object $instance, object num);
+	_int8 op_$div_equal12(object $instance, var& num);
 	_int8 op_$mod_equal(object $instance, object num);
 	_int8 op_$mod_equal2(object $instance, object num);
 	_int8 op_$mod_equal3(object $instance, object num);
@@ -1257,7 +1342,8 @@ scope_begin(std, _char)
 	_int8 op_$mod_equal8(object $instance, object num);
 	_int8 op_$mod_equal9(object $instance, object num);
 	_int8 op_$mod_equal10(object $instance, object num);
-	_int8 op_$mod_equal11(object $instance, var& num);
+	_int8 op_$mod_equal11(object $instance, object num);
+	_int8 op_$mod_equal12(object $instance, var& num);
 	_int8 op_$and_equal(object $instance, object num);
 	_int8 op_$and_equal2(object $instance, object num);
 	_int8 op_$and_equal3(object $instance, object num);
@@ -1268,7 +1354,8 @@ scope_begin(std, _char)
 	_int8 op_$and_equal8(object $instance, object num);
 	_int8 op_$and_equal9(object $instance, object num);
 	_int8 op_$and_equal10(object $instance, object num);
-	_int8 op_$and_equal11(object $instance, var& num);
+	_int8 op_$and_equal11(object $instance, object num);
+	_int8 op_$and_equal12(object $instance, var& num);
 	_int8 op_$or_equal(object $instance, object num);
 	_int8 op_$or_equal2(object $instance, object num);
 	_int8 op_$or_equal3(object $instance, object num);
@@ -1279,14 +1366,15 @@ scope_begin(std, _char)
 	_int8 op_$or_equal8(object $instance, object num);
 	_int8 op_$or_equal9(object $instance, object num);
 	_int8 op_$or_equal10(object $instance, object num);
-	_int8 op_$or_equal11(object $instance, var& num);
+	_int8 op_$or_equal11(object $instance, object num);
+	_int8 op_$or_equal12(object $instance, var& num);
 	var is_digit(var& ch);
 	var is_newline(var& ch);
 	var is_alpha(var& ch);
 	var is_alpha_num(var& ch);
 	var to_lower(var& ch);
 	var to_upper(var& ch);
-	void _char12(object $instance);
+	void _char13(object $instance);
 scope_end()
 
 scope_begin(std, byte) 
@@ -1301,7 +1389,8 @@ scope_begin(std, byte)
 	void byte8(object $instance, object i);
 	void byte9(object $instance, object i);
 	void byte10(object $instance, object i);
-	void byte11(object $instance, var& i);
+	void byte11(object $instance, object i);
+	void byte12(object $instance, var& i);
 	_uint8 op_$not(object $instance);
 	_uint8 op_$plus_plus(object $instance);
 	_uint8 op_$plus_plus2(object $instance, var& num);
@@ -1317,7 +1406,8 @@ scope_begin(std, byte)
 	_uint8 op_$plus_equal8(object $instance, object num);
 	_uint8 op_$plus_equal9(object $instance, object num);
 	_uint8 op_$plus_equal10(object $instance, object num);
-	_uint8 op_$plus_equal11(object $instance, var& num);
+	_uint8 op_$plus_equal11(object $instance, object num);
+	_uint8 op_$plus_equal12(object $instance, var& num);
 	_uint8 op_$minus_equal(object $instance, object num);
 	_uint8 op_$minus_equal2(object $instance, object num);
 	_uint8 op_$minus_equal3(object $instance, object num);
@@ -1328,7 +1418,8 @@ scope_begin(std, byte)
 	_uint8 op_$minus_equal8(object $instance, object num);
 	_uint8 op_$minus_equal9(object $instance, object num);
 	_uint8 op_$minus_equal10(object $instance, object num);
-	_uint8 op_$minus_equal11(object $instance, var& num);
+	_uint8 op_$minus_equal11(object $instance, object num);
+	_uint8 op_$minus_equal12(object $instance, var& num);
 	_uint8 op_$mult_equal(object $instance, object num);
 	_uint8 op_$mult_equal2(object $instance, object num);
 	_uint8 op_$mult_equal3(object $instance, object num);
@@ -1339,7 +1430,8 @@ scope_begin(std, byte)
 	_uint8 op_$mult_equal8(object $instance, object num);
 	_uint8 op_$mult_equal9(object $instance, object num);
 	_uint8 op_$mult_equal10(object $instance, object num);
-	_uint8 op_$mult_equal11(object $instance, var& num);
+	_uint8 op_$mult_equal11(object $instance, object num);
+	_uint8 op_$mult_equal12(object $instance, var& num);
 	_uint8 op_$div_equal(object $instance, object num);
 	_uint8 op_$div_equal2(object $instance, object num);
 	_uint8 op_$div_equal3(object $instance, object num);
@@ -1350,7 +1442,8 @@ scope_begin(std, byte)
 	_uint8 op_$div_equal8(object $instance, object num);
 	_uint8 op_$div_equal9(object $instance, object num);
 	_uint8 op_$div_equal10(object $instance, object num);
-	_uint8 op_$div_equal11(object $instance, var& num);
+	_uint8 op_$div_equal11(object $instance, object num);
+	_uint8 op_$div_equal12(object $instance, var& num);
 	_uint8 op_$mod_equal(object $instance, object num);
 	_uint8 op_$mod_equal2(object $instance, object num);
 	_uint8 op_$mod_equal3(object $instance, object num);
@@ -1361,7 +1454,8 @@ scope_begin(std, byte)
 	_uint8 op_$mod_equal8(object $instance, object num);
 	_uint8 op_$mod_equal9(object $instance, object num);
 	_uint8 op_$mod_equal10(object $instance, object num);
-	_uint8 op_$mod_equal11(object $instance, var& num);
+	_uint8 op_$mod_equal11(object $instance, object num);
+	_uint8 op_$mod_equal12(object $instance, var& num);
 	_uint8 op_$and_equal(object $instance, object num);
 	_uint8 op_$and_equal2(object $instance, object num);
 	_uint8 op_$and_equal3(object $instance, object num);
@@ -1372,7 +1466,8 @@ scope_begin(std, byte)
 	_uint8 op_$and_equal8(object $instance, object num);
 	_uint8 op_$and_equal9(object $instance, object num);
 	_uint8 op_$and_equal10(object $instance, object num);
-	_uint8 op_$and_equal11(object $instance, var& num);
+	_uint8 op_$and_equal11(object $instance, object num);
+	_uint8 op_$and_equal12(object $instance, var& num);
 	_uint8 op_$or_equal(object $instance, object num);
 	_uint8 op_$or_equal2(object $instance, object num);
 	_uint8 op_$or_equal3(object $instance, object num);
@@ -1383,14 +1478,15 @@ scope_begin(std, byte)
 	_uint8 op_$or_equal8(object $instance, object num);
 	_uint8 op_$or_equal9(object $instance, object num);
 	_uint8 op_$or_equal10(object $instance, object num);
-	_uint8 op_$or_equal11(object $instance, var& num);
+	_uint8 op_$or_equal11(object $instance, object num);
+	_uint8 op_$or_equal12(object $instance, var& num);
 	var is_digit(var& ch);
 	var is_newline(var& ch);
 	var is_alpha(var& ch);
 	var is_alpha_num(var& ch);
 	var to_lower(var& ch);
 	var to_upper(var& ch);
-	void byte12(object $instance);
+	void byte13(object $instance);
 scope_end()
 
 scope_begin(std, _bool) 
@@ -1405,7 +1501,8 @@ scope_begin(std, _bool)
 	void _bool8(object $instance, object i);
 	void _bool9(object $instance, object i);
 	void _bool10(object $instance, object i);
-	void _bool11(object $instance, var& i);
+	void _bool11(object $instance, object i);
+	void _bool12(object $instance, var& i);
 	_int8 op_$not(object $instance);
 	_int8 op_$plus_plus(object $instance);
 	_int8 op_$plus_plus2(object $instance, var& num);
@@ -1421,7 +1518,8 @@ scope_begin(std, _bool)
 	var op_$plus_equal8(object $instance, object num);
 	var op_$plus_equal9(object $instance, object num);
 	var op_$plus_equal10(object $instance, object num);
-	var op_$plus_equal11(object $instance, var& num);
+	var op_$plus_equal11(object $instance, object num);
+	var op_$plus_equal12(object $instance, var& num);
 	var op_$minus_equal(object $instance, object num);
 	var op_$minus_equal2(object $instance, object num);
 	var op_$minus_equal3(object $instance, object num);
@@ -1432,7 +1530,8 @@ scope_begin(std, _bool)
 	var op_$minus_equal8(object $instance, object num);
 	var op_$minus_equal9(object $instance, object num);
 	var op_$minus_equal10(object $instance, object num);
-	var op_$minus_equal11(object $instance, var& num);
+	var op_$minus_equal11(object $instance, object num);
+	var op_$minus_equal12(object $instance, var& num);
 	var op_$mult_equal(object $instance, object num);
 	var op_$mult_equal2(object $instance, object num);
 	var op_$mult_equal3(object $instance, object num);
@@ -1443,7 +1542,8 @@ scope_begin(std, _bool)
 	var op_$mult_equal8(object $instance, object num);
 	var op_$mult_equal9(object $instance, object num);
 	var op_$mult_equal10(object $instance, object num);
-	var op_$mult_equal11(object $instance, var& num);
+	var op_$mult_equal11(object $instance, object num);
+	var op_$mult_equal12(object $instance, var& num);
 	var op_$div_equal(object $instance, object num);
 	var op_$div_equal2(object $instance, object num);
 	var op_$div_equal3(object $instance, object num);
@@ -1454,7 +1554,8 @@ scope_begin(std, _bool)
 	var op_$div_equal8(object $instance, object num);
 	var op_$div_equal9(object $instance, object num);
 	var op_$div_equal10(object $instance, object num);
-	var op_$div_equal11(object $instance, var& num);
+	var op_$div_equal11(object $instance, object num);
+	var op_$div_equal12(object $instance, var& num);
 	var op_$mod_equal(object $instance, object num);
 	var op_$mod_equal2(object $instance, object num);
 	var op_$mod_equal3(object $instance, object num);
@@ -1465,7 +1566,8 @@ scope_begin(std, _bool)
 	var op_$mod_equal8(object $instance, object num);
 	var op_$mod_equal9(object $instance, object num);
 	var op_$mod_equal10(object $instance, object num);
-	var op_$mod_equal11(object $instance, var& num);
+	var op_$mod_equal11(object $instance, object num);
+	var op_$mod_equal12(object $instance, var& num);
 	var op_$and_equal(object $instance, object num);
 	var op_$and_equal2(object $instance, object num);
 	var op_$and_equal3(object $instance, object num);
@@ -1476,7 +1578,8 @@ scope_begin(std, _bool)
 	var op_$and_equal8(object $instance, object num);
 	var op_$and_equal9(object $instance, object num);
 	var op_$and_equal10(object $instance, object num);
-	var op_$and_equal11(object $instance, var& num);
+	var op_$and_equal11(object $instance, object num);
+	var op_$and_equal12(object $instance, var& num);
 	var op_$or_equal(object $instance, object num);
 	var op_$or_equal2(object $instance, object num);
 	var op_$or_equal3(object $instance, object num);
@@ -1487,9 +1590,117 @@ scope_begin(std, _bool)
 	var op_$or_equal8(object $instance, object num);
 	var op_$or_equal9(object $instance, object num);
 	var op_$or_equal10(object $instance, object num);
-	var op_$or_equal11(object $instance, var& num);
+	var op_$or_equal11(object $instance, object num);
+	var op_$or_equal12(object $instance, var& num);
 	var check_value(object $instance, var& new_val);
-	void _bool12(object $instance);
+	object to_string(object $instance);
+	void _bool13(object $instance);
+scope_end()
+
+scope_begin(std, _double) 
+
+	void _double(object $instance, object i);
+	void _double2(object $instance, object i);
+	void _double3(object $instance, object i);
+	void _double4(object $instance, object i);
+	void _double5(object $instance, object i);
+	void _double6(object $instance, object i);
+	void _double7(object $instance, object i);
+	void _double8(object $instance, object i);
+	void _double9(object $instance, object i);
+	void _double10(object $instance, object i);
+	void _double11(object $instance, object i);
+	void _double12(object $instance, var& i);
+	var op_$not(object $instance);
+	var op_$plus_plus(object $instance);
+	var op_$plus_plus2(object $instance, var& num);
+	var op_$minus_minus(object $instance);
+	var op_$minus_minus2(object $instance, var& num);
+	var op_$plus_equal(object $instance, object num);
+	var op_$plus_equal2(object $instance, object num);
+	var op_$plus_equal3(object $instance, object num);
+	var op_$plus_equal4(object $instance, object num);
+	var op_$plus_equal5(object $instance, object num);
+	var op_$plus_equal6(object $instance, object num);
+	var op_$plus_equal7(object $instance, object num);
+	var op_$plus_equal8(object $instance, object num);
+	var op_$plus_equal9(object $instance, object num);
+	var op_$plus_equal10(object $instance, object num);
+	var op_$plus_equal11(object $instance, object num);
+	var op_$plus_equal12(object $instance, var& num);
+	var op_$minus_equal(object $instance, object num);
+	var op_$minus_equal2(object $instance, object num);
+	var op_$minus_equal3(object $instance, object num);
+	var op_$minus_equal4(object $instance, object num);
+	var op_$minus_equal5(object $instance, object num);
+	var op_$minus_equal6(object $instance, object num);
+	var op_$minus_equal7(object $instance, object num);
+	var op_$minus_equal8(object $instance, object num);
+	var op_$minus_equal9(object $instance, object num);
+	var op_$minus_equal10(object $instance, object num);
+	var op_$minus_equal11(object $instance, object num);
+	var op_$minus_equal12(object $instance, var& num);
+	var op_$mult_equal(object $instance, object num);
+	var op_$mult_equal2(object $instance, object num);
+	var op_$mult_equal3(object $instance, object num);
+	var op_$mult_equal4(object $instance, object num);
+	var op_$mult_equal5(object $instance, object num);
+	var op_$mult_equal6(object $instance, object num);
+	var op_$mult_equal7(object $instance, object num);
+	var op_$mult_equal8(object $instance, object num);
+	var op_$mult_equal9(object $instance, object num);
+	var op_$mult_equal10(object $instance, object num);
+	var op_$mult_equal11(object $instance, object num);
+	var op_$mult_equal12(object $instance, var& num);
+	var op_$div_equal(object $instance, object num);
+	var op_$div_equal2(object $instance, object num);
+	var op_$div_equal3(object $instance, object num);
+	var op_$div_equal4(object $instance, object num);
+	var op_$div_equal5(object $instance, object num);
+	var op_$div_equal6(object $instance, object num);
+	var op_$div_equal7(object $instance, object num);
+	var op_$div_equal8(object $instance, object num);
+	var op_$div_equal9(object $instance, object num);
+	var op_$div_equal10(object $instance, object num);
+	var op_$div_equal11(object $instance, object num);
+	var op_$div_equal12(object $instance, var& num);
+	var op_$mod_equal(object $instance, object num);
+	var op_$mod_equal2(object $instance, object num);
+	var op_$mod_equal3(object $instance, object num);
+	var op_$mod_equal4(object $instance, object num);
+	var op_$mod_equal5(object $instance, object num);
+	var op_$mod_equal6(object $instance, object num);
+	var op_$mod_equal7(object $instance, object num);
+	var op_$mod_equal8(object $instance, object num);
+	var op_$mod_equal9(object $instance, object num);
+	var op_$mod_equal10(object $instance, object num);
+	var op_$mod_equal11(object $instance, object num);
+	var op_$mod_equal12(object $instance, var& num);
+	var op_$and_equal(object $instance, object num);
+	var op_$and_equal2(object $instance, object num);
+	var op_$and_equal3(object $instance, object num);
+	var op_$and_equal4(object $instance, object num);
+	var op_$and_equal5(object $instance, object num);
+	var op_$and_equal6(object $instance, object num);
+	var op_$and_equal7(object $instance, object num);
+	var op_$and_equal8(object $instance, object num);
+	var op_$and_equal9(object $instance, object num);
+	var op_$and_equal10(object $instance, object num);
+	var op_$and_equal11(object $instance, object num);
+	var op_$and_equal12(object $instance, var& num);
+	var op_$or_equal(object $instance, object num);
+	var op_$or_equal2(object $instance, object num);
+	var op_$or_equal3(object $instance, object num);
+	var op_$or_equal4(object $instance, object num);
+	var op_$or_equal5(object $instance, object num);
+	var op_$or_equal6(object $instance, object num);
+	var op_$or_equal7(object $instance, object num);
+	var op_$or_equal8(object $instance, object num);
+	var op_$or_equal9(object $instance, object num);
+	var op_$or_equal10(object $instance, object num);
+	var op_$or_equal11(object $instance, object num);
+	var op_$or_equal12(object $instance, var& num);
+	void _double13(object $instance);
 scope_end()
 
 scope_begin(platform) 
@@ -1537,6 +1748,7 @@ scope_begin(platform_kernel, vm)
 	var thread_create(var& daemon);
 	object suspend(object t);
 	object unsuspend(object t, var& wait);
+	var get_os_time(var& tr);
 	object thread_join(object t);
 	object kill(object t);
 	object current_thread();
@@ -1547,6 +1759,11 @@ scope_begin(platform_kernel, vm)
 	void set_thread(object t);
 	object thread_args();
 	var cores();
+	var random_int();
+	var random_int2(var& min, var& max);
+	var random_double();
+	var random_double2(var& min, var& max);
+	void random_seed(var& seed);
 	void vm(object $instance);
 scope_end()
 
@@ -1635,6 +1852,7 @@ scope_end()
 scope_begin(std, time) 
 
 	var nano_time();
+	var get_os_time(object tr);
 	var nano_to_micro(var& nano);
 	var nano_to_mills(var& nano);
 	var nano_to_secs(var& nano);
@@ -1644,6 +1862,7 @@ scope_begin(std, time)
 	void wait(object tm_unit, var& time);
 	var adjust_time(var& usec);
 	var measure(object tm_unit, var& block);
+	var measure2(object tm_unit, object args, var& block);
 	void time(object $instance);
 	void $03internal_static_init();
 scope_end()
@@ -1661,6 +1880,7 @@ scope_begin(std, throwable)
 	void throwable(object $instance, _int8_array& message);
 	void throwable2(object $instance, object message);
 	object get_message(object $instance);
+	object to_string(object $instance);
 	void throwable3(object $instance);
 	object get_stack_trace(object $instance);
 scope_end()
@@ -1763,6 +1983,20 @@ scope_begin(std, unsatisfied_link_error)
 	void unsatisfied_link_error3(object $instance);
 scope_end()
 
+scope_begin(std, assertion_error) 
+
+	void assertion_error(object $instance, _int8_array& message);
+	void assertion_error2(object $instance, object message);
+	void assertion_error3(object $instance);
+scope_end()
+
+scope_begin(std, error) 
+
+	void error(object $instance, _int8_array& message);
+	void error2(object $instance, object message);
+	void error3(object $instance);
+scope_end()
+
 scope_begin(common_gpio) 
 
 	void __srt_global(object $instance);
@@ -1810,7 +2044,7 @@ scope_end()
 scope_begin(common_network_core) 
 
 	void __srt_global(object $instance);
-	var anon_func$3522(object t1, object t2);
+	var anon_func$4090(object t1, object t2);
 scope_end()
 
 scope_begin(common_network_core, request) 
@@ -2016,10 +2250,10 @@ scope_begin(main)
 	void main(object args);
 	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$3536();
-	void anon_func$3537();
-	void anon_func$3541();
-	void anon_func$3542();
+	void anon_func$4105();
+	void anon_func$4106();
+	void anon_func$4111();
+	void anon_func$4112();
 scope_end()
 
 scope_begin(ui_res_drawable) 
@@ -2181,6 +2415,7 @@ scope_begin(ui_support, view)
 	object to_left_of(object $instance, var& id);
 	object to_start_of(object $instance, var& id);
 	object to_right_of(object $instance, var& id);
+	object to_end_of(object $instance, var& id);
 	object to_top_of(object $instance, var& id);
 	object to_bottom_of(object $instance, var& id);
 	object set_gravity(object $instance, var& grav);
@@ -2215,20 +2450,30 @@ scope_begin(ui_driver, ssd1306)
 	void shutdown(object $instance);
 scope_end()
 
+scope_begin(ui_layout) 
+
+	void __srt_global(object $instance);
+	void $03internal_static_init();
+	void anon_func$4107(object args);
+	void anon_func$4108(object args);
+	void anon_func$4109(object args);
+	void anon_func$4110(object args);
+scope_end()
+
+scope_begin(ui_layout, splash_screen) 
+
+	void splash_screen(object $instance, object container, var& id);
+	void configure(object $instance);
+	void on_create(object $instance);
+	void on_destroy(object $instance);
+	void splash_screen2(object $instance);
+scope_end()
+
 scope_begin(ui_layout_config) 
 
 	void __srt_global(object $instance);
 	void configure_layout();
 	void start();
-scope_end()
-
-scope_begin(ui_layout) 
-
-	void __srt_global(object $instance);
-	void $03internal_static_init();
-	void anon_func$3538(object args);
-	void anon_func$3539(object args);
-	void anon_func$3540(object args);
 scope_end()
 
 scope_begin(ui_layout, home_screen) 
@@ -2277,6 +2522,7 @@ scope_begin(std, integer$_uint64$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -2287,7 +2533,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -2298,7 +2545,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -2309,7 +2557,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -2320,7 +2569,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -2331,7 +2581,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -2342,7 +2593,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -2353,7 +2605,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -2364,7 +2617,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -2375,7 +2629,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -2386,7 +2641,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -2397,7 +2653,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -2408,7 +2665,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -2419,7 +2677,8 @@ scope_begin(std, integer$_uint64$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -2430,9 +2689,10 @@ scope_begin(std, integer$_uint64$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_uint64 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_uint64 parse(object s);
@@ -2446,6 +2706,7 @@ scope_begin(std, integer$_uint64$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_uint64 get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
@@ -2474,6 +2735,7 @@ scope_begin(std, integer$_int64$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -2484,7 +2746,8 @@ scope_begin(std, integer$_int64$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -2495,7 +2758,8 @@ scope_begin(std, integer$_int64$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -2506,7 +2770,8 @@ scope_begin(std, integer$_int64$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -2517,7 +2782,8 @@ scope_begin(std, integer$_int64$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -2528,7 +2794,8 @@ scope_begin(std, integer$_int64$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -2539,7 +2806,8 @@ scope_begin(std, integer$_int64$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -2550,7 +2818,8 @@ scope_begin(std, integer$_int64$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -2561,7 +2830,8 @@ scope_begin(std, integer$_int64$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -2572,7 +2842,8 @@ scope_begin(std, integer$_int64$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -2583,7 +2854,8 @@ scope_begin(std, integer$_int64$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -2594,7 +2866,8 @@ scope_begin(std, integer$_int64$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -2605,7 +2878,8 @@ scope_begin(std, integer$_int64$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -2616,7 +2890,8 @@ scope_begin(std, integer$_int64$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -2627,9 +2902,10 @@ scope_begin(std, integer$_int64$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_int64 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_int64 parse(object s);
@@ -2643,6 +2919,7 @@ scope_begin(std, integer$_int64$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_int64 get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
@@ -2671,6 +2948,7 @@ scope_begin(std, integer$_uint32$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -2681,7 +2959,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -2692,7 +2971,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -2703,7 +2983,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -2714,7 +2995,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -2725,7 +3007,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -2736,7 +3019,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -2747,7 +3031,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -2758,7 +3043,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -2769,7 +3055,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -2780,7 +3067,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -2791,7 +3079,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -2802,7 +3091,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -2813,7 +3103,8 @@ scope_begin(std, integer$_uint32$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -2824,9 +3115,10 @@ scope_begin(std, integer$_uint32$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_uint32 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_uint32 parse(object s);
@@ -2840,6 +3132,7 @@ scope_begin(std, integer$_uint32$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_uint32 get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
@@ -2868,6 +3161,7 @@ scope_begin(std, integer$_int32$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -2878,7 +3172,8 @@ scope_begin(std, integer$_int32$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -2889,7 +3184,8 @@ scope_begin(std, integer$_int32$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -2900,7 +3196,8 @@ scope_begin(std, integer$_int32$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -2911,7 +3208,8 @@ scope_begin(std, integer$_int32$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -2922,7 +3220,8 @@ scope_begin(std, integer$_int32$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -2933,7 +3232,8 @@ scope_begin(std, integer$_int32$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -2944,7 +3244,8 @@ scope_begin(std, integer$_int32$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -2955,7 +3256,8 @@ scope_begin(std, integer$_int32$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -2966,7 +3268,8 @@ scope_begin(std, integer$_int32$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -2977,7 +3280,8 @@ scope_begin(std, integer$_int32$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -2988,7 +3292,8 @@ scope_begin(std, integer$_int32$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -2999,7 +3304,8 @@ scope_begin(std, integer$_int32$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -3010,7 +3316,8 @@ scope_begin(std, integer$_int32$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -3021,9 +3328,10 @@ scope_begin(std, integer$_int32$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_int32 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_int32 parse(object s);
@@ -3037,6 +3345,7 @@ scope_begin(std, integer$_int32$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_int32 get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
@@ -3065,6 +3374,7 @@ scope_begin(std, integer$_uint16$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -3075,7 +3385,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -3086,7 +3397,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -3097,7 +3409,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -3108,7 +3421,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -3119,7 +3433,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -3130,7 +3445,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -3141,7 +3457,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -3152,7 +3469,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -3163,7 +3481,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -3174,7 +3493,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -3185,7 +3505,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -3196,7 +3517,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -3207,7 +3529,8 @@ scope_begin(std, integer$_uint16$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -3218,9 +3541,10 @@ scope_begin(std, integer$_uint16$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_uint16 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_uint16 parse(object s);
@@ -3234,6 +3558,7 @@ scope_begin(std, integer$_uint16$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_uint16 get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
@@ -3262,6 +3587,7 @@ scope_begin(std, integer$_int16$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -3272,7 +3598,8 @@ scope_begin(std, integer$_int16$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -3283,7 +3610,8 @@ scope_begin(std, integer$_int16$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -3294,7 +3622,8 @@ scope_begin(std, integer$_int16$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -3305,7 +3634,8 @@ scope_begin(std, integer$_int16$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -3316,7 +3646,8 @@ scope_begin(std, integer$_int16$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -3327,7 +3658,8 @@ scope_begin(std, integer$_int16$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -3338,7 +3670,8 @@ scope_begin(std, integer$_int16$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -3349,7 +3682,8 @@ scope_begin(std, integer$_int16$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -3360,7 +3694,8 @@ scope_begin(std, integer$_int16$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -3371,7 +3706,8 @@ scope_begin(std, integer$_int16$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -3382,7 +3718,8 @@ scope_begin(std, integer$_int16$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -3393,7 +3730,8 @@ scope_begin(std, integer$_int16$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -3404,7 +3742,8 @@ scope_begin(std, integer$_int16$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -3415,9 +3754,10 @@ scope_begin(std, integer$_int16$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_int16 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_int16 parse(object s);
@@ -3431,6 +3771,7 @@ scope_begin(std, integer$_int16$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_int16 get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
@@ -3459,6 +3800,7 @@ scope_begin(std, integer$_uint8$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -3469,7 +3811,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -3480,7 +3823,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -3491,7 +3835,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -3502,7 +3847,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -3513,7 +3859,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -3524,7 +3871,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -3535,7 +3883,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -3546,7 +3895,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -3557,7 +3907,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -3568,7 +3919,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -3579,7 +3931,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -3590,7 +3943,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -3601,7 +3955,8 @@ scope_begin(std, integer$_uint8$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -3612,9 +3967,10 @@ scope_begin(std, integer$_uint8$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_uint8 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_uint8 parse(object s);
@@ -3628,6 +3984,7 @@ scope_begin(std, integer$_uint8$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_uint8 get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
@@ -3656,6 +4013,7 @@ scope_begin(std, integer$_int8$)
 	var op_$equals_equals9(object $instance, object num);
 	var op_$not_equals10(object $instance, object num);
 	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
 	var op_$plus(object $instance, object num);
 	var op_$plus2(object $instance, object num);
 	var op_$plus3(object $instance, object num);
@@ -3666,7 +4024,8 @@ scope_begin(std, integer$_int8$)
 	var op_$plus8(object $instance, object num);
 	var op_$plus9(object $instance, object num);
 	var op_$plus10(object $instance, object num);
-	var op_$plus11(object $instance, var& num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
 	var op_$minus(object $instance, object num);
 	var op_$minus2(object $instance, object num);
 	var op_$minus3(object $instance, object num);
@@ -3677,7 +4036,8 @@ scope_begin(std, integer$_int8$)
 	var op_$minus8(object $instance, object num);
 	var op_$minus9(object $instance, object num);
 	var op_$minus10(object $instance, object num);
-	var op_$minus11(object $instance, var& num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
 	var op_$mult(object $instance, object num);
 	var op_$mult2(object $instance, object num);
 	var op_$mult3(object $instance, object num);
@@ -3688,7 +4048,8 @@ scope_begin(std, integer$_int8$)
 	var op_$mult8(object $instance, object num);
 	var op_$mult9(object $instance, object num);
 	var op_$mult10(object $instance, object num);
-	var op_$mult11(object $instance, var& num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
 	var op_$div(object $instance, object num);
 	var op_$div2(object $instance, object num);
 	var op_$div3(object $instance, object num);
@@ -3699,7 +4060,8 @@ scope_begin(std, integer$_int8$)
 	var op_$div8(object $instance, object num);
 	var op_$div9(object $instance, object num);
 	var op_$div10(object $instance, object num);
-	var op_$div11(object $instance, var& num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
 	var op_$mod(object $instance, object num);
 	var op_$mod2(object $instance, object num);
 	var op_$mod3(object $instance, object num);
@@ -3710,7 +4072,8 @@ scope_begin(std, integer$_int8$)
 	var op_$mod8(object $instance, object num);
 	var op_$mod9(object $instance, object num);
 	var op_$mod10(object $instance, object num);
-	var op_$mod11(object $instance, var& num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
 	var op_$less_than(object $instance, object num);
 	var op_$less_than2(object $instance, object num);
 	var op_$less_than3(object $instance, object num);
@@ -3721,7 +4084,8 @@ scope_begin(std, integer$_int8$)
 	var op_$less_than8(object $instance, object num);
 	var op_$less_than9(object $instance, object num);
 	var op_$less_than10(object $instance, object num);
-	var op_$less_than11(object $instance, var& num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
 	var op_$greater_than(object $instance, object num);
 	var op_$greater_than2(object $instance, object num);
 	var op_$greater_than3(object $instance, object num);
@@ -3732,7 +4096,8 @@ scope_begin(std, integer$_int8$)
 	var op_$greater_than8(object $instance, object num);
 	var op_$greater_than9(object $instance, object num);
 	var op_$greater_than10(object $instance, object num);
-	var op_$greater_than11(object $instance, var& num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
 	var op_$less_or_equals(object $instance, object num);
 	var op_$less_or_equals2(object $instance, object num);
 	var op_$less_or_equals3(object $instance, object num);
@@ -3743,7 +4108,8 @@ scope_begin(std, integer$_int8$)
 	var op_$less_or_equals8(object $instance, object num);
 	var op_$less_or_equals9(object $instance, object num);
 	var op_$less_or_equals10(object $instance, object num);
-	var op_$less_or_equals11(object $instance, var& num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
 	var op_$pow(object $instance, object num);
 	var op_$pow2(object $instance, object num);
 	var op_$pow3(object $instance, object num);
@@ -3754,7 +4120,8 @@ scope_begin(std, integer$_int8$)
 	var op_$pow8(object $instance, object num);
 	var op_$pow9(object $instance, object num);
 	var op_$pow10(object $instance, object num);
-	var op_$pow11(object $instance, var& num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
 	var op_$left_shift(object $instance, object num);
 	var op_$left_shift2(object $instance, object num);
 	var op_$left_shift3(object $instance, object num);
@@ -3765,7 +4132,8 @@ scope_begin(std, integer$_int8$)
 	var op_$left_shift8(object $instance, object num);
 	var op_$left_shift9(object $instance, object num);
 	var op_$left_shift10(object $instance, object num);
-	var op_$left_shift11(object $instance, var& num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
 	var op_$right_shift(object $instance, object num);
 	var op_$right_shift2(object $instance, object num);
 	var op_$right_shift3(object $instance, object num);
@@ -3776,7 +4144,8 @@ scope_begin(std, integer$_int8$)
 	var op_$right_shift8(object $instance, object num);
 	var op_$right_shift9(object $instance, object num);
 	var op_$right_shift10(object $instance, object num);
-	var op_$right_shift11(object $instance, var& num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
 	var op_$xor(object $instance, object num);
 	var op_$xor2(object $instance, object num);
 	var op_$xor3(object $instance, object num);
@@ -3787,7 +4156,8 @@ scope_begin(std, integer$_int8$)
 	var op_$xor8(object $instance, object num);
 	var op_$xor9(object $instance, object num);
 	var op_$xor10(object $instance, object num);
-	var op_$xor11(object $instance, var& num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
 	var op_$and(object $instance, object num);
 	var op_$and2(object $instance, object num);
 	var op_$and3(object $instance, object num);
@@ -3798,7 +4168,8 @@ scope_begin(std, integer$_int8$)
 	var op_$and8(object $instance, object num);
 	var op_$and9(object $instance, object num);
 	var op_$and10(object $instance, object num);
-	var op_$and11(object $instance, var& num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
 	var op_$or(object $instance, object num);
 	var op_$or2(object $instance, object num);
 	var op_$or3(object $instance, object num);
@@ -3809,9 +4180,10 @@ scope_begin(std, integer$_int8$)
 	var op_$or8(object $instance, object num);
 	var op_$or9(object $instance, object num);
 	var op_$or10(object $instance, object num);
-	var op_$or11(object $instance, var& num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
 	var op_$not_equals11(object $instance, var& num);
-	var op_$equals_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
 	_int8 op_$equals(object $instance, var& num);
 	object to_string(object $instance);
 	_int8 parse(object s);
@@ -3825,7 +4197,221 @@ scope_begin(std, integer$_int8$)
 	object to_char(object $instance);
 	object to_byte(object $instance);
 	object to_bool(object $instance);
+	object to_double(object $instance);
 	_int8 get_value(object $instance);
+	void integer2(object $instance);
+scope_end()
+
+scope_begin(std, integer$var$) 
+
+	void integer(object $instance, var& initial_val);
+	object hash(object $instance);
+	var op_$not_equals(object $instance, object num);
+	var op_$equals_equals(object $instance, object num);
+	var op_$not_equals2(object $instance, object num);
+	var op_$equals_equals2(object $instance, object num);
+	var op_$not_equals3(object $instance, object num);
+	var op_$equals_equals3(object $instance, object num);
+	var op_$not_equals4(object $instance, object num);
+	var op_$equals_equals4(object $instance, object num);
+	var op_$not_equals5(object $instance, object num);
+	var op_$equals_equals5(object $instance, object num);
+	var op_$not_equals6(object $instance, object num);
+	var op_$equals_equals6(object $instance, object num);
+	var op_$not_equals7(object $instance, object num);
+	var op_$equals_equals7(object $instance, object num);
+	var op_$not_equals8(object $instance, object num);
+	var op_$equals_equals8(object $instance, object num);
+	var op_$not_equals9(object $instance, object num);
+	var op_$equals_equals9(object $instance, object num);
+	var op_$not_equals10(object $instance, object num);
+	var op_$equals_equals10(object $instance, object num);
+	var op_$equals_equals11(object $instance, object num);
+	var op_$plus(object $instance, object num);
+	var op_$plus2(object $instance, object num);
+	var op_$plus3(object $instance, object num);
+	var op_$plus4(object $instance, object num);
+	var op_$plus5(object $instance, object num);
+	var op_$plus6(object $instance, object num);
+	var op_$plus7(object $instance, object num);
+	var op_$plus8(object $instance, object num);
+	var op_$plus9(object $instance, object num);
+	var op_$plus10(object $instance, object num);
+	var op_$plus11(object $instance, object num);
+	var op_$plus12(object $instance, var& num);
+	var op_$minus(object $instance, object num);
+	var op_$minus2(object $instance, object num);
+	var op_$minus3(object $instance, object num);
+	var op_$minus4(object $instance, object num);
+	var op_$minus5(object $instance, object num);
+	var op_$minus6(object $instance, object num);
+	var op_$minus7(object $instance, object num);
+	var op_$minus8(object $instance, object num);
+	var op_$minus9(object $instance, object num);
+	var op_$minus10(object $instance, object num);
+	var op_$minus11(object $instance, object num);
+	var op_$minus12(object $instance, var& num);
+	var op_$mult(object $instance, object num);
+	var op_$mult2(object $instance, object num);
+	var op_$mult3(object $instance, object num);
+	var op_$mult4(object $instance, object num);
+	var op_$mult5(object $instance, object num);
+	var op_$mult6(object $instance, object num);
+	var op_$mult7(object $instance, object num);
+	var op_$mult8(object $instance, object num);
+	var op_$mult9(object $instance, object num);
+	var op_$mult10(object $instance, object num);
+	var op_$mult11(object $instance, object num);
+	var op_$mult12(object $instance, var& num);
+	var op_$div(object $instance, object num);
+	var op_$div2(object $instance, object num);
+	var op_$div3(object $instance, object num);
+	var op_$div4(object $instance, object num);
+	var op_$div5(object $instance, object num);
+	var op_$div6(object $instance, object num);
+	var op_$div7(object $instance, object num);
+	var op_$div8(object $instance, object num);
+	var op_$div9(object $instance, object num);
+	var op_$div10(object $instance, object num);
+	var op_$div11(object $instance, object num);
+	var op_$div12(object $instance, var& num);
+	var op_$mod(object $instance, object num);
+	var op_$mod2(object $instance, object num);
+	var op_$mod3(object $instance, object num);
+	var op_$mod4(object $instance, object num);
+	var op_$mod5(object $instance, object num);
+	var op_$mod6(object $instance, object num);
+	var op_$mod7(object $instance, object num);
+	var op_$mod8(object $instance, object num);
+	var op_$mod9(object $instance, object num);
+	var op_$mod10(object $instance, object num);
+	var op_$mod11(object $instance, object num);
+	var op_$mod12(object $instance, var& num);
+	var op_$less_than(object $instance, object num);
+	var op_$less_than2(object $instance, object num);
+	var op_$less_than3(object $instance, object num);
+	var op_$less_than4(object $instance, object num);
+	var op_$less_than5(object $instance, object num);
+	var op_$less_than6(object $instance, object num);
+	var op_$less_than7(object $instance, object num);
+	var op_$less_than8(object $instance, object num);
+	var op_$less_than9(object $instance, object num);
+	var op_$less_than10(object $instance, object num);
+	var op_$less_than11(object $instance, object num);
+	var op_$less_than12(object $instance, var& num);
+	var op_$greater_than(object $instance, object num);
+	var op_$greater_than2(object $instance, object num);
+	var op_$greater_than3(object $instance, object num);
+	var op_$greater_than4(object $instance, object num);
+	var op_$greater_than5(object $instance, object num);
+	var op_$greater_than6(object $instance, object num);
+	var op_$greater_than7(object $instance, object num);
+	var op_$greater_than8(object $instance, object num);
+	var op_$greater_than9(object $instance, object num);
+	var op_$greater_than10(object $instance, object num);
+	var op_$greater_than11(object $instance, object num);
+	var op_$greater_than12(object $instance, var& num);
+	var op_$less_or_equals(object $instance, object num);
+	var op_$less_or_equals2(object $instance, object num);
+	var op_$less_or_equals3(object $instance, object num);
+	var op_$less_or_equals4(object $instance, object num);
+	var op_$less_or_equals5(object $instance, object num);
+	var op_$less_or_equals6(object $instance, object num);
+	var op_$less_or_equals7(object $instance, object num);
+	var op_$less_or_equals8(object $instance, object num);
+	var op_$less_or_equals9(object $instance, object num);
+	var op_$less_or_equals10(object $instance, object num);
+	var op_$less_or_equals11(object $instance, object num);
+	var op_$less_or_equals12(object $instance, var& num);
+	var op_$pow(object $instance, object num);
+	var op_$pow2(object $instance, object num);
+	var op_$pow3(object $instance, object num);
+	var op_$pow4(object $instance, object num);
+	var op_$pow5(object $instance, object num);
+	var op_$pow6(object $instance, object num);
+	var op_$pow7(object $instance, object num);
+	var op_$pow8(object $instance, object num);
+	var op_$pow9(object $instance, object num);
+	var op_$pow10(object $instance, object num);
+	var op_$pow11(object $instance, object num);
+	var op_$pow12(object $instance, var& num);
+	var op_$left_shift(object $instance, object num);
+	var op_$left_shift2(object $instance, object num);
+	var op_$left_shift3(object $instance, object num);
+	var op_$left_shift4(object $instance, object num);
+	var op_$left_shift5(object $instance, object num);
+	var op_$left_shift6(object $instance, object num);
+	var op_$left_shift7(object $instance, object num);
+	var op_$left_shift8(object $instance, object num);
+	var op_$left_shift9(object $instance, object num);
+	var op_$left_shift10(object $instance, object num);
+	var op_$left_shift11(object $instance, object num);
+	var op_$left_shift12(object $instance, var& num);
+	var op_$right_shift(object $instance, object num);
+	var op_$right_shift2(object $instance, object num);
+	var op_$right_shift3(object $instance, object num);
+	var op_$right_shift4(object $instance, object num);
+	var op_$right_shift5(object $instance, object num);
+	var op_$right_shift6(object $instance, object num);
+	var op_$right_shift7(object $instance, object num);
+	var op_$right_shift8(object $instance, object num);
+	var op_$right_shift9(object $instance, object num);
+	var op_$right_shift10(object $instance, object num);
+	var op_$right_shift11(object $instance, object num);
+	var op_$right_shift12(object $instance, var& num);
+	var op_$xor(object $instance, object num);
+	var op_$xor2(object $instance, object num);
+	var op_$xor3(object $instance, object num);
+	var op_$xor4(object $instance, object num);
+	var op_$xor5(object $instance, object num);
+	var op_$xor6(object $instance, object num);
+	var op_$xor7(object $instance, object num);
+	var op_$xor8(object $instance, object num);
+	var op_$xor9(object $instance, object num);
+	var op_$xor10(object $instance, object num);
+	var op_$xor11(object $instance, object num);
+	var op_$xor12(object $instance, var& num);
+	var op_$and(object $instance, object num);
+	var op_$and2(object $instance, object num);
+	var op_$and3(object $instance, object num);
+	var op_$and4(object $instance, object num);
+	var op_$and5(object $instance, object num);
+	var op_$and6(object $instance, object num);
+	var op_$and7(object $instance, object num);
+	var op_$and8(object $instance, object num);
+	var op_$and9(object $instance, object num);
+	var op_$and10(object $instance, object num);
+	var op_$and11(object $instance, object num);
+	var op_$and12(object $instance, var& num);
+	var op_$or(object $instance, object num);
+	var op_$or2(object $instance, object num);
+	var op_$or3(object $instance, object num);
+	var op_$or4(object $instance, object num);
+	var op_$or5(object $instance, object num);
+	var op_$or6(object $instance, object num);
+	var op_$or7(object $instance, object num);
+	var op_$or8(object $instance, object num);
+	var op_$or9(object $instance, object num);
+	var op_$or10(object $instance, object num);
+	var op_$or11(object $instance, object num);
+	var op_$or12(object $instance, var& num);
+	var op_$not_equals11(object $instance, var& num);
+	var op_$equals_equals12(object $instance, var& num);
+	var op_$equals(object $instance, var& num);
+	object to_string(object $instance);
+	var parse(object s);
+	object to_ulong(object $instance);
+	object to_long(object $instance);
+	object to_uint(object $instance);
+	object to_int(object $instance);
+	object to_ushort(object $instance);
+	object to_short(object $instance);
+	object to_uchar(object $instance);
+	object to_char(object $instance);
+	object to_byte(object $instance);
+	object to_bool(object $instance);
+	object to_double(object $instance);
+	var get_value(object $instance);
 	void integer2(object $instance);
 scope_end()
 
@@ -3878,6 +4464,7 @@ scope_begin(std, list$std_string$)
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
 	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -3913,6 +4500,7 @@ scope_begin(std, synced_list$std_io_task_job$)
 	void remove2(object $instance, object val, var& compare_fun);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
+	void linear_sort(object $instance, var& swap);
 	object find(object $instance, object comparer, var& find_func);
 	var replace(object $instance, object val, var& compare_fun);
 	object to_string(object $instance);
@@ -3950,6 +4538,7 @@ scope_begin(std, list$std_io_task_job$)
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
 	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -3981,6 +4570,7 @@ scope_begin(std, list$std_io_thread$)
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
 	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -4012,6 +4602,7 @@ scope_begin(std, list$var$)
 	void remove(object $instance, var& val);
 	void remove2(object $instance, var& val, var& compare_fun);
 	void replace(object $instance, var& val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, var& comparer, var& find_func);
 	object to_string(object $instance);
@@ -4049,6 +4640,7 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
 	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -4098,6 +4690,7 @@ scope_begin(std, list$ui_support_fragment$)
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
 	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
@@ -4135,6 +4728,7 @@ scope_begin(std, list$ui_support_view$)
 	void remove(object $instance, object val);
 	void remove2(object $instance, object val, var& compare_fun);
 	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
 	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
