@@ -34,7 +34,8 @@ class window {
         }
 
         if(frag != null) {
-            (frag as lifecycle).on_create();
+            if(frag.state == constants.lifecycle.DESTROYED)
+               (frag as lifecycle).on_create();
             current_frag = frag;
         }
     }

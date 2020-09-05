@@ -7,9 +7,7 @@ import std.io.task;
 import main;
 import common.network;
 
-counter := 0;
-
-class home_screen base fragment {
+class home_screen base status_bar_screen {
 
     home_screen(container : window, id: var) -> base(container, id) { }
 
@@ -17,39 +15,14 @@ class home_screen base fragment {
     static const CLOCK_TASK : string = "clock-updater";
     static const FLIGHT_DATA_TASK : string = "flight-data-updater";
 
+    speed : text_view;
+    speed_unit : text_view;
+    altitude_title : text_view;
+    altitude_txt : text_view;
+
     def configure() {
-        add_view(new image_view(constants.resource.id.mode)
-            .set_drawable(constants.resource.id.ico_normal_mode)
-            .set_width(constants.view.WRAP_CONTENT)
-            .set_height(constants.view.WRAP_CONTENT)
-            .to_start_of(constants.resource.id.parent)
-            .to_right_of(constants.resource.id.parent)
-            .set_margin_right(4)
-            .set_margin_top(2)
-        );
-        add_view(new image_view(constants.resource.id.signal_strength)
-            .set_width(constants.view.WRAP_CONTENT)
-            .set_height(constants.view.WRAP_CONTENT)
-            .to_left_of(constants.resource.id.mode)
-            .to_top_of(constants.resource.id.parent)
-            .set_margin_right(4)
-            .set_margin_top(1)
-        );
-        add_view(new text_view(constants.resource.id.time)
-            .set_width(constants.view.MATCH_PARENT)
-            .set_height(constants.view.WRAP_CONTENT)
-            .to_start_of(constants.resource.id.parent)
-            .set_gravity(constants.view.GRAVITY_CENTER)
-            .set_margin_top(5)
-        );
-        add_view(new image_view(constants.resource.id.battery_status)
-            .set_drawable(constants.resource.id.ico_battery_4)
-            .set_width(constants.view.WRAP_CONTENT)
-            .set_height(constants.view.WRAP_CONTENT)
-            .to_start_of(constants.resource.id.parent)
-            .set_margin_top(2)
-            .set_margin_left(4)
-        );
+        base->configure();
+
         add_view(new text_view(constants.resource.id.altitude_title)
             .set_width(30)
             .set_height(constants.view.WRAP_CONTENT)
@@ -87,122 +60,29 @@ class home_screen base fragment {
     def on_create() {
         base->on_create();
 
-        time := find_view_by_id(constants.resource.id.time) as text_view;
-        speed := find_view_by_id(constants.resource.id.speed) as text_view;
-        speed_unit := find_view_by_id(constants.resource.id.speed_unit) as text_view;
-        altitude_title := find_view_by_id(constants.resource.id.altitude_title) as text_view;
-        altitude_txt := find_view_by_id(constants.resource.id.altitude_txt) as text_view;
-        sig_view := find_view_by_id(constants.resource.id.signal_strength) as image_view;
-        bat_view := find_view_by_id(constants.resource.id.battery_status) as image_view;
+        speed = find_view_by_id(constants.resource.id.speed) as text_view;
+        speed_unit = find_view_by_id(constants.resource.id.speed_unit) as text_view;
+        altitude_title = find_view_by_id(constants.resource.id.altitude_title) as text_view;
+        altitude_txt = find_view_by_id(constants.resource.id.altitude_txt) as text_view;
         
         altitude_title.text = "ALT";
         altitude_txt.text = "999M";
         speed.text = "9";
         speed_unit.text = "Kph";
         speed.text_size = 3;
+    }
 
-        task.builder()
-          .with_name(FLIGHT_DATA_TASK)
-          .recurring(250, milliseconds)
-          .with_args(new object[] { speed, altitude_txt, bat_view })
-            = { args: object[]  ->
-               speed := args[1] as text_view;
-               altitude := args[2] as text_view;
-               battery := args[3] as image_view;
+    def on_flight_data_received(altitude: var, speed: var) {
+        speed := find_view_by_id(constants.resource.id.speed) as text_view;
+        speed_unit := find_view_by_id(constants.resource.id.speed_unit) as text_view;
+        altitude_title := find_view_by_id(constants.resource.id.altitude_title) as text_view;
+        altitude_txt := find_view_by_id(constants.resource.id.altitude_txt) as text_view;
 
-               if(!disconnected) {
-                   data := network.get_flight_data();
-
-                   if(data != null) {
-                      speed.text = "${data.speed}";
-                      altitude.text = "${data.altitude}M";
-
-                      when (data.bat_lvl) {
-                        0 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_0);
-                        }
-                        1 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_1);
-                        }
-                        2 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_2);
-                        }
-                        3 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_3);
-                        }
-                        4 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_4);
-                        }
-                        else -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_0);
-                        }
-                      }
-                   }
-               }
-            };
-
-        task.builder()
-          .with_name(SIGNAL_UPDATER_TASK)
-          .recurring(1000, milliseconds)
-          .with_args(new object[] { sig_view })
-            = { args : object[] ->
-             iv := args[1] as image_view;
-             when (signal_strength) {
-                0 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_0);
-                }
-                1 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_1);
-                }
-                2 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_2);
-                }
-                3 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_3);
-                }
-                4 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_4);
-                }
-                else -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_4);
-                }
-             }
-            };
-
-
-        task.builder()
-          .with_name(CLOCK_TASK)
-          .recurring(1000, milliseconds)
-          .with_args(new object[] { time })
-            = { args : object[] ->
-             tv := args[1] as text_view;
-             utc_hr := time.get_os_time(tm_hour);
-             utc_min := time.get_os_time(tm_minutes);
-
-             tod := "am";
-
-//             if(hr >= 12) {
-//               if(utc_hr != 5)
-//                  tod = "pm";
-//
-//               if(hr > 12)
-//                  hr -= 12;
-//             }
-
-             real_time : string = "${utc_hr}:";
-
-             if(utc_min < 10)
-               real_time += "0";
-             real_time += utc_min;
-             real_time += tod;
-             tv.text = real_time;
-        };
+        speed.text = "${speed}";
+        altitude.text = "${altitude}M";
     }
     
     def on_destroy() {
-       task.cancel_all_jobs_by_name(SIGNAL_UPDATER_TASK);
-       task.cancel_all_jobs_by_name(CLOCK_TASK);
-       task.cancel_all_jobs_by_name(FLIGHT_DATA_TASK);
        base->on_destroy();
     }
 }
