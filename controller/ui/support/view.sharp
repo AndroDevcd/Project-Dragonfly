@@ -36,6 +36,8 @@ class view {
         return self;
     }
 
+    def get_owner() := owner;
+
     def transform_height(): var;
     def transform_width(): var;
 
