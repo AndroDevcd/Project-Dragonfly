@@ -9,6 +9,7 @@ scope_begin(std)
 
 	void __srt_global(object $instance);
 	var strtod(object str);
+	var strtol(object str, var& base_num);
 	var_array snprintf(var& fmt, var& num, var& precision);
 	var sys(object str);
 	void print(_int8_array& data);
@@ -36,7 +37,8 @@ scope_begin(std)
 	void flush();
 	var utc_mills();
 	var nano_time();
-	void exit();
+	void exit(var& val);
+	void exit2();
 	var sizeOf(object data);
 	var sizeOf2(object data);
 	void print_chars(_int8_array& str);
@@ -52,161 +54,151 @@ scope_begin(std)
 	void print_numbers8(_uint64_array& str);
 	void print_chars2(_int16_array& str);
 	var read_ch(var& hide);
-	object runtime_error(object message);
-	object runtime_error2();
-	void todo(object message);
-	void assert(var& cond);
-	void assert2(var& cond, object message);
 	var rand();
 	var rand_int(var& min, var& max);
 	var rand_double(var& min, var& max);
 	var rand_int2();
 	var rand_double2();
 	void set_seed(var& seed);
+	object runtime_error(object message);
+	object runtime_error2();
+	void todo(object message);
+	void assert(var& cond);
+	void assert2(var& cond, object message);
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(std, _enum_) 
+scope_begin(std, _object_) 
 
-	void _enum_(object $instance, var& ord);
-	void _enum_2(object $instance, object e);
-	var op_$not_equals(object $instance, object e);
-	var op_$not_equals2(object $instance, var& num);
-	var op_$equals_equals(object $instance, object e);
-	var op_$equals_equals2(object $instance, var& num);
-	_int8_array get_name(object $instance);
-	_int64 get_ordinal(object $instance);
 	object to_string(object $instance);
-	void _enum_3(object $instance);
+	void wait(object $instance);
+	void notify(object $instance);
+	void notify2(object $instance, var& mills);
+	void _lock(object $instance);
+	void _unlock(object $instance);
+	_int64 hash(object $instance);
+	_int64 guid(object $instance);
+	void _object_(object $instance);
 scope_end()
 
-scope_begin(std, throwable) 
+scope_begin(std, string_builder) 
 
-	void throwable(object $instance, _int8_array& message);
-	void throwable2(object $instance, object message);
-	object get_message(object $instance);
+	void set_resize_capacity(object $instance, var& new_capacity);
+	void string_builder(object $instance, _int8_array& str);
+	void string_builder2(object $instance, var& ch);
+	void string_builder3(object $instance, object str);
+	void string_builder4(object $instance, object str);
+	void string_builder5(object $instance, object str);
+	void string_builder6(object $instance, _int8_array& str, var& offset);
+	var space_available(object $instance, var& space_required);
+	void expand(object $instance, var& space_required);
+	object replace(object $instance, var& pos, _int8& ch);
+	object append(object $instance, var& ch);
+	_int8_array get_elements(object $instance);
+	object append2(object $instance, object c);
+	object append3(object $instance, _int8_array& immstr);
+	object append4(object $instance, _int8_array& immstr, var& len);
+	object op_$plus(object $instance, _int8_array& immstr);
+	object op_$plus2(object $instance, object obj);
 	object to_string(object $instance);
-	void throwable3(object $instance);
-	object get_stack_trace(object $instance);
+	var op_$equals_equals(object $instance, _int8_array& str);
+	var op_$equals_equals2(object $instance, object str);
+	var op_$not_equals(object $instance, _int8_array& str);
+	var op_$not_equals2(object $instance, object str);
+	void op_$equals(object $instance, _int8_array& immstr);
+	_int8 at(object $instance, var& pos);
+	var op_$array_at(object $instance, var& pos);
+	void fmt(var& _fmt);
+	void set_precision(var& prec);
+	_int8_array to_array(object $instance);
+	var starts_with(object $instance, object prefix);
+	var find(object $instance, object str);
+	var find2(object $instance, object str);
+	var ends_with(object $instance, object postfix);
+	object op_$plus3(object $instance, var& num);
+	var size(object $instance);
+	object parse(object $instance, var& number);
+	object op_$plus_equal(object $instance, var& num);
+	object op_$plus_equal2(object $instance, object obj);
+	object op_$plus_equal3(object $instance, object str);
+	_int8_array get_data(object $instance);
+	object op_$plus_equal4(object $instance, object str);
+	object op_$plus_equal5(object $instance, _int8_array& str);
+	object substring(object $instance, var& startPos, var& endPos);
+	object bounds_error(object $instance, var& pos);
+	_int64 hash(object $instance);
+	void string_builder7(object $instance);
+	void $03internal_static_init();
 scope_end()
 
-scope_begin(std, exception) 
+scope_begin(std, string) 
 
-	void exception(object $instance, _int8_array& message);
-	void exception2(object $instance, object message);
-	void exception3(object $instance);
-scope_end()
-
-scope_begin(std, illegal_argument_exception) 
-
-	void illegal_argument_exception(object $instance, _int8_array& message);
-	void illegal_argument_exception2(object $instance, object message);
-	void illegal_argument_exception3(object $instance);
-scope_end()
-
-scope_begin(std, illegal_state_exception) 
-
-	void illegal_state_exception(object $instance, _int8_array& message);
-	void illegal_state_exception2(object $instance, object message);
-	void illegal_state_exception3(object $instance);
-scope_end()
-
-scope_begin(std, out_of_bounds_exception) 
-
-	void out_of_bounds_exception(object $instance, _int8_array& message);
-	void out_of_bounds_exception2(object $instance, object message);
-	void out_of_bounds_exception3(object $instance);
-scope_end()
-
-scope_begin(std, io_exception) 
-
-	void io_exception(object $instance, _int8_array& message);
-	void io_exception2(object $instance, object message);
-	void io_exception3(object $instance);
-scope_end()
-
-scope_begin(std, invalid_operation_exception) 
-
-	void invalid_operation_exception(object $instance, _int8_array& message);
-	void invalid_operation_exception2(object $instance, object message);
-	void invalid_operation_exception3(object $instance);
-scope_end()
-
-scope_begin(std, nullptr_exception) 
-
-	void nullptr_exception(object $instance, _int8_array& message);
-	void nullptr_exception2(object $instance, object message);
-	void nullptr_exception3(object $instance);
-scope_end()
-
-scope_begin(std, runtime_exception) 
-
-	void runtime_exception(object $instance, _int8_array& message);
-	void runtime_exception2(object $instance, object message);
-	void runtime_exception3(object $instance);
-scope_end()
-
-scope_begin(std, stack_overflow_exception) 
-
-	void stack_overflow_exception(object $instance, _int8_array& message);
-	void stack_overflow_exception2(object $instance, object message);
-	void stack_overflow_exception3(object $instance);
-scope_end()
-
-scope_begin(std, thread_stack_exception) 
-
-	void thread_stack_exception(object $instance, _int8_array& message);
-	void thread_stack_exception2(object $instance, object message);
-	void thread_stack_exception3(object $instance);
-scope_end()
-
-scope_begin(std, class_cast_exception) 
-
-	void class_cast_exception(object $instance, _int8_array& message);
-	void class_cast_exception2(object $instance, object message);
-	void class_cast_exception3(object $instance);
-scope_end()
-
-scope_begin(std, out_of_memory_exception) 
-
-	void out_of_memory_exception(object $instance, _int8_array& message);
-	void out_of_memory_exception2(object $instance, object message);
-	void out_of_memory_exception3(object $instance);
-scope_end()
-
-scope_begin(std, not_implemented_error) 
-
-	void not_implemented_error(object $instance, _int8_array& message);
-	void not_implemented_error2(object $instance, object message);
-	void not_implemented_error3(object $instance);
-scope_end()
-
-scope_begin(std, unsatisfied_link_error) 
-
-	void unsatisfied_link_error(object $instance, _int8_array& message);
-	void unsatisfied_link_error2(object $instance, object message);
-	void unsatisfied_link_error3(object $instance);
-scope_end()
-
-scope_begin(std, assertion_error) 
-
-	void assertion_error(object $instance, _int8_array& message);
-	void assertion_error2(object $instance, object message);
-	void assertion_error3(object $instance);
-scope_end()
-
-scope_begin(std, error) 
-
-	void error(object $instance, _int8_array& message);
-	void error2(object $instance, object message);
-	void error3(object $instance);
+	void string(object $instance, _int8_array& str);
+	void string2(object $instance, var& ch);
+	void string3(object $instance, object str);
+	void string4(object $instance, object str);
+	void string5(object $instance, _int8_array& str, var& offset);
+	void string6(object $instance, _int8_array& str, var& start, var& end);
+	object replace(object $instance, var& pos, _int8& ch);
+	object append(object $instance, var& ch);
+	var empty(object $instance);
+	object append2(object $instance, object c);
+	object append3(object $instance, _int8_array& immstr);
+	object append4(object $instance, _int8_array& immstr, var& len);
+	object op_$plus(object $instance, _int8_array& immstr);
+	object to_lower(object $instance);
+	object op_$plus2(object $instance, object obj);
+	object op_$plus3(object $instance, object str);
+	object to_string(object $instance);
+	var op_$equals_equals(object $instance, _int8_array& str);
+	var op_$equals_equals2(object $instance, object str);
+	var op_$not_equals(object $instance, _int8_array& str);
+	var op_$not_equals2(object $instance, object str);
+	void op_$equals(object $instance, _int8_array& immstr);
+	_int8 at(object $instance, var& pos);
+	_int8 op_$array_at(object $instance, var& pos);
+	void fmt(var& _fmt);
+	void set_precision(var& prec);
+	_int8_array get_data(object $instance);
+	_int8_array get_elements(object $instance);
+	_int8_array to_array(object $instance);
+	var starts_with(object $instance, object prefix);
+	var find(object $instance, object str);
+	var ends_with(object $instance, object postfix);
+	object op_$plus4(object $instance, var& num);
+	object op_$plus5(object $instance, _int8& num);
+	object op_$plus6(object $instance, _int16& num);
+	object op_$plus7(object $instance, _int32& num);
+	object op_$plus8(object $instance, _int64& num);
+	object op_$plus9(object $instance, _uint8& num);
+	object op_$plus10(object $instance, _uint16& num);
+	object op_$plus11(object $instance, _uint32& num);
+	object op_$plus12(object $instance, _uint64& num);
+	var size(object $instance);
+	object parse(var& number);
+	object op_$plus_equal(object $instance, var& num);
+	object op_$plus_equal2(object $instance, _int8& num);
+	object op_$plus_equal3(object $instance, _uint8& num);
+	object op_$plus_equal4(object $instance, _int16& num);
+	object op_$plus_equal5(object $instance, _uint16& num);
+	object op_$plus_equal6(object $instance, _int32& num);
+	object op_$plus_equal7(object $instance, _uint32& num);
+	object op_$plus_equal8(object $instance, _int64& num);
+	object op_$plus_equal9(object $instance, _uint64& num);
+	object op_$plus_equal10(object $instance, object obj);
+	object op_$plus_equal11(object $instance, object str);
+	object op_$plus_equal12(object $instance, _int8_array& str);
+	object substring(object $instance, var& start_pos, var& end_pos);
+	object bounds_error(object $instance, var& pos);
+	_int64 hash(object $instance);
+	void string7(object $instance);
+	void $03internal_static_init();
 scope_end()
 
 scope_begin(std_io) 
 
 	void __srt_global(object $instance);
-	void critical_section(var& block);
-	void critical_section2(var& block, object lock_obj);
+	void _srt_thread_start();
 	void realloc(object data, var& size);
 	void realloc2(var_array& data, var& size);
 	void realloc3(_int8_array& data, var& size);
@@ -247,112 +239,33 @@ scope_begin(std_io)
 	_uint16_array invert8(_uint16_array& src, var& start, var& len);
 	_uint32_array invert9(_uint32_array& src, var& start, var& len);
 	_uint64_array invert10(_uint64_array& src, var& start, var& len);
-	void _srt_thread_start();
+	void critical_section(var& block);
+	void critical_section2(var& block, object lock_obj);
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(std_io_fiber) 
+scope_begin(std_io, thread_group) 
 
-	void __srt_global(object $instance);
-	void delay(var& mills);
-	object slice(var& main);
-	object slice2(var& main, object args);
-	object slice3(var& main, object t);
-	object slice4(var& main, object t, object args);
-	void $03internal_static_init();
-scope_end()
-
-scope_begin(std_io_fiber, fiber) 
-
-	void fiber(object $instance);
-	void fiber2(object $instance, object name, var& main);
-	void start(object $instance, object args);
-	var suspend(object $instance);
-	var unsuspend(object $instance);
-	var kill(object $instance);
-	var bind(object $instance, object t);
-	void join(object $instance);
-	var unbind(object $instance);
-	object get_state(object $instance);
-	object current();
-	var poll(object t);
-	void fiber_main(object args);
-scope_end()
-
-scope_begin(std_io, file) 
-
-	void file(object $instance, object path);
-	void file2(object $instance, _int8_array& path);
+	void thread_group(object $instance, object name);
+	void thread_group2(object $instance, object name, object priority);
+	object at(object $instance, var& id);
+	void add(object $instance, object t);
+	var size(object $instance);
 	object get_name(object $instance);
-	object to_string(object $instance);
-	void update_path(object $instance, object path);
-	object get_parent_file(object $instance);
-	object get_path(object $instance);
-	object get_absolute_path(object $instance);
-	var is_readable(object $instance);
-	var is_writeable(object $instance);
-	var exists(object $instance);
-	var is_directory(object $instance);
-	var is_file(object $instance);
-	var is_hidden(object $instance);
-	var last_modified(object $instance);
-	var last_status_changed(object $instance);
-	var last_accessed(object $instance);
-	var length(object $instance);
-	void create(object $instance);
-	var _delete(object $instance);
-	object list(object $instance);
-	var mkdir(object $instance);
-	var rename(object $instance, object dest);
-	var set_last_modified(object $instance, var& time);
-	var set_read_only(object $instance);
-	var set_writable(object $instance, var& writable, var& owner_only);
-	var set_writable2(object $instance, var& writable);
-	var set_readable(object $instance, var& readable, var& owner_only);
-	var set_readable2(object $instance, var& readable);
-	var set_executable(object $instance, var& executable, var& owner_only);
-	var set_executable2(object $instance, var& executable);
-	var is_executable(object $instance);
-	var get_total_space(object $instance);
-	var get_free_space(object $instance);
-	var get_usable_space(object $instance);
-	object generate_temp_file(object prefix, object suffix, object dir);
-	object create_temp_file(object prefix, object suffix, object directory);
-	object create_temp_file2(object prefix, object suffix);
-	object read_all_text(object $instance);
-	var write(object $instance, object data);
-	object get_file_system();
-	void file3(object $instance);
+	object get_priority(object $instance);
+	var remove(object $instance, var& id);
+	object get_elements(object $instance);
+	object find(object $instance, var& find_func);
+	object find2(object $instance, var& id);
+	void kill_all(object $instance);
+	void thread_group3(object $instance);
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(std_io, file_system) 
-
-	var path_separator(object $instance);
-	object normalize(object $instance, object path);
-	object resolve(object $instance, object f);
-	var get_attributes(object $instance, object f);
-	var check_access(object $instance, object f, var& access);
-	var set_permission(object $instance, object f, var& access, var& enable, var& owneronly);
-	var last_modified_time(object $instance, object f, var& stat_id);
-	var get_length(object $instance, object f);
-	void create_file(object $instance, object pathname);
-	var delete_directory(object $instance, object f);
-	var _delete(object $instance, object f);
-	object list(object $instance, object f);
-	var create_directory(object $instance, object f);
-	var rename(object $instance, object f1, object f2);
-	object read(object f);
-	var write(object f, object data);
-	var set_last_modified_time(object $instance, object f, var& time);
-	var set_read_only(object $instance, object f);
-	var get_space_available(var& request);
-	void file_system(object $instance);
-scope_end()
-
-scope_begin(std_io_task) 
+scope_begin(std_io_coroutines) 
 
 	void __srt_global(object $instance);
+	void finish();
 	void start_scheduler();
 	void calculate_max_threads();
 	void set_thread_max(var& max);
@@ -362,29 +275,74 @@ scope_begin(std_io_task)
 	void kill_threads();
 	void execute_synchronous(object scheduled_job);
 	var execute_job(object scheduled_job);
-	void finish();
 	void $03internal_static_init();
-	var anon_func$4099(object args);
-	var anon_func$4100(object it, object it2);
-	var anon_func$4101(object it, object it2);
-	var anon_func$4102(object it, object it2);
-	var anon_func$4103(object it, object it2);
-	var anon_func$4104(object it, object it2);
-	var anon_func$4105(object t);
-	var anon_func$4106(object t);
-	var anon_func$4107(object t);
-	var anon_func$4108(object t);
-	var anon_func$4109(object t);
+	var anon_func$4215(object it, object it2);
+	var anon_func$4216(object it, object it2);
+	var anon_func$4217(object it, object it2);
+	var anon_func$4218(object it, object it2);
+	var anon_func$4219(object it, object it2);
+	var anon_func$4220(object t);
+	var anon_func$4221(object t);
+	var anon_func$4222(object t);
+	var anon_func$4223(object t);
+	var anon_func$4224(object t);
+	var anon_func$4225(object args);
 scope_end()
 
-scope_begin(std_io_task, cancellation_exception) 
+scope_begin(std_io_coroutines, cancellation_exception) 
 
 	void cancellation_exception(object $instance, _int8_array& message);
 	void cancellation_exception2(object $instance, object message);
 	void cancellation_exception3(object $instance);
 scope_end()
 
-scope_begin(std_io_task, job) 
+scope_begin(std_io_coroutines, job_master) 
+
+	void job_master(object $instance);
+	object op_$equals(object $instance, var& main);
+	object create_job(object $instance);
+	object create_job2(object $instance, object name);
+	void start_job(object $instance, object scheduled_job);
+	void add_job(object $instance, object scheduled_job);
+	void cleanup_job(object $instance, object scheduled_job);
+	void cancel_jobs_by_name(object $instance, object name);
+scope_end()
+
+scope_begin(std_io_coroutines, coroutine_builder) 
+
+	void coroutine_builder(object $instance);
+	void coroutine_builder2(object $instance, object scheduled_job, object master);
+	object with_timeout(object $instance, var& mills_time);
+	object schedule(object $instance, var& future);
+	object unconfined(object $instance);
+	object with_host(object $instance, object host);
+	object recurring(object $instance, var& tm, object interval);
+	object with_name(object $instance, object job_name);
+	object with_args(object $instance, object args);
+	object block(object $instance);
+	object long_term(object $instance);
+	object op_$equals(object $instance, var& main);
+	object op_$equals2(object $instance, var& main);
+	object op_$equals3(object $instance, var& main);
+	object op_$equals4(object $instance, var& main);
+	object get_job(object $instance);
+scope_end()
+
+scope_begin(std_io_coroutines, coroutine) 
+
+	object with_timeout(var& mills_time);
+	object schedule(var& future);
+	object with_name(object job_name);
+	object with_args(object args);
+	object recurring(object $instance, var& tm, object interval);
+	object block();
+	object long_term();
+	object builder();
+	void cancel_all_jobs_by_name(object name);
+	void coroutine(object $instance);
+scope_end()
+
+scope_begin(std_io_coroutines, job) 
 
 	void job(object $instance);
 	void job2(object $instance, object name);
@@ -409,48 +367,51 @@ scope_begin(std_io_task, job)
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(std_io_task, job_builder) 
+scope_begin(std_io, win_fs) 
 
-	void job_builder(object $instance);
-	void job_builder2(object $instance, object scheduled_job, object master);
-	object with_timeout(object $instance, var& mills_time);
-	object schedule(object $instance, var& future);
-	object recurring(object $instance, var& tm, object interval);
-	object with_name(object $instance, object job_name);
-	object with_args(object $instance, object args);
-	object block(object $instance);
-	object long_term(object $instance);
-	object op_$equals(object $instance, var& main);
-	object op_$equals2(object $instance, var& main);
-	object op_$equals3(object $instance, var& main);
-	object op_$equals4(object $instance, var& main);
-	object get_job(object $instance);
+	var path_separator(object $instance);
+	object normalize(object $instance, object pathname);
+	var get_attributes(object $instance, object f);
+	var check_access(object $instance, object f, var& access);
+	void win_fs(object $instance);
 scope_end()
 
-scope_begin(std_io_task, job_master) 
+scope_begin(std_io, uncaught_exception_handler) 
 
-	void job_master(object $instance);
-	object op_$equals(object $instance, var& main);
-	object create_job(object $instance);
-	object create_job2(object $instance, object name);
-	void start_job(object $instance, object scheduled_job);
-	void add_job(object $instance, object scheduled_job);
-	void cleanup_job(object $instance, object scheduled_job);
-	void cancel_jobs_by_name(object $instance, object name);
+	void uncaught_exception(object $instance, object err);
+	void uncaught_exception_handler(object $instance);
 scope_end()
 
-scope_begin(std_io_task, task) 
+scope_begin(std_io, thread_result) 
 
-	object with_timeout(var& mills_time);
-	object schedule(var& future);
-	object with_name(object job_name);
-	object with_args(object args);
-	object recurring(object $instance, var& tm, object interval);
-	object block();
-	object long_term();
-	object builder();
-	void cancel_all_jobs_by_name(object name);
-	void task(object $instance);
+	object at(var& index);
+	void thread_result(object $instance);
+	void $03internal_static_init();
+scope_end()
+
+scope_begin(std_io, file_system) 
+
+	var path_separator(object $instance);
+	object normalize(object $instance, object path);
+	object resolve(object $instance, object f);
+	object current_directory();
+	var get_attributes(object $instance, object f);
+	var check_access(object $instance, object f, var& access);
+	var set_permission(object $instance, object f, var& access, var& enable, var& owneronly);
+	var last_modified_time(object $instance, object f, var& stat_id);
+	var get_length(object $instance, object f);
+	void create_file(object $instance, object pathname);
+	var delete_directory(object $instance, object f);
+	var _delete(object $instance, object f);
+	object list(object $instance, object f);
+	var create_directory(object $instance, object f);
+	var rename(object $instance, object f1, object f2);
+	object read(object f);
+	var write(object f, object data);
+	var set_last_modified_time(object $instance, object f, var& time);
+	var set_read_only(object $instance, object f);
+	var get_space_available(var& request);
+	void file_system(object $instance);
 scope_end()
 
 scope_begin(std_io, thread) 
@@ -474,7 +435,7 @@ scope_begin(std_io, thread)
 	void sleep(var& mills_time);
 	void suspend_for(var& mills_time);
 	void exit(var& code);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	void yield();
 	void set_exception_handler(object $instance, object error_handler);
 	object set_priority(object $instance, object priority);
@@ -491,37 +452,37 @@ scope_begin(std_io, thread)
 	var is_active(object $instance);
 	var get_exit_code(object $instance);
 	object get_exception_handler(object $instance);
+	object get_main_fiber(object $instance);
 	var op_$equals_equals(object $instance, object t);
 scope_end()
 
-scope_begin(std_io, thread_group) 
+scope_begin(std_io_fiber) 
 
-	void thread_group(object $instance, object name);
-	void thread_group2(object $instance, object name, object priority);
-	object at(object $instance, var& id);
-	void add(object $instance, object t);
-	var size(object $instance);
-	object get_name(object $instance);
-	object get_priority(object $instance);
-	var remove(object $instance, var& id);
-	object get_elements(object $instance);
-	object find(object $instance, var& find_func);
-	void kill_all(object $instance);
-	void thread_group3(object $instance);
+	void __srt_global(object $instance);
+	object slice(var& main);
+	object slice2(var& main, object args);
+	object slice3(var& main, object t);
+	object slice4(var& main, object t, object args);
+	void delay(var& mills);
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(std_io, thread_result) 
+scope_begin(std_io_fiber, fiber) 
 
-	object at(var& index);
-	void thread_result(object $instance);
-	void $03internal_static_init();
-scope_end()
-
-scope_begin(std_io, uncaught_exception_handler) 
-
-	void uncaught_exception(object $instance, object err);
-	void uncaught_exception_handler(object $instance);
+	void fiber(object $instance);
+	void fiber2(object $instance, object name, var& main);
+	void fiber3(object $instance, object name, object t, var& main);
+	void start(object $instance, object args);
+	var suspend(object $instance);
+	var unsuspend(object $instance);
+	var kill(object $instance);
+	var bind(object $instance, object t);
+	void join(object $instance);
+	var unbind(object $instance);
+	object get_state(object $instance);
+	object current();
+	var poll(object t);
+	void fiber_main(object args);
 scope_end()
 
 scope_begin(std_io, unix_fs) 
@@ -533,137 +494,73 @@ scope_begin(std_io, unix_fs)
 	void unix_fs(object $instance);
 scope_end()
 
-scope_begin(std_io, win_fs) 
+scope_begin(std_io, file) 
 
-	var path_separator(object $instance);
-	object normalize(object $instance, object pathname);
-	var get_attributes(object $instance, object f);
-	var check_access(object $instance, object f, var& access);
-	void win_fs(object $instance);
-scope_end()
-
-scope_begin(std_math) 
-
-	void __srt_global(object $instance);
-	var is_nan(var& v);
-	var is_infinite(var& v);
-	var sin(var& num);
-	var cos(var& num);
-	var tan(var& num);
-	var sinh(var& num);
-	var cosh(var& num);
-	var tanh(var& num);
-	var asin(var& num);
-	var acos(var& num);
-	var atan(var& num);
-	var atan2(var& num1, var& num2);
-	var exp(var& num);
-	var log(var& num);
-	var log10(var& num);
-	var pow(var& num, var& exp);
-	var sqrt(var& num);
-	var ceil(var& num);
-	var floor(var& num);
-	var abs(var& num);
-	var fabs(var& num);
-	var ldexp(var& num, var& num2);
-	var fmod(var& num, var& num2);
-	var round(var& num);
-	var math_proc(var& num, var& proc);
-	var math_proc2(var& num, var& num2, var& proc);
-scope_end()
-
-scope_begin(std, _nil_) 
-
+	void file(object $instance, object path);
+	void file2(object $instance, _int8_array& path);
+	object get_name(object $instance);
 	object to_string(object $instance);
-	void _nil_(object $instance);
-	void set_instance(object value);
+	void update_path(object $instance, object path);
+	object get_parent_file(object $instance);
+	object get_path(object $instance);
+	object get_absolute_path(object $instance);
+	var is_readable(object $instance);
+	var is_writeable(object $instance);
+	var exists(object $instance);
+	var is_directory(object $instance);
+	var is_file(object $instance);
+	var is_hidden(object $instance);
+	var last_modified(object $instance);
+	var last_status_changed(object $instance);
+	var last_accessed(object $instance);
+	var length(object $instance);
+	var is_empty(object $instance);
+	void create(object $instance);
+	var _delete(object $instance);
+	object list(object $instance);
+	var mkdir(object $instance);
+	var rename(object $instance, object dest);
+	var set_last_modified(object $instance, var& time);
+	var set_read_only(object $instance);
+	var set_writable(object $instance, var& writable, var& owner_only);
+	var set_writable2(object $instance, var& writable);
+	var set_readable(object $instance, var& readable, var& owner_only);
+	var set_readable2(object $instance, var& readable);
+	var set_executable(object $instance, var& executable, var& owner_only);
+	var set_executable2(object $instance, var& executable);
+	var is_executable(object $instance);
+	var get_total_space(object $instance);
+	var get_free_space(object $instance);
+	var get_usable_space(object $instance);
+	object current_directory();
+	object generate_temp_file(object prefix, object suffix, object dir);
+	object create_temp_file(object prefix, object suffix, object directory);
+	object create_temp_file2(object prefix, object suffix);
+	object read(object $instance);
+	var write(object $instance, object data);
+	object get_file_system();
+	void file3(object $instance);
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(std, _object_) 
+scope_begin(std, _enum_) 
 
+	void _enum_(object $instance, var& ord);
+	void _enum_2(object $instance, object e);
+	var op_$not_equals(object $instance, object e);
+	var op_$not_equals2(object $instance, var& num);
+	var op_$equals_equals(object $instance, object e);
+	var op_$equals_equals2(object $instance, var& num);
+	_int8_array get_name(object $instance);
+	_int64 get_ordinal(object $instance);
 	object to_string(object $instance);
-	void wait(object $instance);
-	void notify(object $instance);
-	void notify2(object $instance, var& mills);
-	void _lock(object $instance);
-	void _unlock(object $instance);
-	object hash(object $instance);
-	object guid(object $instance);
-	void _object_(object $instance);
+	void _enum_3(object $instance);
 scope_end()
 
-scope_begin(platform) 
+scope_begin(std, tmp) 
 
-	void __srt_global(object $instance);
-	void load_library(object name);
-	var free_library(object name);
-	var link(object name, object library);
-scope_end()
-
-scope_begin(platform, build) 
-
-	var is_windows();
-	var is_linux();
-	void build(object $instance);
-scope_end()
-
-scope_begin(platform_kernel) 
-
-	void __srt_global(object $instance);
-scope_end()
-
-scope_begin(platform_kernel, platform) 
-
-	void tls_init();
-	void static_init();
-	void exit(var& value);
-	_int8_array get_lib_path(object name);
-	void load_library(object name);
-	var free_library(object name);
-	var link_func(object name, object library);
-	var srt_init(object args);
-	void platform(object $instance);
-scope_end()
-
-scope_begin(platform_kernel, stack_state) 
-
-	void stack_state(object $instance);
-scope_end()
-
-scope_begin(platform_kernel, vm) 
-
-	object get_frame_info();
-	object get_stack_trace(object info);
-	var thread_create(var& daemon);
-	var start_fiber(object fib, object args, var& main);
-	var suspend_fiber(object fib);
-	var unsuspend_fiber(object fib);
-	var kill_fiber(object fib);
-	var bind_fiber(object fib, object t);
-	var get_bound_fibers(object t);
-	var get_fiber_state(object fib);
-	object current_fiber();
-	object suspend(object t);
-	object unsuspend(object t, var& wait);
-	var get_os_time(var& tr);
-	object thread_join(object t);
-	object kill(object t);
-	object current_thread();
-	void exit_thread(object t, var& code);
-	void thread_yield();
-	object thread_start(object t, object args);
-	object set_thread_priority(object t, var& priority);
-	void set_thread(object t);
-	object thread_args();
-	var cores();
-	var random_int();
-	var random_int2(var& min, var& max);
-	var random_double();
-	var random_double2(var& min, var& max);
-	void random_seed(var& seed);
-	void vm(object $instance);
+	void tmp(object $instance);
+	void $03internal_static_init();
 scope_end()
 
 scope_begin(std, ulong) 
@@ -1846,16 +1743,160 @@ scope_begin(std, _double)
 	void _double13(object $instance);
 scope_end()
 
-scope_begin(std, printable) 
+scope_begin(platform) 
 
-	object to_string(object $instance);
-	void printable(object $instance);
+	void __srt_global(object $instance);
+	void load_library(object name);
+	var free_library(object name);
+	var link(object name, object library);
 scope_end()
 
-scope_begin(std, tmp) 
+scope_begin(platform, build) 
 
-	void tmp(object $instance);
-	void $03internal_static_init();
+	var is_windows();
+	var is_linux();
+	void build(object $instance);
+scope_end()
+
+scope_begin(platform_kernel) 
+
+	void __srt_global(object $instance);
+scope_end()
+
+scope_begin(platform_kernel, stack_state) 
+
+	void stack_state(object $instance);
+scope_end()
+
+scope_begin(platform_kernel, platform) 
+
+	void tls_init();
+	void static_init();
+	void exit(var& value);
+	_int8_array get_lib_path(object name);
+	void load_library(object name);
+	var free_library(object name);
+	var link_func(object name, object library);
+	var srt_init(object args);
+	void platform(object $instance);
+scope_end()
+
+scope_begin(platform_kernel, vm) 
+
+	object get_frame_info();
+	object get_stack_trace(object info);
+	var thread_create(var& daemon);
+	var start_fiber(object fib, object t, object args, var& main);
+	var suspend_fiber(object fib);
+	var unsuspend_fiber(object fib);
+	var kill_fiber(object fib);
+	var bind_fiber(object fib, object t);
+	var get_bound_fibers(object t);
+	var get_fiber_state(object fib);
+	object current_fiber();
+	object suspend(object t);
+	object unsuspend(object t, var& wait);
+	var get_os_time(var& tr);
+	object thread_join(object t);
+	object kill(object t);
+	object current_thread();
+	void exit_thread(object t, var& code);
+	void thread_yield();
+	object thread_start(object t, object args);
+	object set_thread_priority(object t, var& priority);
+	void set_thread(object t);
+	object thread_args();
+	var hardware_concurrency();
+	var random_int();
+	var random_int2(var& min, var& max);
+	var random_double();
+	var random_double2(var& min, var& max);
+	void random_seed(var& seed);
+	void vm(object $instance);
+scope_end()
+
+scope_begin(std_math) 
+
+	void __srt_global(object $instance);
+	var is_nan(var& v);
+	var is_infinite(var& v);
+	var sin(var& num);
+	var cos(var& num);
+	var tan(var& num);
+	var sinh(var& num);
+	var cosh(var& num);
+	var tanh(var& num);
+	var asin(var& num);
+	var acos(var& num);
+	var atan(var& num);
+	var atan2(var& num1, var& num2);
+	var exp(var& num);
+	var log(var& num);
+	var log10(var& num);
+	var pow(var& num, var& exp);
+	var sqrt(var& num);
+	var ceil(var& num);
+	var floor(var& num);
+	var abs(var& num);
+	var fabs(var& num);
+	var ldexp(var& num, var& num2);
+	var fmod(var& num, var& num2);
+	var round(var& num);
+	var math_proc(var& num, var& proc);
+	var math_proc2(var& num, var& num2, var& proc);
+scope_end()
+
+scope_begin(std, unique) 
+
+	_int64 hash(object $instance);
+	_int64 guid(object $instance);
+	void unique(object $instance);
+scope_end()
+
+scope_begin(std_export) 
+
+	void __srt_global(object $instance);
+	_int8_array _export(object obj);
+	object _import(object bytes);
+	object _export2(object obj, object filename);
+	object _import_from(object filename);
+scope_end()
+
+scope_begin(std_export, export_group) 
+
+	void export_group(object $instance, object name);
+	void write_var(object $instance, var& val);
+	void write_double(object $instance, object val);
+	void write_long(object $instance, object val);
+	void write_int(object $instance, object val);
+	void write_short(object $instance, object val);
+	void write_char(object $instance, object val);
+	void write_byte(object $instance, object val);
+	void write_bool(object $instance, object val);
+	void write_ulong(object $instance, object val);
+	void write_uint(object $instance, object val);
+	void write_ushort(object $instance, object val);
+	void write_uchar(object $instance, object val);
+	void write_object(object $instance, object val);
+	void empty_group(object $instance);
+	var read_var(object $instance);
+	object read_double(object $instance);
+	object read_long(object $instance, object val);
+	object read_int(object $instance);
+	object read_short(object $instance);
+	object read_char(object $instance);
+	object read_byte(object $instance);
+	object read_bool(object $instance, object val);
+	object read_ulong(object $instance);
+	object read_uint(object $instance, object val);
+	object read_ushort(object $instance);
+	object read_uchar(object $instance);
+	object read_object(object $instance);
+	_int8_array _export(object $instance);
+	object _export2(object $instance, object filename);
+	void import_(object $instance, object bytes);
+	void import_from(object $instance, object filename);
+	void export_group2(object $instance);
 scope_end()
 
 scope_begin(std_reflect) 
@@ -1863,14 +1904,22 @@ scope_begin(std_reflect)
 	void __srt_global(object $instance);
 scope_end()
 
+scope_begin(std_reflect, data_entity) 
+
+	void data_entity(object $instance);
+scope_end()
+
 scope_begin(std_reflect, _class_) 
 
 	void _class_(object $instance);
 scope_end()
 
-scope_begin(std_reflect, data_entity) 
+scope_begin(std_reflect, reflect) 
 
-	void data_entity(object $instance);
+	void reflect(object $instance, object ref_obj);
+	void reflect2(object $instance);
+	void set_reflect_obj(object $instance, object value);
+	object get_reflect_obj(object $instance);
 scope_end()
 
 scope_begin(std_reflect, data_property) 
@@ -1888,126 +1937,10 @@ scope_begin(std_reflect, function)
 	void function(object $instance);
 scope_end()
 
-scope_begin(std_reflect, reflect) 
+scope_begin(std, printable) 
 
-	void reflect(object $instance, object ref_obj);
-	void reflect2(object $instance);
-	void set_reflect_obj(object $instance, object value);
-	object get_reflect_obj(object $instance);
-scope_end()
-
-scope_begin(std, string) 
-
-	void string(object $instance, _int8_array& str);
-	void string2(object $instance, var& ch);
-	void string3(object $instance, object str);
-	void string4(object $instance, object str);
-	void string5(object $instance, _int8_array& str, var& offset);
-	void string6(object $instance, _int8_array& str, var& start, var& end);
-	object replace(object $instance, var& pos, _int8& ch);
-	object append(object $instance, var& ch);
-	var empty(object $instance);
-	object append2(object $instance, object c);
-	object append3(object $instance, _int8_array& immstr);
-	object append4(object $instance, _int8_array& immstr, var& len);
-	object op_$plus(object $instance, _int8_array& immstr);
-	object to_lower(object $instance);
-	object op_$plus2(object $instance, object obj);
-	object op_$plus3(object $instance, object str);
 	object to_string(object $instance);
-	var op_$equals_equals(object $instance, _int8_array& str);
-	var op_$equals_equals2(object $instance, object str);
-	var op_$not_equals(object $instance, _int8_array& str);
-	var op_$not_equals2(object $instance, object str);
-	void op_$equals(object $instance, _int8_array& immstr);
-	_int8 at(object $instance, var& pos);
-	_int8 op_$array_at(object $instance, var& pos);
-	void fmt(var& _fmt);
-	void set_precision(var& prec);
-	_int8_array get_data(object $instance);
-	_int8_array get_elements(object $instance);
-	_int8_array to_array(object $instance);
-	var starts_with(object $instance, object prefix);
-	var find(object $instance, object str);
-	var ends_with(object $instance, object postfix);
-	object op_$plus4(object $instance, var& num);
-	object op_$plus5(object $instance, _int8& num);
-	object op_$plus6(object $instance, _int16& num);
-	object op_$plus7(object $instance, _int32& num);
-	object op_$plus8(object $instance, _int64& num);
-	object op_$plus9(object $instance, _uint8& num);
-	object op_$plus10(object $instance, _uint16& num);
-	object op_$plus11(object $instance, _uint32& num);
-	object op_$plus12(object $instance, _uint64& num);
-	var size(object $instance);
-	object parse(var& number);
-	object op_$plus_equal(object $instance, var& num);
-	object op_$plus_equal2(object $instance, _int8& num);
-	object op_$plus_equal3(object $instance, _uint8& num);
-	object op_$plus_equal4(object $instance, _int16& num);
-	object op_$plus_equal5(object $instance, _uint16& num);
-	object op_$plus_equal6(object $instance, _int32& num);
-	object op_$plus_equal7(object $instance, _uint32& num);
-	object op_$plus_equal8(object $instance, _int64& num);
-	object op_$plus_equal9(object $instance, _uint64& num);
-	object op_$plus_equal10(object $instance, object obj);
-	object op_$plus_equal11(object $instance, object str);
-	object op_$plus_equal12(object $instance, _int8_array& str);
-	object substring(object $instance, var& start_pos, var& end_pos);
-	object bounds_error(object $instance, var& pos);
-	object hash(object $instance);
-	void string7(object $instance);
-	void $03internal_static_init();
-scope_end()
-
-scope_begin(std, string_builder) 
-
-	void set_resize_capacity(object $instance, var& new_capacity);
-	void string_builder(object $instance, _int8_array& str);
-	void string_builder2(object $instance, var& ch);
-	void string_builder3(object $instance, object str);
-	void string_builder4(object $instance, object str);
-	void string_builder5(object $instance, object str);
-	void string_builder6(object $instance, _int8_array& str, var& offset);
-	var space_available(object $instance, var& space_required);
-	void expand(object $instance, var& space_required);
-	object replace(object $instance, var& pos, _int8& ch);
-	object append(object $instance, var& ch);
-	_int8_array get_elements(object $instance);
-	object append2(object $instance, object c);
-	object append3(object $instance, _int8_array& immstr);
-	object append4(object $instance, _int8_array& immstr, var& len);
-	object op_$plus(object $instance, _int8_array& immstr);
-	object op_$plus2(object $instance, object obj);
-	object to_string(object $instance);
-	var op_$equals_equals(object $instance, _int8_array& str);
-	var op_$equals_equals2(object $instance, object str);
-	var op_$not_equals(object $instance, _int8_array& str);
-	var op_$not_equals2(object $instance, object str);
-	void op_$equals(object $instance, _int8_array& immstr);
-	_int8 at(object $instance, var& pos);
-	var op_$array_at(object $instance, var& pos);
-	void fmt(var& _fmt);
-	void set_precision(var& prec);
-	_int8_array to_array(object $instance);
-	var starts_with(object $instance, object prefix);
-	var find(object $instance, object str);
-	var find2(object $instance, object str);
-	var ends_with(object $instance, object postfix);
-	object op_$plus3(object $instance, var& num);
-	var size(object $instance);
-	object parse(object $instance, var& number);
-	object op_$plus_equal(object $instance, var& num);
-	object op_$plus_equal2(object $instance, object obj);
-	object op_$plus_equal3(object $instance, object str);
-	_int8_array get_data(object $instance);
-	object op_$plus_equal4(object $instance, object str);
-	object op_$plus_equal5(object $instance, _int8_array& str);
-	object substring(object $instance, var& startPos, var& endPos);
-	object bounds_error(object $instance, var& pos);
-	object hash(object $instance);
-	void string_builder7(object $instance);
-	void $03internal_static_init();
+	void printable(object $instance);
 scope_end()
 
 scope_begin(std, time) 
@@ -2018,6 +1951,7 @@ scope_begin(std, time)
 	var nano_to_mills(var& nano);
 	var nano_to_secs(var& nano);
 	var mills_time();
+	var micro_time();
 	void sleep(var& time);
 	void sleep2(object tm_unit, var& time);
 	void wait(object tm_unit, var& time);
@@ -2028,28 +1962,148 @@ scope_begin(std, time)
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(std, unique) 
+scope_begin(std, _nil_) 
 
-	object hash(object $instance);
-	object guid(object $instance);
-	void unique(object $instance);
-scope_end()
-
-scope_begin(common) 
-
-	void __srt_global(object $instance);
-scope_end()
-
-scope_begin(common, constants) 
-
-	void constants(object $instance);
+	object to_string(object $instance);
+	void _nil_(object $instance);
+	void set_instance(object value);
 	void $03internal_static_init();
 scope_end()
 
-scope_begin(common, constants_strings) 
+scope_begin(std, throwable) 
 
-	void strings(object $instance);
-	void $03internal_static_init();
+	void throwable(object $instance, _int8_array& message);
+	void throwable2(object $instance, object message);
+	object get_message(object $instance);
+	object to_string(object $instance);
+	void throwable3(object $instance);
+	object get_stack_trace(object $instance);
+scope_end()
+
+scope_begin(std, exception) 
+
+	void exception(object $instance, _int8_array& message);
+	void exception2(object $instance, object message);
+	void exception3(object $instance);
+scope_end()
+
+scope_begin(std, illegal_argument_exception) 
+
+	void illegal_argument_exception(object $instance, _int8_array& message);
+	void illegal_argument_exception2(object $instance, object message);
+	void illegal_argument_exception3(object $instance);
+scope_end()
+
+scope_begin(std, illegal_state_exception) 
+
+	void illegal_state_exception(object $instance, _int8_array& message);
+	void illegal_state_exception2(object $instance, object message);
+	void illegal_state_exception3(object $instance);
+scope_end()
+
+scope_begin(std, out_of_bounds_exception) 
+
+	void out_of_bounds_exception(object $instance, _int8_array& message);
+	void out_of_bounds_exception2(object $instance, object message);
+	void out_of_bounds_exception3(object $instance);
+scope_end()
+
+scope_begin(std, io_exception) 
+
+	void io_exception(object $instance, _int8_array& message);
+	void io_exception2(object $instance, object message);
+	void io_exception3(object $instance);
+scope_end()
+
+scope_begin(std, invalid_operation_exception) 
+
+	void invalid_operation_exception(object $instance, _int8_array& message);
+	void invalid_operation_exception2(object $instance, object message);
+	void invalid_operation_exception3(object $instance);
+scope_end()
+
+scope_begin(std, nullptr_exception) 
+
+	void nullptr_exception(object $instance, _int8_array& message);
+	void nullptr_exception2(object $instance, object message);
+	void nullptr_exception3(object $instance);
+scope_end()
+
+scope_begin(std, runtime_exception) 
+
+	void runtime_exception(object $instance, _int8_array& message);
+	void runtime_exception2(object $instance, object message);
+	void runtime_exception3(object $instance);
+scope_end()
+
+scope_begin(std, stack_overflow_exception) 
+
+	void stack_overflow_exception(object $instance, _int8_array& message);
+	void stack_overflow_exception2(object $instance, object message);
+	void stack_overflow_exception3(object $instance);
+scope_end()
+
+scope_begin(std, thread_stack_exception) 
+
+	void thread_stack_exception(object $instance, _int8_array& message);
+	void thread_stack_exception2(object $instance, object message);
+	void thread_stack_exception3(object $instance);
+scope_end()
+
+scope_begin(std, class_cast_exception) 
+
+	void class_cast_exception(object $instance, _int8_array& message);
+	void class_cast_exception2(object $instance, object message);
+	void class_cast_exception3(object $instance);
+scope_end()
+
+scope_begin(std, out_of_memory_exception) 
+
+	void out_of_memory_exception(object $instance, _int8_array& message);
+	void out_of_memory_exception2(object $instance, object message);
+	void out_of_memory_exception3(object $instance);
+scope_end()
+
+scope_begin(std, incompatible_class_exception) 
+
+	void incompatible_class_exception(object $instance, _int8_array& message);
+	void incompatible_class_exception2(object $instance, object message);
+	void incompatible_class_exception3(object $instance);
+scope_end()
+
+scope_begin(std, object_import_error) 
+
+	void object_import_error(object $instance, _int8_array& message);
+	void object_import_error2(object $instance, object message);
+	void object_import_error3(object $instance);
+scope_end()
+
+scope_begin(std, not_implemented_error) 
+
+	void not_implemented_error(object $instance, _int8_array& message);
+	void not_implemented_error2(object $instance, object message);
+	void not_implemented_error3(object $instance);
+scope_end()
+
+scope_begin(std, unsatisfied_link_error) 
+
+	void unsatisfied_link_error(object $instance, _int8_array& message);
+	void unsatisfied_link_error2(object $instance, object message);
+	void unsatisfied_link_error3(object $instance);
+scope_end()
+
+scope_begin(std, assertion_error) 
+
+	void assertion_error(object $instance, _int8_array& message);
+	void assertion_error2(object $instance, object message);
+	void assertion_error3(object $instance);
+scope_end()
+
+scope_begin(std, error) 
+
+	void error(object $instance, _int8_array& message);
+	void error2(object $instance, object message);
+	void error3(object $instance);
 scope_end()
 
 scope_begin(common_gpio) 
@@ -2059,114 +2113,6 @@ scope_begin(common_gpio)
 	void pin_mode(var& pin, var& mode);
 	void write_pin(var& pin, var& value);
 	var read_pin(var& pin);
-scope_end()
-
-scope_begin(common_network_core) 
-
-	void __srt_global(object $instance);
-	var anon_func$4092(object t1, object t2);
-scope_end()
-
-scope_begin(common_network_core, request) 
-
-	void jam_network(var& channel);
-	var_array get_network_quality();
-	var get_signal_strength();
-	var write(object rdata);
-	void process_result(object raw, object rdata);
-	var read(object rdata);
-	void listen(object rdata);
-	var rw_inf(object rdata, var& rw, var& count);
-	void request(object $instance);
-scope_end()
-
-scope_begin(common_network_core, request_data) 
-
-	object add_item(object $instance, object key, object value);
-	object to_string(object $instance);
-	object at(object $instance, object key);
-	void clear(object $instance);
-	void request_data(object $instance);
-	object get_request_string(object $instance);
-scope_end()
-
-scope_begin(common_network_core, request_data_request_item) 
-
-	void request_item(object $instance, object k, object v);
-	void request_item2(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request) 
-
-	void __srt_global(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, acknowledge_request) 
-
-	void send(object $instance);
-	void acknowledge_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, command_request) 
-
-	object listen(object $instance);
-	var send_command(object $instance, object req, var& ack, var& timeout);
-	void command_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, flight_data_request) 
-
-	object _get(object $instance);
-	void post(object $instance, object data);
-	void flight_data_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, flight_mode_change_request) 
-
-	var change_mode(object $instance, object mode);
-	void flight_mode_change_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, handshake_request) 
-
-	void handshake(object $instance);
-	void handshake_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, jam_request) 
-
-	void jam(object $instance, var& channel);
-	var post(object $instance, var& channel);
-	void jam_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, network_scan_request) 
-
-	var_array scan_network(object $instance);
-	void network_scan_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_request, signal_strength_request) 
-
-	var get_strength(object $instance);
-	void signal_strength_request(object $instance);
-scope_end()
-
-scope_begin(common_network_data_response) 
-
-	void __srt_global(object $instance);
-scope_end()
-
-scope_begin(common_network_data_response, command_response) 
-
-	void command_response(object $instance, object cmd, object req);
-	void command_response2(object $instance);
-scope_end()
-
-scope_begin(common_network_data_response, flight_data_response) 
-
-	void flight_data_response(object $instance, var& bat_lvl, var& altitude, var& speed);
-	void flight_data_response2(object $instance);
 scope_end()
 
 scope_begin(common_network_driver) 
@@ -2204,6 +2150,98 @@ scope_begin(common_network_driver, nrf24)
 	void check_state(object $instance);
 scope_end()
 
+scope_begin(common_network_core) 
+
+	void __srt_global(object $instance);
+	var anon_func$4206(object t1, object t2);
+scope_end()
+
+scope_begin(common_network_core, request) 
+
+	void jam_network(var& channel);
+	var_array get_network_quality();
+	var get_signal_strength();
+	var write(object rdata);
+	void process_result(object raw, object rdata);
+	var read(object rdata);
+	void listen(object rdata);
+	var rw_inf(object rdata, var& rw, var& count);
+	void request(object $instance);
+scope_end()
+
+scope_begin(common_network_core, request_data) 
+
+	object add_item(object $instance, object key, object value);
+	object to_string(object $instance);
+	object at(object $instance, object key);
+	void clear(object $instance);
+	void request_data(object $instance);
+	object get_request_string(object $instance);
+scope_end()
+
+scope_begin(common_network_core, request_data_request_item) 
+
+	void request_item(object $instance, object k, object v);
+	void request_item2(object $instance);
+scope_end()
+
+scope_begin(common_network_remote) 
+
+	void __srt_global(object $instance);
+	void initialize(object net);
+scope_end()
+
+scope_begin(common_network_remote, jam_request_impl) 
+
+	void jam_request_impl(object $instance);
+	void jam(object $instance, var& channel);
+	var post(object $instance, var& channel);
+scope_end()
+
+scope_begin(common_network_remote, acknowledge_request_impl) 
+
+	void acknowledge_request_impl(object $instance);
+	void send(object $instance);
+scope_end()
+
+scope_begin(common_network_remote, network_scan_request_impl) 
+
+	var_array scan_network(object $instance);
+	void network_scan_request_impl(object $instance);
+scope_end()
+
+scope_begin(common_network_remote, command_request_impl) 
+
+	object listen(object $instance);
+	var send_command(object $instance, object req, var& ack, var& timeout);
+	void command_request_impl(object $instance);
+scope_end()
+
+scope_begin(common_network_remote, signal_strength_request_impl) 
+
+	var get_strength(object $instance);
+	void signal_strength_request_impl(object $instance);
+scope_end()
+
+scope_begin(common_network_remote, handshake_request_impl) 
+
+	void handshake_request_impl(object $instance);
+	void handshake(object $instance);
+scope_end()
+
+scope_begin(common_network_remote, flight_data_request_impl) 
+
+	object _get(object $instance);
+	void post(object $instance, object data);
+	void flight_data_request_impl(object $instance);
+scope_end()
+
+scope_begin(common_network_remote, flight_mode_change_request_impl) 
+
+	void flight_mode_change_request_impl(object $instance);
+	var change_mode(object $instance, object mode);
+scope_end()
+
 scope_begin(common_network) 
 
 	void __srt_global(object $instance);
@@ -2225,164 +2263,117 @@ scope_begin(common_network, network)
 	object get_INSTANCE();
 scope_end()
 
-scope_begin(common_network_remote) 
+scope_begin(common_network_data_request) 
 
 	void __srt_global(object $instance);
-	void initialize(object net);
 scope_end()
 
-scope_begin(common_network_remote, acknowledge_request_impl) 
+scope_begin(common_network_data_request, network_scan_request) 
 
-	void acknowledge_request_impl(object $instance);
+	var_array scan_network(object $instance);
+	void network_scan_request(object $instance);
+scope_end()
+
+scope_begin(common_network_data_request, jam_request) 
+
+	void jam(object $instance, var& channel);
+	var post(object $instance, var& channel);
+	void jam_request(object $instance);
+scope_end()
+
+scope_begin(common_network_data_request, acknowledge_request) 
+
 	void send(object $instance);
+	void acknowledge_request(object $instance);
 scope_end()
 
-scope_begin(common_network_remote, command_request_impl) 
+scope_begin(common_network_data_request, flight_mode_change_request) 
+
+	var change_mode(object $instance, object mode);
+	void flight_mode_change_request(object $instance);
+scope_end()
+
+scope_begin(common_network_data_request, command_request) 
 
 	object listen(object $instance);
 	var send_command(object $instance, object req, var& ack, var& timeout);
-	void command_request_impl(object $instance);
+	void command_request(object $instance);
 scope_end()
 
-scope_begin(common_network_remote, flight_data_request_impl) 
+scope_begin(common_network_data_request, signal_strength_request) 
+
+	var get_strength(object $instance);
+	void signal_strength_request(object $instance);
+scope_end()
+
+scope_begin(common_network_data_request, flight_data_request) 
 
 	object _get(object $instance);
 	void post(object $instance, object data);
-	void flight_data_request_impl(object $instance);
+	void flight_data_request(object $instance);
 scope_end()
 
-scope_begin(common_network_remote, flight_mode_change_request_impl) 
+scope_begin(common_network_data_request, handshake_request) 
 
-	void flight_mode_change_request_impl(object $instance);
-	var change_mode(object $instance, object mode);
-scope_end()
-
-scope_begin(common_network_remote, handshake_request_impl) 
-
-	void handshake_request_impl(object $instance);
 	void handshake(object $instance);
+	void handshake_request(object $instance);
 scope_end()
 
-scope_begin(common_network_remote, jam_request_impl) 
+scope_begin(common_network_data_response) 
 
-	void jam_request_impl(object $instance);
-	void jam(object $instance, var& channel);
-	var post(object $instance, var& channel);
+	void __srt_global(object $instance);
 scope_end()
 
-scope_begin(common_network_remote, network_scan_request_impl) 
+scope_begin(common_network_data_response, flight_data_response) 
 
-	var_array scan_network(object $instance);
-	void network_scan_request_impl(object $instance);
+	void flight_data_response(object $instance, var& bat_lvl, var& altitude, var& speed);
+	void flight_data_response2(object $instance);
 scope_end()
 
-scope_begin(common_network_remote, signal_strength_request_impl) 
+scope_begin(common_network_data_response, command_response) 
 
-	var get_strength(object $instance);
-	void signal_strength_request_impl(object $instance);
+	void command_response(object $instance, object cmd, object req);
+	void command_response2(object $instance);
+scope_end()
+
+scope_begin(common) 
+
+	void __srt_global(object $instance);
+scope_end()
+
+scope_begin(common, constants) 
+
+	void constants(object $instance);
+	void $03internal_static_init();
+scope_end()
+
+scope_begin(common, constants_strings) 
+
+	void strings(object $instance);
+	void $03internal_static_init();
 scope_end()
 
 scope_begin(main) 
 
 	void __srt_global(object $instance);
-	void setup_conn_tracker();
 	void main(object args);
+	void setup_conn_tracker();
 	void $03internal_static_init();
-	void anon_func$4110();
-	void anon_func$4111();
-	void anon_func$4112();
-	void anon_func$4113();
-scope_end()
-
-scope_begin(preferences) 
-
-	void __srt_global(object $instance);
-scope_end()
-
-scope_begin(preferences, shared_preference) 
-
-	void shared_preference(object $instance);
-scope_end()
-
-scope_begin(ui_driver) 
-
-	void __srt_global(object $instance);
-	void setup();
-	void clear_display();
-	void display();
-	void dim(var& yes);
-	void move_cursor(var& x, var& y);
-	void draw_word(_int8_array& str, var& len, var& text_size);
-	void draw_img(var_array& bytes, var& width, var& height, var& x, var& y, var& skip_count);
-scope_end()
-
-scope_begin(ui_driver, ssd1306) 
-
-	void ssd1306(object $instance);
-	void clear(object $instance);
-	void dim_display(object $instance, var& yes);
-	void update_display(object $instance);
-	void draw_img(object $instance, var& x, var& y, var& width, var& height, var& img_width, var& img_height, var_array& bytes);
-	void draw_word(object $instance, var& x, var& y, var& text_size, var& width, var& transx, _int8_array& text);
-	void shutdown(object $instance);
-scope_end()
-
-scope_begin(ui_layout_config) 
-
-	void __srt_global(object $instance);
-	void configure_layout();
-	void start();
-scope_end()
-
-scope_begin(ui_layout) 
-
-	void __srt_global(object $instance);
-	void anon_func$4114(object args);
-	void anon_func$4115(object args);
-	void anon_func$4116(object args);
-	void anon_func$4117(object args);
-scope_end()
-
-scope_begin(ui_layout, home_screen) 
-
-	void home_screen(object $instance, object container, var& id);
-	void configure(object $instance);
-	void on_create(object $instance);
-	void on_flight_data_received(object $instance, var& altitude, var& speed);
-	void on_destroy(object $instance);
-	void home_screen2(object $instance);
-	void $03internal_static_init();
-scope_end()
-
-scope_begin(ui_layout, splash_screen) 
-
-	void splash_screen(object $instance, object container, var& id);
-	void configure(object $instance);
-	void on_create(object $instance);
-	void on_destroy(object $instance);
-	void splash_screen2(object $instance);
-scope_end()
-
-scope_begin(ui_layout, status_bar_screen) 
-
-	void status_bar_screen(object $instance, object container, var& id);
-	void configure(object $instance);
-	void on_create(object $instance);
-	void on_flight_data_received(object $instance, var& altitude, var& speed);
-	void on_destroy(object $instance);
-	void status_bar_screen2(object $instance);
-	void $03internal_static_init();
-scope_end()
-
-scope_begin(ui_res) 
-
-	void __srt_global(object $instance);
+	void anon_func$4226();
+	void anon_func$4227();
+	void anon_func$4232();
+	void anon_func$4233();
 scope_end()
 
 scope_begin(ui_res_drawable) 
 
 	void __srt_global(object $instance);
 	void $03internal_static_init();
+scope_end()
+
+scope_begin(ui_res) 
+
+	void __srt_global(object $instance);
 scope_end()
 
 scope_begin(ui_res, resources) 
@@ -2396,6 +2387,75 @@ scope_end()
 scope_begin(ui_support) 
 
 	void __srt_global(object $instance);
+scope_end()
+
+scope_begin(ui_support, text_view) 
+
+	void text_view(object $instance, var& id);
+	var transform_height(object $instance);
+	var transform_width(object $instance);
+	void draw(object $instance);
+	void on_destroy(object $instance);
+	void text_view2(object $instance);
+	void set_text(object $instance, object value);
+	void set_text_size(object $instance, var& value);
+scope_end()
+
+scope_begin(ui_support, margin) 
+
+	void margin(object $instance);
+scope_end()
+
+scope_begin(ui_support, drawable) 
+
+	void drawable(object $instance, var& id, var_array& bytes, var& w, var& h);
+	void drawable2(object $instance);
+scope_end()
+
+scope_begin(ui_support, window) 
+
+	void window(object $instance, _int8_array& name);
+	void start_ui();
+	void navigate(object $instance, var& screen);
+	void starter_fragment(object $instance, var& frag);
+	void draw_text(object $instance, object tv);
+	void draw_img(object $instance, object iv);
+	void show(object $instance);
+	void add_fragment(object $instance, object frag);
+	void start_updater(object $instance);
+	void window2(object $instance);
+scope_end()
+
+scope_begin(ui_support, fragment) 
+
+	void fragment(object $instance, object container, var& id);
+	void add_view(object $instance, object v);
+	object find_view_by_id(object $instance, var& id);
+	void on_create(object $instance);
+	void invalidate_refrences(object $instance, var& id);
+	void on_destroy(object $instance);
+	void navigate(object $instance, var& screen, var& finish);
+	void draw(object $instance);
+	void configure(object $instance);
+	void fragment2(object $instance);
+scope_end()
+
+scope_begin(ui_support, lifecycle) 
+
+	void on_create(object $instance);
+	void on_destroy(object $instance);
+	void lifecycle(object $instance);
+scope_end()
+
+scope_begin(ui_support, image_view) 
+
+	void image_view(object $instance, var& id);
+	var transform_height(object $instance);
+	var transform_width(object $instance);
+	object set_drawable(object $instance, var& res_id);
+	void draw(object $instance);
+	void on_destroy(object $instance);
+	void image_view2(object $instance);
 scope_end()
 
 scope_begin(ui_support, constants) 
@@ -2448,61 +2508,6 @@ scope_begin(ui_support, constants_standard)
 	void standard(object $instance);
 scope_end()
 
-scope_begin(ui_support, drawable) 
-
-	void drawable(object $instance, var& id, var_array& bytes, var& w, var& h);
-	void drawable2(object $instance);
-scope_end()
-
-scope_begin(ui_support, fragment) 
-
-	void fragment(object $instance, object container, var& id);
-	void add_view(object $instance, object v);
-	object find_view_by_id(object $instance, var& id);
-	void on_create(object $instance);
-	void invalidate_refrences(object $instance, var& id);
-	void on_destroy(object $instance);
-	void navigate(object $instance, var& screen, var& finish);
-	void draw(object $instance);
-	void configure(object $instance);
-	void fragment2(object $instance);
-scope_end()
-
-scope_begin(ui_support, image_view) 
-
-	void image_view(object $instance, var& id);
-	var transform_height(object $instance);
-	var transform_width(object $instance);
-	object set_drawable(object $instance, var& res_id);
-	void draw(object $instance);
-	void on_destroy(object $instance);
-	void image_view2(object $instance);
-scope_end()
-
-scope_begin(ui_support, lifecycle) 
-
-	void on_create(object $instance);
-	void on_destroy(object $instance);
-	void lifecycle(object $instance);
-scope_end()
-
-scope_begin(ui_support, margin) 
-
-	void margin(object $instance);
-scope_end()
-
-scope_begin(ui_support, text_view) 
-
-	void text_view(object $instance, var& id);
-	var transform_height(object $instance);
-	var transform_width(object $instance);
-	void draw(object $instance);
-	void on_destroy(object $instance);
-	void text_view2(object $instance);
-	void set_text(object $instance, object value);
-	void set_text_size(object $instance, var& value);
-scope_end()
-
 scope_begin(ui_support, view) 
 
 	void view(object $instance);
@@ -2532,18 +2537,90 @@ scope_begin(ui_support, view)
 	object set_margin_bottom(object $instance, var& size);
 scope_end()
 
-scope_begin(ui_support, window) 
+scope_begin(ui_driver) 
 
-	void window(object $instance, _int8_array& name);
-	void start_ui();
-	void navigate(object $instance, var& screen);
-	void starter_fragment(object $instance, var& frag);
-	void draw_text(object $instance, object tv);
-	void draw_img(object $instance, object iv);
-	void show(object $instance);
-	void add_fragment(object $instance, object frag);
-	void start_updater(object $instance);
-	void window2(object $instance);
+	void __srt_global(object $instance);
+	void setup();
+	void clear_display();
+	void display();
+	void dim(var& yes);
+	void move_cursor(var& x, var& y);
+	void draw_word(_int8_array& str, var& len, var& text_size);
+	void draw_img(var_array& bytes, var& width, var& height, var& x, var& y, var& skip_count);
+scope_end()
+
+scope_begin(ui_driver, ssd1306) 
+
+	void ssd1306(object $instance);
+	void clear(object $instance);
+	void dim_display(object $instance, var& yes);
+	void update_display(object $instance);
+	void draw_img(object $instance, var& x, var& y, var& width, var& height, var& img_width, var& img_height, var_array& bytes);
+	void draw_word(object $instance, var& x, var& y, var& text_size, var& width, var& transx, _int8_array& text);
+	void shutdown(object $instance);
+scope_end()
+
+scope_begin(ui_layout) 
+
+	void __srt_global(object $instance);
+	void anon_func$4228(object args);
+	void anon_func$4229(object args);
+	void anon_func$4230(object args);
+	void anon_func$4231(object args);
+scope_end()
+
+scope_begin(ui_layout, splash_screen) 
+
+	void splash_screen(object $instance, object container, var& id);
+	void configure(object $instance);
+	void on_create(object $instance);
+	void on_destroy(object $instance);
+	void splash_screen2(object $instance);
+scope_end()
+
+scope_begin(ui_layout_config) 
+
+	void __srt_global(object $instance);
+	void configure_layout();
+	void start();
+scope_end()
+
+scope_begin(ui_layout, home_screen) 
+
+	void home_screen(object $instance, object container, var& id);
+	void configure(object $instance);
+	void on_create(object $instance);
+	void on_flight_data_received(object $instance, var& altitude, var& speed);
+	void on_destroy(object $instance);
+	void home_screen2(object $instance);
+	void $03internal_static_init();
+scope_end()
+
+scope_begin(ui_layout, status_bar_screen) 
+
+	void status_bar_screen(object $instance, object container, var& id);
+	void configure(object $instance);
+	void on_create(object $instance);
+	void on_flight_data_received(object $instance, var& altitude, var& speed);
+	void on_destroy(object $instance);
+	void status_bar_screen2(object $instance);
+	void $03internal_static_init();
+scope_end()
+
+scope_begin(preferences) 
+
+	void __srt_global(object $instance);
+scope_end()
+
+scope_begin(preferences, shared_preference) 
+
+	void shared_preference(object $instance);
+scope_end()
+
+scope_begin(std, loopable$_int8$) 
+
+	_int8_array get_elements(object $instance);
+	void loopable(object $instance);
 scope_end()
 
 scope_begin(std, loopable$std_io_thread$) 
@@ -2555,7 +2632,7 @@ scope_end()
 scope_begin(std, integer$_uint64$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -2768,7 +2845,7 @@ scope_end()
 scope_begin(std, integer$_int64$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -2981,7 +3058,7 @@ scope_end()
 scope_begin(std, integer$_uint32$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -3194,7 +3271,7 @@ scope_end()
 scope_begin(std, integer$_int32$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -3407,7 +3484,7 @@ scope_end()
 scope_begin(std, integer$_uint16$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -3620,7 +3697,7 @@ scope_end()
 scope_begin(std, integer$_int16$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -3833,7 +3910,7 @@ scope_end()
 scope_begin(std, integer$_uint8$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -4046,7 +4123,7 @@ scope_end()
 scope_begin(std, integer$_int8$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -4259,7 +4336,7 @@ scope_end()
 scope_begin(std, integer$var$) 
 
 	void integer(object $instance, var& initial_val);
-	object hash(object $instance);
+	_int64 hash(object $instance);
 	var op_$not_equals(object $instance, object num);
 	var op_$equals_equals(object $instance, object num);
 	var op_$not_equals2(object $instance, object num);
@@ -4469,10 +4546,70 @@ scope_begin(std, integer$var$)
 	void integer2(object $instance);
 scope_end()
 
-scope_begin(std, loopable$_int8$) 
+scope_begin(std, synced_list$std_io_thread$) 
 
-	_int8_array get_elements(object $instance);
-	void loopable(object $instance);
+	void synced_list(object $instance);
+	void synced_list2(object $instance, var& starting_capacity);
+	void set_compact(object $instance, var& compact_array);
+	object get_elements(object $instance);
+	object op_$array_at(object $instance, var& index);
+	object at(object $instance, var& index);
+	object last(object $instance);
+	object put(object $instance, var& index, object element);
+	void expand(object $instance);
+	void clear(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
+	void add_all(object $instance, object lst);
+	void add(object $instance, object element);
+	var indexof(object $instance, object element);
+	void pop_back(object $instance);
+	var size(object $instance);
+	var empty(object $instance);
+	void insert(object $instance, var& index, object element);
+	void remove(object $instance, object val);
+	void remove2(object $instance, object val, var& compare_fun);
+	void remove_at(object $instance, var& index);
+	var indexof2(object $instance, object comparer, var& find_func);
+	void linear_sort(object $instance, var& swap);
+	object find(object $instance, object comparer, var& find_func);
+	var replace(object $instance, object val, var& compare_fun);
+	object to_string(object $instance);
+	object out_of_bounds_msg(object $instance, var& index);
+scope_end()
+
+scope_begin(std, list$std_io_thread$) 
+
+	void list(object $instance);
+	void list2(object $instance, var& starting_capacity);
+	void list3(object $instance, object initial_data);
+	var empty(object $instance);
+	void set_compact(object $instance, var& compact_array);
+	object get_elements(object $instance);
+	object op_$array_at(object $instance, var& index);
+	object at(object $instance, var& index);
+	object last(object $instance);
+	object put(object $instance, var& index, object element);
+	void expand(object $instance);
+	void clear(object $instance);
+	void add_all(object $instance, object lst);
+	void add_all2(object $instance, object lst);
+	void add(object $instance, object element);
+	var indexof(object $instance, object element);
+	void pop_back(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
+	var size(object $instance);
+	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
+	void remove(object $instance, object val);
+	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
+	void remove_at(object $instance, var& index);
+	var indexof2(object $instance, object comparer, var& find_func);
+	object to_string(object $instance);
+	object out_of_bounds_msg(object $instance, var& index);
 scope_end()
 
 scope_begin(std, list$std_string$) 
@@ -4494,6 +4631,8 @@ scope_begin(std, list$std_string$)
 	void add(object $instance, object element);
 	var indexof(object $instance, object element);
 	void pop_back(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
 	object find(object $instance, object comparer, var& find_func);
@@ -4513,19 +4652,7 @@ scope_begin(std, loopable$std_string$)
 	void loopable(object $instance);
 scope_end()
 
-scope_begin(std, hashtable$std_int_0_std_io_thread$) 
-
-	void hashtable(object $instance, var& initialCapacity);
-	void hashtable2(object $instance);
-	void set_threshold(object $instance, var& threshold);
-	var hash(object $instance, object key);
-	void resize(object $instance);
-	object at(object $instance, object key);
-	var put(object $instance, object key, object value);
-	var remove(object $instance, object key);
-scope_end()
-
-scope_begin(std, synced_list$std_io_task_job$) 
+scope_begin(std, synced_list$std_io_coroutines_job$) 
 
 	void synced_list(object $instance);
 	void synced_list2(object $instance, var& starting_capacity);
@@ -4537,6 +4664,8 @@ scope_begin(std, synced_list$std_io_task_job$)
 	object put(object $instance, var& index, object element);
 	void expand(object $instance);
 	void clear(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
 	void add_all(object $instance, object lst);
 	void add(object $instance, object element);
 	var indexof(object $instance, object element);
@@ -4555,13 +4684,13 @@ scope_begin(std, synced_list$std_io_task_job$)
 	object out_of_bounds_msg(object $instance, var& index);
 scope_end()
 
-scope_begin(std, loopable$std_io_task_job$) 
+scope_begin(std, loopable$std_io_coroutines_job$) 
 
 	object get_elements(object $instance);
 	void loopable(object $instance);
 scope_end()
 
-scope_begin(std, list$std_io_task_job$) 
+scope_begin(std, list$std_io_coroutines_job$) 
 
 	void list(object $instance);
 	void list2(object $instance, var& starting_capacity);
@@ -4580,6 +4709,8 @@ scope_begin(std, list$std_io_task_job$)
 	void add(object $instance, object element);
 	var indexof(object $instance, object element);
 	void pop_back(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
 	object find(object $instance, object comparer, var& find_func);
@@ -4593,41 +4724,43 @@ scope_begin(std, list$std_io_task_job$)
 	object out_of_bounds_msg(object $instance, var& index);
 scope_end()
 
-scope_begin(std, list$var$) 
+scope_begin(std, list$object$) 
 
 	void list(object $instance);
 	void list2(object $instance, var& starting_capacity);
-	void list3(object $instance, var_array& initial_data);
+	void list3(object $instance, object initial_data);
 	var empty(object $instance);
 	void set_compact(object $instance, var& compact_array);
-	var_array get_elements(object $instance);
-	var op_$array_at(object $instance, var& index);
-	var at(object $instance, var& index);
-	var last(object $instance);
-	var put(object $instance, var& index, var& element);
+	object get_elements(object $instance);
+	object op_$array_at(object $instance, var& index);
+	object at(object $instance, var& index);
+	object last(object $instance);
+	object put(object $instance, var& index, object element);
 	void expand(object $instance);
 	void clear(object $instance);
 	void add_all(object $instance, object lst);
-	void add_all2(object $instance, var_array& lst);
-	void add(object $instance, var& element);
-	var indexof(object $instance, var& element);
+	void add_all2(object $instance, object lst);
+	void add(object $instance, object element);
+	var indexof(object $instance, object element);
 	void pop_back(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
 	var size(object $instance);
-	void insert(object $instance, var& index, var& element);
-	var find(object $instance, var& comparer, var& find_func);
-	void remove(object $instance, var& val);
-	void remove2(object $instance, var& val, var& compare_fun);
-	void replace(object $instance, var& val, var& compare_fun);
+	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
+	void remove(object $instance, object val);
+	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
 	void linear_sort(object $instance, var& swap);
 	void remove_at(object $instance, var& index);
-	var indexof2(object $instance, var& comparer, var& find_func);
+	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
 	object out_of_bounds_msg(object $instance, var& index);
 scope_end()
 
-scope_begin(std, loopable$var$) 
+scope_begin(std, loopable$object$) 
 
-	var_array get_elements(object $instance);
+	object get_elements(object $instance);
 	void loopable(object $instance);
 scope_end()
 
@@ -4650,6 +4783,8 @@ scope_begin(std, list$common_network_core_request_data_request_item$)
 	void add(object $instance, object element);
 	var indexof(object $instance, object element);
 	void pop_back(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
 	object find(object $instance, object comparer, var& find_func);
@@ -4681,44 +4816,6 @@ scope_begin(std, hashmap$std_int_0_ui_support_drawable$)
 	var remove(object $instance, object key);
 scope_end()
 
-scope_begin(std, list$ui_support_view$) 
-
-	void list(object $instance);
-	void list2(object $instance, var& starting_capacity);
-	void list3(object $instance, object initial_data);
-	var empty(object $instance);
-	void set_compact(object $instance, var& compact_array);
-	object get_elements(object $instance);
-	object op_$array_at(object $instance, var& index);
-	object at(object $instance, var& index);
-	object last(object $instance);
-	object put(object $instance, var& index, object element);
-	void expand(object $instance);
-	void clear(object $instance);
-	void add_all(object $instance, object lst);
-	void add_all2(object $instance, object lst);
-	void add(object $instance, object element);
-	var indexof(object $instance, object element);
-	void pop_back(object $instance);
-	var size(object $instance);
-	void insert(object $instance, var& index, object element);
-	object find(object $instance, object comparer, var& find_func);
-	void remove(object $instance, object val);
-	void remove2(object $instance, object val, var& compare_fun);
-	void replace(object $instance, object val, var& compare_fun);
-	void linear_sort(object $instance, var& swap);
-	void remove_at(object $instance, var& index);
-	var indexof2(object $instance, object comparer, var& find_func);
-	object to_string(object $instance);
-	object out_of_bounds_msg(object $instance, var& index);
-scope_end()
-
-scope_begin(std, loopable$ui_support_view$) 
-
-	object get_elements(object $instance);
-	void loopable(object $instance);
-scope_end()
-
 scope_begin(std, list$ui_support_fragment$) 
 
 	void list(object $instance);
@@ -4738,6 +4835,8 @@ scope_begin(std, list$ui_support_fragment$)
 	void add(object $instance, object element);
 	var indexof(object $instance, object element);
 	void pop_back(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
 	var size(object $instance);
 	void insert(object $instance, var& index, object element);
 	object find(object $instance, object comparer, var& find_func);
@@ -4757,11 +4856,44 @@ scope_begin(std, loopable$ui_support_fragment$)
 	void loopable(object $instance);
 scope_end()
 
-scope_begin(std_io, entry$std_int_0_std_io_thread$) 
+scope_begin(std, list$ui_support_view$) 
 
-	void entry(object $instance, object key, object value);
+	void list(object $instance);
+	void list2(object $instance, var& starting_capacity);
+	void list3(object $instance, object initial_data);
+	var empty(object $instance);
+	void set_compact(object $instance, var& compact_array);
+	object get_elements(object $instance);
+	object op_$array_at(object $instance, var& index);
+	object at(object $instance, var& index);
+	object last(object $instance);
+	object put(object $instance, var& index, object element);
+	void expand(object $instance);
+	void clear(object $instance);
+	void add_all(object $instance, object lst);
+	void add_all2(object $instance, object lst);
+	void add(object $instance, object element);
+	var indexof(object $instance, object element);
+	void pop_back(object $instance);
+	object pop_last(object $instance);
+	object pop_first(object $instance);
+	var size(object $instance);
+	void insert(object $instance, var& index, object element);
+	object find(object $instance, object comparer, var& find_func);
+	void remove(object $instance, object val);
+	void remove2(object $instance, object val, var& compare_fun);
+	void replace(object $instance, object val, var& compare_fun);
+	void linear_sort(object $instance, var& swap);
+	void remove_at(object $instance, var& index);
+	var indexof2(object $instance, object comparer, var& find_func);
 	object to_string(object $instance);
-	void entry2(object $instance);
+	object out_of_bounds_msg(object $instance, var& index);
+scope_end()
+
+scope_begin(std, loopable$ui_support_view$) 
+
+	object get_elements(object $instance);
+	void loopable(object $instance);
 scope_end()
 
 scope_begin(ui_res, entry$std_int_0_ui_support_drawable$) 

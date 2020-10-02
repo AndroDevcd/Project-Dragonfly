@@ -27,6 +27,7 @@ class request
         := device.get_signal_strength();
 
     private static def write(rdata: request_data): var {
+        //println('w');
         return device.send(rdata.to_string());
     }
     
@@ -36,8 +37,8 @@ class request
           
         i := 0;
         for(;;) {
-            key := new string();
-            value := new string();
+            key : string;
+            value : string;
 
             startPos := i;
             while(raw[i] != '=') { i++; }
@@ -62,6 +63,7 @@ class request
     }
 
     private static def read(rdata: request_data): var {
+        //println('r');
         raw := new string();
         result := device.read(raw);
 
@@ -86,7 +88,6 @@ class request
             if(rw == READ) {
                 for(;;) {
                     if(read(rdata) != 0) {
-                        thread.yield();
                         thread.sleep(1);
                         if(count != constants.INFINITE && count-- < 0) {
                             return 1;
@@ -99,7 +100,6 @@ class request
             } else {
                 for(;;) {
                     if(write(rdata) != 0) {
-                        thread.yield();
                         thread.sleep(1);
                         if(count != constants.INFINITE && count-- < 0) {
                             return 1;

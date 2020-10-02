@@ -10,30 +10,30 @@ extern "C" {
 EXPORTED uint32_t snb_link_proc(const char* funcName) {
 	string name = funcName;
 
-	if(name == "common.gpio#__srt_global.setup") {  return 3629;  }
-	else if(name == "common.gpio#__srt_global.pin_mode") {  return 3630;  }
-	else if(name == "common.gpio#__srt_global.write_pin") {  return 3631;  }
-	else if(name == "common.gpio#__srt_global.read_pin") {  return 3632;  }
-	else if(name == "common.network.driver#__srt_global.setup") {  return 3672;  }
-	else if(name == "common.network.driver#__srt_global.set_transmission_lvl") {  return 3673;  }
-	else if(name == "common.network.driver#__srt_global.set_transmission_rate") {  return 3674;  }
-	else if(name == "common.network.driver#__srt_global.dump_details") {  return 3675;  }
-	else if(name == "common.network.driver#__srt_global.set_retry_count") {  return 3676;  }
-	else if(name == "common.network.driver#__srt_global.power_down") {  return 3677;  }
-	else if(name == "common.network.driver#__srt_global.get_signal_strength") {  return 3678;  }
-	else if(name == "common.network.driver#__srt_global.get_network_quality") {  return 3679;  }
-	else if(name == "common.network.driver#__srt_global.jam") {  return 3680;  }
-	else if(name == "common.network.driver#__srt_global.read") {  return 3681;  }
-	else if(name == "common.network.driver#__srt_global.listen") {  return 3682;  }
-	else if(name == "common.network.driver#__srt_global.send") {  return 3683;  }
-	else if(name == "common.network.driver#__srt_global.get_last_error") {  return 3684;  }
-	else if(name == "ui.driver#__srt_global.setup") {  return 3732;  }
-	else if(name == "ui.driver#__srt_global.clear_display") {  return 3733;  }
-	else if(name == "ui.driver#__srt_global.display") {  return 3734;  }
-	else if(name == "ui.driver#__srt_global.dim") {  return 3735;  }
-	else if(name == "ui.driver#__srt_global.move_cursor") {  return 3736;  }
-	else if(name == "ui.driver#__srt_global.draw_word") {  return 3737;  }
-	else if(name == "ui.driver#__srt_global.draw_img") {  return 3738;  }
+	if(name == "common.gpio#__srt_global.setup") {  return 3682;  }
+	else if(name == "common.gpio#__srt_global.pin_mode") {  return 3683;  }
+	else if(name == "common.gpio#__srt_global.write_pin") {  return 3684;  }
+	else if(name == "common.gpio#__srt_global.read_pin") {  return 3685;  }
+	else if(name == "common.network.driver#__srt_global.setup") {  return 3686;  }
+	else if(name == "common.network.driver#__srt_global.set_transmission_lvl") {  return 3687;  }
+	else if(name == "common.network.driver#__srt_global.set_transmission_rate") {  return 3688;  }
+	else if(name == "common.network.driver#__srt_global.dump_details") {  return 3689;  }
+	else if(name == "common.network.driver#__srt_global.set_retry_count") {  return 3690;  }
+	else if(name == "common.network.driver#__srt_global.power_down") {  return 3691;  }
+	else if(name == "common.network.driver#__srt_global.get_signal_strength") {  return 3692;  }
+	else if(name == "common.network.driver#__srt_global.get_network_quality") {  return 3693;  }
+	else if(name == "common.network.driver#__srt_global.jam") {  return 3694;  }
+	else if(name == "common.network.driver#__srt_global.read") {  return 3695;  }
+	else if(name == "common.network.driver#__srt_global.listen") {  return 3696;  }
+	else if(name == "common.network.driver#__srt_global.send") {  return 3697;  }
+	else if(name == "common.network.driver#__srt_global.get_last_error") {  return 3698;  }
+	else if(name == "ui.driver#__srt_global.setup") {  return 3862;  }
+	else if(name == "ui.driver#__srt_global.clear_display") {  return 3863;  }
+	else if(name == "ui.driver#__srt_global.display") {  return 3864;  }
+	else if(name == "ui.driver#__srt_global.dim") {  return 3865;  }
+	else if(name == "ui.driver#__srt_global.move_cursor") {  return 3866;  }
+	else if(name == "ui.driver#__srt_global.draw_word") {  return 3867;  }
+	else if(name == "ui.driver#__srt_global.draw_img") {  return 3868;  }
 	else return -1;
 }
 
@@ -224,76 +224,76 @@ void call_ui_driver$__srt_global_draw_img() {
 EXPORTED void snb_main(long procAddr) {
 	try {
 		switch(procAddr) {
-			case 3629: 
+			case 3682: 
 				call_common_gpio$__srt_global_setup();
 				break;
-			case 3630: 
+			case 3683: 
 				call_common_gpio$__srt_global_pin_mode();
 				break;
-			case 3631: 
+			case 3684: 
 				call_common_gpio$__srt_global_write_pin();
 				break;
-			case 3632: 
+			case 3685: 
 				call_common_gpio$__srt_global_read_pin();
 				break;
-			case 3672: 
+			case 3686: 
 				call_common_network_driver$__srt_global_setup();
 				break;
-			case 3673: 
+			case 3687: 
 				call_common_network_driver$__srt_global_set_transmission_lvl();
 				break;
-			case 3674: 
+			case 3688: 
 				call_common_network_driver$__srt_global_set_transmission_rate();
 				break;
-			case 3675: 
+			case 3689: 
 				call_common_network_driver$__srt_global_dump_details();
 				break;
-			case 3676: 
+			case 3690: 
 				call_common_network_driver$__srt_global_set_retry_count();
 				break;
-			case 3677: 
+			case 3691: 
 				call_common_network_driver$__srt_global_power_down();
 				break;
-			case 3678: 
+			case 3692: 
 				call_common_network_driver$__srt_global_get_signal_strength();
 				break;
-			case 3679: 
+			case 3693: 
 				call_common_network_driver$__srt_global_get_network_quality();
 				break;
-			case 3680: 
+			case 3694: 
 				call_common_network_driver$__srt_global_jam();
 				break;
-			case 3681: 
+			case 3695: 
 				call_common_network_driver$__srt_global_read();
 				break;
-			case 3682: 
+			case 3696: 
 				call_common_network_driver$__srt_global_listen();
 				break;
-			case 3683: 
+			case 3697: 
 				call_common_network_driver$__srt_global_send();
 				break;
-			case 3684: 
+			case 3698: 
 				call_common_network_driver$__srt_global_get_last_error();
 				break;
-			case 3732: 
+			case 3862: 
 				call_ui_driver$__srt_global_setup();
 				break;
-			case 3733: 
+			case 3863: 
 				call_ui_driver$__srt_global_clear_display();
 				break;
-			case 3734: 
+			case 3864: 
 				call_ui_driver$__srt_global_display();
 				break;
-			case 3735: 
+			case 3865: 
 				call_ui_driver$__srt_global_dim();
 				break;
-			case 3736: 
+			case 3866: 
 				call_ui_driver$__srt_global_move_cursor();
 				break;
-			case 3737: 
+			case 3867: 
 				call_ui_driver$__srt_global_draw_word();
 				break;
-			case 3738: 
+			case 3868: 
 				call_ui_driver$__srt_global_draw_img();
 				break;
 		}

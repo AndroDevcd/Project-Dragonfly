@@ -1,7 +1,8 @@
 mod main;
 
 import std.io;
-import std.io.task;
+import std.io.coroutines;
+import std.io.fiber;
 import common.network;
 import common;
 import common.gpio;
@@ -15,19 +16,19 @@ def setup_conn_tracker() {
     pin_mode(constants.DEVICE_CONNECTING_PIN, constants.OUTPUT);
     write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
   
-    task.builder()
+    coroutine.builder()
      .recurring(constants.ONE_SECOND, milliseconds) 
        = { ->
 	     write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
 		  
          if(disconnected) {
-		    thread.sleep(constants.TWO_HUNDRED);
+		    delay(constants.TWO_HUNDRED);
 	        write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
 	     }
      };
      
      
-    task.builder()
+    coroutine.builder()
      .long_term()
      .schedule(3000)
      .recurring(constants.TWO_FIFTY, milliseconds) 

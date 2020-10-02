@@ -28,7 +28,6 @@ int transmissionLvl = 0;
 int transmissionRate = 0;
 int retryDelay = 0;
 int retryCount = 0;
-int retryDelay = 0;
 
 uint8_t response[TX_PACKET_WIDTH];
 
@@ -106,7 +105,7 @@ scope_begin(common_network_driver)
 				break;
 		}
 		
-		transmissionrate = (int)level.value();
+		transmissionRate = (int)level.value();
 	}
 	
 	void dump_details() {

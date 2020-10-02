@@ -3,7 +3,7 @@ mod ui.layout;
 import ui.res;
 import ui.support;
 import std.io;
-import std.io.task;
+import std.io.coroutines;
 import main;
 import common.network;
 
@@ -52,7 +52,7 @@ class splash_screen base fragment {
         product_name_1.text = "Project";
         product_name_2.text = "Dragonfly";
 
-        task.builder()
+        coroutine.builder()
           .schedule(2000)
           .with_args(new object[] { self })
             = { args: object[]  ->

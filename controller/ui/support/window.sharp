@@ -3,7 +3,7 @@ mod ui.support;
 import ui.driver;
 import ui.res;
 import ui.layout.config;
-import std.io.task;
+import std.io.coroutines;
 import std.io;
 
 class window {

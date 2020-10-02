@@ -3,7 +3,7 @@ mod ui.layout;
 import ui.res;
 import ui.support;
 import std.io;
-import std.io.task;
+import std.io.coroutines;
 import main;
 import common.network;
 
@@ -57,7 +57,8 @@ class status_bar_screen base fragment {
         sig_view := find_view_by_id(constants.resource.id.signal_strength) as image_view;
         bat_view := find_view_by_id(constants.resource.id.battery_status) as image_view;
 
-        task.builder()
+        coroutine.builder()
+          .long_term()
           .with_name(FLIGHT_DATA_TASK)
           .recurring(250, milliseconds)
           .with_args(new object[] { self, bat_view })
@@ -95,7 +96,7 @@ class status_bar_screen base fragment {
                }
             };
 
-        task.builder()
+        coroutine.builder()
           .with_name(SIGNAL_UPDATER_TASK)
           .recurring(1000, milliseconds)
           .with_args(new object[] { sig_view })
@@ -124,7 +125,7 @@ class status_bar_screen base fragment {
             };
 
 
-        task.builder()
+        coroutine.builder()
           .with_name(CLOCK_TASK)
           .recurring(1000, milliseconds)
           .with_args(new object[] { time })
@@ -168,9 +169,9 @@ class status_bar_screen base fragment {
     def on_flight_data_received(altitude: var, speed: var);
 
     def on_destroy() {
-       task.cancel_all_jobs_by_name(SIGNAL_UPDATER_TASK);
-       task.cancel_all_jobs_by_name(CLOCK_TASK);
-       task.cancel_all_jobs_by_name(FLIGHT_DATA_TASK);
+       coroutine.cancel_all_jobs_by_name(SIGNAL_UPDATER_TASK);
+       coroutine.cancel_all_jobs_by_name(CLOCK_TASK);
+       coroutine.cancel_all_jobs_by_name(FLIGHT_DATA_TASK);
        base->on_destroy();
     }
 }

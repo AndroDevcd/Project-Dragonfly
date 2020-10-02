@@ -1,7 +1,7 @@
 mod main;
 
 import std.io;
-import std.io.task;
+import std.io.coroutines;
 import platform;
 import common.network;
 import common.network.data.response;
@@ -17,21 +17,16 @@ def main(args: string[])
    common.gpio#setup();
    setup_conn_tracker();
 
-   task.builder()
+   coroutine.builder()
      .long_term()
      .schedule(3000)
         = { ->
          network.handshake();
-         println("handshaked!");
-         for(;;) {
-           if(network.request_jam(1) == 0)
-             break;
-         }
-         thread.sleep(100000);
          disconnected = false;
       };
       
-   task.builder()
+   coroutine.builder()
+    .long_term()
     .schedule(constants.INITIAL_START_DELAY)
     .recurring(constants.DEVICE_UPDATE_INTERVAL, milliseconds) 
       = { ->
