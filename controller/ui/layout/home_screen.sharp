@@ -73,9 +73,6 @@ class home_screen base status_bar_screen {
     }
 
     def on_flight_data_received(altitude: var, speed: var) {
-        self->speed = find_view_by_id(constants.resource.id.speed) as text_view;
-        altitude_txt = find_view_by_id(constants.resource.id.altitude_txt) as text_view;
-
         self->speed.text = "${speed}";
         altitude_txt.text = "${altitude}M";
     }

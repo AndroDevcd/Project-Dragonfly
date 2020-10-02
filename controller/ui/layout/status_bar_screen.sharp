@@ -11,9 +11,9 @@ class status_bar_screen base fragment {
 
     status_bar_screen(container : window, id: var) -> base(container, id) { }
 
-    static const SIGNAL_UPDATER_TASK : string = "signal-updater";
-    static const CLOCK_TASK : string = "clock-updater";
-    static const FLIGHT_DATA_TASK : string = "flight-data-updater";
+    private signal_updater_task : job;
+    private clock_task : job;
+    private flight_data_task : job;
 
     def configure() {
         add_view(new image_view(constants.resource.id.mode)
@@ -57,121 +57,130 @@ class status_bar_screen base fragment {
         sig_view := find_view_by_id(constants.resource.id.signal_strength) as image_view;
         bat_view := find_view_by_id(constants.resource.id.battery_status) as image_view;
 
-        coroutine.builder()
+        flight_data_task := coroutine.builder()
           .long_term()
-          .with_name(FLIGHT_DATA_TASK)
-          .recurring(250, milliseconds)
           .with_args(new object[] { self, bat_view })
             = { args: object[]  ->
                screen := args[1] as status_bar_screen;
                battery := args[2] as image_view;
 
-               if(!disconnected) {
-                   data := network.get_flight_data();
+               for( ;; ) {
+                  if(!disconnected) {
+                      data := network.get_flight_data();
 
-                   if(data != null) {
-                      screen.on_flight_data_received(data.altitude, data.speed);
+                      if(data != null) {
+                         screen.on_flight_data_received(data.altitude, data.speed);
 
-                      when (data.bat_lvl) {
-                        0 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_0);
-                        }
-                        1 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_1);
-                        }
-                        2 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_2);
-                        }
-                        3 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_3);
-                        }
-                        4 -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_4);
-                        }
-                        else -> {
-                           battery.set_drawable(constants.resource.id.ico_battery_0);
-                        }
+                         when (data.bat_lvl) {
+                           0 -> {
+                              battery.set_drawable(constants.resource.id.ico_battery_0);
+                           }
+                           1 -> {
+                              battery.set_drawable(constants.resource.id.ico_battery_1);
+                           }
+                           2 -> {
+                              battery.set_drawable(constants.resource.id.ico_battery_2);
+                           }
+                           3 -> {
+                              battery.set_drawable(constants.resource.id.ico_battery_3);
+                           }
+                           4 -> {
+                              battery.set_drawable(constants.resource.id.ico_battery_4);
+                           }
+                           else -> {
+                              battery.set_drawable(constants.resource.id.ico_battery_0);
+                           }
+                         }
                       }
-                   }
+                  }
+
+                  delay(250); // run every 250ms
                }
             };
 
-        coroutine.builder()
-          .with_name(SIGNAL_UPDATER_TASK)
-          .recurring(1000, milliseconds)
+        signal_updater_task := coroutine.builder()
           .with_args(new object[] { sig_view })
             = { args : object[] ->
              iv := args[1] as image_view;
-             when (signal_strength) {
-                0 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_0);
+
+             for( ;; ) {
+                when (signal_strength) {
+                   0 -> {
+                      iv.set_drawable(constants.resource.id.ico_signal_0);
+                   }
+                   1 -> {
+                      iv.set_drawable(constants.resource.id.ico_signal_1);
+                   }
+                   2 -> {
+                      iv.set_drawable(constants.resource.id.ico_signal_2);
+                   }
+                   3 -> {
+                      iv.set_drawable(constants.resource.id.ico_signal_3);
+                   }
+                   4 -> {
+                      iv.set_drawable(constants.resource.id.ico_signal_4);
+                   }
+                   else -> {
+                      iv.set_drawable(constants.resource.id.ico_signal_4);
+                   }
                 }
-                1 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_1);
-                }
-                2 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_2);
-                }
-                3 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_3);
-                }
-                4 -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_4);
-                }
-                else -> {
-                   iv.set_drawable(constants.resource.id.ico_signal_4);
-                }
+
+                delay(1000); // run every second
              }
             };
 
 
-        coroutine.builder()
-          .with_name(CLOCK_TASK)
-          .recurring(1000, milliseconds)
+        clock_task := coroutine.builder()
           .with_args(new object[] { time })
             = { args : object[] ->
              tv := args[1] as text_view;
-             min_tm : _int32 = (time.mills_time() / 1000) / 60;
-             days_passed : _int32 = min_tm / constants.time.MIN_IN_DAY;
-             min_passed : _int32 = days_passed * constants.time.MIN_IN_DAY;
-             min_passed_today : _int32 = min_tm - min_passed;
-             utc_hr : _int32 = min_passed_today / constants.time.MIN_IN_HR;
-             utc_min : _int32 = min_passed_today - (utc_hr * constants.time.MIN_IN_HR);
 
-             hr := 0;
-             tod := "am";
-             if(utc_hr == 5) {
-                hr = 12;
-             } else if(utc_hr > 5) {
-                hr = utc_hr - 5;
-             } else {
-                hr = 12 + (utc_hr - 5);
+             for( ;; ) {
+                min_tm : _int32 = (time.mills_time() / 1000) / 60;
+                days_passed : _int32 = min_tm / constants.time.MIN_IN_DAY;
+                min_passed : _int32 = days_passed * constants.time.MIN_IN_DAY;
+                min_passed_today : _int32 = min_tm - min_passed;
+                utc_hr : _int32 = min_passed_today / constants.time.MIN_IN_HR;
+                utc_min : _int32 = min_passed_today - (utc_hr * constants.time.MIN_IN_HR);
+
+                hr := 0;
+                tod := "am";
+                if(utc_hr == 5) {
+                   hr = 12;
+                } else if(utc_hr > 5) {
+                   hr = utc_hr - 5;
+                } else {
+                   hr = 12 + (utc_hr - 5);
+                }
+
+                if(hr >= 12) {
+                  if(utc_hr != 5)
+                     tod = "pm";
+
+                  if(hr > 12)
+                     hr -= 12;
+                }
+
+                real_time : string = "${hr}:";
+
+                if(utc_min < 10)
+                  real_time += "0";
+                real_time += utc_min;
+                real_time += tod;
+                tv.text = real_time;
+
+                delay(1000); // run every second
              }
-
-             if(hr >= 12) {
-               if(utc_hr != 5)
-                  tod = "pm";
-
-               if(hr > 12)
-                  hr -= 12;
-             }
-
-             real_time : string = "${hr}:";
-
-             if(utc_min < 10)
-               real_time += "0";
-             real_time += utc_min;
-             real_time += tod;
-             tv.text = real_time;
         };
     }
 
     def on_flight_data_received(altitude: var, speed: var);
 
     def on_destroy() {
-       coroutine.cancel_all_jobs_by_name(SIGNAL_UPDATER_TASK);
-       coroutine.cancel_all_jobs_by_name(CLOCK_TASK);
-       coroutine.cancel_all_jobs_by_name(FLIGHT_DATA_TASK);
+       signal_updater_task.cancel();
+       clock_task.cancel();
+       flight_data_task.cancel();
+
        base->on_destroy();
     }
 }

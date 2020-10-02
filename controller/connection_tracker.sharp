@@ -17,36 +17,42 @@ def setup_conn_tracker() {
     write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
   
     coroutine.builder()
-     .recurring(constants.ONE_SECOND, milliseconds) 
        = { ->
-	     write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
-		  
-         if(disconnected) {
-		    delay(constants.TWO_HUNDRED);
-	        write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
+         for( ;; ) {
+	        write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
+
+            if(disconnected) {
+		       delay(constants.TWO_HUNDRED);
+	           write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
+	        }
+
+	        delay(constants.ONE_SECOND); // run every second
 	     }
      };
      
      
     coroutine.builder()
      .long_term()
-     .schedule(3000)
-     .recurring(constants.TWO_FIFTY, milliseconds) 
+     .schedule(2750) // run after 3 seconds
        = { ->
-		   if(disconnected) return;
-		   signal_strength = network.get_signal_strength();
-		  
-		   if(signal_strength == constants.SIGNAL_MIN) {
-		      if(conn_upd_count > 0)
-		         conn_upd_count--;
-		      else {
-			     disconnected = true;
-		         network.handshake(); // reconnect to device
-		         disconnected = false;
-		         conn_upd_count = constants.SIGNAL_UPD_THRESHOLD;
-		      }
-		   } else
-		      conn_upd_count = 0;
+           for( ;; ) {
+              delay(constants.TWO_FIFTY); // run 4 times a second
+
+		      if(disconnected) continue;
+		      signal_strength = network.get_signal_strength();
+
+		      if(signal_strength == constants.SIGNAL_MIN) {
+		         if(conn_upd_count > 0)
+		            conn_upd_count--;
+		         else {
+		   	     disconnected = true;
+		            network.handshake(); // reconnect to device
+		            disconnected = false;
+		            conn_upd_count = constants.SIGNAL_UPD_THRESHOLD;
+		         }
+		      } else
+		         conn_upd_count = 0;
+		   }
      };
 }
 
