@@ -4,6 +4,7 @@ import ui.driver;
 import ui.res;
 import ui.layout.config;
 import std.io.coroutines;
+import std.io.fiber;
 import std.io;
 
 class window {
@@ -73,7 +74,7 @@ class window {
           }
           
           device.update_display();     
-          thread.sleep(30); 
+          delay(30);
        }
     }
 }

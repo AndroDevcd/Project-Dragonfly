@@ -28,15 +28,12 @@ def main(args: string[])
    coroutine.builder()
     .long_term()
     .schedule(constants.INITIAL_START_DELAY)
+    .recurring(constants.DEVICE_UPDATE_INTERVAL, milliseconds)
       = { ->
-         for( ;; ) {
-            if(!disconnected) {
-               network.change_mode(constants.strings.FLIGHT_MODE_NORM);
-            }
-
-            delay(constants.DEVICE_UPDATE_INTERVAL);
-            // TODO: add controller state checks here
+         if(!disconnected) {
+            network.change_mode(constants.strings.FLIGHT_MODE_NORM);
          }
+         // TODO: add controller state checks here
       };
 
    window.start_ui();
