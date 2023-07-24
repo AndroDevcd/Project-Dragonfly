@@ -1,0 +1,68 @@
+mod ui.support;
+
+class fragment : lifecycle {
+    views : list<view> = new list<view>();
+    container : window;
+    id: var;
+    protected state : var;
+
+    fragment(container : window, id: var) {
+        self->container = container;
+        self->id = id;
+    }
+
+    def add_view(v : view) {
+        v.container = container;
+        v.owner = self;
+        views.add(v);
+    }
+
+    def find_view_by_id(id: var) : view? {
+        for(i := 0; i < views.size(); i++) {
+            //println("view ${views.at(i).id} with $id");
+            if(views.at(i).id == id)
+               return views.at(i);
+        }
+
+        return null;
+    }
+
+    override def on_create() {
+        state = constants.lifecycle.CREATED;
+        for(i := 0; i < views.size(); i++) {
+            v := views.at(i);
+            v.invalidate();
+        }
+    }
+    
+    def invalidate_refrences(id : var) {
+        for(i := 0; i < views.size(); i++) {
+            v := views.at(i);
+            if(v.has_ref(id)) {
+               v.transformed = false;
+               v.invalidate();
+            }
+        }
+    }
+
+    override def on_destroy() {
+        state = constants.lifecycle.DESTROYED;
+        for(i := 0; i < views.size(); i++) {
+            views.at(i).on_destroy();
+        }
+    }
+
+    def navigate(screen: var, finish: var) {
+        if(finish)
+           on_destroy();
+        container.navigate(screen);
+    }
+
+    def draw() {
+        for(i := 0; i < views.size(); i++) {
+            views.at(i).draw();
+        }
+    }
+
+    def configure();
+}

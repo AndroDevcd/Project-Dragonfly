@@ -1,0 +1,35 @@
+mod ui.support;
+
+import ( ui.res );
+
+class image_view base view {
+    img : drawable?;
+
+    image_view(id: var) -> base(id) {}
+
+    override def transform_height() : int {
+        return img != null ? img!!.height : 0;
+    }
+
+    override def transform_width() : int {
+        return img != null ? img!!.width : 0;
+    }
+    
+    def set_drawable(res_id: var) : image_view {
+        self->img = resources.get_drawable(res_id);
+        transformed = false;
+        return self;
+    }
+
+    override def draw() {
+        invalidate();
+        
+       if(visibility == constants.view.VISIBLE && img != null)
+          container.draw_img(self);
+    }
+
+    override def on_destroy() {
+        img = null;
+        transformed = false;
+    }
+}

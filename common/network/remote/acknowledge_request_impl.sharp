@@ -1,9 +1,11 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import std.io;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    std.io,
+    common
+);
 
 class acknowledge_request_impl base command_request_impl : acknowledge_request
 {
@@ -15,7 +17,7 @@ class acknowledge_request_impl base command_request_impl : acknowledge_request
 
     private _request : request_data;
 
-    def send() {
+    override def send() {
         send_command(_request, false, true);
     }
 }

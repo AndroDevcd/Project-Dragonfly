@@ -1,0 +1,39 @@
+mod ui.res;
+
+import (
+    ui.support,
+    ui.res.drawable
+);
+
+class resources {
+    static res : resources;
+       get {
+	      if(res == null) {
+	         res = new resources();
+	      }
+	      
+	      return res;
+       }
+       
+    images := new hash_map<int, drawable>();
+	
+	static def setup() {
+		res.images.put(constants.resource.id.ico_signal_0, ico_signal_0);
+		res.images.put(constants.resource.id.ico_signal_1, ico_signal_1);
+		res.images.put(constants.resource.id.ico_signal_2, ico_signal_2);
+		res.images.put(constants.resource.id.ico_signal_3, ico_signal_3);
+		res.images.put(constants.resource.id.ico_signal_4, ico_signal_4);
+		res.images.put(constants.resource.id.ico_normal_mode, ico_normal_mode);
+		res.images.put(constants.resource.id.ico_sport_mode, ico_sport_mode);
+		res.images.put(constants.resource.id.ico_battery_0, ico_battery_0);
+		res.images.put(constants.resource.id.ico_battery_1, ico_battery_1);
+		res.images.put(constants.resource.id.ico_battery_2, ico_battery_2);
+		res.images.put(constants.resource.id.ico_battery_3, ico_battery_3);
+		res.images.put(constants.resource.id.ico_battery_4, ico_battery_4);
+		res.images.put(constants.resource.id.ico_product, ico_product);
+	}
+	
+	static def get_drawable(res_id: var) : drawable? {
+		return res.images.at(res_id);
+	}
+}

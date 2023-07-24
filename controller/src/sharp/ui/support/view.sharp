@@ -1,0 +1,360 @@
+mod ui.support;
+
+class view {
+    private view() {}
+
+    public view(id : var) {
+        self->id = id;
+    }
+
+    x : var;
+    y : var;
+
+    width : var;
+    height : var;
+    margins : margin;
+    visibility : var;
+    id : var;
+    left_of : var;
+    start_of : var;
+    end_of : var;
+    top_of : var;
+    bottom_of : var;
+    right_of : var;
+    above_view : var;
+    below_view : var;
+    gravity : var;
+    transformed : var;
+    protected container : window;
+    protected owner : fragment;
+
+    def on_destroy();
+
+    def set_width(size: var) : view {
+        width = size;
+        transformed = false;
+        return self;
+    }
+
+    def get_owner() := owner;
+
+    def transform_height(): int;
+    def transform_width(): int;
+
+    def has_ref(id: var) : bool {
+        return left_of == id || start_of == id
+         || top_of == id || bottom_of == id
+         || right_of == id;
+    }
+
+    protected def invalidate() {
+        if(!transformed) {
+            transformed = true;
+            x = 0;
+            y = 0;
+
+            v : view;
+            if(left_of > constants.resource.id.parent) {
+                v = owner.find_view_by_id(left_of)!!;
+                v.invalidate();
+                x = v.x;
+                x -= transform_width().value;
+            } else if(left_of == constants.resource.id.parent) {
+                throw new ill_state_except("cannot align view to left of parent use 'to_start_of(parent)' instead");
+            }
+            
+            if(start_of > constants.resource.id.parent) {
+                v = owner.find_view_by_id(start_of)!!;
+                v.invalidate();
+                x = v.x;
+            }
+
+            if(top_of > constants.resource.id.parent) {
+                if(left_of > constants.resource.id.parent && top_of != left_of) {
+                    throw new ill_state_except("cannot align view to top of another view to whom we are not left aligned to");
+                }
+
+                if(v == null)
+                   v = owner.find_view_by_id(top_of)!!;
+                v.invalidate();
+                y = v.y;
+            }
+            
+            if(above_view > constants.resource.id.parent) {
+                if(top_of >= constants.resource.id.parent || bottom_of >= constants.resource.id.parent
+                  || below_view >= constants.resource.id.parent) {
+                    throw new ill_state_except("cannot align view to top of another view with top or bottom alignment");
+                }
+
+                if(v == null)
+                   v = owner.find_view_by_id(top_of)!!;
+                v.invalidate();
+                y = v.y - transform_height().value;
+
+                if(v.margins != null) {
+                    y -= v.margins.top;
+                }
+            } else if(above_view == constants.resource.id.parent) {
+               throw new ill_state_except("cannot align view above parent view, use 'to_top_of(parent)' instead");
+            }
+
+            if(below_view > constants.resource.id.parent) {
+                if(top_of >= constants.resource.id.parent || above_view >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to bottom while also having top alignment");
+
+                if(v == null || (v != null && v.id != bottom_of))
+                   v = owner.find_view_by_id(below_view)!!;
+                v.invalidate();
+                if(v.height == constants.view.MATCH_PARENT)
+                   y = constants.window.HEIGHT + 1; // out of bounds
+                else if(v.height != constants.view.WRAP_CONTENT)
+                   y = v.y + v.height; 
+                else 
+                   y = v.y + v.transform_height().value;
+
+                if(v.margins != null) {
+                    y += v.margins.bottom;
+                }
+            } else if(below_view == constants.resource.id.parent) {
+                throw new ill_state_except("cannot align view below the parent, use 'to_bottom_of(parent)' instead");
+            }
+            
+            if(bottom_of > constants.resource.id.parent) {
+                if(top_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to bottom while also having top alignment");
+
+                if(v == null || (v != null && v.id != bottom_of))
+                   v = owner.find_view_by_id(bottom_of)!!;
+                v.invalidate();
+                if(v.height == constants.view.MATCH_PARENT)
+                   y = constants.window.HEIGHT - transform_height().value;
+                else if(v.height != constants.view.WRAP_CONTENT)
+                   y = (v.y + v.height) - transform_height().value;
+                else 
+                   y = (v.y + v.transform_height().value) - transform_height().value;
+
+                if(v.margins != null) {
+                    y += v.margins.bottom;
+                }
+            } else if(bottom_of == constants.resource.id.parent) {
+                if(top_of > constants.resource.id.none)
+                    throw new ill_state_except("cannot align view to bottom while also having top alignment");
+                y = constants.window.HEIGHT - transform_height().value;
+                
+                if(margins != null) {
+                    y -= margins.bottom;
+                }
+            }
+
+            if(right_of > constants.resource.id.parent) {
+                if(left_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to right while also having left alignment");
+
+                if(v == null || (v != null && v.id != right_of))
+                   v = owner.find_view_by_id(right_of)!!;
+                v.invalidate();
+                if(v.width == constants.view.MATCH_PARENT)
+                   x = constants.window.WIDTH + 1; // out of bounds
+                else if(v.width != constants.view.WRAP_CONTENT) {
+                   if(v.gravity == constants.view.GRAVITY_RIGHT)
+                      x = v.x + v.transform_width().value;
+                   else if(v.gravity == constants.view.GRAVITY_CENTER) {
+                        offset := (v.width - (v.x + v.transform_width().value)) + v.transform_width().value;
+                        if(offset > 0 && offset < v.width) {
+                           x += v.x + offset;
+                        } else
+                           x = v.x + v.transform_width().value;
+                   }   
+                   else
+                      x = v.x + v.width; 
+                }
+                else 
+                   x = v.x + v.transform_width().value;
+                   
+                if(v.margins != null) {
+                    x -= v.margins.right;
+                }
+            } else if(right_of == constants.resource.id.parent) {
+                if(left_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to right while also having left alignment");
+                x = constants.window.WIDTH - transform_width().value;
+            }
+
+            if(end_of > constants.resource.id.parent) {
+                if(left_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of view ${end_of} while also having left alignment");
+                if(right_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of view ${end_of} while also having right alignment");
+
+                if(v == null || (v != null && v.id != right_of))
+                   v = owner.find_view_by_id(right_of)!!;
+                v.invalidate();
+                if(v.width == constants.view.MATCH_PARENT)
+                   x = constants.window.WIDTH - transform_width().value;
+                else if(v.width != constants.view.WRAP_CONTENT) {
+                   if(v.gravity == constants.view.GRAVITY_RIGHT)
+                      x = v.x + v.transform_width().value - transform_width().value;
+                   else if(v.gravity == constants.view.GRAVITY_CENTER) {
+                        offset := (v.width - (v.x + v.transform_width().value)) - v.transform_width().value;
+                        if(offset > 0 && offset < v.width) {
+                           x += v.x + offset - transform_width().value;
+                        } else
+                           x = v.x - v.transform_width().value - transform_width().value;
+                   }
+                   else
+                      x = v.x + v.width - transform_width().value;
+                }
+                else
+                   x = v.x + v.transform_width().value - transform_width().value;
+            } else if(end_of == constants.resource.id.parent) {
+                if(left_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of parent while also having left alignment");
+                if(right_of >= constants.resource.id.parent)
+                    throw new ill_state_except("cannot align view to end of parent while also having left alignment");
+                x = constants.window.WIDTH - transform_width();
+            }
+
+            if(gravity == constants.view.GRAVITY_RIGHT) {
+                if(width == constants.view.MATCH_PARENT) {
+                    x = constants.window.WIDTH - (transform_width().value);
+                } else if(width >= 0) {
+                    max := x + width;
+                    required_space := transform_width().value;
+                    if(required_space < max) {
+                      x = max - required_space;
+                    } 
+                }
+
+            } else if(gravity == constants.view.GRAVITY_CENTER) {
+
+                if(width == constants.view.MATCH_PARENT) {
+                    max_real_estate := constants.window.WIDTH - x;
+                    leftover_space := max_real_estate - transform_width().value;
+
+                    if(leftover_space > 0) {
+                        x += (leftover_space / 2) as _int8;
+                    }
+                } else if(width >= 0) {
+                    max_real_estate := (x + width) - x;
+                    leftover_space := max_real_estate - transform_width().value;
+
+                    if(leftover_space > 0) {
+                        x += (leftover_space / 2) as _int8;
+                    }
+                }
+            }
+
+            if(margins != null) {
+                x += margins.left;
+                y += margins.top;
+                x -= margins.right;
+            }
+
+            if(y < 0 || x < 0 || y > constants.window.HEIGHT || x > constants.window.WIDTH)
+               visibility = constants.view.INVISIBLE;
+            else
+               visibility = constants.view.VISIBLE;
+            owner.invalidate_refrences(id);
+       }
+    }
+
+    def draw();
+
+    def set_height(size: var) : view {
+        height = size;
+        transformed = false;
+        return self;
+    }
+
+    def set_visibility(visible: var) : view {
+        visibility = visible;
+        transformed = false;
+        return self;
+    }
+
+    def to_left_of(id: var) : view {
+        left_of = id;
+        transformed = false;
+        return self;
+    }
+    
+    def to_start_of(id: var) : view {
+        start_of = id;
+        transformed = false;
+        return self;
+    }
+
+    def to_right_of(id: var) : view {
+        right_of = id;
+        transformed = false;
+        return self;
+    }
+
+    def to_end_of(id: var) : view {
+        end_of = id;
+        transformed = false;
+        return self;
+    }
+
+    def to_top_of(id: var) : view {
+        top_of = id;
+        transformed = false;
+        return self;
+    }
+
+    def to_bottom_of(id: var) : view {
+        bottom_of = id;
+        transformed = false;
+        return self;
+    }
+
+    def set_gravity(grav: var) : view {
+        gravity = grav;
+        transformed = false;
+        return self;
+    }
+
+    def above(id: var) : view {
+        above_view = id;
+        transformed = false;
+        return self;
+    }
+
+    def below(id: var) : view {
+        below_view = id;
+        transformed = false;
+        return self;
+    }
+
+    def set_margin_left(size: var) : view {
+        if(margins == null)
+           margins = new margin();
+        margins.left = size;
+        transformed = false;
+        return self;
+    }
+
+    def set_margin_right(size: var) : view {
+        if(margins == null)
+           margins = new margin();
+        margins.right = size;
+        transformed = false;
+        return self;
+    }
+
+    def set_margin_top(size: var) : view {
+        if(margins == null)
+           margins = new margin();
+        margins.top = size;
+        transformed = false;
+        return self;
+    }
+
+    def set_margin_bottom(size: var) : view {
+        if(margins == null)
+           margins = new margin();
+        margins.bottom = size;
+        transformed = false;
+        return self;
+    }
+}

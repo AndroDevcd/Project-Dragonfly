@@ -2,5 +2,5 @@ mod common.network.data.request;
 
 interface signal_strength_request
 {
-    def get_strength(): var;
+    def get_strength(): int;
 }

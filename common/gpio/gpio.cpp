@@ -15,7 +15,7 @@ scope_begin(common_gpio)
         digitalWrite((long)pin.value(), (long)val.value() ? HIGH : LOW);
     }
 
-    var read_pin(var &pin) {
+    SharpObject read_pin(var &pin) {
         var result = createLocalField<var>();
         result = digitalRead((long)pin.value());
         return result;

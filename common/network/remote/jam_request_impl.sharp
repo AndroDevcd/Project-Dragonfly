@@ -1,8 +1,10 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    common
+);
 
 class jam_request_impl base command_request_impl : jam_request
 {
@@ -14,11 +16,11 @@ class jam_request_impl base command_request_impl : jam_request
 
     private _request : request_data;
 
-    def jam(channel: var) {
+    override def jam(channel: var) {
        jam_network(channel);
     }
 
-    def post(channel: var): var {
+    override def post(channel: var): int {
         _request.add_item(constants.strings.CHANNEL, "$channel");
         return send_command(_request, true, true);
     }

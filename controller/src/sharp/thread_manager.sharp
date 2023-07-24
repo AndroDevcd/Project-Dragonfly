@@ -1,0 +1,32 @@
+mod main;
+
+import ( std.io.* );
+
+class thread_manager {
+    io: thread;
+    default: thread;
+    main: thread;
+
+    thread_manager(ui_thread: thread) {
+        io = new thread("io-thread", thread_main);
+        io.set_priority(min_priority);
+
+        default = new thread("default-thread", thread_main);
+        default.set_priority(norm_priority);
+
+        main = ui_thread;
+    }
+
+    def start_threads() {
+        io.start();
+        default.start();
+    }
+
+    static def thread_main(args: object[]): int {
+        while(true) {
+            delay(10000); // keep thread busy
+        }
+
+        return 0;
+    }
+}

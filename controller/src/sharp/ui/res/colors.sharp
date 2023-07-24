@@ -1,0 +1,5 @@
+mod ui.res;
+
+const B : var = 1; // black
+const W : var = 2; // white
+const I : var = 3; // inverted

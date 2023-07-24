@@ -1,0 +1,21 @@
+mod ui.res.drawable;
+
+import (
+    ui.support,
+    ui.res
+);
+
+ico_battery_0_bytes
+ := new var[] {
+		0, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
+		0, W, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, W,
+		W, W, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, W,
+		W, W, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, W,
+		W, W, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, W,
+		W, W, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, W,
+		0, W, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, W,
+		0, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+ };
+ 
+ico_battery_0 := new drawable(constants.resource.id.ico_battery_0, ico_battery_0_bytes, 16, 9);

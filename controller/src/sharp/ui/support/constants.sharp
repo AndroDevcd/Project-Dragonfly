@@ -1,0 +1,77 @@
+mod ui.support;
+
+class constants {
+
+    class view {
+        public static const VISIBLE : var = 0;
+        public static const INVISIBLE : var = 1;
+        public static const MATCH_PARENT : var = -1;
+        public static const WRAP_CONTENT : var = -2;
+        public static const GRAVITY_LEFT : var = 0;
+        public static const GRAVITY_RIGHT : var = 1;
+        public static const GRAVITY_CENTER : var = 2;
+    }
+
+    class window {
+        public static const WIDTH : var = 128;
+        public static const HEIGHT : var = 64;
+        public static const UPDATE_INTERVAL : var = 25;
+    }
+
+    class lifecycle {
+        public static const DESTROYED : var = 0;
+        public static const CREATED : var = 1;
+    }
+    
+    class time {
+       public static const MIN_IN_DAY : var = (60 * 24);
+       public static const MIN_IN_HR : var = (60);
+    }
+
+    class layout {
+        public static const HOME : var = 0;
+        public static const SPLASH : var = 1;
+    }
+
+    class margins {
+
+    }
+
+    class resource {
+
+         class id {
+            // full list of all resource view id's
+            public static const none : var = 0x0;
+            public static const parent : var = 0x1;
+            public static const time : var = 0x2;
+            public static const mode : var = 0x3;
+            public static const signal_strength : var = 0x4;
+            public static const ico_signal_0 : var = 0x5;
+            public static const ico_signal_1 : var = 0x6;
+            public static const ico_signal_2 : var = 0x7;
+            public static const ico_signal_3 : var = 0x8;
+            public static const ico_signal_4 : var = 0x9;
+            public static const ico_normal_mode : var = 0xa;
+            public static const ico_sport_mode : var = 0xb;
+            public static const battery_status : var = 0xc;
+            public static const ico_battery_0 : var = 0xd;
+            public static const ico_battery_1 : var = 0xe;
+            public static const ico_battery_2 : var = 0xf;
+            public static const ico_battery_3 : var = 0x10;
+            public static const ico_battery_4 : var = 0x11;
+            public static const altitude_title : var = 0x12;
+            public static const altitude_txt : var = 0x13;
+            public static const speed : var = 0x14;
+            public static const speed_unit : var = 0x15;
+            public static const product_name_1 : var = 0x16;
+            public static const product_name_2 : var = 0x17;
+            public static const product_icon : var = 0x18;
+            public static const ico_product : var = 0x19;
+         }
+    }
+
+    class standard {
+        public static const text_size_height_multiplier : var = 8;
+        public static const text_size_width_multiplier : var = 6;
+    }
+}

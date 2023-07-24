@@ -1,13 +1,15 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import std.io;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    std.io,
+    common
+);
 
 class network_scan_request_impl base request : network_scan_request
 {
-    def scan_network(): var[] {
+    override def scan_network(): var[] {
         return get_network_quality();
     }
 }

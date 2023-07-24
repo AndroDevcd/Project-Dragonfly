@@ -1,9 +1,11 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import std.io;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    std.io,
+    common
+);
 
 class handshake_request_impl base command_request_impl : handshake_request
 {
@@ -15,7 +17,7 @@ class handshake_request_impl base command_request_impl : handshake_request
 
     private _request : request_data;
 
-    def handshake() {
+    override def handshake() {
         send_command(_request, true, false);
     }
 }

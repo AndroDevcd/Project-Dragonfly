@@ -1,9 +1,9 @@
 mod common.network.data.request;
 
-import common.network.data.response;
+import ( common.network.data.response );
 
 interface jam_request
 {
     def jam(channel: var);
-    def post(channel: var) : var;
+    def post(channel: var) : int;
 }

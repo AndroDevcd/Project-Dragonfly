@@ -1,6 +1,6 @@
 mod common.network;
 
-import common.network.data.*;
+import ( common.network.data.* );
 
 class network {
     private static INSTANCE : network;
@@ -26,11 +26,11 @@ class network {
         INSTANCE.handshake_req.handshake();
     }
 
-    static def listen(): command_response {
+    static def listen(): command_response? {
        return INSTANCE.command_req.listen();
     }
 
-    static def change_mode(mode: string): var {
+    static def change_mode(mode: string): int {
        lock(INSTANCE) {
           return INSTANCE.flight_mode_change_req.change_mode(mode);
        }
@@ -42,13 +42,13 @@ class network {
        }
     }
     
-    static def request_jam(channel: var): var {
+    static def request_jam(channel: var): int {
        lock(INSTANCE) {
           return INSTANCE.jam_req.post(channel);
        }
     }
     
-    static def get_signal_strength() : var {
+    static def get_signal_strength() : int {
         return INSTANCE.signal_strength_req.get_strength();
     }
 
@@ -58,7 +58,7 @@ class network {
         }
     }
     
-    static def get_flight_data() : flight_data_response {
+    static def get_flight_data() : flight_data_response? {
         lock(INSTANCE) {
            return INSTANCE.flight_data_req._get();
         }

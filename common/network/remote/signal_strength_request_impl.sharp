@@ -1,13 +1,15 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import std.io;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    std.io,
+    common
+);
 
 class signal_strength_request_impl base request : signal_strength_request
 {
-    def get_strength(): var {
+    override def get_strength(): int {
         return get_signal_strength();
     }
 }

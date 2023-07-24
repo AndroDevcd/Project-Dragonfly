@@ -1,5 +1,0 @@
-mod ui.res;
-
-const B := 1; // black
-const W := 2; // white
-const I := 3; // inverted

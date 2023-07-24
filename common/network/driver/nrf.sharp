@@ -1,6 +1,6 @@
 mod common.network.driver;
 
-import common;
+import ( common );
 
 class nrf24 {
 
@@ -68,14 +68,14 @@ class nrf24 {
        }
     }
 
-	def get_signal_strength(): var {
+	def get_signal_strength(): int {
 	    lock(self) {
 		check_state();
 		return common.network.driver#get_signal_strength();
 	    }
 	}
 
-	def read(response: string): var {
+	def read(response: string): int {
 	    check_state();
 
 	    response = common.network.driver#read();
@@ -89,10 +89,10 @@ class nrf24 {
 	    }
 	}
 
-	def send(response: string): var {
+	def send(response: string): int {
 	    check_state();
 
-	    common.network.driver#send(response.get_data());
+	    common.network.driver#send(response.data);
 	    return get_last_error();
 	}
 

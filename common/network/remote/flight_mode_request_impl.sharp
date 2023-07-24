@@ -1,8 +1,10 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    common
+);
 
 class flight_mode_change_request_impl base command_request_impl : flight_mode_change_request
 {
@@ -14,7 +16,7 @@ class flight_mode_change_request_impl base command_request_impl : flight_mode_ch
 
     private _request : request_data;
 
-    def change_mode(mode: string): var {
+    override def change_mode(mode: string): int {
         _request.add_item(constants.strings.MODE, mode);
         return send_command(_request, true, true);
     }

@@ -1,0 +1,57 @@
+mod main;
+
+import (
+    std.io,
+    std.io.coroutines,
+    std.io.fiber,
+    common.network,
+    common,
+    common.gpio
+);
+
+signal_strength := constants.SIGNAL_MIN;
+disconnected := true;
+conn_upd_count := 0;
+
+def setup_conn_tracker() {
+    pin_mode(constants.DEVICE_CONNECTING_PIN, constants.OUTPUT);
+    write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
+  
+    coroutine.builder()
+     .with_host(tman.io)
+       = { ->
+         for(;;) {
+            write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
+
+            if(disconnected) {
+               delay(constants.TWO_HUNDRED);
+               write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
+            }
+
+	        delay(constants.ONE_SECOND);
+	     }
+     };
+
+
+    coroutine.builder()
+     .schedule(3000)
+     .with_host(tman.io)
+       = { ->
+           for(;;) {
+		      signal_strength = network.get_signal_strength().value;
+		      if(signal_strength == constants.SIGNAL_MIN) {
+		         if(conn_upd_count > 0)
+		            conn_upd_count--;
+		         else {
+		   	        disconnected = true;
+		            network.handshake(); // reconnect to device
+		            disconnected = false;
+		            conn_upd_count = constants.SIGNAL_UPD_THRESHOLD;
+		         }
+		      } else
+		         conn_upd_count = 0;
+		      delay(constants.TWO_FIFTY);
+		   }
+     };
+}
+

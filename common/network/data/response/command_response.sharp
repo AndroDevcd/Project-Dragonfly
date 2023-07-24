@@ -1,15 +1,15 @@
 mod common.network.data.response;
 
-import common.network.core;
+import ( common.network.core );
 
 class command_response
 {
-    command_response(cmd: string, req: request_data)
+    command_response(cmd: string?, req: request_data)
     {
         command = cmd;
         data = req;
     }
 
-    command : string;
+    command : string?;
     data : request_data;
 }

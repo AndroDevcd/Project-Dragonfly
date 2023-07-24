@@ -3,5 +3,5 @@ mod common.gpio;
 native def setup();
 native def pin_mode(pin: var, mode: var);
 native def write_pin(pin: var, value: var);
-native def read_pin(pin: var): var;
+native def read_pin(pin: var): bool;
 

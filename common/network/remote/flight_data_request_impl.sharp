@@ -1,40 +1,42 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    common
+);
 
 class flight_data_request_impl base command_request_impl : flight_data_request
 {
     response_data := new flight_data_response(0, 0, 0);
 
-    def _get() : flight_data_response {
+    override def _get() : flight_data_response? {
         response := new request_data();
         req := new request_data();
         req.add_item(constants.strings.CMD, constants.strings.FLIGHT_DATA);
 
         
-        if(rw_inf(req, WRITE, constants.RW_LIMIT)) {
+        if(rw_inf(req, WRITE, constants.RW_LIMIT).to_bool()) {
             return null;
         }
         
-        if(rw_inf(response, READ, constants.RW_LIMIT)) {
+        if(rw_inf(response, READ, constants.RW_LIMIT).to_bool()) {
             return null;
         }
 
         value := response.at(constants.strings.RESPONSE);
         if(value != null && value == "data" && response.at(constants.strings.BAT) != null 
            && response.at(constants.strings.ALT) != null && response.at(constants.strings.SPEED) != null) {
-           response_data.bat_lvl = int.parse(response.at(constants.strings.BAT));
-           response_data.altitude = int.parse(response.at(constants.strings.ALT));
-           response_data.speed = int.parse(response.at(constants.strings.SPEED));
+           response_data.bat_lvl = int.parse(response.at(constants.strings.BAT)!!.to_string()!!).value;
+           response_data.altitude = int.parse(response.at(constants.strings.ALT)!!.to_string()!!).value;
+           response_data.speed = int.parse(response.at(constants.strings.SPEED)!!.to_string()!!).value;
             return response_data;
         }
 
         return null;
     }
 
-    def post(data: flight_data_response) {
+    override def post(data: flight_data_response) {
         _request := new request_data();
         _request.add_item(constants.strings.RESPONSE, "data");
         _request.add_item(constants.strings.ALT, "${data.altitude}");

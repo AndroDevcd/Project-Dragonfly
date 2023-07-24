@@ -1,6 +1,6 @@
 mod common.network.data.response;
 
-import common.network.core;
+import ( common.network.core );
 
 class flight_data_response
 {

@@ -2,5 +2,5 @@ mod common.network.data.request;
 
 interface flight_mode_change_request
 {
-    def change_mode(mode: string): var;
+    def change_mode(mode: string): int;
 }

@@ -1,41 +1,43 @@
 mod common.network.remote;
 
-import common.network.core;
-import common.network.data.*;
-import std.io;
-import common;
+import (
+    common.network.core,
+    common.network.data.*,
+    std.io,
+    common
+);
 
 class command_request_impl base request : command_request
 {
 
-    def listen(): command_response {
+    override def listen(): command_response? {
         response := new request_data();
 
-        retry:
-        listen(response);
+        for(;;) {
+            listen(response);
 
-        value := response.at(constants.strings.CMD);
-        if(value != null) {
-            return new command_response(value, response);
-        } else {
-            response.clear();
-            goto retry;
+            value := response.at(constants.strings.CMD);
+            if(value != null) {
+                return new command_response(value, response);
+            } else {
+                response.clear();
+            }
         }
 
         return null; // for the compiler
     }
 
-    def send_command(req: request_data, ack: var, timeout: var): var {
+    override def send_command(req: request_data, ack: var, timeout: var): int {
         response := new request_data();
 
         if(timeout)
         {
-            if(rw_inf(req, WRITE, constants.RW_LIMIT)) {
+            if(rw_inf(req, WRITE, constants.RW_LIMIT).to_bool()) {
                 return 1;
             }
 
             if(ack) {
-                if(rw_inf(response, READ, constants.RW_LIMIT)) {
+                if(rw_inf(response, READ, constants.RW_LIMIT).to_bool()) {
                     return 1;
                 }
 
@@ -45,18 +47,21 @@ class command_request_impl base request : command_request
                 }
             }
         } else {
-             retry:
-             rw_inf(req, WRITE, constants.RW_LIMIT);
+             for(;;) {
+                 rw_inf(req, WRITE, constants.RW_LIMIT);
 
-             if(ack) {
-                 if(rw_inf(response, READ, constants.RW_LIMIT)) {
-                     goto retry;
-                 }
+                 if(ack) {
+                     if(rw_inf(response, READ, constants.RW_LIMIT).to_bool()) {
+                         continue;
+                     }
 
-                 value := response.at(constants.strings.RESPONSE);
-                 if(!(value != null && value == constants.strings.YES)) {
-                     response.clear();
-                     goto retry;
+                     value := response.at(constants.strings.RESPONSE);
+                     if(!(value != null && value == constants.strings.YES)) {
+                         response.clear();
+                         continue;
+                     }
+
+                     break;
                  }
              }
         }

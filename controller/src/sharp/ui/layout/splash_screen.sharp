@@ -1,0 +1,70 @@
+mod ui.layout;
+
+import (
+    ui.res,
+    ui.support,
+    std.io,
+    std.io.coroutines,
+    main,
+    common.network
+);
+
+class splash_screen base fragment {
+
+    splash_screen(container : window, id: var) -> base(container, id) { }
+
+    override def configure() {
+        add_view(new image_view(constants.resource.id.product_icon)
+            .set_drawable(constants.resource.id.ico_product)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_start_of(constants.resource.id.parent)
+            .to_top_of(constants.resource.id.parent)
+            .set_margin_left(8)
+            .set_margin_top(10)
+        );
+        add_view(new text_view(constants.resource.id.product_name_1)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_end_of(constants.resource.id.parent)
+            .to_top_of(constants.resource.id.parent)
+            .set_margin_right(8)
+            .set_margin_top(18)
+        );
+        add_view(new text_view(constants.resource.id.product_name_2)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .below(constants.resource.id.product_name_1)
+            .to_bottom_of(constants.resource.id.parent)
+            .to_end_of(constants.resource.id.parent)
+            .set_margin_right(18)
+            .set_margin_bottom(5)
+        );
+    }
+
+    override def on_create() {
+        base->on_create();
+
+        product_name_1 := find_view_by_id(constants.resource.id.product_name_1) as text_view;
+        product_name_2 := find_view_by_id(constants.resource.id.product_name_2) as text_view;
+
+        product_name_1.text_size = 2;
+        product_name_2.text_size = 2;
+
+        product_name_1.text = "Project";
+        product_name_2.text = "Dragonfly";
+
+        coroutine.builder()
+          .schedule(2000)
+          .with_host(tman.main)
+          .with_args(new object[] { self })
+            = { args: object[]  ->
+               frag := args[1] as fragment;
+               frag.navigate(constants.layout.HOME, true);
+            };
+    }
+
+    override def on_destroy() {
+       base->on_destroy();
+    }
+}

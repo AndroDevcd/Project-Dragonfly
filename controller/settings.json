@@ -1,0 +1,13 @@
+{
+  "name": "controller",
+  "version": "1.0",
+  "output": "controller",
+  "ignore_folders": [
+     "build",
+     "src/cpp"
+  ],
+  "extern_lib": [
+     "../common",
+     "../0.3.0"
+  ]
+}
