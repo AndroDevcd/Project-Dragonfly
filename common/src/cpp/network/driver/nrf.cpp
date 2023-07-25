@@ -66,7 +66,7 @@ scope_begin(common_network_driver)
     }
 
     void set_transmission_rate(var level) {
-        switch((long)level.value()) {
+        switch((long)level) {
             case 0:
                 radio.setDataRate(RF24_250KBPS);
                 break;
@@ -81,7 +81,14 @@ scope_begin(common_network_driver)
                 break;
         }
 
-        transmissionRate = (int)level.value();
+        transmissionRate = (int)level;
+    }
+
+    void set_retry_count(var delay, var count) {
+        radio.setRetries((uint8_t)delay, (uint8_t)count % 16);
+        TIMEOUT_US = (250 * (int)delay) * (int)count;
+        retryCount = (uint8_t)count % 16;
+        retryDelay = (uint8_t)delay;
     }
 
 	void setup(var trnsLvl, var rate, var delay,
@@ -113,13 +120,6 @@ scope_begin(common_network_driver)
 		radio.printDetails();
         internal::return_call();
 	}
-
-	void set_retry_count(var delay, var count) {
-		radio.setRetries((uint8_t)delay, (uint8_t)count % 16);
-		TIMEOUT_US = (250 * (int)delay) * (int)count;
-		retryCount = (uint8_t)count % 16;
-		retryDelay = (uint8_t)delay;
-	}
 	
 	void power_down(SharpObject instance) {
 		radio.powerDown();
@@ -131,11 +131,11 @@ scope_begin(common_network_driver)
         internal::new_array(128, TYPE_VAR);
         check_for_err();
 
-        use_var(data_response,
-           internal::assign_object(data_response.obj, internal::pop_object());
+        use_var(quality,
+           internal::assign_object(quality.obj, internal::pop_object());
         )
 
-        auto raw = internal::get_raw_number_data(data_response.obj);
+        auto raw = internal::get_raw_number_data(quality.obj);
         uint8_t channel = radio.getChannel();
 
         for(int i = 0; i < 25; i++) {
