@@ -10,10 +10,12 @@ scope_begin(common_gpio)
 
     void pin_mode(var pin, var mode) {
         pinMode((long)pin, (long)mode);
+        internal::return_call();
     }
 
     void write_pin(var pin, var val) {
         digitalWrite((long)pin, (long)val ? HIGH : LOW);
+        internal::return_call();
     }
 
     SharpObject read_pin(var pin) {
