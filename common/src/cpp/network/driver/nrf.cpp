@@ -1,8 +1,14 @@
 #include <RF24/RF24.h>
-#include "../../../generated/native_mapping.h"
 #include "helper.h"
 
+#ifdef CONTROLLER
+#include "../../../../../controller/generated/function_mapping.h"
+#else
+#include "../../../../../flight_controller/generated/function_mapping.h"
+#endif
+
 using namespace std;
+using namespace snb_api;
 
 #define RX_ARRD_ID 0x33
 #define TX_ARRD_ID 0x1A
@@ -50,15 +56,15 @@ RF24 radio(22, 0);
 
 scope_begin(common_network_driver)
 	
-	void setup(var &trnsLvl, var &rate, var &delay,
-	        var &retryCount, var &isClient) {
+	void setup(var trnsLvl, var rate, var delay,
+	        var retryCount, var isClient) {
 		radio.begin();
 		
 		set_transmission_lvl(trnsLvl);
 		set_transmission_rate(rate);
 		set_retry_count(delay, retryCount);
 
-		if((int)isClient.value()) {
+		if((int)isClient) {
             address[0] = RX_ARRD_ID;
             radio.openWritingPipe(address);
             address[0] = TX_ARRD_ID;
@@ -71,25 +77,26 @@ scope_begin(common_network_driver)
 		}
 
         radio.stopListening();
-		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH); 
+		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
+        internal::return_call();
 	}
 
-	void set_transmission_lvl(var &level) {
-		switch((long)level.value()) {
+	void set_transmission_lvl(var level) {
+		switch((long)level) {
 			case 0:
 			case 1:
 			case 2:
-				radio.setPALevel((uint8_t)level.value());
+				radio.setPALevel((uint8_t)level);
 				break;
 			default:
 				radio.setPALevel(0);
 				break;
 		}
 		
-		transmissionLvl = (int)level.value();
+		transmissionLvl = (int)level;
 	}
 
-	void set_transmission_rate(var &level) {
+	void set_transmission_rate(var level) {
 		switch((long)level.value()) {
 			case 0:
 				radio.setDataRate(RF24_250KBPS);
@@ -110,22 +117,31 @@ scope_begin(common_network_driver)
 	
 	void dump_details() {
 		radio.printDetails();
+        internal::return_call();
 	}
 
-	void set_retry_count(var &delay, var &count) {
-		radio.setRetries((uint8_t)delay.value(), (uint8_t)count.value() % 16);
-		TIMEOUT_US = (250 * (int)delay.value()) * (int)count.value();
-		retryCount = (uint8_t)count.value() % 16;
-		retryDelay = (uint8_t)delay.value();
+	void set_retry_count(var delay, var count) {
+		radio.setRetries((uint8_t)delay, (uint8_t)count % 16);
+		TIMEOUT_US = (250 * (int)delay) * (int)count;
+		retryCount = (uint8_t)count % 16;
+		retryDelay = (uint8_t)delay;
 	}
 	
-	void power_down(object $instance) {
+	void power_down(SharpObject instance) {
 		radio.powerDown();
+        internal::return_call();
 	}
 
-	var_array get_network_quality() {
-        var_array quality = createLocalField<var_array>();
-        createVarArray(quality, 128);
+	SharpObject get_network_quality() {
+        LocalVariable quality = create_local_variable();
+        internal::new_array(128, TYPE_VAR);
+        check_for_err();
+
+        use_var(data_response,
+           internal::assign_object(data_response.obj, internal::pop_object());
+        )
+
+        auto raw = internal::get_raw_number_data(data_response.obj);
         uint8_t channel = radio.getChannel();
 
         for(int i = 0; i < 25; i++) {
@@ -137,12 +153,14 @@ scope_begin(common_network_driver)
                 radio.stopListening();
 
                 if( radio.testCarrier() )
-                    quality[j]++;
+                    raw[j]++;
             }
         }
 
         radio.setChannel(channel);
-        return quality;
+        SharpObject returnData = internal::pop_object();
+        internal::return_call();
+        return returnData;
     }
 	
 	void addHeader(packet &p, uint32_t packet_count, uint8_t len) 
@@ -161,9 +179,9 @@ scope_begin(common_network_driver)
 		p.data[0x0] = len;
 	} 
 	
-	var get_signal_strength() 
+	SharpObject get_signal_strength()
 	{
-		var signalStrength = createLocalField<var>();
+		var signalStrength;
 		
 		if(!trackingFilled) {
 			signalStrength = MAX_SIGNAL_STRENGTH;
@@ -177,7 +195,9 @@ scope_begin(common_network_driver)
 			signalStrength = round((double)successfulPackets / 25);
 		}
 		
-		return signalStrength;
+		auto returnData = create_new_primitive_wrapper("std#int", signalStrength, std__int::_int2);
+        internal::return_call();
+        return returnData;
 	}
 	
 	bool waitforResponse(bool withTimeout) {
@@ -228,10 +248,10 @@ scope_begin(common_network_driver)
 		}
 	}
 	
-	var_array process_packets() {
+	SharpObject process_packets() {
 		
 		stringstream data;
-        var_array data_response(createLocalField<var_array>());
+        LocalVariable data_response = create_local_variable();
 		unsigned int packets = readHeaderPacket(data);
 		
         last_error = 0;
@@ -251,13 +271,23 @@ scope_begin(common_network_driver)
 		}
 		
 		string str = data.str();
-		data_response = str;
+        internal::new_array(str.size(), TYPE_INT8);
+        check_for_err();
+
+        use_var(data_response,
+            internal::assign_object(data_response.obj, internal::pop_object());
+        )
+        auto raw = internal::get_raw_number_data(data_response.obj);
+
+        for(long i = 0; i < str.size(); i++) {
+            raw[i] = str[i];
+        }
 		radio.stopListening();
-		return data_response;
+		return internal::pop_object();
 	}
 	
-	void jam(var &wifiChannel) {
-		int channel = (int)wifiChannel.value() % 20;
+	void jam(var wifiChannel) {
+		int channel = (int)wifiChannel % 20;
 		long past = micros();
 		int oldChannel = radio.getChannel();
         const char *text = "{fmju=j\"!@#$%^&\",hygt3454fr7";
@@ -288,29 +318,33 @@ scope_begin(common_network_driver)
 		}
 	}
 	
-	var_array read() {
+	SharpObject read() {
         radio.startListening();
 		
 		if(!waitforResponse(true)) {
             last_error = 1;
 			radio.stopListening();
-			
-            var_array data_response(createLocalField<var_array>());
+
+            LocalVariable data_response = create_local_variable();
+            internal::assign_object(data_response.obj, nullptr);
             return data_response;
 		}
 		
-		return process_packets();
+		auto returnData = process_packets();
+        internal::return_call();
+        return returnData;
 	}
 	
-	var_array listen() {
+	SharpObject listen() {
         radio.startListening();
 		
 		waitforResponse(false);
 		return process_packets();
 	}
 	
-	void send(_int8_array& data8) {
-		string data = stringFrom(data8);
+	void send(SharpObject data8) {
+		string data;
+        string_from(data, data8);
         last_error = 0;
 
         radio.stopListening();
@@ -364,8 +398,8 @@ scope_begin(common_network_driver)
 	}
 
 	var get_last_error() {
-        var result = createLocalField<var>();
-        result = last_error;
-        return result;
+        auto returnData = last_error;
+        internal::return_call();
+        return returnData;
     }
 scope_end()
