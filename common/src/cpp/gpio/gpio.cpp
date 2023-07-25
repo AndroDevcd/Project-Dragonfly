@@ -9,7 +9,7 @@ scope_begin(common_gpio)
     }
 
     void pin_mode(var pin, var mode) {
-        std::cout << " % " << pin << ": " << val << endl;
+        std::cout << " % " << pin << ": " << mode << endl;
         pinMode((long)pin, (long)mode);
         internal::return_call();
     }
