@@ -49,7 +49,41 @@ extern unsigned int micros (void);
 RF24 radio(22, 0);
 
 scope_begin(common_network_driver)
-	
+
+    void set_transmission_lvl(var level) {
+        switch((long)level) {
+            case 0:
+            case 1:
+            case 2:
+                radio.setPALevel((uint8_t)level);
+                break;
+            default:
+                radio.setPALevel(0);
+                break;
+        }
+
+        transmissionLvl = (int)level;
+    }
+
+    void set_transmission_rate(var level) {
+        switch((long)level.value()) {
+            case 0:
+                radio.setDataRate(RF24_250KBPS);
+                break;
+            case 1:
+                radio.setDataRate(RF24_1MBPS);
+                break;
+            case 2:
+                radio.setDataRate(RF24_2MBPS);
+                break;
+            default:
+                radio.setDataRate(RF24_250KBPS);
+                break;
+        }
+
+        transmissionRate = (int)level.value();
+    }
+
 	void setup(var trnsLvl, var rate, var delay,
 	        var retryCount, var isClient) {
 		radio.begin();
@@ -73,40 +107,6 @@ scope_begin(common_network_driver)
         radio.stopListening();
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
         internal::return_call();
-	}
-
-	void set_transmission_lvl(var level) {
-		switch((long)level) {
-			case 0:
-			case 1:
-			case 2:
-				radio.setPALevel((uint8_t)level);
-				break;
-			default:
-				radio.setPALevel(0);
-				break;
-		}
-		
-		transmissionLvl = (int)level;
-	}
-
-	void set_transmission_rate(var level) {
-		switch((long)level.value()) {
-			case 0:
-				radio.setDataRate(RF24_250KBPS);
-				break;
-			case 1:
-				radio.setDataRate(RF24_1MBPS);
-				break;
-			case 2:
-				radio.setDataRate(RF24_2MBPS);
-				break;
-			default:
-				radio.setDataRate(RF24_250KBPS);
-				break;
-		}
-		
-		transmissionRate = (int)level.value();
 	}
 	
 	void dump_details() {

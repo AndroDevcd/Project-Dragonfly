@@ -21,6 +21,7 @@
 #include <dlfcn.h>
 #include <math.h>
 
+//#define CONTROLLER
 #ifdef CONTROLLER
 #include "controller/generated/function_mapping.h"
 #else

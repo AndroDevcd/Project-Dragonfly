@@ -73,7 +73,7 @@ void draw_img(SharpObject bytes, var width, var height, var x, var y, var skip_c
               imgCursor += width - x;
            }
            
-           if(bytes[imgCursor] > 0) {
+           if(rawData[imgCursor] > 0) {
                ssd1306_drawPixel(x, y, rawData[imgCursor] - 1);
            }
            
