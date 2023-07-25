@@ -20,7 +20,12 @@
 #include <stdarg.h>
 #include <dlfcn.h>
 #include <math.h>
-#include "generated/native_mapping.h"
+
+#ifdef CONTROLLER
+#include "controller/generated/function_mapping.h"
+#else
+#include "flight_controller/generated/function_mapping.h"
+#endif
 
 using namespace std;
 

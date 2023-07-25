@@ -1,12 +1,6 @@
 #include <RF24/RF24.h>
 #include "helper.h"
 
-#ifdef CONTROLLER
-#include "../../../../../controller/generated/function_mapping.h"
-#else
-#include "../../../../../flight_controller/generated/function_mapping.h"
-#endif
-
 using namespace std;
 using namespace snb_api;
 
