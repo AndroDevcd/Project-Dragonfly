@@ -321,7 +321,7 @@ scope_begin(common_network_driver)
 
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
-            return data_response;
+            return data_response.obj;
 		}
 		
 		auto returnData = process_packets();
@@ -391,8 +391,8 @@ scope_begin(common_network_driver)
 		}
 	}
 
-	var get_last_error() {
-        auto returnData = last_error;
+	SharpObject get_last_error() {
+        auto returnData = create_new_primitive_wrapper("std#int", last_error, std__int::_int2);
         internal::return_call();
         return returnData;
     }
