@@ -23,6 +23,7 @@ def main(args: string[])
      .with_host(tman.io)
      .schedule(3000)
         = { ->
+         println("d");
          network.handshake();
          disconnected = false;
       };
@@ -31,6 +32,7 @@ def main(args: string[])
      .with_host(tman.io)
     .schedule(constants.INITIAL_START_DELAY)
       = { ->
+         println("c");
          while(true) {
             if(!disconnected) {
                network.change_mode(constants.strings.FLIGHT_MODE_NORM);

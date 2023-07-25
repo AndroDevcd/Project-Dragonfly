@@ -20,6 +20,7 @@ def setup_conn_tracker() {
     coroutine.builder()
      .with_host(tman.io)
        = { ->
+         println("b");
          for(;;) {
             write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
 
@@ -37,6 +38,7 @@ def setup_conn_tracker() {
      .schedule(3000)
      .with_host(tman.io)
        = { ->
+           println("a");
            for(;;) {
 		      signal_strength = network.get_signal_strength().value;
 		      if(signal_strength == constants.SIGNAL_MIN) {

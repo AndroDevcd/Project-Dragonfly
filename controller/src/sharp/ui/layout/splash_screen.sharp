@@ -60,6 +60,7 @@ class splash_screen base fragment {
           .with_args(new object[] { self })
             = { args: object[]  ->
                frag := args[1] as fragment;
+               println("f");
                frag.navigate(constants.layout.HOME, true);
             };
     }
