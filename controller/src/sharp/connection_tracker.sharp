@@ -21,7 +21,7 @@ def setup_conn_tracker() {
      .with_host(tman.io)
        = { ->
          for(;;) {
-            println("b");
+            println("disconn: $disconnected");
             write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
 
             if(disconnected) {
