@@ -18,6 +18,6 @@ class handshake_request_impl base command_request_impl : handshake_request
     private _request : request_data;
 
     override def handshake() {
-        send_command(_request, true, false);
+        send_command(_request, true, true);
     }
 }

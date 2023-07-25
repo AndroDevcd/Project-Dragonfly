@@ -55,9 +55,7 @@ class view {
 
             v : view;
             if(left_of > constants.resource.id.parent) {
-                println("view $id left of $left_of ");
                 v = owner.find_view_by_id(left_of)!!;
-                println("view is null ${v == null} ");
                 v.invalidate();
                 x = v.x;
                 x -= transform_width().value;

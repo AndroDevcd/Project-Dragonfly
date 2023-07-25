@@ -19,7 +19,6 @@ class fragment : lifecycle {
 
     def find_view_by_id(id: var) : view? {
         for(i := 0; i < views.size(); i++) {
-            println("view ${views.at(i).id} with $id == ${ views.at(i).id == id } ");
             if(views.at(i).id == id)
                return views.at(i);
         }
