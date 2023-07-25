@@ -14,6 +14,7 @@ scope_begin(common_gpio)
     }
 
     void write_pin(var pin, var val) {
+        std::cout << " >> " << pin << ": " << val << endl;
         digitalWrite((long)pin, (long)val ? HIGH : LOW);
         internal::return_call();
     }
