@@ -32,8 +32,8 @@ def main(args: string[])
      .with_host(tman.io)
     .schedule(constants.INITIAL_START_DELAY)
       = { ->
-         println("c");
          while(true) {
+            println("c");
             if(!disconnected) {
                network.change_mode(constants.strings.FLIGHT_MODE_NORM);
             }

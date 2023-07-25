@@ -20,8 +20,8 @@ def setup_conn_tracker() {
     coroutine.builder()
      .with_host(tman.io)
        = { ->
-         println("b");
          for(;;) {
+            println("b");
             write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
 
             if(disconnected) {
@@ -38,8 +38,8 @@ def setup_conn_tracker() {
      .schedule(3000)
      .with_host(tman.io)
        = { ->
-           println("a");
            for(;;) {
+              println("a");
 		      signal_strength = network.get_signal_strength().value;
 		      if(signal_strength == constants.SIGNAL_MIN) {
 		         if(conn_upd_count > 0)
