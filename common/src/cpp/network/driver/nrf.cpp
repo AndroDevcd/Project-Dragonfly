@@ -386,9 +386,12 @@ scope_begin(common_network_driver)
 			
             if (!ok) {
                 last_error = 1;
+                internal::return_call();
                 return;
             }
 		}
+
+        internal::return_call();
 	}
 
 	SharpObject get_last_error() {
