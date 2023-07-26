@@ -8,23 +8,23 @@ class request_data {
         };
     request_string : string?;
        get {
-          if(request_string == null) {
-            sb := new string_builder();
-            println("items $items");
-            for(i := 0; i < items.size(); i++) {
-                sb += items[i].key;
-                sb += "=" + items[i].value;
-
-                if((i + 1) < items.size()) {
-                    sb += ",";
-                }
-            }
-
-            request_string = sb.to_string();
-          }
-
-          return request_string;
+          return build_request_data();
        }
+
+    def build_request_data(): string? {
+        sb := new string_builder();
+        println("items $items");
+        for(i := 0; i < items.size(); i++) {
+            sb += items[i].key;
+            sb += "=" + items[i].value;
+
+            if((i + 1) < items.size()) {
+                sb += ",";
+            }
+        }
+
+        return sb.to_string();
+    }
 
     def add_item(key: string, value: string) : request_data {
         item := new request_item(key, value);
@@ -40,7 +40,7 @@ class request_data {
     }
 
     override def to_string() : string? {
-        return request_string;
+        return build_request_data();
     }
 
     def at(key: string): string? {
