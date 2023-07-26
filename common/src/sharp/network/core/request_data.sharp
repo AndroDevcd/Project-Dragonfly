@@ -10,6 +10,7 @@ class request_data {
        get {
           if(request_string == null) {
             sb := new string_builder();
+            println("items $items");
             for(i := 0; i < items.size(); i++) {
                 sb += items[i].key;
                 sb += "=" + items[i].value;
