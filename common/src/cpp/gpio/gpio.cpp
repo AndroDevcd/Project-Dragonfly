@@ -9,13 +9,11 @@ scope_begin(common_gpio)
     }
 
     void pin_mode(var pin, var mode) {
-        std::cout << " % " << pin << ": " << mode << endl;
         pinMode((long)pin, (long)mode);
         internal::return_call();
     }
 
     void write_pin(var pin, var val) {
-        std::cout << " >> " << pin << ": " << ((long)val ? HIGH : LOW) << endl;
         digitalWrite((long)pin, (long)val ? HIGH : LOW);
         internal::return_call();
     }
