@@ -335,7 +335,8 @@ scope_begin(common_network_driver)
 
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
-            return data_response.obj;
+            internal::return_call();
+            return internal::pop_object();
 		}
 		
 		auto returnData = process_packets();
@@ -353,7 +354,6 @@ scope_begin(common_network_driver)
 	
 	void send(SharpObject data8) {
         cout << "send()" << endl;
-        radio.printDetails();
 		string data;
         string_from(data, data8);
         last_error = 0;
