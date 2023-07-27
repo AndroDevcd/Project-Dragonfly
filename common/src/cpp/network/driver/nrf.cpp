@@ -347,6 +347,7 @@ scope_begin(common_network_driver)
 	
 	void send(SharpObject data8) {
         cout << "send()" << endl;
+        radio.printDetails();
 		string data;
         string_from(data, data8);
         last_error = 0;
