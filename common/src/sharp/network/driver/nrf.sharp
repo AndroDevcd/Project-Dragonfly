@@ -7,7 +7,7 @@ class nrf24 {
     is_setup := false;
     has_power := false;
     transmission_level := constants.RF24_PA_MIN;
-    transmission_rate := constants.RF24_1MBPS;
+    transmission_rate := constants.RF24_250KBPS;
 
     nrf24()
     {

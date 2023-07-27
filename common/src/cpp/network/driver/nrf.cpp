@@ -93,7 +93,8 @@ scope_begin(common_network_driver)
 
 	void setup(var trnsLvl, var rate, var delay,
 	        var retryCount, var isClient) {
-        cout << "setup()" << endl;
+        cout << "setup(" << trnsLvl << ", " << rate << ", " << delay
+            << ", " << retryCount << ", " << isClient << ")" << endl;
 		radio.begin();
 		
 		set_transmission_lvl(trnsLvl);
@@ -113,6 +114,11 @@ scope_begin(common_network_driver)
 		}
 
         radio.stopListening();
+
+        cout << "test write" << endl;
+        const char text[] = "Hello World";
+        radio.write(&text, sizeof(text));
+        cout << "test end" << endl;
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
         internal::return_call();
 	}
