@@ -21,10 +21,10 @@ def setup_conn_tracker() {
      .with_host(tman.io)
        = { ->
          for(;;) {
-            println("disconn: $disconnected");
             write_pin(constants.DEVICE_CONNECTING_PIN, constants.HIGH);
 
             if(disconnected) {
+               println("contr.disconnected");
                delay(constants.TWO_HUNDRED);
                write_pin(constants.DEVICE_CONNECTING_PIN, constants.LOW);
             }
@@ -39,7 +39,6 @@ def setup_conn_tracker() {
      .with_host(tman.io)
        = { ->
            for(;;) {
-              println("a");
 		      signal_strength = network.get_signal_strength().value;
 		      if(signal_strength == constants.SIGNAL_MIN) {
 		         if(conn_upd_count > 0)

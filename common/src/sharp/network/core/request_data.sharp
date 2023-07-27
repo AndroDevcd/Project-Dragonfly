@@ -13,7 +13,6 @@ class request_data {
 
     def build_request_data(): string? {
         sb := new string_builder();
-        println("items $items");
         for(i := 0; i < items.size(); i++) {
             sb += items[i].key;
             sb += "=" + items[i].value;
