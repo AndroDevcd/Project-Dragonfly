@@ -95,7 +95,7 @@ scope_begin(common_network_driver)
 	        var retryCount, var isClient) {
         cout << "setup(" << trnsLvl << ", " << rate << ", " << delay
             << ", " << retryCount << ", " << isClient << ")" << endl;
-		radio.begin();
+		cout << "begin() " << radio.begin() << endl;
 		
 		set_transmission_lvl(trnsLvl);
 		set_transmission_rate(rate);
