@@ -185,7 +185,7 @@ scope_begin(common_network_driver)
 	
 	SharpObject get_signal_strength()
 	{
-        cout << "get_signal_strength()" << endl;
+        cout << "get_signal_strength() ";
 		var signalStrength;
 		
 		if(!trackingFilled) {
@@ -199,7 +199,8 @@ scope_begin(common_network_driver)
 			
 			signalStrength = round((double)successfulPackets / 25);
 		}
-		
+
+        cout << signalStrength << endl;
 		auto returnData = create_new_primitive_wrapper("std#int", signalStrength, std__int::_int2);
         internal::return_call();
         return returnData;
