@@ -21,7 +21,7 @@ def main(args: string[])
    setup_conn_tracker();
 
    coroutine.builder()
-     .with_host(tman.io)
+     .with_host(tman.net)
      .schedule(3000)
         = { ->
          network.handshake();
@@ -29,7 +29,7 @@ def main(args: string[])
       };
       
    coroutine.builder()
-     .with_host(tman.io)
+     .with_host(tman.net)
     .schedule(constants.INITIAL_START_DELAY)
       = { ->
          while(true) {

@@ -4,12 +4,16 @@ import ( std.io.* );
 
 class thread_manager {
     io: thread;
+    net: thread;
     default: thread;
     main: thread;
 
     thread_manager(ui_thread: thread) {
         io = new thread("io-thread", thread_main);
         io.set_priority(min_priority);
+
+        net = new thread("net-thread", thread_main);
+        net.set_priority(norm_priority);
 
         default = new thread("default-thread", thread_main);
         default.set_priority(norm_priority);
@@ -19,6 +23,7 @@ class thread_manager {
 
     def start_threads() {
         io.start();
+        net.start();
         default.start();
     }
 

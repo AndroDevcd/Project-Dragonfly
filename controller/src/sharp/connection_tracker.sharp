@@ -36,7 +36,7 @@ def setup_conn_tracker() {
 
     coroutine.builder()
      .schedule(3000)
-     .with_host(tman.io)
+     .with_host(tman.net)
        = { ->
            for(;;) {
 		      signal_strength = network.get_signal_strength().value;
