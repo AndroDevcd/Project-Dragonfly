@@ -62,7 +62,7 @@ class command_request_impl base request : command_request
                      }
 
                      break;
-                 }
+                 } else break;
              }
         }
 

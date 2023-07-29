@@ -19,6 +19,11 @@ def main(args: string[])
    
    common.gpio#setup();
    setup_conn_tracker();
+   setup_button_manager();
+
+   on_button_pressed.observe_on({ observer, state ->
+      println("button state: $state");
+   }, tman.main);
 
    coroutine.builder()
      .with_host(tman.net)

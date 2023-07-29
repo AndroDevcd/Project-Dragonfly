@@ -8,6 +8,6 @@
   ],
   "extern_lib": [
      "../common",
-     "../0.3.0"
+     "../../Sharp/lib/support/0.3.0"
   ]
 }

@@ -1,0 +1,65 @@
+mod main;
+
+import (
+    common.*,
+    std.io.*
+);
+
+on_button_pressed: observable<button_press_state>;
+
+def setup_button_manager() {
+    pin_mode(constants.UP_BUTTON_PIN, common#constants.INPUT);
+    pin_mode(constants.DOWN_BUTTON_PIN, common#constants.INPUT);
+    on_button_pressed = new observable<button_press_state>();
+
+    coroutine.builder()
+      .with_host(tman.io)
+         = { ->
+          for(;;) {
+            if(read_pin(constants.UP_BUTTON_PIN)) {
+                dual_press := wait_for_release_or_dual_press(
+                    constants.UP_BUTTON_PIN,
+                    constants.DOWN_BUTTON_PIN
+                );
+
+                if(dual_press) {
+                    on_button_pressed.post(select_item_pressed);
+                } else {
+                    on_button_pressed.post(button_up_pressed);
+                }
+            }
+
+            if(read_pin(constants.DOWN_BUTTON_PIN)) {
+                dual_press := wait_for_release_or_dual_press(
+                    constants.DOWN_BUTTON_PIN,
+                    constants.UP_BUTTON_PIN
+                );
+
+                if(dual_press) {
+                    on_button_pressed.post(select_item_pressed);
+                } else {
+                    on_button_pressed.post(button_down_pressed);
+                }
+            }
+
+            delay(0); // yield to other tasks
+          }
+       };
+}
+
+def wait_for_release_or_dual_press(release_pin: var, secondary_button: var): bool {
+    while(read_pin(release_pin)) {
+        if(read_pin(secondary_button)) {
+            wait_for_release(release_pin);
+            wait_for_release(secondary_button);
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+def wait_for_release(release_pin: var) {
+    while(read_pin(release_pin)) { }
+}
+

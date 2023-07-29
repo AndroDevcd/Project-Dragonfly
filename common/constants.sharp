@@ -29,6 +29,8 @@ class constants {
     static const INFINITE : var = -100;
     static const CONNECTING_LED_INTERVAL : var = -100;
     static const ONE_SECOND : var = 1000;
+    static const UP_BUTTON_PIN : var = 28;
+    static const DOWN_BUTTON_PIN : var = 29;
     static const DEVICE_CONNECTING_PIN : var = 27;
     static const INITIAL_START_DELAY : var = 3000;
     static const DEVICE_UPDATE_INTERVAL : var = 50;

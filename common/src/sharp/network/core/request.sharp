@@ -1,7 +1,7 @@
 mod common.network.core;
 
 import (
-    std.io,
+    std.io.*,
     common.network.driver,
     common
 );
@@ -54,7 +54,6 @@ class request
             }
 
             value = raw.substring(startPos, i);
-            //println("read data: $key = $value");
             rdata.add_item(key, value);
             i++;
 
@@ -65,11 +64,9 @@ class request
     }
 
     private static def read(rdata: request_data): int {
-        //println('r');
         raw := new string();
         result := device.read(raw);
 
-        //println("raw data: $raw result $result");
         if(result == 0)
         {
             process_result(raw, rdata);
@@ -90,7 +87,7 @@ class request
             if(rw == READ) {
                 for(;;) {
                     if(read(rdata) != 0) {
-                        thread.sleep(1);
+                        delay(1);
                         if(count != constants.INFINITE && count-- < 0) {
                             return 1;
                         }
@@ -102,7 +99,7 @@ class request
             } else {
                 for(;;) {
                     if(write(rdata) != 0) {
-                        thread.sleep(1);
+                        delay(1);
                         if(count != constants.INFINITE && count-- < 0) {
                             return 1;
                         }
