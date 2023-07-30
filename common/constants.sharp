@@ -34,6 +34,7 @@ class constants {
     static const DEVICE_CONNECTING_PIN : var = 27;
     static const INITIAL_START_DELAY : var = 3000;
     static const DEVICE_UPDATE_INTERVAL : var = 50;
+    static const PRESS_HOLD_INTERVAL : var = 250;
     static const TWO_FIFTY: var = 250;
     static const TWO_HUNDRED: var = 200;
     static const SIGNAL_UPD_THRESHOLD: var = 4;
