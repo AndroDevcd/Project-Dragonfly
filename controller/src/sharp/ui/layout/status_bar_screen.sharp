@@ -185,6 +185,10 @@ class status_bar_screen base fragment {
         };
     }
 
+    override def on_button_pressed(state: button_press_state) {
+        // ignore
+    }
+
     def on_flight_data_received(altitude: var, speed: var);
 
     override def on_destroy() {

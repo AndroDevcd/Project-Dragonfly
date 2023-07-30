@@ -64,4 +64,6 @@ class fragment : lifecycle {
     }
 
     def configure();
+
+    def on_button_pressed(state: button_press_state);
 }

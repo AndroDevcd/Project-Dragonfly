@@ -66,6 +66,12 @@ class window {
         fragments.add(frag);
     }
 
+    def dispatch_on_button_pressed(state: button_press_state) {
+          if(current_frag != null) {
+             current_frag.on_button_pressed(state);
+          }
+    }
+
     def start_updater() {
        for(;;) {
           device.clear();

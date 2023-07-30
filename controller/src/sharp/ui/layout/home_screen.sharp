@@ -74,6 +74,11 @@ class home_screen base status_bar_screen {
         speed.text_size = 3;
     }
 
+    override def on_button_pressed(state: button_press_state) {
+        base->on_button_pressed(state);
+        println("button state: $state");
+    }
+
     override def on_flight_data_received(altitude: var, speed: var) {
         self->speed.text = "${speed}";
         altitude_txt.text = "${altitude}M";

@@ -18,6 +18,11 @@ def configure_layout() {
 
     // set the starting page here
     container.starter_fragment(constants.layout.SPLASH);
+
+    // Button pressed listener
+    on_button_pressed.observe_on({ observer, state ->
+       container.dispatch_on_button_pressed(state);
+    }, tman.main);
 }
 
 def start() {
