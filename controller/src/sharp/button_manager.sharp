@@ -49,7 +49,6 @@ def setup_button_manager() {
 
 def wait_for_release_or_dual_press(release_pin: var, secondary_button: var): bool {
     start_time := time.mills_time();
-    intervals := 0;
     while(read_pin(release_pin)) {
         if(read_pin(secondary_button)) {
             wait_for_release(release_pin);
@@ -58,8 +57,7 @@ def wait_for_release_or_dual_press(release_pin: var, secondary_button: var): boo
         }
 
         time_since := time.mills_time() - start_time; // press & hold functionality
-        if(time_since > 1 && ((time_since / constants.PRESS_HOLD_INTERVAL) > intervals)) {
-            intervals++;
+        if(time_since > 1 && ((time_since % constants.PRESS_HOLD_INTERVAL) == 0)) {
             if(release_pin == constants.DOWN_BUTTON_PIN)
                 on_button_pressed.post(button_down_pressed);
             else
@@ -68,9 +66,6 @@ def wait_for_release_or_dual_press(release_pin: var, secondary_button: var): boo
         delay(0); // yield to other tasks
     }
 
-    time_since := time.mills_time() - start_time; // press & hold functionality
-    intervals2 := time_since / constants.PRESS_HOLD_INTERVAL;
-    println("time since: $time_since intervals: $intervals2 time: ${ time.mills_time() }");
     return 0;
 }
 
