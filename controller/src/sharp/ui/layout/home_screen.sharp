@@ -6,7 +6,8 @@ import (
     std.io,
     std.io.coroutines,
     main,
-    common.network
+    common.network,
+    main
 );
 
 class home_screen base status_bar_screen {

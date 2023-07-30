@@ -6,7 +6,8 @@ import (
     ui.layout.config,
     std.io.coroutines,
     std.io.fiber,
-    std.io
+    std.io,
+    main
 );
 
 class window {

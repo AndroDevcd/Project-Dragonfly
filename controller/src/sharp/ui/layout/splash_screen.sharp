@@ -6,7 +6,8 @@ import (
     std.io,
     std.io.coroutines,
     main,
-    common.network
+    common.network,
+    main
 );
 
 class splash_screen base fragment {
