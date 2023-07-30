@@ -22,7 +22,7 @@ def configure_layout() {
 
     // Button pressed listener
     on_button_pressed.observe_on({ observer, state ->
-       container.dispatch_on_button_pressed(state);
+       container.dispatch_on_button_pressed(state!!);
     }, tman.main);
 }
 

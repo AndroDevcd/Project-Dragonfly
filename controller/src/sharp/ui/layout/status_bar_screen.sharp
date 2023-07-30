@@ -7,8 +7,7 @@ import (
     std.io.fiber,
     std.io.coroutines,
     main,
-    common.network,
-    main
+    common.network
 );
 
 class status_bar_screen base fragment {
