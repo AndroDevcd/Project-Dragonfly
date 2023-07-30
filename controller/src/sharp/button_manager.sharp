@@ -54,12 +54,15 @@ def wait_for_release_or_dual_press(release_pin: var, secondary_button: var): boo
             wait_for_release(secondary_button);
             return 1;
         }
+        delay(0); // yield to other tasks
     }
 
     return 0;
 }
 
 def wait_for_release(release_pin: var) {
-    while(read_pin(release_pin)) { }
+    while(read_pin(release_pin)) {
+       delay(0); // yield to other tasks
+    }
 }
 
