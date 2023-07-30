@@ -59,6 +59,7 @@ def wait_for_release_or_dual_press(release_pin: var, secondary_button: var): boo
 
         time_since := time.mills_time() - start_time; // press & hold functionality
         if(time_since > 1 && ((time_since / constants.PRESS_HOLD_INTERVAL) > intervals)) {
+            intervals++;
             if(release_pin == constants.DOWN_BUTTON_PIN)
                 on_button_pressed.post(button_down_pressed);
             else
