@@ -31,6 +31,7 @@ class resources {
 		res.images.put(constants.resource.id.ico_battery_3, ico_battery_3);
 		res.images.put(constants.resource.id.ico_battery_4, ico_battery_4);
 		res.images.put(constants.resource.id.ico_product, ico_product);
+		res.images.put(constants.resource.id.ico_thin_line, ico_thin_line);
 	}
 	
 	static def get_drawable(res_id: var) : drawable? {
