@@ -28,13 +28,12 @@ class settings_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .set_gravity(constants.view.GRAVITY_CENTER)
-            .set_margin_top(35)
+            .set_margin_top(5)
         );
     }
 
-    def on_create() {
+    override def on_create() {
         base->on_create();
-        println("create settings");
         title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
         title.text = "Settings";
     }

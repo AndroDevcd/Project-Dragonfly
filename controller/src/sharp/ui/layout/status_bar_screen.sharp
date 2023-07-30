@@ -57,7 +57,7 @@ class status_bar_screen base fragment {
         );
     }
 
-    def on_create() {
+    override def on_create() {
         base->on_create();
 
         tm := find_view_by_id(constants.resource.id.time) as text_view;
