@@ -28,7 +28,7 @@ class settings_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .set_gravity(constants.view.GRAVITY_CENTER)
-            .set_margin_top(5)
+            .set_margin_top(35)
         );
     }
 
