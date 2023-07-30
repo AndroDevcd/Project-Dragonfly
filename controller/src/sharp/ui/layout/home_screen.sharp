@@ -76,7 +76,7 @@ class home_screen base status_bar_screen {
 
     override def on_button_pressed(state: button_press_state) {
         base->on_button_pressed(state);
-        frag.navigate(constants.layout.SETTINGS, false);
+        navigate(constants.layout.SETTINGS, false);
     }
 
     override def on_flight_data_received(altitude: var, speed: var) {
