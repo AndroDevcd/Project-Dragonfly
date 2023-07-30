@@ -148,12 +148,12 @@ class status_bar_screen base fragment {
              tv := args[1] as text_view;
 
              for(;;) {
-                 min_tm : _int64 = ((time.mills_time() / 1000) / 60).value;
-                 days_passed : _int32 = min_tm / constants.time.MIN_IN_DAY;
-                 min_passed : _int32 = days_passed * constants.time.MIN_IN_DAY;
-                 min_passed_today : _int32 = min_tm - min_passed;
-                 utc_hr : _int32 = min_passed_today / constants.time.MIN_IN_HR;
-                 utc_min : _int32 = min_passed_today - (utc_hr * constants.time.MIN_IN_HR);
+                 min_tm : long = ((time.mills_time() / 1000) / 60).value;
+                 days_passed : int = min_tm / constants.time.MIN_IN_DAY;
+                 min_passed : int = days_passed * constants.time.MIN_IN_DAY;
+                 min_passed_today : int = min_tm - min_passed;
+                 utc_hr : int = min_passed_today / constants.time.MIN_IN_HR;
+                 utc_min : int = min_passed_today - (utc_hr * constants.time.MIN_IN_HR);
 
                  hr := 0;
                  tod := "am";

@@ -68,8 +68,8 @@ class constants {
             public static const product_name_2 : var = 0x17;
             public static const product_icon : var = 0x18;
             public static const ico_product : var = 0x19;
-            public static const ico_thin_line : var = 0x20;
-            public static const settings_screen_title : var = 0x21;
+            public static const ico_thin_line : var = 0x1a;
+            public static const settings_screen_title : var = 0x1b;
          }
     }
 
