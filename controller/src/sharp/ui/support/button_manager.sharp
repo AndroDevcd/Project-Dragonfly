@@ -2,7 +2,8 @@ mod ui.support;
 
 import (
     common.*,
-    std.io.*
+    std.io.*,
+    main
 );
 
 on_button_pressed: observable<button_press_state>;
