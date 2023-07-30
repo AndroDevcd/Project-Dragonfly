@@ -13,27 +13,22 @@ scope_begin(ui_driver)
 void setup() {
     ssd1306_begin(SSD1306_SWITCHCAPVCC, SSD1306_I2C_ADDRESS);
     ssd1306_clearDisplay();
-    internal::return_call();
 }
 
 void clear_display() {
     ssd1306_clearDisplay();
-    internal::return_call();
 }
 
 void display() {
     ssd1306_display();
-    internal::return_call();
 }
 
 void dim(var yes) {
     ssd1306_dim((int)yes);
-    internal::return_call();
 }
 
 void move_cursor(var x, var y) {
     ssd1306_moveCursor((int)x, (int)y);
-    internal::return_call();
 }
 
 void draw_word(SharpObject str, var len, var text_size) {
@@ -48,7 +43,6 @@ void draw_word(SharpObject str, var len, var text_size) {
 
         ssd1306_drawString(data.c_str());
     }
-    internal::return_call();
 }
 
 
@@ -84,7 +78,6 @@ void draw_img(SharpObject bytes, var width, var height, var x, var y, var skip_c
        if(skip_count > 0)
           imgCursor += skip_count - 1;
    }
-    internal::return_call();
 }
 
 

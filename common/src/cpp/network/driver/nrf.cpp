@@ -120,17 +120,14 @@ scope_begin(common_network_driver)
         radio.write(&text, sizeof(text));
         cout << "test end" << endl;
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
-        internal::return_call();
 	}
 	
 	void dump_details() {
 		radio.printDetails();
-        internal::return_call();
 	}
 	
 	void power_down(SharpObject instance) {
 		radio.powerDown();
-        internal::return_call();
 	}
 
 	SharpObject get_network_quality() {
@@ -159,9 +156,7 @@ scope_begin(common_network_driver)
         }
 
         radio.setChannel(channel);
-        SharpObject returnData = internal::pop_object();
-        internal::return_call();
-        return returnData;
+        return quality.obj;
     }
 	
 	void addHeader(packet &p, uint32_t packet_count, uint8_t len) 
@@ -196,9 +191,7 @@ scope_begin(common_network_driver)
 			signalStrength = round((double)successfulPackets / 25);
 		}
 
-		auto returnData = create_new_primitive_wrapper("std#int", signalStrength, std__int::_int2);
-        internal::return_call();
-        return returnData;
+        return create_new_primitive_wrapper("std#int", signalStrength, std__int::_int2);
 	}
 	
 	bool waitforResponse(bool withTimeout) {
@@ -250,7 +243,6 @@ scope_begin(common_network_driver)
 	}
 	
 	SharpObject process_packets() {
-		
 		stringstream data;
         LocalVariable data_response = create_local_variable();
 		unsigned int packets = readHeaderPacket(data);
@@ -283,8 +275,9 @@ scope_begin(common_network_driver)
         for(long i = 0; i < str.size(); i++) {
             raw[i] = str[i];
         }
+
 		radio.stopListening();
-		return internal::pop_object();
+		return data_response.obj;
 	}
 	
 	void jam(var wifiChannel) {
@@ -328,13 +321,10 @@ scope_begin(common_network_driver)
 
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
-            internal::return_call();
-            return internal::pop_object();
+            return data_response.obj;
 		}
-		
-		auto returnData = process_packets();
-        internal::return_call();
-        return returnData;
+
+        return process_packets();
 	}
 	
 	SharpObject listen() {
@@ -398,13 +388,9 @@ scope_begin(common_network_driver)
                 return;
             }
 		}
-
-        internal::return_call();
 	}
 
 	SharpObject get_last_error() {
-        auto returnData = create_new_primitive_wrapper("std#int", last_error, std__int::_int2);
-        internal::return_call();
-        return returnData;
+        return create_new_primitive_wrapper("std#int", last_error, std__int::_int2);;
     }
 scope_end()
