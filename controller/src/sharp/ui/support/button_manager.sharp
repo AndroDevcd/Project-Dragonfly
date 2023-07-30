@@ -1,7 +1,8 @@
 mod ui.support;
 
 import (
-    common.*,
+    common,
+    common.gpio,
     std.io.*,
     main
 );
