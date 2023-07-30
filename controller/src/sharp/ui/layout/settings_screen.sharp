@@ -21,20 +21,21 @@ class settings_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .to_right_of(constants.resource.id.parent)
-            .set_margin_top(8)
+            .set_margin_top(14)
         );
-//        add_view(new text_view(constants.resource.id.time)
-//            .set_width(constants.view.MATCH_PARENT)
-//            .set_height(constants.view.WRAP_CONTENT)
-//            .to_start_of(constants.resource.id.parent)
-//            .set_gravity(constants.view.GRAVITY_CENTER)
-//            .set_margin_top(5)
-//        );
+        add_view(new text_view(constants.resource.id.settings_screen_title)
+            .set_width(constants.view.MATCH_PARENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_start_of(constants.resource.id.parent)
+            .set_gravity(constants.view.GRAVITY_CENTER)
+            .set_margin_top(5)
+        );
     }
 
     def on_create() {
         base->on_create();
-
+        title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
+        title.text = "Settings"
     }
 
     override def on_button_pressed(state: button_press_state) {

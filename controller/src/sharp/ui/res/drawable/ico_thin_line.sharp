@@ -8,19 +8,19 @@ import (
 
 ico_thin_line_bytes
  := new var[] {
-		I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I,
+		W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
 
-		I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I,
+		W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
 
-		I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I,
+		W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
 
-		I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I,
+		W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
 
-		I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I,
+		W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
 
-		I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I,
+		W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
 
-        I, I, I, I, I, I, I, W
+        W, W, W, W, W, W, W, W
  };
 
 ico_thin_line := new drawable(constants.resource.id.ico_thin_line, ico_thin_line_bytes, 128, 1);
