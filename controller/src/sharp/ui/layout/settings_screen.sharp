@@ -35,7 +35,7 @@ class settings_screen base fragment {
     def on_create() {
         base->on_create();
         title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
-        title.text = "Settings"
+        title.text = "Settings";
     }
 
     override def on_button_pressed(state: button_press_state) {
