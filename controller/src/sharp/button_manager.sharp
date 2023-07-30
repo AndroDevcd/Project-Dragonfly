@@ -69,7 +69,7 @@ def wait_for_release_or_dual_press(release_pin: var, secondary_button: var): boo
     }
 
     time_since := time.mills_time() - start_time; // press & hold functionality
-    intervals2 := (time_since / constants.PRESS_HOLD_INTERVAL;
+    intervals2 := time_since / constants.PRESS_HOLD_INTERVAL;
     println("time since: $time_since intervals: $intervals2");
     return 0;
 }
