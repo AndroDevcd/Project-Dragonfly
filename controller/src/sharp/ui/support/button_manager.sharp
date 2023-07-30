@@ -19,8 +19,8 @@ def setup_button_manager() {
           for(;;) {
             if(read_pin(common#constants.UP_BUTTON_PIN)) {
                 dual_press := wait_for_release_or_dual_press(
-                    constants.UP_BUTTON_PIN,
-                    constants.DOWN_BUTTON_PIN
+                    common#constants.UP_BUTTON_PIN,
+                    common#constants.DOWN_BUTTON_PIN
                 );
 
                 if(dual_press) {
@@ -32,8 +32,8 @@ def setup_button_manager() {
 
             if(read_pin(common#constants.DOWN_BUTTON_PIN)) {
                 dual_press := wait_for_release_or_dual_press(
-                    constants.DOWN_BUTTON_PIN,
-                    constants.UP_BUTTON_PIN
+                    common#constants.DOWN_BUTTON_PIN,
+                    common#constants.UP_BUTTON_PIN
                 );
 
                 if(dual_press) {
