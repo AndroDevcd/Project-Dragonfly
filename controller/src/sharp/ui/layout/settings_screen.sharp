@@ -17,7 +17,7 @@ class settings_screen base fragment {
     override def configure() {
         add_view(new image_view(constants.resource.id.ico_thin_line)
             .set_drawable(constants.resource.id.ico_thin_line)
-            .set_width(constants.view.WRAP_CONTENT)
+            .set_width(constants.view.MATCH_PARENT)
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .to_right_of(constants.resource.id.parent)
