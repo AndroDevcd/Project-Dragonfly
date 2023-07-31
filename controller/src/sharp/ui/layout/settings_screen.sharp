@@ -21,14 +21,23 @@ class settings_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .to_right_of(constants.resource.id.parent)
-            .set_margin_top(14)
+            .set_margin_top(12)
         );
         add_view(new text_view(constants.resource.id.settings_screen_title)
             .set_width(constants.view.MATCH_PARENT)
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .set_gravity(constants.view.GRAVITY_CENTER)
-            .set_margin_top(5)
+            .set_margin_top(2)
+        );
+        add_view(new image_view(constants.resource.id.ico_item_selector)
+            .set_drawable(constants.resource.id.ico_item_selector)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_start_of(constants.resource.id.parent)
+            .to_right_of(constants.resource.id.parent)
+            .to_bottom_of(constants.resource.id.ico_thin_line)
+            .set_margin_top(8)
         );
     }
 

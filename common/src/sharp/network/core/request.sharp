@@ -29,7 +29,6 @@ class request
         := device.get_signal_strength();
 
     private static def write(rdata: request_data): int {
-        //println('w');
         return device.send(rdata.to_string()!!);
     }
     
