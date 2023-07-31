@@ -36,7 +36,7 @@ class settings_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .to_bottom_of(constants.resource.id.ico_thin_line)
-            .set_margin_top(8)
+            .set_margin_top(20)
         );
     }
 
