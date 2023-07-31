@@ -3,7 +3,7 @@ mod preferences;
 import ( std.io );
 
 class shared_preference {
-    shared_preference(file_name : string) {
+    /*shared_preference(file_name : string) {
         self->name = file_name;
     }
 
@@ -94,5 +94,5 @@ class shared_preference {
             value = v;
             type = t;
         }
-    }
+    }*/
 }
