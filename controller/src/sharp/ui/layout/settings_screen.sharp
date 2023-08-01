@@ -73,7 +73,7 @@ class settings_screen base fragment {
         title.text = "Settings";
         settings_1.text = "Exit";
         settings_2.text = "Wifi Jammer";
-        settings_2.text = "Screen Brightness";
+        settings_3.text = "Screen Brightness";
     }
 
     override def on_button_pressed(state: button_press_state) {
