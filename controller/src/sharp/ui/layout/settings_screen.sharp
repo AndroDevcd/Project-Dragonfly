@@ -45,7 +45,7 @@ class settings_screen base fragment {
             .to_right_of(constants.resource.id.ico_item_selector)
             .set_gravity(constants.view.GRAVITY_LEFT)
             .set_margin_top(6)
-            .set_margin_left(6)
+            .set_margin_left(14)
         );
     }
 
