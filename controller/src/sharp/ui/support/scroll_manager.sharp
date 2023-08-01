@@ -11,6 +11,12 @@ class scroll_manager {
         self->wrap = wrap;
     }
 
+    def discard_views() {
+        pos = 0;
+        current_group = null;
+        groups = new list<scroll_group>();
+    }
+
     def add_view(v: view) {
         if(groups.empty()) {
             create_group(v);

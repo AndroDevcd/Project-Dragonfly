@@ -106,5 +106,6 @@ class settings_screen base fragment {
 
     override def on_destroy() {
        base->on_destroy();
+       manager.discard_views();
     }
 }
