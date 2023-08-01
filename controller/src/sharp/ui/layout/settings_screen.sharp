@@ -90,7 +90,7 @@ class settings_screen base fragment {
         settings_4.text = "Network Config";
 
         exit_option.set_on_click_listener({ v ->
-           container.current_frag.navigate(constants.layout.HOME, true);
+           ui.layout.config#container.current_frag.navigate(constants.layout.HOME, true);
         });
 
         manager.add_view(exit_option);
