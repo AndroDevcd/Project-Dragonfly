@@ -4,6 +4,7 @@ import ( ui.res );
 
 class image_view base view {
     img : drawable?;
+    res_id: var = -1;
 
     image_view(id: var) -> base(id) {}
 
@@ -16,12 +17,15 @@ class image_view base view {
     }
     
     def set_drawable(res_id: var) : image_view {
+        self->res_id = res_id;
         self->img = resources.get_drawable(res_id);
         transformed = false;
         return self;
     }
 
     override def draw() {
+        if(img == null && res_id != -1)
+            set_drawable(res_id);
         invalidate();
         
        if(visibility == constants.view.VISIBLE && img != null)
@@ -30,6 +34,7 @@ class image_view base view {
 
     override def on_destroy() {
         img = null;
+        res_id = -1;
         transformed = false;
     }
 }
