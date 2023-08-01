@@ -53,7 +53,7 @@ class fragment : lifecycle {
 
     def navigate(screen: var, finish: var) {
         if(finish)
-           on_destroy();
+           (self as lifecycle).on_destroy();
         container.navigate(screen);
     }
 
