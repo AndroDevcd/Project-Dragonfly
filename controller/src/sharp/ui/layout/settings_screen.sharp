@@ -52,7 +52,7 @@ class settings_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_left_of(constants.resource.id.ico_setting_item_1_title)
             .to_top_of(constants.resource.id.ico_setting_item_1_title)
-            .set_margin_bottom(1)
+            .set_margin_bottom(2)
             .set_margin_right(2)
         );
     }
@@ -61,8 +61,10 @@ class settings_screen base fragment {
         base->on_create();
         title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
         settings_1 := find_view_by_id(constants.resource.id.ico_setting_item_1_title) as text_view;
+        settings_2 := find_view_by_id(constants.resource.id.ico_setting_item_2_title) as text_view;
         title.text = "Settings";
         settings_1.text = "Wifi Jammer";
+        settings_2.text = "Screen Brightness";
     }
 
     override def on_button_pressed(state: button_press_state) {
