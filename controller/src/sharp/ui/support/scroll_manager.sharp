@@ -19,6 +19,7 @@ class scroll_manager {
 
     def add_view(v: view) {
         if(groups.empty()) {
+            println("groups empty!");
             create_group(v);
         } else {
             if(groups.last().has_space())
