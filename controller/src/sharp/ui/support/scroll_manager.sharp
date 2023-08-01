@@ -61,7 +61,7 @@ class scroll_manager {
     }
 
     private def navigate_down() {
-        if(pos == current_group!!.view_count()) {
+        if((pos + 1) == current_group!!.view_count()) {
             group_index := groups.indexof(current_group!!);
             if((group_index + 1) < groups.size()) {
                 current_group!!.show_views(false);
