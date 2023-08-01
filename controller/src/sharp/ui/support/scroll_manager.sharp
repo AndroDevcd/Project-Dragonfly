@@ -1,7 +1,7 @@
 mod ui.support;
 
 class scroll_manager {
-    private pos: int;
+    private pos: var;
     private groups := new list<scroll_group>();
     private current_group: scroll_group?;
     private selector: view;
@@ -108,7 +108,7 @@ class scroll_manager {
 
         protected static VIEW_GROUP_LIMIT := 3;
 
-        def view_count() := views.size();
+        def view_count() := views.size().value;
 
         def view_at(pos: int) := views[pos];
 
