@@ -1,7 +1,5 @@
 mod ui.support;
 
-import ( std.io.coroutines, main );
-
 class view {
     private view() {}
 
@@ -256,18 +254,8 @@ class view {
                visibility = constants.view.INVISIBLE;
             else
                visibility = constants.view.VISIBLE;
-            invalidate_refs();
+            owner.invalidate_refrences(id);
        }
-    }
-
-    def invalidate_refs() {
-        coroutine.builder()
-          .with_host(tman.main)
-          .with_args(new object[] { owner })
-            = { args: object[]  ->
-               frag := args[1] as fragment;
-               frag.invalidate_refrences(id);
-            };
     }
 
     def draw();

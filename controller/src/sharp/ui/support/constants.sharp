@@ -72,6 +72,7 @@ class constants {
             public static const settings_screen_title : var = 0x1b;
             public static const ico_item_selector : var = 0x1c;
             public static const ico_setting_item_1_title : var = 0x1d;
+            public static const ico_setting_item_2_title : var = 0x1e;
          }
     }
 
