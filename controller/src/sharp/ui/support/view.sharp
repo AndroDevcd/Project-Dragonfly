@@ -1,6 +1,6 @@
 mod ui.support;
 
-import ( std.io.coroutines );
+import ( std.io.coroutines, main );
 
 class view {
     private view() {}
