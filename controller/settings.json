@@ -7,7 +7,6 @@
      "src/cpp"
   ],
   "extern_lib": [
-     "../common",
-     "../../Sharp/lib/support/0.3.0/"
+     "../common"
   ]
 }
