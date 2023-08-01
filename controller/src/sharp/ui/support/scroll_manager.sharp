@@ -88,7 +88,7 @@ class scroll_manager {
         current_view := current_group!!.view_at(pos);
         selector
             .to_left_of(current_view.id)
-            .to_bottom_of(current_view.id)
+            .to_bottom_of(current_view.id);
     }
 
     private def has_view(v: view) {
@@ -117,7 +117,7 @@ class scroll_manager {
 
         def show_views(show: bool) {
             visible := show ? constants.view.VISIBLE : constants.view.INVISIBLE;
-            for(v in views) {
+            foreach(v in views) {
                 v.set_visibility(visible);
             }
         }
