@@ -1,13 +1,11 @@
 mod ui.support;
 
 class scroll_manager {
-    private pos: var;
+    private pos: int;
     private groups := new list<scroll_group>();
     private current_group: scroll_group?;
     private selector: view;
     private wrap := false;
-
-    protected static VIEW_GROUP_LIMIT := 3;
 
     def wrap_list(wrap: bool) {
         self->wrap = wrap;
@@ -106,6 +104,8 @@ class scroll_manager {
 
     class scroll_group {
         private views := new list<view>();
+
+        protected static VIEW_GROUP_LIMIT := 3;
 
         def view_count() := views.size();
 
