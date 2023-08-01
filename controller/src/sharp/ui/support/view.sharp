@@ -134,7 +134,7 @@ class view {
                    y = (v.y + v.transform_height().value) - transform_height().value;
 
                 if(v.margins != null) {
-                    y += v.margins.bottom;
+                    y -= v.margins.bottom;
                 }
             } else if(bottom_of == constants.resource.id.parent) {
                 if(top_of > constants.resource.id.none)
