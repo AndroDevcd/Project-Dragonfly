@@ -34,7 +34,6 @@ class image_view base view {
 
     override def on_destroy() {
         img = null;
-        res_id = -1;
         transformed = false;
     }
 }
