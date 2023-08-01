@@ -30,14 +30,6 @@ class settings_screen base fragment {
             .set_gravity(constants.view.GRAVITY_CENTER)
             .set_margin_top(2)
         );
-        add_view(new image_view(constants.resource.id.ico_item_selector)
-            .set_drawable(constants.resource.id.ico_item_selector)
-            .set_width(constants.view.WRAP_CONTENT)
-            .set_height(constants.view.WRAP_CONTENT)
-            .to_start_of(constants.resource.id.parent)
-            .below(constants.resource.id.ico_thin_line)
-            .set_margin_top(4)
-        );
         add_view(new text_view(constants.resource.id.ico_setting_item_1_title)
             .set_width(constants.view.MATCH_PARENT)
             .set_height(constants.view.WRAP_CONTENT)
@@ -46,6 +38,24 @@ class settings_screen base fragment {
             .set_gravity(constants.view.GRAVITY_LEFT)
             .set_margin_top(6)
             .set_margin_left(4)
+        );
+        add_view(new text_view(constants.resource.id.ico_setting_item_1_title)
+            .set_width(constants.view.MATCH_PARENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .below(constants.resource.id.ico_thin_line)
+            .set_gravity(constants.view.GRAVITY_LEFT)
+            .set_margin_top(6)
+            .set_margin_left(13 + 6)
+        );
+        add_view(new image_view(constants.resource.id.ico_item_selector)
+            .set_drawable(constants.resource.id.ico_item_selector)
+            .set_width(constants.view.WRAP_CONTENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_left_of(constants.resource.id.ico_setting_item_1_title)
+            .to_top_of(constants.resource.id.ico_setting_item_1_title)
+            .below(constants.resource.id.ico_thin_line)
+            .set_margin_top(2)
+            .set_margin_right(2)
         );
     }
 
