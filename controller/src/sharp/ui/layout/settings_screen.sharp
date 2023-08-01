@@ -36,7 +36,16 @@ class settings_screen base fragment {
             .set_height(constants.view.WRAP_CONTENT)
             .to_start_of(constants.resource.id.parent)
             .to_bottom_of(constants.resource.id.ico_thin_line)
-            .set_margin_top(20)
+            .set_margin_top(8)
+        add_view(new text_view(constants.resource.id.ico_setting_item_1_title)
+            .set_width(constants.view.MATCH_PARENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .to_bottom_of(constants.resource.id.ico_thin_line)
+            .to_right_of(constants.resource.id.ico_item_selector)
+            .set_gravity(constants.view.GRAVITY_LEFT)
+            .set_margin_top(6)
+            .set_margin_left(6);
+        );
         );
     }
 
