@@ -52,7 +52,9 @@ class settings_screen base fragment {
     override def on_create() {
         base->on_create();
         title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
+        settings_1 := find_view_by_id(constants.resource.id.ico_setting_item_1_title) as text_view;
         title.text = "Settings";
+        settings_1.text = "Wifi Jammer";
     }
 
     override def on_button_pressed(state: button_press_state) {
