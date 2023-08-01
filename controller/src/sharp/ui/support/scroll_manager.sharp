@@ -94,7 +94,7 @@ class scroll_manager {
     private def has_view(v: view) {
         foreach(group in groups) {
             if(group.has_view(v))
-                throw new ill_state_except("view: ${ view.id } already added to scroll manager!");
+                throw new ill_state_except("view: ${ v.id } already added to scroll manager!");
         }
     }
 
@@ -111,9 +111,9 @@ class scroll_manager {
 
         def view_at(pos: int) := views[pos];
 
-        def has_view(v: view) := view.indexof(v) != -1;
+        def has_view(v: view) := views.indexof(v) != -1;
 
-        def has_space() := view.size() < VIEW_GROUP_LIMIT;
+        def has_space() := views.size() < VIEW_GROUP_LIMIT;
 
         def show_views(show: bool) {
             visible := show ? constants.view.VISIBLE : constants.view.INVISIBLE;
@@ -123,7 +123,7 @@ class scroll_manager {
         }
 
         def add_view(v: view) {
-            if(view.size() > VIEW_GROUP_LIMIT)
+            if(views.size() > VIEW_GROUP_LIMIT)
                 throw new ill_state_except("adding more than $VIEW_GROUP_LIMIT views to single view group!");
             views.add(v);
         }
