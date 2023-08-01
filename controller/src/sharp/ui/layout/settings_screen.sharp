@@ -89,9 +89,8 @@ class settings_screen base fragment {
         settings_3.text = "Screen Brightness";
         settings_4.text = "Network Config";
 
-        frag := self;
         exit_option.set_on_click_listener({ v ->
-           frag.navigate(constants.layout.HOME, true);
+           container.current_frag.navigate(constants.layout.HOME, true);
         });
 
         manager.add_view(exit_option);
