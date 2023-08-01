@@ -53,6 +53,9 @@ class view {
             x = 0;
             y = 0;
 
+            if(visibility == constants.view.invisible())
+                return;
+
             v : view;
             if(left_of > constants.resource.id.parent) {
                 v = owner.find_view_by_id(left_of)!!;
