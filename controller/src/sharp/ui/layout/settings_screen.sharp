@@ -46,6 +46,14 @@ class settings_screen base fragment {
             .set_margin_top(6)
             .set_margin_left(13 + 6)
         );
+        add_view(new text_view(constants.resource.id.ico_setting_item_3_title)
+            .set_width(constants.view.MATCH_PARENT)
+            .set_height(constants.view.WRAP_CONTENT)
+            .below(constants.resource.id.ico_setting_item_2_title)
+            .set_gravity(constants.view.GRAVITY_LEFT)
+            .set_margin_top(6)
+            .set_margin_left(13 + 6)
+        );
         add_view(new image_view(constants.resource.id.ico_item_selector)
             .set_drawable(constants.resource.id.ico_item_selector)
             .set_width(constants.view.WRAP_CONTENT)
@@ -61,8 +69,10 @@ class settings_screen base fragment {
         title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
         settings_1 := find_view_by_id(constants.resource.id.ico_setting_item_1_title) as text_view;
         settings_2 := find_view_by_id(constants.resource.id.ico_setting_item_2_title) as text_view;
+        settings_3 := find_view_by_id(constants.resource.id.ico_setting_item_3_title) as text_view;
         title.text = "Settings";
-        settings_1.text = "Wifi Jammer";
+        settings_1.text = "Exit";
+        settings_2.text = "Wifi Jammer";
         settings_2.text = "Screen Brightness";
     }
 
