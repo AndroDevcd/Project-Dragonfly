@@ -74,6 +74,7 @@ class constants {
             public static const ico_setting_item_1_title : var = 0x1d;
             public static const ico_setting_item_2_title : var = 0x1e;
             public static const ico_setting_item_3_title : var = 0x1f;
+            public static const ico_setting_item_4_title : var = 0x20;
          }
     }
 

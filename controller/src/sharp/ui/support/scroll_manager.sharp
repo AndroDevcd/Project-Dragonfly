@@ -1,0 +1,131 @@
+mod ui.support;
+
+class scroll_manager {
+    private pos: var;
+    private groups := new list<scroll_group>();
+    private current_group: scroll_group?;
+    private selector: view;
+    private wrap := false;
+
+    protected static VIEW_GROUP_LIMIT := 3;
+
+    def wrap_list(wrap: bool) {
+        self->wrap = wrap;
+    }
+
+    def add_view(v: view) {
+        if(groups.empty()) {
+            create_group(v);
+        } else {
+            if(groups.last().has_space())
+                groups.last().add_view(v);
+            else create_group(v);
+        }
+    }
+
+    // start scroll manager
+    def set_cursor(selector: view) {
+        if(groups.empty())
+            throw new ill_state_except("no views added to scroll manager!");
+        self->selector = selector;
+        current_group = groups.first();
+        pos = 0;
+
+        foreach(group in groups) {
+            group.show_views(false);
+        }
+
+        current_group!!.show_views(true);
+        set_position();
+    }
+
+    def handle_button_press(state: button_press_state) {
+        when (state) {
+            button_up_pressed -> navigate_up();
+            button_down_pressed -> navigate_down();
+            select_item_pressed -> select_item();
+        }
+    }
+
+    private def navigate_up() {
+        if(pos == 0) {
+            if(current_group != groups.first()) {
+                current_group!!.show_views(false);
+                current_group = groups[groups.indexof(current_group!!) - 1];
+                current_group!!.show_views(true);
+                pos = current_group!!.view_count() - 1;
+                set_position();
+            }
+        } else {
+            pos--;
+            set_position();
+        }
+    }
+
+    private def navigate_down() {
+        if(pos == current_group!!.view_count()) {
+            group_index := groups.indexof(current_group!!);
+            if((group_index + 1) < groups.size()) {
+                current_group!!.show_views(false);
+                current_group = groups[group_index + 1];
+                current_group!!.show_views(true);
+                pos = 0;
+                set_position();
+            } else if(wrap) {
+                set_cursor(selector);
+            }
+        } else {
+            pos++;
+            set_position();
+        }
+    }
+
+    private def select_item() {
+
+    }
+
+    private def set_position() {
+        current_view := current_group!!.view_at(pos);
+        selector
+            .to_left_of(current_view.id)
+            .to_bottom_of(current_view.id)
+    }
+
+    private def has_view(v: view) {
+        foreach(group in groups) {
+            if(group.has_view(v))
+                throw new ill_state_except("view: ${ view.id } already added to scroll manager!");
+        }
+    }
+
+    private def create_group(v: view) {
+        group := new scroll_group();
+        group.add_view(v);
+        groups.add(group);
+    }
+
+    class scroll_group {
+        private views := new list<view>();
+
+        def view_count() := views.size();
+
+        def view_at(pos: int) := views[pos];
+
+        def has_view(v: view) := view.indexof(v) != -1;
+
+        def has_space() := view.size() < VIEW_GROUP_LIMIT;
+
+        def show_views(show: bool) {
+            visible := show ? constants.view.VISIBLE : constants.view.INVISIBLE;
+            for(v in views) {
+                v.set_visibility(visible);
+            }
+        }
+
+        def add_view(v: view) {
+            if(view.size() > VIEW_GROUP_LIMIT)
+                throw new ill_state_except("adding more than $VIEW_GROUP_LIMIT views to single view group!");
+            views.add(v);
+        }
+    }
+}
