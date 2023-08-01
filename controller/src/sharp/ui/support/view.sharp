@@ -1,5 +1,7 @@
 mod ui.support;
 
+import ( std.io.coroutine );
+
 class view {
     private view() {}
 
