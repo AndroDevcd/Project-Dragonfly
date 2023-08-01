@@ -78,18 +78,23 @@ class settings_screen base fragment {
     override def on_create() {
         base->on_create();
         title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
-        settings_1 := find_view_by_id(constants.resource.id.ico_setting_item_1_title) as text_view;
+        exit_option := find_view_by_id(constants.resource.id.ico_setting_item_1_title) as text_view;
         settings_2 := find_view_by_id(constants.resource.id.ico_setting_item_2_title) as text_view;
         settings_3 := find_view_by_id(constants.resource.id.ico_setting_item_3_title) as text_view;
         settings_4 := find_view_by_id(constants.resource.id.ico_setting_item_4_title) as text_view;
         selector := find_view_by_id(constants.resource.id.ico_item_selector) as image_view;
         title.text = "Settings";
-        settings_1.text = "Exit";
+        exit_option.text = "Exit";
         settings_2.text = "Wifi Jammer";
         settings_3.text = "Screen Brightness";
         settings_4.text = "Network Config";
 
-        manager.add_view(settings_1);
+        frag := self;
+        exit_option.set_on_click_listener({ v ->
+           frag.navigate(constants.layout.HOME, true);
+        });
+
+        manager.add_view(exit_option);
         manager.add_view(settings_2);
         manager.add_view(settings_3);
         manager.add_view(settings_4);

@@ -27,6 +27,15 @@ class view {
     transformed : var;
     protected container : window;
     protected owner : fragment;
+    private listener: click_listener?;
+
+    class click_listener {
+        on_click: (v: view)();
+
+        click_listener(callback: (v: view)()) {
+            on_click = callback;
+        }
+    }
 
     def on_destroy();
 
@@ -34,6 +43,10 @@ class view {
         width = size;
         transformed = false;
         return self;
+    }
+
+    def set_on_click_listener(callback: (v: view)()) {
+        listener = new click_listener(callback);
     }
 
     def get_owner() := owner;
@@ -359,5 +372,9 @@ class view {
         margins.bottom = size;
         transformed = false;
         return self;
+    }
+
+    def on_click() {
+        listener?.on_click(self);
     }
 }

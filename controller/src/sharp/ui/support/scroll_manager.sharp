@@ -61,7 +61,6 @@ class scroll_manager {
     }
 
     private def navigate_down() {
-        println("${ (pos + 1) == current_group!!.view_count() } - ${ (pos + 1) } - ${ current_group!!.view_count() }");
         if((pos + 1) == current_group!!.view_count()) {
             group_index := groups.indexof(current_group!!);
             if((group_index + 1) < groups.size()) {
@@ -80,7 +79,8 @@ class scroll_manager {
     }
 
     private def select_item() {
-
+        current_view := current_group!!.view_at(pos);
+        current_view.on_click();
     }
 
     private def set_position() {
