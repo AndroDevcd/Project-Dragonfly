@@ -254,8 +254,18 @@ class view {
                visibility = constants.view.INVISIBLE;
             else
                visibility = constants.view.VISIBLE;
-            owner.invalidate_refrences(id);
+            invalidate_refs();
        }
+    }
+
+    def invalidate_refs() {
+        coroutine.builder()
+          .with_host(tman.main)
+          .with_args(new object[] { owner })
+            = { args: object[]  ->
+               frag := args[1] as fragment;
+               frag.invalidate_refrences(id);
+            };
     }
 
     def draw();
