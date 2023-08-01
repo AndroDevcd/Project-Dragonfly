@@ -11,7 +11,7 @@ tman : thread_manager;
 
 def main(args: string[])
 {
-   load_library("bin/dragonfly");
+   load_library("/bin/dragonfly");
    common.gpio#setup();
    network.setup();
    constants.NETWORK_STATE = constants.SERVER;
