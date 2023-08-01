@@ -51,8 +51,8 @@ class settings_screen base fragment {
             .set_width(constants.view.WRAP_CONTENT)
             .set_height(constants.view.WRAP_CONTENT)
             .to_left_of(constants.resource.id.ico_setting_item_1_title)
-            .to_top_of(constants.resource.id.ico_setting_item_1_title)
-            .set_margin_bottom(6)
+            .to_bottom_of(constants.resource.id.ico_setting_item_1_title)
+            .set_margin_bottom(4)
             .set_margin_right(2)
         );
     }
