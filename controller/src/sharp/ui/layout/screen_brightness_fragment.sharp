@@ -36,7 +36,7 @@ class screen_brightness base fragment {
             .to_bottom_of(constants.resource.id.parent)
             .set_gravity(constants.view.GRAVITY_LEFT)
             .set_margin_left(12 + 6)
-            .set_margin_bottom(12)
+//            .set_margin_bottom(12)
         );
         add_view(new text_view(constants.resource.id.ico_setting_item_2_title)
             .set_width(constants.view.MATCH_PARENT)
@@ -44,7 +44,7 @@ class screen_brightness base fragment {
             .to_bottom_of(constants.resource.id.parent)
             .to_right_of(constants.resource.id.parent)
             .set_gravity(constants.view.GRAVITY_LEFT)
-            .set_margin_bottom(12)
+//            .set_margin_bottom(12)
             .set_margin_right(12)
         );
         add_view(new image_view(constants.resource.id.ico_item_selector)
