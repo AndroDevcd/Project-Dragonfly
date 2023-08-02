@@ -48,6 +48,10 @@ class window {
         launcher = frag;
     }
 
+    def dim_screen(dim: bool) {
+        device.dim_display(dim.value);
+    }
+
     protected def draw_text(tv: text_view) {
         device.draw_word(tv.x, tv.y, tv.text_size.value as var, tv.width, tv.transform_width().value as var, tv.text.data);
     }

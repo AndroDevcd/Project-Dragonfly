@@ -70,10 +70,12 @@ class screen_brightness base fragment {
         dim.text = "dim";
 
         normal.set_on_click_listener({ v ->
+           dim_screen(false);
            ui.layout.config#container.current_frag.navigate(constants.layout.SETTINGS, true);
         });
 
         dim.set_on_click_listener({ v ->
+           dim_screen(true);
            ui.layout.config#container.current_frag.navigate(constants.layout.SETTINGS, true);
         });
 

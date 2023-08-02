@@ -51,6 +51,10 @@ class fragment : lifecycle {
         }
     }
 
+    def dim_screen(dim: bool) {
+        container.dim_screen(dim);
+    }
+
     def navigate(screen: var, finish: var) {
         if(finish)
            (self as lifecycle).on_destroy();
