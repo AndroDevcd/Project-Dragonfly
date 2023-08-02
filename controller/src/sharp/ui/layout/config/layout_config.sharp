@@ -17,6 +17,7 @@ def configure_layout() {
     container.add_fragment(new home_screen(container, constants.layout.HOME));
     container.add_fragment(new splash_screen(container, constants.layout.SPLASH));
     container.add_fragment(new settings_screen(container, constants.layout.SETTINGS));
+    container.add_fragment(new screen_brightness(container, constants.layout.SCREEN_BRIGHTNESS));
 
     // set the starting page here
     container.starter_fragment(constants.layout.SPLASH);

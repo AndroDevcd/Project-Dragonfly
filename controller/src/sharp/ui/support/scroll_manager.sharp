@@ -19,7 +19,6 @@ class scroll_manager {
 
     def add_view(v: view) {
         if(groups.empty()) {
-            println("groups empty!");
             create_group(v);
         } else {
             if(groups.last().has_space())
@@ -45,10 +44,12 @@ class scroll_manager {
     }
 
     def handle_button_press(state: button_press_state) {
-        when (state) {
-            button_up_pressed -> navigate_up();
-            button_down_pressed -> navigate_down();
-            select_item_pressed -> select_item();
+        if(current_group != null) {
+            when (state) {
+                button_up_pressed -> navigate_up();
+                button_down_pressed -> navigate_down();
+                select_item_pressed -> select_item();
+            }
         }
     }
 

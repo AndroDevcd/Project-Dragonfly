@@ -32,6 +32,7 @@ class constants {
         public static const HOME : var = 0;
         public static const SPLASH : var = 1;
         public static const SETTINGS : var = 2;
+        public static const SCREEN_BRIGHTNESS : var = 3;
     }
 
     class margins {

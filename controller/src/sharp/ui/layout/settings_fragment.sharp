@@ -80,22 +80,26 @@ class settings_screen base fragment {
         title := find_view_by_id(constants.resource.id.settings_screen_title) as text_view;
         exit_option := find_view_by_id(constants.resource.id.ico_setting_item_1_title) as text_view;
         settings_2 := find_view_by_id(constants.resource.id.ico_setting_item_2_title) as text_view;
-        settings_3 := find_view_by_id(constants.resource.id.ico_setting_item_3_title) as text_view;
+        screen_brightness_option := find_view_by_id(constants.resource.id.ico_setting_item_3_title) as text_view;
         settings_4 := find_view_by_id(constants.resource.id.ico_setting_item_4_title) as text_view;
         selector := find_view_by_id(constants.resource.id.ico_item_selector) as image_view;
         title.text = "Settings";
         exit_option.text = "Exit";
         settings_2.text = "Wifi Jammer";
-        settings_3.text = "Screen Brightness";
+        screen_brightness_option.text = "Screen Brightness";
         settings_4.text = "Network Config";
 
         exit_option.set_on_click_listener({ v ->
            ui.layout.config#container.current_frag.navigate(constants.layout.HOME, true);
         });
 
+        screen_brightness_option.set_on_click_listener({ v ->
+           ui.layout.config#container.current_frag.navigate(constants.layout.SCREEN_BRIGHTNESS, true);
+        });
+
         manager.add_view(exit_option);
         manager.add_view(settings_2);
-        manager.add_view(settings_3);
+        manager.add_view(screen_brightness_option);
         manager.add_view(settings_4);
         manager.set_cursor(selector);
     }
