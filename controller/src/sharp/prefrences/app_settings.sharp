@@ -6,7 +6,7 @@ class app_settings {
 
     static def load(): app_settings {
         settings_file := new file("settings.prefs");
-        data := prefs.read();
+        data := settings_file.read();
 
         if(data.empty()) return new app_settings();
         else return deserialize(data) as app_settings;
