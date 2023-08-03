@@ -20,16 +20,16 @@ class app_settings {
     dim_screen: bool;
         set value -> {
             dim_screen = value;
-            save();
+            save(self);
         }
     transmission_lvl: int;
         set value -> {
             transmission_lvl = value;
-            save();
+            save(self);
         }
     transmission_rate: int;
         set value -> {
             transmission_rate = value;
-            save();
+            save(self);
         }
 }
