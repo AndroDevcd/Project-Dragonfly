@@ -1,0 +1,35 @@
+mod preferences;
+
+import ( std.io, std.export );
+
+class app_settings {
+
+    static def load(): app_settings {
+        settings_file := new file("settings.prefs");
+        data := prefs.read();
+
+        if(data.empty()) return new app_settings();
+        else return deserialize(data) as app_settings;
+    }
+
+    private static def save() {
+        settings_file := new file("settings.prefs");
+        settings_file.write(serialize(self));
+    }
+
+    dim_screen: bool;
+        set value -> {
+            dim_screen = value;
+            save();
+        }
+    transmission_lvl: int;
+        set value -> {
+            transmission_lvl = value;
+            save();
+        }
+    transmission_rate: int;
+        set value -> {
+            transmission_rate = value;
+            save();
+        }
+}

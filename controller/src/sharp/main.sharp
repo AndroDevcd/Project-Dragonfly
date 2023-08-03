@@ -8,6 +8,7 @@ import (
 )
 
 tman : thread_manager;
+settings: app_settings;
 
 def main(args: string[])
 {
@@ -17,6 +18,7 @@ def main(args: string[])
    constants.NETWORK_STATE = constants.SERVER;
    tman = new thread_manager(thread.current());
    tman.start_threads();
+   settings = app_settings.load();
 
    setup_conn_tracker();
    setup_button_manager();
