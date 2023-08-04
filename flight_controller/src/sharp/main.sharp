@@ -1,25 +1,27 @@
 mod main;
 
-import std.io;
-import platform;
-import device;
-import common.network;
-import common;
-import common.network.data.response;
-import common.gpio;
+import (
+    std.io,
+    platform,
+    device,
+    common.network,
+    common,
+    common.network.data.response,
+    common.gpio
+);
 
 def main(args: string[])
 {
-   load_library("bin/dragonfly");
+   load_library("/bin/dragonfly");
    constants.NETWORK_STATE = constants.CLIENT;
 
    common.gpio#setup();
    requests := 0;
-past := utc_mills_time();
+   past := utc_mills_time();
    //setup_hc_sr04();
    for(;;) {
       response := network.listen();
-      println("got ${response.command}");
+      println("got ${ response.command }");
       requests++;
       when(response.command) {
          constants.strings.CHANGE_MODE -> {
@@ -42,6 +44,6 @@ past := utc_mills_time();
         past = utc_mills_time();
         println("requests: $requests");
         requests = 0;
-       }
+      }
    }
 }

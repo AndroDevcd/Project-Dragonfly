@@ -1,0 +1,12 @@
+{
+  "name": "flight_controller",
+  "version": "1.0",
+  "output": "flight_controller",
+  "ignore_folders": [
+     "build",
+     "device"
+  ],
+  "extern_lib": [
+     "../common"
+  ]
+}
