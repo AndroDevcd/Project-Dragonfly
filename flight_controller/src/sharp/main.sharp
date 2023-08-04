@@ -1,9 +1,8 @@
 mod main;
 
 import (
-    std.io,
+    std.*,
     platform,
-    device,
     common.network,
     common,
     common.network.data.response,
@@ -17,20 +16,20 @@ def main(args: string[])
 
    common.gpio#setup();
    requests := 0;
-   past := utc_mills_time();
+   past := time.mills_time();
    //setup_hc_sr04();
    for(;;) {
       response := network.listen();
-      println("got ${ response.command }");
+      println("got ${ response!!.command }");
       requests++;
-      when(response.command) {
+      when(response!!.command) {
          constants.strings.CHANGE_MODE -> {
             network.send_acknowledge();
          }
          constants.strings.JAM -> {
             network.send_acknowledge();
             println("jamming...\n");
-            network.jam(int.parse(response.data.at(constants.strings.CHANNEL)));
+            network.jam(int.parse(response!!.data.at(constants.strings.CHANNEL)));
          }
          constants.strings.FLIGHT_DATA -> {
             network.post_flight_data(new flight_data_response(requests % 4, requests % 999, requests % 999));
@@ -40,8 +39,8 @@ def main(args: string[])
          }
       }
 
-      if((utc_mills_time() - past) > 1000) {
-        past = utc_mills_time();
+      if((time.mills_time() - past) > 1000) {
+        past = time.mills_time();
         println("requests: $requests");
         requests = 0;
       }
