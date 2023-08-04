@@ -213,6 +213,7 @@ scope_begin(common_network_driver)
 				goto retry;
 			}
 		} else {
+            cout << "got data" << endl;
 			radio.read(&response, TX_PACKET_WIDTH);
 		}
 		
