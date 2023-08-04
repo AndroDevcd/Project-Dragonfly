@@ -111,6 +111,7 @@ scope_begin(common_network_driver)
             radio.openWritingPipe(address);
             address[0] = RX_ARRD_ID;
             radio.openReadingPipe(1, address);
+            radio.setChannel(5);
 		}
 
         radio.stopListening();
@@ -210,6 +211,7 @@ scope_begin(common_network_driver)
 			else {
 				timeout = false;
                 delayMicroseconds (1000);
+                started_waiting_at = micros();
 				goto retry;
 			}
 		} else {
