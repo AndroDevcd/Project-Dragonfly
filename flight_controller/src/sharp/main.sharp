@@ -29,7 +29,7 @@ def main(args: string[])
          constants.strings.JAM -> {
             network.send_acknowledge();
             println("jamming...\n");
-            network.jam(int.parse(response!!.data.at(constants.strings.CHANNEL)));
+            network.jam(int.parse(response!!.data.at(constants.strings.CHANNEL)!!));
          }
          constants.strings.FLIGHT_DATA -> {
             network.post_flight_data(new flight_data_response(requests % 4, requests % 999, requests % 999));

@@ -4,11 +4,11 @@ import ( common.network.core );
 
 class flight_data_response
 {
-    flight_data_response(bat_lvl: var, altitude: var, speed: var)
+    flight_data_response(bat_lvl: int, altitude: int, speed: int)
     {
-        self->bat_lvl = bat_lvl;
-        self->altitude = altitude;
-        self->speed = speed;
+        self->bat_lvl = bat_lvl.value;
+        self->altitude = altitude.value;
+        self->speed = speed.value;
     } 
 
     bat_lvl: var;
