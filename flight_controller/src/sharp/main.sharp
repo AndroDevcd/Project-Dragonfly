@@ -15,6 +15,7 @@ def main(args: string[])
    constants.NETWORK_STATE = constants.CLIENT;
 
    common.gpio#setup();
+   network.setup();
    requests := 0;
    past := time.mills_time();
    //setup_hc_sr04();
