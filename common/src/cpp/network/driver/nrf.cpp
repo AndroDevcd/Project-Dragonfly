@@ -111,7 +111,6 @@ scope_begin(common_network_driver)
             radio.openWritingPipe(address);
             address[0] = RX_ARRD_ID;
             radio.openReadingPipe(1, address);
-            radio.setChannel(5);
 		}
 
         radio.stopListening();
@@ -379,7 +378,7 @@ scope_begin(common_network_driver)
 				pdata.data[j] = data[pos++];
 			}
 
-			bool ok = radio.write(pdata.data,TX_PACKET_WIDTH);
+			bool ok = radio.write(pdata.data,sizeof(uint8_t) * TX_PACKET_WIDTH);
 
 			// track how many packets sent over the network to track cell signal
 			packetSuccess[packetsSent++ % TRACKED_PACKETS] = ok;
