@@ -51,6 +51,7 @@ RF24 radio(22, 0);
 scope_begin(common_network_driver)
 
     void set_transmission_lvl(var level) {
+        cout << "set_transmission_lvl()" << endl;
         switch((long)level) {
             case 0:
             case 1:
@@ -66,6 +67,7 @@ scope_begin(common_network_driver)
     }
 
     void set_transmission_rate(var level) {
+        cout << "set_transmission_rate()" << endl;
         switch((long)level) {
             case 0:
                 radio.setDataRate(RF24_250KBPS);
@@ -85,6 +87,7 @@ scope_begin(common_network_driver)
     }
 
     void set_retry_count(var delay, var count) {
+        cout << "set_retry_count()" << endl;
         radio.setRetries((uint8_t)delay, (uint8_t)count % 16);
         TIMEOUT_US = (250 * (int)delay) * (int)count;
         retryCount = (uint8_t)count % 16;
@@ -132,14 +135,17 @@ scope_begin(common_network_driver)
 	}
 	
 	void dump_details() {
-		radio.printPrettyDetails();
+        cout << "dump_details()" << endl;
+		radio.printDetails();
 	}
 	
 	void power_down(SharpObject instance) {
+        cout << "power_down()" << endl;
 		radio.powerDown();
 	}
 
 	SharpObject get_network_quality() {
+        cout << "get_network_quality()" << endl;
         LocalVariable quality = create_local_variable();
         internal::new_array(128, TYPE_VAR);
         check_for_err();
@@ -186,6 +192,7 @@ scope_begin(common_network_driver)
 	
 	SharpObject get_signal_strength()
 	{
+        cout << "get_signal_strength()" << endl;
 		var signalStrength;
 		
 		if(!trackingFilled) {
@@ -292,6 +299,7 @@ scope_begin(common_network_driver)
 	}
 	
 	void jam(var wifiChannel) {
+        cout << "jam()" << endl;
 		int channel = (int)wifiChannel % 20;
 		long past = micros();
 		int oldChannel = radio.getChannel();
@@ -324,6 +332,7 @@ scope_begin(common_network_driver)
 	}
 	
 	SharpObject read() {
+        cout << "read()" << endl;
         radio.startListening();
 		
 		if(!waitforResponse(true)) {
@@ -339,6 +348,7 @@ scope_begin(common_network_driver)
 	}
 	
 	SharpObject listen() {
+        cout << "listen()" << endl;
         radio.startListening();
 		
 		waitforResponse(false);
@@ -346,6 +356,7 @@ scope_begin(common_network_driver)
 	}
 	
 	void send(SharpObject data8) {
+        cout << "send()" << endl;
 		string data;
         string_from(data, data8);
         last_error = 0;
@@ -403,6 +414,7 @@ scope_begin(common_network_driver)
 	}
 
 	SharpObject get_last_error() {
+        cout << "get_last_error()" << endl;
         return create_new_primitive_wrapper("std#int", last_error, std__int::_int2);;
     }
 scope_end()
