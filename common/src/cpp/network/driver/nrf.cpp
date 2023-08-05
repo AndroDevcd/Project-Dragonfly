@@ -324,19 +324,20 @@ scope_begin(common_network_driver)
 	}
 	
 	SharpObject read() {
-//        cout << "read()" << endl;
-//        radio.startListening();
-//
-//		if(!waitforResponse(true)) {
-//            last_error = 1;
-//			radio.stopListening();
+        cout << "read()" << endl;
+        radio.startListening();
 
+		if(!waitforResponse(true)) {
+            last_error = 1;
+			radio.stopListening();
+
+            dump_details();
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
             return data_response.obj;
-//		}
-//
-//        return process_packets();
+		}
+
+        return process_packets();
 	}
 	
 	SharpObject listen() {
