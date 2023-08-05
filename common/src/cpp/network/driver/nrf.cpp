@@ -385,8 +385,10 @@ scope_begin(common_network_driver)
 				pdata.data[j] = data[pos++];
 			}
 
+            cout << "7" << endl;
 			bool ok = radio.write(pdata.data,TX_PACKET_WIDTH);
 
+            cout << "8" << endl;
 			// track how many packets sent over the network to track cell signal
 			packetSuccess[packetsSent++ % TRACKED_PACKETS] = ok;
 			if(!trackingFilled && packetsSent >= TRACKED_PACKETS) { trackingFilled = true; }
