@@ -38,7 +38,7 @@ int last_error = 0;
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+a
 extern unsigned int micros (void);
 
 #ifdef __cplusplus
@@ -49,6 +49,12 @@ extern unsigned int micros (void);
 RF24 radio(22, 0);
 
 scope_begin(common_network_driver)
+
+    int64_t time_ms() {
+        return std::chrono::duration_cast<std::chrono::microseconds>
+                (std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+    ]
+}
 
     void set_transmission_lvl(var level) {
         cout << "set_transmission_lvl()" << endl;
@@ -210,30 +216,21 @@ scope_begin(common_network_driver)
         return create_new_primitive_wrapper("std#int", signalStrength, std__int::_int2);
 	}
 	
-	bool waitforResponse(bool withTimeout) {
-		// Wait here until we get a response, or timeout 
-		retry:
-        unsigned long started_waiting_at = micros();
-        bool timeout = false;
+	bool waitforResponse(bool timeout) {
+		// Wait here until we get a response, or timeout
+        unsigned long long started_waiting_at = time_ms();
 		while (!radio.available() && !timeout) {
-			if (micros() - started_waiting_at > TIMEOUT_US) {
-				timeout = true;
+			if ((time_ms() - started_waiting_at) > TIMEOUT_US) {
+				if(timeout) return false;
+                else {
+                    delayMicroseconds (1000);
+                    started_waiting_at = time_ms();
+                }
 			}
 		}
-		
-		if (timeout) {
-			if(withTimeout) return false;
-			else {
-				timeout = false;
-                delayMicroseconds (1000);
-                started_waiting_at = micros();
-				goto retry;
-			}
-		} else {
-            cout << "got data" << endl;
-			radio.read(&response, TX_PACKET_WIDTH);
-		}
-		
+
+        cout << "got data" << endl;
+        radio.read(&response, TX_PACKET_WIDTH);
 		return true;
 	}
 	
