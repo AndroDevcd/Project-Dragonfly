@@ -342,7 +342,7 @@ scope_begin(common_network_driver)
         string_from(data, data8);
         last_error = 0;
 
-        radio.stopListening();
+//        radio.stopListening();
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
 			packetSize = 1;
