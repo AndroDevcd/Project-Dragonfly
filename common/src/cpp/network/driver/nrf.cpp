@@ -100,7 +100,6 @@ scope_begin(common_network_driver)
 		set_transmission_lvl(trnsLvl);
 		set_transmission_rate(rate);
 		set_retry_count(delay, retryCount);
-//        radio.enableDynamicPayloads();
 
 		if((int)isClient) {
             address[0] = RX_ARRD_ID;
@@ -115,6 +114,11 @@ scope_begin(common_network_driver)
 		}
 
         radio.stopListening();
+
+        cout << "test write" << endl;
+        const char text[] = "Hello World";
+        radio.write(&text, strlen(text));
+        cout << "test end" << endl;
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
 	}
 	
