@@ -115,11 +115,6 @@ scope_begin(common_network_driver)
 		}
 
         radio.stopListening();
-
-        cout << "test write" << endl;
-        const char text[] = "Hello World";
-        radio.write(&text, sizeof(text));
-        cout << "test end" << endl;
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
 	}
 	
@@ -342,7 +337,7 @@ scope_begin(common_network_driver)
         string_from(data, data8);
         last_error = 0;
 
-//        radio.stopListening();
+        radio.stopListening();
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
 			packetSize = 1;
