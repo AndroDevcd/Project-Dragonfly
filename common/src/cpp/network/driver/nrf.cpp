@@ -126,7 +126,9 @@ scope_begin(common_network_driver)
         pdata.data[1] = 'i';
         radio.write(pdata.data, TX_PACKET_WIDTH);
         radio.stopListening();
-        radio.write(pdata.data, TX_PACKET_WIDTH);
+        for(int i = 0; i < 1000; i++) {
+            radio.write(pdata.data, TX_PACKET_WIDTH);
+        }
 	}
 	
 	void dump_details() {
