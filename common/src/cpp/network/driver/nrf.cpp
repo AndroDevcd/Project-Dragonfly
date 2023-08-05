@@ -38,7 +38,7 @@ int last_error = 0;
 #ifdef __cplusplus
 extern "C" {
 #endif
-a
+
 extern unsigned int micros (void);
 
 #ifdef __cplusplus
@@ -53,8 +53,7 @@ scope_begin(common_network_driver)
     int64_t time_ms() {
         return std::chrono::duration_cast<std::chrono::microseconds>
                 (std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-    ]
-}
+    }
 
     void set_transmission_lvl(var level) {
         cout << "set_transmission_lvl()" << endl;
