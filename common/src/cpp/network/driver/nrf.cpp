@@ -133,10 +133,6 @@ scope_begin(common_network_driver)
         pdata.data[0] = 'H';
         pdata.data[1] = 'i';
         radio.write(pdata.data, TX_PACKET_WIDTH);
-        radio.stopListening();
-        for(int i = 0; i < 1000; i++) {
-            radio.write(pdata.data, TX_PACKET_WIDTH);
-        }
 	}
 	
 	void dump_details() {
@@ -218,7 +214,7 @@ scope_begin(common_network_driver)
 	bool waitforResponse(bool timeout) {
 		// Wait here until we get a response, or timeout
         unsigned long long started_waiting_at = time_ms();
-		while (!radio.available() && !timeout) {
+		while (!radio.available()) {
 			if ((time_ms() - started_waiting_at) > TIMEOUT_US) {
 				if(timeout) return false;
                 else {
@@ -394,10 +390,7 @@ scope_begin(common_network_driver)
 				pdata.data[j] = data[pos++];
 			}
 
-            cout << "7" << endl;
 			bool ok = radio.write(pdata.data,TX_PACKET_WIDTH);
-
-            cout << "8" << endl;
 			// track how many packets sent over the network to track cell signal
 			packetSuccess[packetsSent++ % TRACKED_PACKETS] = ok;
 			if(!trackingFilled && packetsSent >= TRACKED_PACKETS) { trackingFilled = true; }
