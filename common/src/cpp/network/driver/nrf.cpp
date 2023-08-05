@@ -117,9 +117,14 @@ scope_begin(common_network_driver)
 
         cout << "test write" << endl;
         const char text[] = "Hello World";
+        const char text2[] = "Hello World2";
         radio.write(&text, strlen(text));
+        radio.write(&text2, strlen(text2));
         cout << "test end" << endl;
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
+        pdata.data[0] = 'H';
+        pdata.data[1] = 'i';
+        radio.write(pdata.data, TX_PACKET_WIDTH);
 	}
 	
 	void dump_details() {
