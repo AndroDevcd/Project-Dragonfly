@@ -100,7 +100,7 @@ scope_begin(common_network_driver)
 		set_transmission_lvl(trnsLvl);
 		set_transmission_rate(rate);
 		set_retry_count(delay, retryCount);
-        radio.enableDynamicPayloads();
+//        radio.enableDynamicPayloads();
 
 		if((int)isClient) {
             address[0] = RX_ARRD_ID;
