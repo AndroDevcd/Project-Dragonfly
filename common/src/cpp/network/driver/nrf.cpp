@@ -132,7 +132,7 @@ scope_begin(common_network_driver)
 	}
 	
 	void dump_details() {
-		radio.printDetails();
+		radio.printPrettyDetails();
 	}
 	
 	void power_down(SharpObject instance) {
