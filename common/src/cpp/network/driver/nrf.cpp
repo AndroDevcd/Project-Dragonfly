@@ -121,6 +121,7 @@ scope_begin(common_network_driver)
             radio.openReadingPipe(1, address);
 		}
 
+        radio.startListening();
         radio.stopListening();
 
         cout << "test write" << endl;
@@ -331,7 +332,6 @@ scope_begin(common_network_driver)
             last_error = 1;
 			radio.stopListening();
 
-            dump_details();
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
             return data_response.obj;
