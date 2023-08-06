@@ -121,11 +121,6 @@ scope_begin(common_network_driver)
             radio.openReadingPipe(1, address);
 		}
 
-        radio.startListening();
-        radio.powerDown();
-
-
-        radio.begin();
         radio.stopListening();
 
         cout << "test write" << endl;
@@ -292,7 +287,9 @@ scope_begin(common_network_driver)
         }
 
 		radio.stopListening();
-		return data_response.obj;
+        radio.powerDown();
+        radio.begin();
+        return data_response.obj;
 	}
 	
 	void jam(var wifiChannel) {
@@ -335,6 +332,8 @@ scope_begin(common_network_driver)
 		if(!waitforResponse(true)) {
             last_error = 1;
 			radio.stopListening();
+            radio.powerDown();
+            radio.begin();
 
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
