@@ -55,6 +55,11 @@ scope_begin(common_network_driver)
                 (std::chrono::high_resolution_clock::now().time_since_epoch()).count();
     }
 
+    void flush_buffer() {
+        radio.flush_rx();
+        radio.flush_tx();
+    }
+
     void set_transmission_lvl(var level) {
         cout << "set_transmission_lvl()" << endl;
         switch((long)level) {
@@ -287,8 +292,7 @@ scope_begin(common_network_driver)
         }
 
 		radio.stopListening();
-        radio.flush_rx();
-        radio.flush_tx();
+        flush_buffer();
 		return data_response.obj;
 	}
 	
@@ -332,8 +336,7 @@ scope_begin(common_network_driver)
 		if(!waitforResponse(true)) {
             last_error = 1;
 			radio.stopListening();
-            radio.flush_rx();
-            radio.flush_tx();
+            flush_buffer();
 
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
