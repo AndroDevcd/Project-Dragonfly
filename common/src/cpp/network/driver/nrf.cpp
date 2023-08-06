@@ -109,6 +109,9 @@ scope_begin(common_network_driver)
         cout << "setup(" << trnsLvl << ", " << rate << ", " << delay
             << ", " << retryCount << ", " << isClient << ")" << endl;
 
+        if (!radio.begin()) {
+            cout << "radio hardware not responding!" << endl;
+        }
         radio.begin();
 		set_transmission_lvl(trnsLvl);
 		set_transmission_rate(rate);
