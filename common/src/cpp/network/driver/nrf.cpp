@@ -126,21 +126,6 @@ scope_begin(common_network_driver)
 
 
         radio.begin();
-        set_transmission_lvl(trnsLvl);
-        set_transmission_rate(rate);
-        set_retry_count(delay, retryCount);
-
-        if((int)isClient) {
-            address[0] = RX_ARRD_ID;
-            radio.openWritingPipe(address);
-            address[0] = TX_ARRD_ID;
-            radio.openReadingPipe(1, address);
-        } else {
-            address[0] = TX_ARRD_ID;
-            radio.openWritingPipe(address);
-            address[0] = RX_ARRD_ID;
-            radio.openReadingPipe(1, address);
-        }
         radio.stopListening();
 
         cout << "test write" << endl;
