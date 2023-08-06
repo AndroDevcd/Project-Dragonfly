@@ -122,9 +122,9 @@ scope_begin(common_network_driver)
 		}
 
         radio.startListening();
+        radio.powerDown();
+        radio.powerUp();
         radio.stopListening();
-        address[0] = RX_ARRD_ID;
-        radio.openWritingPipe(address);
 
         cout << "test write" << endl;
         const char text[] = "Hello World";
