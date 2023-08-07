@@ -56,8 +56,8 @@ scope_begin(common_network_driver)
     }
 
     void flush_buffer() {
-        radio.flush_rx();
-        radio.flush_tx();
+//        radio.flush_rx();
+//        radio.flush_tx();
     }
 
     void set_transmission_lvl(var level) {
