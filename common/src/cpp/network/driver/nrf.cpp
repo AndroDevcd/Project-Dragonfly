@@ -132,6 +132,7 @@ scope_begin(common_network_driver)
         radio.stopListening();
         radio.printDetails();
         flush_buffer();
+        radio.printDetails();
 
         cout << "test write" << endl;
         const char text[] = "Hello World";
