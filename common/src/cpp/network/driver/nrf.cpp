@@ -112,7 +112,6 @@ scope_begin(common_network_driver)
         if (!radio.begin()) {
             cout << "radio hardware not responding!" << endl;
         }
-        radio.begin();
 		set_transmission_lvl(trnsLvl);
 		set_transmission_rate(rate);
 		set_retry_count(delay, retryCount);
@@ -130,9 +129,6 @@ scope_begin(common_network_driver)
 		}
 
         radio.stopListening();
-        radio.printDetails();
-        flush_buffer();
-        radio.printDetails();
 
         cout << "test write" << endl;
         const char text[] = "Hello World";
