@@ -263,9 +263,11 @@ scope_begin(common_network_driver)
 		stringstream data;
         LocalVariable data_response = create_local_variable();
 		unsigned int packets = readHeaderPacket(data);
-		
+
+        cout << "processing " << packets << " packets" << endl;
         last_error = 0;
 		for(unsigned int i = 1; i < packets; i++) {
+            cout << "packet #" << i << endl;
 			if(!waitforResponse(true)) {
                 last_error = 1;
 				break;
