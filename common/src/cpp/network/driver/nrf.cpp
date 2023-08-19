@@ -46,7 +46,7 @@ extern unsigned int micros (void);
 #endif
 
 
-RF24 radio(22, 0, 4000000);
+RF24 radio(22, 0);
 
 scope_begin(common_network_driver)
 
@@ -129,17 +129,7 @@ scope_begin(common_network_driver)
 		}
 
         radio.stopListening();
-
-        cout << "test write" << endl;
-        const char text[] = "Hello World";
-        const char text2[] = "Hello World2";
-        radio.write(&text, strlen(text));
-        radio.write(&text2, strlen(text2));
-        cout << "test end" << endl;
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
-        pdata.data[0] = 'H';
-        pdata.data[1] = 'i';
-        radio.write(pdata.data, TX_PACKET_WIDTH);
 	}
 	
 	void dump_details() {
@@ -222,12 +212,8 @@ scope_begin(common_network_driver)
 		// Wait here until we get a response, or timeout
         unsigned long long started_waiting_at = time_ms();
 		while (!radio.available()) {
-			if ((time_ms() - started_waiting_at) > TIMEOUT_US) {
-				if(timeout) return false;
-                else {
-                    delayMicroseconds (1000);
-                    started_waiting_at = time_ms();
-                }
+			if (timeout && (time_ms() - started_waiting_at) > TIMEOUT_US) {
+                return false;
 			}
 		}
 
@@ -295,6 +281,7 @@ scope_begin(common_network_driver)
             raw[i] = str[i];
         }
 
+        radio.stopListening();
 		return data_response.obj;
 	}
 	
@@ -333,11 +320,12 @@ scope_begin(common_network_driver)
 	
 	SharpObject read() {
         cout << "read()" << endl;
-        power_cycle();
         radio.startListening();
 
 		if(!waitforResponse(true)) {
             last_error = 1;
+            radio.stopListening();
+
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
             return data_response.obj;
@@ -348,7 +336,6 @@ scope_begin(common_network_driver)
 	
 	SharpObject listen() {
         cout << "listen()" << endl;
-        power_cycle();
         radio.startListening();
 		
 		waitforResponse(false);
@@ -361,7 +348,6 @@ scope_begin(common_network_driver)
         string_from(data, data8);
         last_error = 0;
 
-        power_cycle();
         radio.stopListening();
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
