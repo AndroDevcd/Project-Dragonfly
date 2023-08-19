@@ -126,6 +126,7 @@ scope_begin(common_network_driver)
             radio.openReadingPipe(1, address);
 		}
 
+        radio.setChannel(70);
         radio.stopListening();
 
         cout << "test write" << endl;
