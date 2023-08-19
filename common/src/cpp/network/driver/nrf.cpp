@@ -46,7 +46,7 @@ extern unsigned int micros (void);
 #endif
 
 
-RF24 radio(22, 0);
+RF24 radio(22, 0, 6000000);
 
 scope_begin(common_network_driver)
 
