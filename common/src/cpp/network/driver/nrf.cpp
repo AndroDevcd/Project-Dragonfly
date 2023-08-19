@@ -56,8 +56,6 @@ scope_begin(common_network_driver)
     }
 
     void flush_buffer() {
-//        radio.flush_rx();
-//        radio.flush_tx();
     }
 
     void set_transmission_lvl(var level) {
@@ -336,6 +334,7 @@ scope_begin(common_network_driver)
 	SharpObject read() {
         cout << "read()" << endl;
         radio.startListening();
+        radio.flush_tx();
 
 		if(!waitforResponse(true)) {
             last_error = 1;
@@ -365,6 +364,7 @@ scope_begin(common_network_driver)
         last_error = 0;
 
         radio.stopListening();
+        radio.flush_rx();
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
 			packetSize = 1;
