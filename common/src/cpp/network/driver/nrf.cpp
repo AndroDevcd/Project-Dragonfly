@@ -55,7 +55,9 @@ scope_begin(common_network_driver)
                 (std::chrono::high_resolution_clock::now().time_since_epoch()).count();
     }
 
-    void flush_buffer() {
+    void power_cycle() {
+        radio.powerDown();
+        radio.powerUp();
     }
 
     void set_transmission_lvl(var level) {
@@ -293,8 +295,6 @@ scope_begin(common_network_driver)
             raw[i] = str[i];
         }
 
-		radio.stopListening();
-        flush_buffer();
 		return data_response.obj;
 	}
 	
@@ -333,14 +333,11 @@ scope_begin(common_network_driver)
 	
 	SharpObject read() {
         cout << "read()" << endl;
+        power_cycle();
         radio.startListening();
-        radio.flush_tx();
 
 		if(!waitforResponse(true)) {
             last_error = 1;
-			radio.stopListening();
-            flush_buffer();
-
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
             return data_response.obj;
@@ -351,6 +348,7 @@ scope_begin(common_network_driver)
 	
 	SharpObject listen() {
         cout << "listen()" << endl;
+        power_cycle();
         radio.startListening();
 		
 		waitforResponse(false);
@@ -363,8 +361,8 @@ scope_begin(common_network_driver)
         string_from(data, data8);
         last_error = 0;
 
+        power_cycle();
         radio.stopListening();
-        radio.flush_rx();
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
 			packetSize = 1;
