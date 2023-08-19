@@ -128,17 +128,7 @@ scope_begin(common_network_driver)
 
         radio.setChannel(70);
         radio.stopListening();
-
-        cout << "test write" << endl;
-        const char text[] = "Hello World";
-        const char text2[] = "Hello World2";
-        radio.write(&text, strlen(text));
-        radio.write(&text2, strlen(text2));
-        cout << "test end" << endl;
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
-        pdata.data[0] = 'H';
-        pdata.data[1] = 'i';
-        radio.write(pdata.data, TX_PACKET_WIDTH);
 	}
 	
 	void dump_details() {
@@ -224,7 +214,7 @@ scope_begin(common_network_driver)
 			if ((time_ms() - started_waiting_at) > TIMEOUT_US) {
 				if(timeout) return false;
                 else {
-                    radio.flush_rx();
+//                    radio.flush_rx();
                     delayMicroseconds (1000);
                     started_waiting_at = time_ms();
                 }
@@ -336,7 +326,6 @@ scope_begin(common_network_driver)
 	SharpObject read() {
         cout << "read()" << endl;
         radio.startListening();
-        radio.flush_tx();
 
 		if(!waitforResponse(true)) {
             last_error = 1;
@@ -366,7 +355,6 @@ scope_begin(common_network_driver)
         last_error = 0;
 
         radio.stopListening();
-        radio.flush_rx();
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
 			packetSize = 1;
