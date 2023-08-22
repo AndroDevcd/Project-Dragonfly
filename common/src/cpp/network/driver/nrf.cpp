@@ -7,6 +7,9 @@ using namespace snb_api;
 #define RX_ARRD_ID 0x33
 #define TX_ARRD_ID 0x1A
 
+#define TX_ROLE true
+#define RX_ROLE false
+
 #define TX_PACKET_HEADER_SIZE 5
 #define TX_PACKET_FOOTER_SIZE 1
 #define TX_PACKET_WIDTH 32
@@ -55,7 +58,10 @@ scope_begin(common_network_driver)
                 (std::chrono::high_resolution_clock::now().time_since_epoch()).count();
     }
 
-    void flush_buffer() {
+    void switch_role(bool tx) {
+        if(tx) radio.stopListening();
+        else radio.startListening();
+        delayMicroseconds (55 * 1000);
     }
 
     void set_transmission_lvl(var level) {
@@ -127,7 +133,7 @@ scope_begin(common_network_driver)
 		}
 
         radio.setChannel(70);
-        radio.stopListening();
+        switch_role(TX_ROLE);
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
 	}
 	
@@ -158,9 +164,9 @@ scope_begin(common_network_driver)
             for(int j = 0; j < 128; j++) {
                 radio.setChannel(j);
 
-                radio.startListening();
+                switch_role(RX_ROLE);
                 delayMicroseconds (100);
-                radio.stopListening();
+                switch_role(TX_ROLE);
 
                 if( radio.testCarrier() )
                     raw[j]++;
@@ -285,8 +291,7 @@ scope_begin(common_network_driver)
             raw[i] = str[i];
         }
 
-		radio.stopListening();
-        flush_buffer();
+        switch_role(TX_ROLE);
 		return data_response.obj;
 	}
 	
@@ -310,14 +315,14 @@ scope_begin(common_network_driver)
 				past = micros();
 				
 		        radio.setChannel(oldChannel);
-				radio.startListening();
+                switch_role(RX_ROLE);
 				if (radio.available()) {
 					
 				   radio.setPALevel(transmissionLvl);
 	               radio.setRetries(retryDelay, retryCount);
 				   return;
 				} else {
-					radio.stopListening();
+                    switch_role(TX_ROLE);
 				}
 			}
 		}
@@ -325,12 +330,11 @@ scope_begin(common_network_driver)
 	
 	SharpObject read() {
         cout << "read()" << endl;
-        radio.startListening();
+        switch_role(RX_ROLE);
 
 		if(!waitforResponse(true)) {
             last_error = 1;
-			radio.stopListening();
-            flush_buffer();
+            switch_role(TX_ROLE);
 
             LocalVariable data_response = create_local_variable();
             internal::assign_object(data_response.obj, nullptr);
@@ -342,7 +346,7 @@ scope_begin(common_network_driver)
 	
 	SharpObject listen() {
         cout << "listen()" << endl;
-        radio.startListening();
+        switch_role(RX_ROLE);
 		
 		waitforResponse(false);
 		return process_packets();
@@ -354,7 +358,7 @@ scope_begin(common_network_driver)
         string_from(data, data8);
         last_error = 0;
 
-        radio.stopListening();
+        switch_role(TX_ROLE);
 		unsigned int packetSize, startPos, dataConsumed, pos = 0;
 		if(data.size() <= (TX_PACKET_WIDTH - TX_PACKET_HEADER_SIZE)) {
 			packetSize = 1;
