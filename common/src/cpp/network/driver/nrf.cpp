@@ -61,8 +61,8 @@ scope_begin(common_network_driver)
     void switch_role(bool tx) {
         if(tx) {
             cout << "tx mode\n";
-            radio.flush_rx();
             radio.stopListening();
+            delayMicroseconds (55 * 1000);
         }
         else {
             cout << "rx mode\n";
