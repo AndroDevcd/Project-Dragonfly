@@ -408,7 +408,7 @@ scope_begin(common_network_driver)
 			if(!trackingFilled && packetsSent >= TRACKED_PACKETS) { trackingFilled = true; }
 			
             if (!ok) {
-                cout << "send failed!"
+                cout << "send failed!" << endl;
                 last_error = 1;
                 return;
             }
