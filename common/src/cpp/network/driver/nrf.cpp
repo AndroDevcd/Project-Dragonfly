@@ -142,6 +142,10 @@ scope_begin(common_network_driver)
         radio.setChannel(70);
         switch_role(TX_ROLE);
 		pdata.data = (uint8_t*)malloc(sizeof(uint8_t) * TX_PACKET_WIDTH);
+        for(int j = 0; j < TX_PACKET_WIDTH; j++)
+        {
+            pdata.data[j] = 1; // fill with random data
+        }
 	}
 	
 	void dump_details() {
