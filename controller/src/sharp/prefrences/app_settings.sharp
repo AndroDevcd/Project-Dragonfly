@@ -8,8 +8,8 @@ class app_settings {
         settings_file := new file("settings.prefs");
         data := settings_file.read();
 
-        if(data == null || data.empty()) return new app_settings();
-        else return deserialize(data) as app_settings;
+        if(data == null || data!!.empty()) return new app_settings();
+        else return deserialize(data!!) as app_settings;
     }
 
     private static def save(settings: app_settings) {

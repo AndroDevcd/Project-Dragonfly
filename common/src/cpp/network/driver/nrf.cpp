@@ -59,9 +59,18 @@ scope_begin(common_network_driver)
     }
 
     void switch_role(bool tx) {
-        if(tx) radio.stopListening();
-        else radio.startListening();
-        delayMicroseconds (55 * 1000);
+        if(tx) {
+            cout << "tx mode\n";
+            radio.print_status(radio.get_status());
+            radio.flush_rx();
+            radio.stopListening();
+        }
+        else {
+            cout << "rx mode\n";
+            radio.print_status(radio.get_status());
+            radio.startListening();
+            delayMicroseconds (55 * 1000);
+        }
     }
 
     void set_transmission_lvl(var level) {
