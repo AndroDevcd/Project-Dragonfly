@@ -409,6 +409,7 @@ scope_begin(common_network_driver)
 			
             if (!ok) {
                 cout << "send failed!" << endl;
+                radio.printDetails();
                 last_error = 1;
                 return;
             }
