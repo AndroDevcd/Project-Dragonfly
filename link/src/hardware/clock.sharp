@@ -1,0 +1,35 @@
+mod link.hardware;
+
+import ( std );
+
+/**
+ * WHAT TIME IT IS, in milliseconds
+ *
+ * The link asks a clock instead of the system: when to send a frame again,
+ * when the other side has been silent for too long. A test hands it a
+ * `fake_clock` and moves time forward itself, so "nothing was heard for three
+ * seconds" takes no time at all to test and always happens at the same moment.
+ */
+interface clock {
+    def now_ms() : _int64;
+}
+
+/** the real clock */
+class system_clock : clock {
+    override def now_ms() : _int64 {
+        return time.mills_time().value;
+    }
+}
+
+/** a clock that stands still until it is told to move: for tests */
+class fake_clock : clock {
+    private current : _int64 = 0;
+
+    override def now_ms() : _int64 {
+        return current;
+    }
+
+    def advance(ms: _int64) {
+        current += ms;
+    }
+}

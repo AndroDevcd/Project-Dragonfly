@@ -1,0 +1,66 @@
+mod link.protocol;
+
+import ( std );
+
+/**
+ * A MESSAGE: what one side says to the other
+ *
+ *      type      what kind of message it is (message_types, below)
+ *      body      its bytes: as many as it needs - the link cuts them into
+ *                frames and puts them together again on the other side
+ *
+ * This is the raw form the link carries. The messages the two programs
+ * actually speak are the classes in link/src/messages (set_mode, telemetry
+ * ...): each turns itself into a `message` and back, with byte_writer and
+ * byte_reader.
+ */
+class message {
+    type : _int64;
+    body : _uint8[];
+
+    message(type: _int64, body: _uint8[]) {
+        self->type = type;
+        self->body = body;
+    }
+
+    /** a message that is only its kind: no bytes */
+    message(type: _int64) {
+        self->type = type;
+        body = new _uint8[0];
+    }
+
+    def reader() : byte_reader {
+        return new byte_reader(body);
+    }
+}
+
+/**
+ * THE KINDS OF MESSAGE (one byte on the air). Numbers below 16 belong to the
+ * link itself; the programs' own messages start at 16. A number is never
+ * reused for something else: an old drone must not misread a new controller.
+ */
+class message_types {
+    // ---- the link's own
+    static const HELLO : _int64 = 1;            // "I am here": opens a connection
+    static const HEARTBEAT : _int64 = 2;        // "still here": sent when nothing else was for a while
+
+    // ---- controller -> drone
+    static const SET_MODE : _int64 = 16;        // normal / sport
+    static const STEER : _int64 = 17;           // the sticks
+    static const JAM : _int64 = 18;             // disturb a channel
+
+    // ---- drone -> controller
+    static const TELEMETRY : _int64 = 32;       // altitude, speed, battery
+    static const NOTICE : _int64 = 33;          // a line of text for the pilot
+
+    static def name_of(type: _int64) : string {
+        if(type == HELLO) { return "hello"; }
+        if(type == HEARTBEAT) { return "heartbeat"; }
+        if(type == SET_MODE) { return "set_mode"; }
+        if(type == STEER) { return "steer"; }
+        if(type == JAM) { return "jam"; }
+        if(type == TELEMETRY) { return "telemetry"; }
+        if(type == NOTICE) { return "notice"; }
+        return "message " + type;
+    }
+}

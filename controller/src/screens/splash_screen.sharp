@@ -1,0 +1,43 @@
+mod controller.screens;
+
+import ( std, ui, ui.icons, controller );
+
+/**
+ * THE SPLASH: the product's picture and name for two seconds, then home.
+ *
+ *                    [picture]
+ *                Project Dragonfly
+ *
+ * A button skips it. It has no timer of its own: `body()` is asked for every
+ * frame, so it simply looks at the time and moves on when two seconds are up.
+ */
+const SPLASH_MS : _int64 = 2000;
+
+class splash_screen base screen {
+    private app : controller_app;
+    private shown_at : _int64 = 0;
+
+    splash_screen(app: controller_app) {
+        self->app = app;
+    }
+
+    override def on_enter() {
+        shown_at = app.now_ms();
+    }
+
+    override def on_button(button: _int64) {
+        app.screens.replace(new home_screen(app));
+    }
+
+    override def body() : view {
+        if(app.now_ms() - shown_at >= SPLASH_MS) {
+            app.screens.replace(new home_screen(app));
+        }
+
+        logo := picture(icon_product);
+        name := text("Project Dragonfly");
+        return relative()
+            .add(logo.at_top().center_across().margin_top(8))
+            .add(name.below(logo).center_across().margin_top(6));
+    }
+}

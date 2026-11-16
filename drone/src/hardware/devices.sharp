@@ -1,0 +1,89 @@
+mod drone.hardware;
+
+import ( std, link.hardware );
+
+/**
+ * THE HARDWARE OF THE DRONE, AS THE PROGRAM SEES IT
+ *
+ * Everything the flight computer touches is one of these small interfaces.
+ * On the Raspberry Pi real devices stand behind them (pi_devices.sharp); on a
+ * PC and in the tests, fakes do - and the flight computer cannot tell.
+ *
+ *      radio             link.hardware           the nRF24L01
+ *      clock             link.hardware           the time
+ *      distance_sensor   here                    the HC-SR04: height above the ground
+ *      motors            here                    what turns the stick positions into thrust
+ *      battery           here                    how full the battery is
+ */
+
+/** how far away the ground is */
+interface distance_sensor {
+    /** the distance in centimetres, or -1 when the echo never came back (too far, or no ground below) */
+    def read_cm() : _int64;
+}
+
+/** the motors and flaps: given where the pilot wants the drone to go */
+interface motors {
+    /** each value is -1000 .. 1000; throttle 0 is "hold the height" */
+    def drive(throttle: _int64, yaw: _int64, pitch: _int64, roll: _int64);
+}
+
+interface battery {
+    /** 0 (empty) .. 4 (full) */
+    def level() : _int64;
+}
+
+// ---------------------------------------------------------------------------
+// the fakes: for a PC, and for the tests
+// ---------------------------------------------------------------------------
+
+/** a sensor that says what the test tells it to */
+class fake_distance_sensor : distance_sensor {
+    cm : _int64 = 0;
+    reads : _int64 = 0;
+
+    override def read_cm() : _int64 {
+        reads++;
+        return cm;
+    }
+}
+
+/** motors that only remember what they were last told */
+class fake_motors : motors {
+    throttle : _int64 = 0;
+    yaw : _int64 = 0;
+    pitch : _int64 = 0;
+    roll : _int64 = 0;
+    commands : _int64 = 0;
+
+    override def drive(throttle: _int64, yaw: _int64, pitch: _int64, roll: _int64) {
+        self->throttle = throttle;
+        self->yaw = yaw;
+        self->pitch = pitch;
+        self->roll = roll;
+        commands++;
+    }
+}
+
+class fake_battery : battery {
+    bars : _int64 = 4;
+
+    override def level() : _int64 { return bars; }
+}
+
+/** everything the drone is made of, in one place */
+class drone_devices {
+    air : radio;
+    time : clock;
+    ground : distance_sensor;
+    thrust : motors;
+    power : battery;
+
+    drone_devices(air: radio, time: clock, ground: distance_sensor, thrust: motors, power: battery) {
+        self->air = air;
+        self->time = time;
+        self->ground = ground;
+        self->thrust = thrust;
+        self->power = power;
+    }
+}

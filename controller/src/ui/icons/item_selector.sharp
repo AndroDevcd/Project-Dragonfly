@@ -1,0 +1,19 @@
+mod ui.icons;
+
+import ( std, controller.hardware );
+
+/**
+ * The picture `item_selector`: 13 x 9 pixels, row by row.
+ * 0 leaves the screen as it is, 1 is dark, 2 is lit, 3 turns the pixel around (display.sharp).
+ */
+icon_item_selector := new image("item_selector", 13, 9, new _uint8[] {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0,
+    0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+    0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+    0, 2, 0, 0, 2, 2, 0, 0, 0, 2, 0, 0, 0,
+    0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+    0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+    0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+});

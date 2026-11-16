@@ -1,0 +1,38 @@
+mod link.messages;
+
+import ( std, link.protocol );
+
+/** the flight modes */
+const MODE_NORMAL : _int64 = 0;
+const MODE_SPORT : _int64 = 1;
+
+def flight_mode_name(mode: _int64) : string {
+    if(mode == MODE_SPORT) { return "sport"; }
+    return "normal";
+}
+
+/**
+ * controller -> drone: fly in this mode. Sent reliably.
+ *
+ *      bytes:  [mode: 1]
+ */
+class set_mode {
+    mode : _int64;
+
+    set_mode(mode: _int64) {
+        self->mode = mode;
+    }
+
+    def to_message() : message {
+        return new message(message_types.SET_MODE, new byte_writer().u8(mode).bytes());
+    }
+
+    /** null when the message is not a well-formed set_mode */
+    static def from_message(m: message) : set_mode? {
+        if(m.type != message_types.SET_MODE) { return null; }
+        r := m.reader();
+        mode : _int64 = r.u8();
+        if(!r.ok()) { return null; }
+        return new set_mode(mode);
+    }
+}

@@ -1,0 +1,42 @@
+mod drone;
+
+import ( std, link.messages );
+
+/**
+ * WHAT THE DRONE IS DOING RIGHT NOW
+ *
+ * One plain object the flight computer writes and everything else reads: the
+ * telemetry is made from it, a test checks it, a log line prints it. Nothing
+ * here decides anything.
+ */
+class flight_state {
+    mode : _int64 = MODE_NORMAL;
+
+    // where the pilot's sticks are (as last heard)
+    stick_throttle : _int64 = 0;
+    stick_yaw : _int64 = 0;
+    stick_pitch : _int64 = 0;
+    stick_roll : _int64 = 0;
+
+    // what the motors are told (the sticks, scaled by the mode - or the failsafe)
+    throttle : _int64 = 0;
+    yaw : _int64 = 0;
+    pitch : _int64 = 0;
+    roll : _int64 = 0;
+
+    connected : _int64 = false;
+    failsafe : _int64 = true;               // true until a controller is heard
+    failsafe_count : _int64 = 0;            // how often the link was lost
+
+    // counters, for a status line and for tests
+    messages_heard : _int64 = 0;
+    telemetry_sent : _int64 = 0;
+    jams : _int64 = 0;
+
+    def describe() : string {
+        text := "mode " + flight_mode_name(mode) + ", ";
+        if(failsafe) { text = text + "FAILSAFE, "; }
+        else { text = text + "connected, "; }
+        return text + "throttle " + throttle + ", heard " + messages_heard + ", telemetry " + telemetry_sent;
+    }
+}

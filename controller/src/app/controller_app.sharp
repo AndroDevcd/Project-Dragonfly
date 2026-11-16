@@ -1,0 +1,228 @@
+mod controller;
+
+import ( std, link, link.hardware, link.protocol, link.messages, controller.hardware, controller.input, ui );
+
+/**
+ * THE CONTROLLER: the whole program, as one object that is stepped
+ *
+ *      app := new controller_app(devices);
+ *      app.start(first_screen);
+ *      for(;;) { app.step(); }
+ *
+ * Each step, in order:
+ *
+ *      1. the link does its work                frames in, acknowledgements, resends
+ *      2. what the drone said goes into `state` telemetry, notices
+ *      3. the connection is judged              state, signal bars, the light
+ *      4. the settings are carried out          the flight mode is sent until the drone has it
+ *      5. the buttons are read                  and handed to the screen that is shown
+ *      6. a frame is drawn                      every FRAME_MS, from `state`
+ *
+ * Nothing waits and there are no threads: the old controller needed four
+ * (ui, io, net, default) and locks between them because every part sat in a
+ * loop of its own.
+ *
+ * THE SCREENS reach three things through the app: `state` (what to show),
+ * `chosen` (the settings, to change them) and `screens` (to go somewhere).
+ */
+const FRAME_MS : _int64 = 33;                   // 30 frames a second
+const LIGHT_BLINK_MS : _int64 = 500;            // the connecting light: half a second on, half off
+const NOTICE_SHOWN_MS : _int64 = 4000;
+
+const UP_BUTTON_PIN : _int64 = 28;
+const DOWN_BUTTON_PIN : _int64 = 29;
+const CONNECTING_LIGHT_PIN : _int64 = 27;
+
+/** everything the controller is made of */
+class controller_devices {
+    air : radio;
+    time : clock;
+    pins : gpio;
+    panel : display;
+    saved : settings_store;
+    tuning : radio_control? = null;             // the radio's own settings, when it has them
+
+    controller_devices(air: radio, time: clock, pins: gpio, panel: display, saved: settings_store) {
+        self->air = air;
+        self->time = time;
+        self->pins = pins;
+        self->panel = panel;
+        self->saved = saved;
+    }
+}
+
+class controller_app {
+    private devices : controller_devices;
+    net : radio_link;
+    state := new controller_state();
+    chosen : settings;
+    screens := new navigator();
+    buttons : button_reader;
+
+    private drawn_at : _int64 = 0 - 1;          // when the last frame was drawn
+    private telemetry_at : _int64 = 0 - 1;      // when telemetry last arrived
+    private mode_sent : _int64 = 0 - 1;         // the flight mode the drone was last told (-1: none yet)
+    private mode_message : _int64 = 0 - 1;      // the id of the set_mode that is on its way (-1: none)
+    private mode_wanted : _int64 = 0 - 1;       // ... and the mode it carries
+    private power_set : _int64 = 0 - 1;
+    private dim_set : _int64 = 0 - 1;
+
+    frames_drawn : _int64 = 0;
+
+    controller_app(devices: controller_devices) {
+        self->devices = devices;
+        net = new radio_link(devices.air, devices.time);
+        chosen = new settings(devices.saved);
+        buttons = new button_reader(devices.pins, devices.time, UP_BUTTON_PIN, DOWN_BUTTON_PIN);
+        devices.pins.set_output(CONNECTING_LIGHT_PIN);
+        net.connect();
+    }
+
+    /** show the first screen */
+    def start(first: screen) {
+        screens.open(first);
+    }
+
+    def now_ms() : _int64 { return devices.time.now_ms(); }
+
+    def step() {
+        now : _int64 = devices.time.now_ms();
+        net.step();
+        hear_drone(now);
+        judge_connection(now);
+        carry_out_settings();
+        read_buttons();
+        draw(now);
+    }
+
+    // ------------------------------------------------------------------ 2. what the drone said
+
+    private def hear_drone(now: _int64) {
+        for(;;) {
+            heard := net.next();
+            if(heard == null) { return; }
+            m : message = heard!!;
+            if(m.type == message_types.TELEMETRY) {
+                reading := telemetry.from_message(m);
+                if(reading == null) { continue; }
+                state.has_telemetry = true;
+                state.altitude_cm = reading!!.altitude_cm;
+                state.speed_cm_s = reading!!.speed_cm_s;
+                state.battery = reading!!.battery;
+                state.drone_mode = reading!!.mode;
+                telemetry_at = now;
+            } else if(m.type == message_types.NOTICE) {
+                told := notice.from_message(m);
+                if(told == null) { continue; }
+                state.notice_text = told!!.text;
+                state.notice_level = told!!.level;
+                state.notice_until = now + NOTICE_SHOWN_MS;
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------ 3. the connection
+
+    private def judge_connection(now: _int64) {
+        state.link_state = net.state();
+
+        // the bars: how fresh the drone's last telemetry is (it sends five a second)
+        bars : _int64 = 0;
+        if(net.is_connected()) {
+            bars = 1;
+            if(telemetry_at >= 0) {
+                age : _int64 = now - telemetry_at;
+                if(age < 400) { bars = 4; }
+                else if(age < 700) { bars = 3; }
+                else if(age < 1000) { bars = 2; }
+            }
+        } else {
+            state.has_telemetry = false;        // old numbers are not shown as if they were current
+        }
+        state.signal = bars;
+
+        if(state.notice_until > 0 && now >= state.notice_until) {
+            state.notice_text = "";
+            state.notice_until = 0;
+        }
+
+        // the clock: minutes since midnight, in the pilot's time
+        // (`/` between whole numbers gives a decimal in Sharp; an `_int64` variable makes it whole again)
+        minutes : _int64 = now / 60000;
+        minutes = minutes + chosen.utc_offset * 60;
+        minutes = ((minutes % 1440) + 1440) % 1440;
+        state.clock_text = clock_text_of(minutes);
+
+        // the light: steady while connected, blinking while looking for the drone
+        lit : _int64 = true;
+        if(!net.is_connected()) {
+            blinks : _int64 = now / LIGHT_BLINK_MS;
+            lit = (blinks % 2) == 0;
+        }
+        devices.pins.write(CONNECTING_LIGHT_PIN, lit);
+    }
+
+    // ------------------------------------------------------------------ 4. the settings
+
+    private def carry_out_settings() {
+        // the screen's brightness and the radio's power: told to the hardware when they change
+        dim : _int64 = chosen.dim_screen ? 1 : 0;
+        if(dim != dim_set) {
+            devices.panel.dim(chosen.dim_screen);
+            dim_set = dim;
+        }
+        if(chosen.radio_power != power_set && devices.tuning != null) {
+            devices.tuning!!.set_power(chosen.radio_power);
+            power_set = chosen.radio_power;
+        }
+
+        // The flight mode is the drone's to obey: it is SENT, reliably, and counts as told only
+        // when the drone acknowledged it. A message that failed (the drone was out of reach) is
+        // sent again; so is the mode after the connection came back, because a drone that was
+        // restarted is in normal mode again.
+        if(!net.is_connected()) {
+            mode_sent = 0 - 1;
+            mode_message = 0 - 1;
+            return;
+        }
+        if(mode_message >= 0) {
+            if(net.is_delivered(mode_message)) {
+                mode_sent = mode_wanted;
+                mode_message = 0 - 1;
+            } else if(net.has_failed(mode_message)) {
+                mode_message = 0 - 1;
+            }
+            return;
+        }
+        if(mode_sent != chosen.flight_mode) {
+            mode_wanted = chosen.flight_mode;
+            mode_message = net.send(new set_mode(mode_wanted).to_message());
+        }
+    }
+
+    /** true while the drone has not acknowledged the flight mode that is chosen */
+    def mode_is_pending() : _int64 {
+        return mode_sent != chosen.flight_mode;
+    }
+
+    // ------------------------------------------------------------------ 5. the buttons
+
+    private def read_buttons() {
+        buttons.step();
+        for(;;) {
+            pressed : _int64 = buttons.next();
+            if(pressed == BUTTON_NONE) { return; }
+            shown := screens.current();
+            if(shown != null) { shown!!.on_button(pressed); }
+        }
+    }
+
+    // ------------------------------------------------------------------ 6. a frame
+
+    private def draw(now: _int64) {
+        if(drawn_at >= 0 && now - drawn_at < FRAME_MS) { return; }
+        drawn_at = now;
+        screens.draw(devices.panel);
+        frames_drawn++;
+    }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "drone_tests",
+  "version": "1.0",
+  "output": "drone_tests",
+  "ignore_folders": [
+    "build"
+  ],
+  "extern_lib": [
+    "../../link/src",
+    "../../drone/src",
+    "../support"
+  ]
+}

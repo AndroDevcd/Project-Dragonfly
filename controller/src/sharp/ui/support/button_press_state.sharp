@@ -1,7 +1,0 @@
-mod ui.support;
-
-enum button_press_state {
-    button_up_pressed,
-    button_down_pressed,
-    select_item_pressed
-};

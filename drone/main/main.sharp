@@ -1,0 +1,43 @@
+mod main;
+
+import ( std, std.io, platform, link.hardware, drone, drone.hardware );
+
+/**
+ * THE DRONE, ON THE RASPBERRY PI
+ *
+ *      sharpc -P drone                         builds the program and its C++ library
+ *      sharp drone/build/outputs/drone
+ *
+ * This file only puts the real hardware together and turns the loop; the
+ * program itself is `flight_computer` (drone/src). Every two seconds it prints
+ * one line saying how the drone is doing. To see it run without any hardware,
+ * use the simulator project (simulator/).
+ */
+const REPORT_EVERY_MS : _int64 = 2000;
+
+def main(args: string[]) : int {
+    try {
+        load_library(program_folder() + "/dragonfly");
+
+        new pi_gpio();                              // the sensor's pins need wiringPi started
+        air := new nrf24_radio(false, 0);
+        time := new system_clock();
+        computer := new flight_computer(new drone_devices(air, time, new hc_sr04(), new unwired_motors(), new unwired_battery()));
+        computer.set_jammer(air);
+
+        println("dragonfly drone: running");
+        reported : _int64 = time.now_ms();
+        for(;;) {
+            computer.step();
+            if(time.now_ms() - reported >= REPORT_EVERY_MS) {
+                reported = time.now_ms();
+                println("drone: " + computer.state.describe() + ", altitude " + computer.height.altitude_cm + " cm");
+            }
+            thread.sleep(2);
+        }
+    } catch(problem: hardware_exception) {
+        println("dragonfly drone: " + problem.get_message());
+        return 1;
+    }
+    return 0;
+}

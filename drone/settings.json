@@ -1,0 +1,34 @@
+{
+  "name": "drone",
+  "version": "2.0",
+  "output": "drone",
+  "ignore_folders": [
+    "build",
+    "native"
+  ],
+  "extern_lib": [
+    "../link/src"
+  ],
+  "native": {
+    "sources": [
+      "../link/native",
+      "native"
+    ],
+    "toolchain": {
+      "include": [
+        "../link/native",
+        "native"
+      ],
+      "linux": {
+        "processor": {
+          "arm": {
+            "libraries": [
+              "rf24",
+              "wiringPi"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "link_tests",
+  "version": "1.0",
+  "output": "link_tests",
+  "ignore_folders": [
+    "build"
+  ],
+  "extern_lib": [
+    "../../link/src",
+    "../support"
+  ]
+}

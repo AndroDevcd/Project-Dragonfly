@@ -1,0 +1,38 @@
+mod controller.hardware;
+
+import ( std, link.hardware );
+
+/**
+ * THE REAL DISPLAY: the SSD1306 OLED behind the `display` interface
+ * (C++: controller/native/display_ssd1306.cpp)
+ */
+native "dragonfly" {
+    def display_begin() : _int32;
+    def display_clear();
+    def display_text(x: _int32, y: _int32, size: _int32, value: string);
+    def display_picture(x: _int32, y: _int32, width: _int32, height: _int32, pixels: _uint8[]);
+    def display_show();
+    def display_dim(yes: _int32);
+}
+
+class ssd1306_display : display {
+    ssd1306_display() {
+        if(display_begin() == 0) {
+            throw new hardware_exception("the display does not answer: check its wiring (I2C) - or run with `sim`");
+        }
+    }
+
+    override def clear() { display_clear(); }
+
+    override def text(x: _int64, y: _int64, size: _int64, value: string) {
+        if(sizeof(value.data) == 0) { return; }
+        display_text(x, y, size, value);
+    }
+
+    override def picture(x: _int64, y: _int64, drawn: image) {
+        display_picture(x, y, drawn.width, drawn.height, drawn.pixels);
+    }
+
+    override def show() { display_show(); }
+    override def dim(yes: _int64) { display_dim(yes ? 1 : 0); }
+}

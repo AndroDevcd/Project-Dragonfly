@@ -1,0 +1,166 @@
+mod ui;
+
+import ( std, controller.hardware );
+
+/**
+ * THE UI TOOLKIT, PART 3: the container that places views by their relations
+ *
+ *      relative()
+ *          .add(title.at_top().center_across())
+ *          .add(value.below(title).margin_top(4))
+ *
+ * `add` puts a view into the container; the relations on the view (view.sharp)
+ * say where. A container is a view itself, so containers nest: the status bar
+ * is one, and the home screen puts it at its top.
+ *
+ * HOW A VIEW IS PLACED (place, below), in each direction separately:
+ *
+ *      1. its size: a number, its content (FIT), or the container (FILL)
+ *      2. its position, by the first of these that applies -
+ *           across:  right_of(v)  left_of(v)  align_left(v)  align_right(v)
+ *                    at_right()   center_across()   at_left() / nothing
+ *           down:    below(v)     above(v)    align_top(v)   align_bottom(v)
+ *                    at_bottom()  center_down()     at_top() / nothing
+ *      3. its margins move it away from what it was placed against
+ *
+ * A view placed against another view needs that one placed first, so placing
+ * follows the relations wherever they lead. Two views that each depend on the
+ * other can never be placed: that is a mistake in the screen, and it is
+ * reported with an exception that says so (layout_exception) instead of
+ * looping forever.
+ *
+ *      Android comparison: RelativeLayout.onMeasure / onLayout.
+ */
+class layout_exception base exception {
+    layout_exception(message: string) -> base(message) { }
+}
+
+class relative_view base view {
+    children := new list<view>();
+
+    def add(child: view) : relative_view {
+        children.add(child);
+        return self;
+    }
+
+    // a container asked to FIT is as big as what is inside it needs
+    override def content_width() : _int64 {
+        most : _int64 = 0;
+        for(i : _int64 = 0; i < children.size(); i++) {
+            child := children.at(i);
+            if(!child.visible) { continue; }
+            needs : _int64 = size_of(child.wanted_width, child.content_width(), 0) + child.space_left + child.space_right;
+            if(needs > most) { most = needs; }
+        }
+        return most;
+    }
+
+    override def content_height() : _int64 {
+        most : _int64 = 0;
+        for(i : _int64 = 0; i < children.size(); i++) {
+            child := children.at(i);
+            if(!child.visible) { continue; }
+            needs : _int64 = size_of(child.wanted_height, child.content_height(), 0) + child.space_top + child.space_bottom;
+            if(needs > most) { most = needs; }
+        }
+        return most;
+    }
+
+    /** a wanted size as pixels: the number itself, the content (FIT) or the container (FILL) */
+    private static def size_of(wanted: _int64, content: _int64, container: _int64) : _int64 {
+        if(wanted == FIT) { return content; }
+        if(wanted == FILL) { return container; }
+        return wanted;
+    }
+
+    /**
+     * Place every view inside this container, which is itself at (x, y) and
+     * `wide` x `high`. Called by whoever places this container - the window
+     * for the outermost one.
+     */
+    def layout() {
+        for(i : _int64 = 0; i < children.size(); i++) {
+            children.at(i).placed = false;
+            children.at(i).placing = false;
+        }
+        for(i : _int64 = 0; i < children.size(); i++) { place(children.at(i)); }
+    }
+
+    private def place(child: view) {
+        if(child.placed) { return; }
+        if(child.placing) {
+            throw new layout_exception("two views are placed by each other: each one needs the other placed first (below / right_of / align ... form a circle)");
+        }
+        child.placing = true;
+
+        // the views this one is placed against come first
+        place_first(child.under);
+        place_first(child.over);
+        place_first(child.after);
+        place_first(child.before);
+        place_first(child.same_left);
+        place_first(child.same_right);
+        place_first(child.same_top);
+        place_first(child.same_bottom);
+
+        // ---- 1. size
+        child.wide = size_of(child.wanted_width, child.content_width(), wide - child.space_left - child.space_right);
+        child.high = size_of(child.wanted_height, child.content_height(), high - child.space_top - child.space_bottom);
+
+        // ---- 2 and 3. across
+        if(child.after != null) { child.x = child.after!!.right() + child.space_left; }
+        else if(child.before != null) { child.x = child.before!!.x - child.wide - child.space_right; }
+        else if(child.same_left != null) { child.x = child.same_left!!.x + child.space_left; }
+        else if(child.same_right != null) { child.x = child.same_right!!.right() - child.wide - child.space_right; }
+        else if(child.to_right_edge) { child.x = x + wide - child.wide - child.space_right; }
+        else if(child.middle_across) { child.x = x + (wide - child.wide) / 2 + child.space_left - child.space_right; }
+        else { child.x = x + child.space_left; }
+
+        // ---- down
+        if(child.under != null) { child.y = child.under!!.bottom() + child.space_top; }
+        else if(child.over != null) { child.y = child.over!!.y - child.high - child.space_bottom; }
+        else if(child.same_top != null) { child.y = child.same_top!!.y + child.space_top; }
+        else if(child.same_bottom != null) { child.y = child.same_bottom!!.bottom() - child.high - child.space_bottom; }
+        else if(child.to_bottom_edge) { child.y = y + high - child.high - child.space_bottom; }
+        else if(child.middle_down) { child.y = y + (high - child.high) / 2 + child.space_top - child.space_bottom; }
+        else { child.y = y + child.space_top; }
+
+        child.placing = false;
+        child.placed = true;
+
+        // a container inside this one places its own views now that it knows where it is
+        if(child is relative_view) { (child as relative_view).layout(); }
+    }
+
+    private def place_first(other: view?) {
+        if(other == null) { return; }
+        if(children.indexof(other!!) < 0) {
+            throw new layout_exception("a view is placed against a view that is not in the same container: add() both to it");
+        }
+        place(other!!);
+    }
+
+    override def draw(screen: display) {
+        for(i : _int64 = 0; i < children.size(); i++) {
+            child := children.at(i);
+            if(child.visible) { child.draw(screen); }
+        }
+    }
+}
+
+def relative() : relative_view { return new relative_view(); }
+
+/**
+ * Draw one frame: `root` fills the whole display.
+ * (This is all a "window" is: the outermost container is the size of the screen.)
+ */
+def draw_frame(screen: display, root: view) {
+    root.x = 0;
+    root.y = 0;
+    root.wide = DISPLAY_WIDTH;
+    root.high = DISPLAY_HEIGHT;
+    if(root is relative_view) { (root as relative_view).layout(); }
+    screen.clear();
+    if(root.visible) { root.draw(screen); }
+    screen.show();
+}

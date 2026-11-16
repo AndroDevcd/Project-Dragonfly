@@ -1,0 +1,41 @@
+mod drone.hardware;
+
+import ( std, link.hardware );
+
+/**
+ * THE DRONE'S REAL HARDWARE (a Raspberry Pi) - and what is not wired yet
+ *
+ *      hc_sr04             the ultrasound distance sensor (C++: drone/native/distance_hc_sr04.cpp)
+ *      unwired_motors      the motors: NOT BUILT YET. It accepts every command and
+ *                          does nothing, so the rest of the drone runs until they are.
+ *      unwired_battery     the battery gauge: not built yet either; says "full".
+ *
+ * The two "unwired" classes are honest placeholders, not fakes for tests: when
+ * the hardware exists, a class with the same interface takes their place in
+ * `pi_drone_devices()` and nothing else changes.
+ */
+native "dragonfly" {
+    def distance_begin(trigger: _int32, echo: _int32);
+    def distance_read_cm(trigger: _int32, echo: _int32) : _int32;
+}
+
+const DISTANCE_TRIGGER_PIN : _int64 = 6;
+const DISTANCE_ECHO_PIN : _int64 = 5;
+
+class hc_sr04 : distance_sensor {
+    hc_sr04() {
+        distance_begin(DISTANCE_TRIGGER_PIN, DISTANCE_ECHO_PIN);
+    }
+
+    override def read_cm() : _int64 {
+        return distance_read_cm(DISTANCE_TRIGGER_PIN, DISTANCE_ECHO_PIN);
+    }
+}
+
+class unwired_motors : motors {
+    override def drive(throttle: _int64, yaw: _int64, pitch: _int64, roll: _int64) { }
+}
+
+class unwired_battery : battery {
+    override def level() : _int64 { return 4; }
+}

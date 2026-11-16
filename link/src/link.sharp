@@ -1,0 +1,389 @@
+mod link;
+
+import ( std, link.hardware, link.protocol );
+
+/**
+ * THE LINK: messages between the drone and its controller, over a radio that
+ * loses frames
+ *
+ *      radio  --->  [ link ]  --->  messages of any length, in order,
+ *                                   delivered once - or reported as failed
+ *
+ * Both programs use this same class, `radio_link`; neither is "the server".
+ *
+ *      net := new radio_link(radio, clock);
+ *      net.connect();                              // say hello until the other side answers
+ *
+ *      id := net.send(mode.to_message());          // RELIABLE: acknowledged, repeated when lost
+ *      net.publish(readings.to_message());         // not reliable: sent once (telemetry)
+ *
+ *      for(;;) {
+ *          net.step();                             // do the work that is due now
+ *          m := net.next();                        // a message that arrived, or null
+ *          ...
+ *      }
+ *
+ * NOTHING HERE BLOCKS OR STARTS A THREAD. All work happens inside `step()`:
+ * it reads the frames that arrived, acknowledges them, sends what is due and
+ * notices silence. The program calls it again and again from its own loop (or
+ * from one coroutine). That is what makes the link testable on a PC with a
+ * fake radio and a fake clock, down to "what happens when exactly this frame
+ * is lost".
+ *
+ * HOW A RELIABLE MESSAGE TRAVELS (stop and wait)
+ *
+ *      sender                              receiver
+ *        piece 0  ----------------------->   keeps it, expects piece 1
+ *                 <-----------------------   ack 0
+ *        piece 1  ---------X (lost)
+ *        ... RETRY_AFTER_MS pass ...
+ *        piece 1  ----------------------->   keeps it
+ *                 <---------X (lost)         ack 1
+ *        ... RETRY_AFTER_MS pass ...
+ *        piece 1  ----------------------->   has it already: acks again, keeps nothing
+ *                 <-----------------------   ack 1
+ *        piece 2 (LAST) ----------------->   the message is complete: delivered ONCE
+ *
+ * One reliable message is on its way at a time; the next waits its turn, so
+ * messages arrive in the order they were sent. A piece that is not
+ * acknowledged after MAX_ATTEMPTS sends fails the whole message
+ * (`has_failed(id)`), and the link goes on with the next.
+ *
+ * A message that is NOT reliable is sent once, all pieces in a row. If a piece
+ * is lost the receiver throws the rest away: half a telemetry reading is
+ * worth nothing, and the next one is already coming.
+ *
+ * THE STATE OF THE CONNECTION
+ *
+ *      DISCONNECTED --connect()/hello heard--> CONNECTED
+ *      CONNECTED    --nothing heard for LOST_AFTER_MS--> LOST
+ *      LOST         --anything heard--> CONNECTED
+ *
+ * While connected, a side that had nothing to say for HEARTBEAT_MS sends a
+ * heartbeat, so silence always means "out of reach" and never "nothing to say".
+ * `on_state_changed` is told about every change: the drone's failsafe and the
+ * controller's "no signal" picture both hang on it.
+ *
+ *      C++ comparison: a small ARQ protocol (like TCP's acknowledgements, cut
+ *      down to one frame in flight), as a class with no I/O of its own.
+ */
+
+/** the states of a connection */
+const LINK_DISCONNECTED : _int64 = 0;
+const LINK_CONNECTED : _int64 = 1;
+const LINK_LOST : _int64 = 2;
+
+def link_state_name(state: _int64) : string {
+    if(state == LINK_CONNECTED) { return "connected"; }
+    if(state == LINK_LOST) { return "lost"; }
+    return "disconnected";
+}
+
+/** the timing of a link; a program (or a test) may change it before the first step() */
+class link_settings {
+    retry_after_ms : _int64 = 40;       // an unacknowledged piece is sent again after this long
+    max_attempts : _int64 = 8;          // ... at most this many times; then the message has failed
+    heartbeat_ms : _int64 = 250;        // connected and silent for this long: say "still here"
+    lost_after_ms : _int64 = 1500;      // nothing heard for this long: the connection is lost
+    max_frames_per_step : _int64 = 64;  // so one step() never spends forever on a flood of frames
+}
+
+/** a message on its way out */
+class outgoing {
+    id : _int64;                        // what send() gave back
+    number : _int64;                    // its number on the air
+    type : _int64;
+    body : _uint8[];
+    reliable : _int64;
+    piece : _int64 = 0;                 // the piece being sent now
+    pieces : _int64;
+    attempts : _int64 = 0;              // how often the current piece was sent
+    sent_at : _int64 = 0;               // when it was last sent
+
+    outgoing(id: _int64, number: _int64, m: message, reliable: _int64) {
+        self->id = id;
+        self->number = number;
+        type = m.type;
+        body = m.body;
+        self->reliable = reliable;
+        // (a message without bytes still needs one frame to exist)
+        pieces = (sizeof(body) + FRAME_PAYLOAD_SIZE - 1) / FRAME_PAYLOAD_SIZE;
+        if(pieces == 0) { pieces = 1; }
+    }
+
+    /** the frame of piece `index` */
+    def frame_of(index: _int64) : frame {
+        made := new frame();
+        made.type = type;
+        made.number = number;
+        made.piece = index;
+        from : _int64 = index * FRAME_PAYLOAD_SIZE;
+        size : _int64 = sizeof(body) - from;
+        if(size > FRAME_PAYLOAD_SIZE) { size = FRAME_PAYLOAD_SIZE; }
+        if(size < 0) { size = 0; }
+        made.payload = new _uint8[size];
+        for(i : _int64 = 0; i < size; i++) { made.payload[i] = body[from + i]; }
+        if(reliable) { made.flags = made.flags | FLAG_RELIABLE; }
+        if(index == pieces - 1) { made.flags = made.flags | FLAG_LAST; }
+        return made;
+    }
+}
+
+/** a message being put together from its pieces */
+class incoming {
+    number : _int64 = 0 - 1;            // -1: none in progress
+    type : _int64 = 0;
+    expected : _int64 = 0;              // the piece that has to come next
+    collected := new byte_writer();
+
+    def begin(number: _int64, type: _int64) {
+        self->number = number;
+        self->type = type;
+        expected = 0;
+        collected = new byte_writer();
+    }
+
+    def drop() {
+        number = 0 - 1;
+    }
+}
+
+class radio_link {
+    private device : radio;
+    private time : clock;
+    settings := new link_settings();
+
+    private waiting := new list<outgoing>();            // reliable messages, the first one is on its way
+    private loose := new list<outgoing>();              // not reliable: sent at the next step
+    private arrived := new list<message>();             // complete, not yet handed out by next()
+
+    private reliable_in := new incoming();
+    private loose_in := new incoming();
+    private last_done : _int64 = 0 - 1;                 // the number of the last reliable message delivered
+
+    private next_id : _int64 = 1;
+    private next_number : _int64 = 0;
+    private delivered := new number_list();             // ids of reliable messages that were acknowledged whole
+    private failed := new number_list();                // ... and of those that were given up
+
+    private current_state : _int64 = LINK_DISCONNECTED;
+    private heard_at : _int64 = 0;                      // when a frame last arrived
+    private spoke_at : _int64 = 0;                      // when a frame was last sent
+    private hello_id : _int64 = 0 - 1;                  // the hello that is on its way (-1: none)
+    private wants_connection : _int64 = false;
+
+    /** told about every change of state: (new state) */
+    on_state_changed : (_int64)()? = null;
+
+    // what happened so far, for tests and for a status screen
+    frames_sent : _int64 = 0;
+    frames_heard : _int64 = 0;
+    resends : _int64 = 0;
+
+    radio_link(device: radio, time: clock) {
+        self->device = device;
+        self->time = time;
+        // Message numbers start somewhere else after every start of the program, so a program that was
+        // restarted is not mistaken for one repeating its last message.
+        next_number = time.now_ms() & 65535;
+    }
+
+    // ------------------------------------------------------------------ what a program calls
+
+    def state() : _int64 { return current_state; }
+    def is_connected() : _int64 { return current_state == LINK_CONNECTED; }
+
+    /**
+     * Start (or keep) trying to reach the other side: a hello is sent until
+     * it is acknowledged, and sent again whenever the connection is lost.
+     * The side that only waits to be called never has to call this.
+     */
+    def connect() {
+        wants_connection = true;
+    }
+
+    /**
+     * Send a message RELIABLY. It is acknowledged piece by piece and repeated
+     * when lost. Returns its id: ask `is_delivered(id)` / `has_failed(id)`.
+     */
+    def send(m: message) : _int64 {
+        return enqueue(m, true);
+    }
+
+    /** Send a message once, without acknowledgement (telemetry). */
+    def publish(m: message) {
+        enqueue(m, false);
+    }
+
+    /** true when every piece of that message was acknowledged */
+    def is_delivered(id: _int64) : _int64 {
+        return delivered.contains(id);
+    }
+
+    /** true when that message was given up (a piece was never acknowledged) */
+    def has_failed(id: _int64) : _int64 {
+        return failed.contains(id);
+    }
+
+    /** how many reliable messages have not been delivered or given up yet */
+    def pending() : _int64 {
+        return waiting.size().value;
+    }
+
+    /** The next complete message that arrived, or null. Each is handed out once. */
+    def next() : message? {
+        if(arrived.size() == 0) { return null; }
+        return arrived.pop_first();
+    }
+
+    /** Do the work that is due now. Call it often: every few milliseconds. */
+    def step() {
+        now : _int64 = time.now_ms();
+        hear(now);
+        keep_connected(now);
+        speak(now);
+        notice_silence(now);
+    }
+
+    // ------------------------------------------------------------------ sending
+
+    private def enqueue(m: message, reliable: _int64) : _int64 {
+        if(sizeof(m.body) > MAX_PIECES * FRAME_PAYLOAD_SIZE) {
+            throw new illegal_argument_exception("a message of " + sizeof(m.body) + " bytes is longer than the link can carry ("
+                                                 + (MAX_PIECES * FRAME_PAYLOAD_SIZE) + ")");
+        }
+        id : _int64 = next_id;
+        next_id++;
+        made := new outgoing(id, next_number, m, reliable);
+        next_number = (next_number + 1) & 65535;
+        if(reliable) { waiting.add(made); }
+        else { loose.add(made); }
+        return id;
+    }
+
+    private def put_on_air(f: frame, now: _int64) {
+        device.transmit(f.encode());
+        frames_sent++;
+        spoke_at = now;
+    }
+
+    private def speak(now: _int64) {
+        // ---- messages that are not reliable: all their pieces, once
+        while(loose.size() > 0) {
+            out := loose.pop_first();
+            for(i : _int64 = 0; i < out.pieces; i++) { put_on_air(out.frame_of(i), now); }
+        }
+
+        // ---- the reliable message that is on its way: its current piece, when it is due
+        if(waiting.size() == 0) { return; }
+        out := waiting.first();
+        if(out.attempts > 0 && now - out.sent_at < settings.retry_after_ms) { return; }
+        if(out.attempts >= settings.max_attempts) {
+            // given up: the other side did not acknowledge this piece
+            waiting.pop_first();
+            failed.add(out.id);
+            if(out.id == hello_id) { hello_id = 0 - 1; }
+            return;
+        }
+        if(out.attempts > 0) { resends++; }
+        out.attempts++;
+        out.sent_at = now;
+        put_on_air(out.frame_of(out.piece), now);
+    }
+
+    // ------------------------------------------------------------------ receiving
+
+    private def hear(now: _int64) {
+        for(count : _int64 = 0; count < settings.max_frames_per_step; count++) {
+            bytes := device.receive();
+            if(bytes == null) { return; }
+            f := frame.decode(bytes!!);
+            if(f == null) { continue; }             // not one of ours
+            frames_heard++;
+            heard_at = now;
+            if(current_state != LINK_CONNECTED) { change_state(LINK_CONNECTED); }
+
+            if(f!!.is_ack()) { acknowledged(f!!); }
+            else if(f!!.is_reliable()) { reliable_piece(f!!, now); }
+            else { loose_piece(f!!); }
+        }
+    }
+
+    /** the other side says it has a piece of the message that is on its way */
+    private def acknowledged(f: frame) {
+        if(waiting.size() == 0) { return; }
+        out := waiting.first();
+        if(f.number != out.number || f.piece != out.piece) { return; }     // an old acknowledgement, heard twice
+
+        out.piece++;
+        out.attempts = 0;
+        if(out.piece < out.pieces) { return; }
+        waiting.pop_first();
+        delivered.add(out.id);
+        if(out.id == hello_id) { hello_id = 0 - 1; }
+    }
+
+    private def reliable_piece(f: frame, now: _int64) {
+        // Every reliable piece is acknowledged, also one that is here already:
+        // the sender repeats a piece exactly because OUR acknowledgement was lost.
+        put_on_air(frame.ack_of(f.type, f.number, f.piece), now);
+
+        if(f.number == last_done) { return; }                          // the whole message was delivered already
+        if(f.piece == 0 && reliable_in.number != f.number) { reliable_in.begin(f.number, f.type); }
+        if(reliable_in.number != f.number) { return; }                 // a piece of a message we never saw the start of
+        if(f.piece != reliable_in.expected) { return; }                // a piece we have (sent again), or one out of turn
+
+        reliable_in.collected.raw(f.payload);
+        reliable_in.expected++;
+        if(!f.is_last()) { return; }
+        last_done = f.number;
+        deliver(reliable_in);
+    }
+
+    private def loose_piece(f: frame) {
+        if(f.piece == 0) { loose_in.begin(f.number, f.type); }
+        if(loose_in.number != f.number || f.piece != loose_in.expected) {
+            loose_in.drop();                        // a piece went missing: the rest is worth nothing
+            return;
+        }
+        loose_in.collected.raw(f.payload);
+        loose_in.expected++;
+        if(f.is_last()) { deliver(loose_in); }
+    }
+
+    private def deliver(from: incoming) {
+        made := new message(from.type, from.collected.bytes());
+        from.drop();
+        // the link's own messages are not handed to the program
+        if(made.type == message_types.HELLO || made.type == message_types.HEARTBEAT) { return; }
+        arrived.add(made);
+    }
+
+    // ------------------------------------------------------------------ the connection
+
+    private def change_state(to: _int64) {
+        if(current_state == to) { return; }
+        current_state = to;
+        if(on_state_changed != null) {
+            told := on_state_changed!!;
+            told(to);
+        }
+    }
+
+    /** say hello while not connected (when asked to connect); say "still here" when connected and silent */
+    private def keep_connected(now: _int64) {
+        if(current_state != LINK_CONNECTED) {
+            if(wants_connection && hello_id < 0) { hello_id = send(new message(message_types.HELLO)); }
+            return;
+        }
+        if(now - spoke_at >= settings.heartbeat_ms && loose.size() == 0) {
+            publish(new message(message_types.HEARTBEAT));
+        }
+    }
+
+    private def notice_silence(now: _int64) {
+        if(current_state == LINK_CONNECTED && now - heard_at >= settings.lost_after_ms) {
+            change_state(LINK_LOST);
+        }
+    }
+}

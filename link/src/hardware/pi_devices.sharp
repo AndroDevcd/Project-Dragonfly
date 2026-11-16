@@ -1,0 +1,99 @@
+mod link.hardware;
+
+import ( std );
+
+/**
+ * THE REAL RADIO AND THE REAL PINS: a Raspberry Pi behind the interfaces
+ *
+ * The functions in the `native` block are C++ (link/native/radio_nrf24.cpp,
+ * gpio_wiringpi.cpp); the two classes below wrap them so the rest of the
+ * program sees a `radio` and a `gpio` like any other.
+ *
+ * A program builds these only on the Pi, after it loaded its native library:
+ *
+ *      load_library(program_folder() + "/dragonfly");
+ *      air := new nrf24_radio(true, 0);           // the controller's end, least power
+ *
+ * On a PC the library is built too (so the C++ is checked), but it has no
+ * hardware in it: `radio_begin` says 0, and the constructor here turns that
+ * into an exception that says what to look at.
+ */
+native "dragonfly" {
+    def radio_begin(is_controller: _int32, channel: _int32, power: _int32, rate: _int32) : _int32;
+    def radio_send(frame: _uint8[]) : _int32;
+    def radio_receive(into: _uint8[]) : _int32;
+    def radio_set_power(level: _int32);
+    def radio_jam(channel: _int32, millis: _int32);
+    def radio_print_details();
+
+    def gpio_begin() : _int32;
+    def gpio_mode(pin: _int32, output: _int32);
+    def gpio_write(pin: _int32, high: _int32);
+    def gpio_read(pin: _int32) : _int32;
+}
+
+/** the channel both ends talk on (0 .. 125); away from the busiest Wi-Fi channels */
+const RADIO_CHANNEL : _int64 = 121;
+/** the slowest rate: the longest range */
+const RADIO_RATE : _int64 = 0;
+/** how long one jam() disturbs a channel */
+const JAM_MS : _int64 = 250;
+
+class hardware_exception base exception {
+    hardware_exception(message: string) -> base(message) { }
+}
+
+/** the nRF24L01 */
+class nrf24_radio : radio, radio_control {
+    private scratch : _uint8[] = new _uint8[FRAME_SIZE];       // where the C++ puts a frame that arrived
+
+    /**
+     * @param is_controller  true on the controller, false on the drone: the two ends
+     *                       listen on each other's address
+     * @param power          0 (least) .. 3 (most)
+     */
+    nrf24_radio(is_controller: _int64, power: _int64) {
+        if(radio_begin(is_controller ? 1 : 0, RADIO_CHANNEL, power, RADIO_RATE) == 0) {
+            throw new hardware_exception("the radio does not answer: check its power and wiring "
+                                         + "(CE on GPIO 22, SPI bus 0) - or run with `sim` for a simulated one");
+        }
+    }
+
+    override def transmit(frame: _uint8[]) : _int64 {
+        return radio_send(frame) != 0;
+    }
+
+    override def receive() : _uint8[]? {
+        count : _int64 = radio_receive(scratch);
+        if(count <= 0) { return null; }
+        frame := new _uint8[count];
+        for(i : _int64 = 0; i < count; i++) { frame[i] = scratch[i]; }
+        return frame;
+    }
+
+    override def set_power(level: _int64) {
+        radio_set_power(level);
+    }
+
+    override def jam(channel: _int64) {
+        radio_jam(channel, JAM_MS);
+    }
+
+    def print_details() {
+        radio_print_details();
+    }
+}
+
+/** the pins of the Pi */
+class pi_gpio : gpio {
+    pi_gpio() {
+        if(gpio_begin() == 0) {
+            throw new hardware_exception("the pins cannot be used: wiringPi did not start (is this a Raspberry Pi?)");
+        }
+    }
+
+    override def set_input(pin: _int64) { gpio_mode(pin, 0); }
+    override def set_output(pin: _int64) { gpio_mode(pin, 1); }
+    override def write(pin: _int64, high: _int64) { gpio_write(pin, high ? 1 : 0); }
+    override def read(pin: _int64) : _int64 { return gpio_read(pin) != 0; }
+}

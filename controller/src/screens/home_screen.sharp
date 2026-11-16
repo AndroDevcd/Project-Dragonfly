@@ -1,0 +1,60 @@
+mod controller.screens;
+
+import ( std, ui, ui.icons, controller, controller.hardware, link );
+
+/**
+ * HOME: what the pilot looks at while flying
+ *
+ *      12:30                          [mode] [signal] [battery]
+ *      ------------------------------------------------------
+ *                                                     ALT
+ *              142  cm/s                              1.20
+ *
+ *      link restored                                  <- the drone's last notice, for a few seconds
+ *
+ * While there is no connection the middle says so instead of showing numbers
+ * that are no longer true.
+ *
+ * Buttons: both together (SELECT) open the settings.
+ */
+class home_screen base screen {
+    private app : controller_app;
+
+    home_screen(app: controller_app) {
+        self->app = app;
+    }
+
+    override def on_enter() { }
+
+    override def on_button(button: _int64) {
+        if(button == BUTTON_SELECT) { app.screens.open(new settings_screen(app)); }
+    }
+
+    override def body() : view {
+        state := app.state;
+        bar := status_bar(state);
+        root := relative().add(bar.at_top());
+
+        if(!state.is_connected()) {
+            words : string = "searching...";
+            if(state.link_state == LINK_LOST) { words = "signal lost"; }
+            root.add(text(words).center());
+            return root;
+        }
+
+        speed := text(state.speed_text()).size(2);
+        unit := text("cm/s");
+        height_title := text("ALT");
+        height := text(state.altitude_text());
+
+        root.add(speed.below(bar).at_left().margin_left(16).margin_top(10))
+            .add(unit.right_of(speed).align_bottom(speed).margin_left(3))
+            .add(height_title.below(bar).at_right().margin_top(6).margin_right(4).width(30).align_content(ALIGN_MIDDLE))
+            .add(height.below(height_title).align_right(height_title).margin_top(2).width(30).align_content(ALIGN_MIDDLE));
+
+        if(sizeof(state.notice_text.data) > 0) {
+            root.add(text(state.notice_text).at_bottom().at_left().fill_width());
+        }
+        return root;
+    }
+}

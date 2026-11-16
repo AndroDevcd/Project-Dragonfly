@@ -1,0 +1,329 @@
+mod main;
+
+import ( std, checks, link, link.hardware, link.protocol, link.messages );
+
+/**
+ * THE LINK, TESTED ON A PC
+ *
+ * Two links talk over two fake radios joined in memory, with a clock the test
+ * moves itself. No hardware, no threads, no waiting: every test says exactly
+ * which frames are lost and what has to happen then.
+ *
+ *      sharpc -P tests/link        then        sharp tests/link/build/outputs/link_tests
+ */
+
+/** two links that hear each other, and the clock they share */
+class bench {
+    air := new radio_pair();
+    time := new fake_clock();
+    a : radio_link;                 // "the controller"
+    b : radio_link;                 // "the drone"
+
+    bench() {
+        time.advance(1000);         // not 0: so "a while ago" can be told from "never"
+        a = new radio_link(air.first, time);
+        b = new radio_link(air.second, time);
+    }
+
+    /** both sides do their work `rounds` times, `ms` apart */
+    def run(rounds: _int64, ms: _int64) {
+        for(i : _int64 = 0; i < rounds; i++) {
+            a.step();
+            b.step();
+            time.advance(ms);
+        }
+    }
+
+    def connect() {
+        a.connect();
+        run(10, 5);
+    }
+}
+
+/** `count` bytes that are easy to check: byte i is i mod 251 */
+def pattern(count: _int64) : _uint8[] {
+    bytes := new _uint8[count];
+    for(i : _int64 = 0; i < count; i++) { bytes[i] = i % 251; }
+    return bytes;
+}
+
+def same_bytes(left: _uint8[], right: _uint8[]) : _int64 {
+    if(sizeof(left) != sizeof(right)) { return false; }
+    for(i : _int64 = 0; i < sizeof(left); i++) {
+        if(left[i] != right[i]) { return false; }
+    }
+    return true;
+}
+
+def test_bytes() {
+    section("bytes: numbers and text in, the same out");
+    w := new byte_writer();
+    w.u8(200).u16(65000).u32(4000000000).i64(0 - 5).text("dragonfly").text("");
+    r := new byte_reader(w.bytes());
+    check_equal("u8", r.u8(), 200);
+    check_equal("u16", r.u16(), 65000);
+    check_equal("u32", r.u32(), 4000000000);
+    check_equal("i64", r.i64(), 0 - 5);
+    check_text("text", r.text(), "dragonfly");
+    check_text("empty text", r.text(), "");
+    check("everything asked for was there", r.ok());
+    r.u8();
+    check("reading past the end is noticed, not thrown", !r.ok());
+}
+
+def test_frames() {
+    section("frames: 32 bytes and back");
+    f := new frame();
+    f.type = 17;
+    f.flags = FLAG_RELIABLE | FLAG_LAST;
+    f.number = 40000;
+    f.piece = 513;
+    f.payload = pattern(25);
+    bytes := f.encode();
+    check_equal("a frame is the radio's frame size", sizeof(bytes), FRAME_SIZE);
+    back := frame.decode(bytes);
+    check("it decodes", back != null);
+    if(back != null) {
+        check_equal("type", back!!.type, 17);
+        check_equal("number", back!!.number, 40000);
+        check_equal("piece", back!!.piece, 513);
+        check("reliable and last", back!!.is_reliable() && back!!.is_last() && !back!!.is_ack());
+        check("payload", same_bytes(back!!.payload, pattern(25)));
+    }
+    bad := new _uint8[32];
+    bad[6] = 30;                                    // says 30 bytes of payload: more than a frame holds
+    check("a frame with an impossible length is refused", frame.decode(bad) == null);
+    check("too few bytes are refused", frame.decode(new _uint8[3]) == null);
+}
+
+def test_connect() {
+    section("connecting");
+    t := new bench();
+    check_equal("both start disconnected", t.a.state() + t.b.state(), 0);
+    changes : _int64 = 0;
+    t.b.on_state_changed = { state: _int64 -> changes++; };
+    t.connect();
+    check("the caller is connected", t.a.is_connected());
+    check("the called side is connected", t.b.is_connected());
+    check_equal("the called side was told once", changes, 1);
+    check("the hello is not handed to the program", t.b.next() == null);
+}
+
+def test_small_message() {
+    section("a small reliable message");
+    t := new bench();
+    t.connect();
+    id := t.a.send(new set_mode(MODE_SPORT).to_message());
+    check("not delivered before anything ran", !t.a.is_delivered(id));
+    t.run(4, 5);
+    check("delivered", t.a.is_delivered(id));
+    got := t.b.next();
+    check("it arrived", got != null);
+    if(got != null) {
+        mode := set_mode.from_message(got!!);
+        check("it is a set_mode", mode != null);
+        if(mode != null) { check_equal("the mode", mode!!.mode, MODE_SPORT); }
+    }
+    check("it arrived once", t.b.next() == null);
+}
+
+def test_long_message() {
+    section("a long message: chained frames");
+    t := new bench();
+    t.connect();
+    sent := pattern(5000);
+    before : _int64 = t.a.frames_sent;
+    id := t.a.send(new message(message_types.NOTICE, sent));
+    t.run(260, 1);
+    check("delivered", t.a.is_delivered(id));
+    got := t.b.next();
+    check("it arrived", got != null);
+    if(got != null) {
+        check_equal("every byte", sizeof(got!!.body), 5000);
+        check("in the right order", same_bytes(got!!.body, sent));
+    }
+    check_equal("5,000 bytes are 200 frames of 25", t.a.frames_sent - before, 200);
+
+    // text through the typed message, longer than one frame
+    words := "";
+    for(i : _int64 = 0; i < 40; i++) { words = words + "line " + i + " of the flight log; "; }
+    t.b.send(new notice(NOTICE_WARNING, words).to_message());
+    t.run(120, 1);
+    back := t.a.next();
+    check("a long notice arrived", back != null);
+    if(back != null) {
+        read := notice.from_message(back!!);
+        check("it is a notice", read != null);
+        if(read != null) {
+            check_equal("its level", read!!.level, NOTICE_WARNING);
+            check_text("its text", read!!.text, words);
+        }
+    }
+
+    // a message with no bytes at all still travels
+    t.a.send(new message(message_types.SET_MODE));
+    t.run(4, 5);
+    empty := t.b.next();
+    check("a message without bytes arrives", empty != null && sizeof(empty!!.body) == 0);
+}
+
+def test_lost_frames() {
+    section("lost frames are sent again");
+    t := new bench();
+    t.connect();
+    t.air.first.lose_every(3);              // every third frame the sender transmits disappears
+    sent := pattern(1000);
+    id := t.a.send(new message(message_types.NOTICE, sent));
+    t.run(400, 10);
+    check("delivered all the same", t.a.is_delivered(id));
+    check("some pieces had to be sent again", t.a.resends > 0);
+    got := t.b.next();
+    check("whole and in order", got != null && same_bytes(got!!.body, sent));
+    check("delivered once", t.b.next() == null);
+}
+
+def test_lost_acknowledgements() {
+    section("a lost acknowledgement does not deliver a message twice");
+    t := new bench();
+    t.connect();
+    t.air.second.lose_every(2);             // half of what the RECEIVER says back is lost
+    first := t.a.send(new set_mode(MODE_SPORT).to_message());
+    second := t.a.send(new set_mode(MODE_NORMAL).to_message());
+    t.run(200, 10);
+    check("both delivered", t.a.is_delivered(first) && t.a.is_delivered(second));
+    one := t.b.next();
+    two := t.b.next();
+    check("two messages arrived", one != null && two != null);
+    if(one != null && two != null) {
+        check_equal("the first one first", set_mode.from_message(one!!)!!.mode, MODE_SPORT);
+        check_equal("then the second", set_mode.from_message(two!!)!!.mode, MODE_NORMAL);
+    }
+    check("and no third", t.b.next() == null);
+}
+
+def test_giving_up() {
+    section("a message that cannot get through fails, and the next one goes on");
+    t := new bench();
+    t.connect();
+    t.air.first.set_blocked(true);
+    id := t.a.send(new set_mode(MODE_SPORT).to_message());
+    t.run(60, 10);
+    check("it failed", t.a.has_failed(id));
+    check("it is not reported as delivered", !t.a.is_delivered(id));
+    check("nothing is left waiting", t.a.pending() <= 1);          // (at most the hello of a new connection attempt)
+
+    t.air.first.set_blocked(false);
+    again := t.a.send(new set_mode(MODE_NORMAL).to_message());
+    t.run(60, 10);
+    check("the next message is delivered", t.a.is_delivered(again));
+}
+
+def test_telemetry() {
+    section("telemetry: sent once; a broken one is thrown away");
+    t := new bench();
+    t.connect();
+    t.b.publish(new telemetry(1234, 250, 3, MODE_NORMAL).to_message());
+    t.run(2, 5);
+    got := t.a.next();
+    check("it arrived", got != null);
+    if(got != null) {
+        read := telemetry.from_message(got!!);
+        check("it is telemetry", read != null);
+        if(read != null) {
+            check_equal("altitude", read!!.altitude_cm, 1234);
+            check_equal("speed", read!!.speed_cm_s, 250);
+            check_equal("battery", read!!.battery, 3);
+        }
+    }
+
+    // a three-frame message that loses its middle frame never arrives ...
+    t.air.second.lose_next(0);
+    before : _int64 = t.b.frames_sent;
+    t.air.second.lose_every(0);
+    long := new message(message_types.TELEMETRY, pattern(60));
+    t.air.second.lose_next(0);
+    t.b.publish(long);
+    // lose exactly the second frame of the three: let one out, then lose one
+    t.air.second.lose_next(0);
+    t.b.step();                                     // (all three go out in this step; see below)
+    t.a.step();
+    whole := t.a.next();
+    check("an unbroken three-frame telemetry arrives", whole != null && sizeof(whole!!.body) == 60);
+    check_equal("it was three frames", t.b.frames_sent - before, 3);
+
+    t.air.second.lose_every(2);                     // now every second frame is lost
+    t.b.publish(long);
+    t.b.step();
+    t.a.step();
+    check("one with a frame missing is thrown away", t.a.next() == null);
+    check_equal("it was not sent again", t.b.resends, 0);
+
+    // ... and the one after it is fine
+    t.air.second.lose_every(0);
+    t.b.publish(new telemetry(1, 2, 4, MODE_SPORT).to_message());
+    t.b.step();
+    t.a.step();
+    after := t.a.next();
+    check("the next reading arrives", after != null && telemetry.from_message(after!!) != null);
+}
+
+def test_losing_the_connection() {
+    section("silence: lost, and found again");
+    t := new bench();
+    t.connect();
+    seen := new number_list();
+    t.a.on_state_changed = { state: _int64 -> seen.add(state); };
+
+    // while both run, heartbeats keep the connection up through a long quiet time
+    t.run(400, 10);                                 // 4 seconds with nothing to say
+    check("still connected after 4 quiet seconds", t.a.is_connected() && t.b.is_connected());
+    check_equal("no change was reported", seen.size(), 0);
+
+    // the drone flies out of range
+    t.air.first.set_blocked(true);
+    t.air.second.set_blocked(true);
+    t.run(200, 10);                                 // 2 seconds of real silence
+    check_equal("the controller says lost", t.a.state(), LINK_LOST);
+    check_equal("the drone says lost", t.b.state(), LINK_LOST);
+
+    // back in range
+    t.air.first.set_blocked(false);
+    t.air.second.set_blocked(false);
+    t.run(100, 10);
+    check("connected again", t.a.is_connected() && t.b.is_connected());
+    check("lost and connected were reported, in that order",
+          seen.size() == 2 && seen.at(0) == LINK_LOST && seen.at(1) == LINK_CONNECTED);
+
+    // and a message goes through as before
+    id := t.a.send(new jam(77).to_message());
+    t.run(10, 5);
+    check("a message after reconnecting is delivered", t.a.is_delivered(id));
+    got := t.b.next();
+    check("and is the jam that was sent", got != null && jam.from_message(got!!) != null && jam.from_message(got!!)!!.channel == 77);
+}
+
+def test_typed_messages() {
+    section("the messages: each one, in and out");
+    s := steer.from_message(new steer(0 - 1000, 1000, 250, 0 - 3).to_message());
+    check("steer", s != null && s!!.throttle == 0 - 1000 && s!!.yaw == 1000 && s!!.pitch == 250 && s!!.roll == 0 - 3);
+    limited := new steer(5000, 0 - 5000, 0, 0);
+    check("steer keeps its values within -1000 .. 1000", limited.throttle == 1000 && limited.yaw == 0 - 1000);
+    check("a message of another kind is not a steer", steer.from_message(new set_mode(1).to_message()) == null);
+    check("a steer cut short is refused", steer.from_message(new message(message_types.STEER, new _uint8[3])) == null);
+    check_text("a kind has a name", message_types.name_of(message_types.TELEMETRY), "telemetry");
+}
+
+def main(args: string[]) : int {
+    test_bytes();
+    test_frames();
+    test_connect();
+    test_small_message();
+    test_long_message();
+    test_lost_frames();
+    test_lost_acknowledgements();
+    test_giving_up();
+    test_telemetry();
+    test_losing_the_connection();
+    test_typed_messages();
+    return finish();
+}

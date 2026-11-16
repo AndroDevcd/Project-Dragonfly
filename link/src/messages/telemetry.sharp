@@ -1,0 +1,45 @@
+mod link.messages;
+
+import ( std, link.protocol );
+
+/**
+ * drone -> controller: how the drone is doing. Sent a few times a second and
+ * NOT reliably.
+ *
+ *      altitude_cm     height above the ground, in centimetres
+ *      speed_cm_s      speed, in centimetres a second
+ *      battery         0 (empty) to 4 (full): the bars on the controller's display
+ *      mode            the flight mode the drone is in (MODE_NORMAL, MODE_SPORT)
+ *
+ *      bytes:  [altitude: 4][speed: 4][battery: 1][mode: 1]
+ */
+class telemetry {
+    altitude_cm : _int64 = 0;
+    speed_cm_s : _int64 = 0;
+    battery : _int64 = 0;
+    mode : _int64 = 0;
+
+    telemetry(altitude_cm: _int64, speed_cm_s: _int64, battery: _int64, mode: _int64) {
+        self->altitude_cm = altitude_cm;
+        self->speed_cm_s = speed_cm_s;
+        self->battery = battery;
+        self->mode = mode;
+    }
+
+    def to_message() : message {
+        w := new byte_writer();
+        w.u32(altitude_cm).u32(speed_cm_s).u8(battery).u8(mode);
+        return new message(message_types.TELEMETRY, w.bytes());
+    }
+
+    static def from_message(m: message) : telemetry? {
+        if(m.type != message_types.TELEMETRY) { return null; }
+        r := m.reader();
+        altitude : _int64 = r.u32();
+        speed : _int64 = r.u32();
+        battery : _int64 = r.u8();
+        mode : _int64 = r.u8();
+        if(!r.ok()) { return null; }
+        return new telemetry(altitude, speed, battery, mode);
+    }
+}

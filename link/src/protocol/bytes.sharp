@@ -1,0 +1,133 @@
+mod link.protocol;
+
+import ( std );
+
+/**
+ * WRITING AND READING THE BYTES OF A MESSAGE
+ *
+ *      w := new byte_writer();
+ *      w.u8(mode);  w.u16(altitude_cm);  w.text("hello");
+ *      bytes := w.bytes();
+ *
+ *      r := new byte_reader(bytes);
+ *      mode := r.u8();  altitude_cm := r.u16();  greeting := r.text();
+ *
+ * Numbers are written most significant byte first ("network order"), in the
+ * width the function names: u8 is 1 byte, u16 is 2, u32 is 4, i64 is 8. Text
+ * is its length as a u16 and then its bytes.
+ *
+ * A reader that is asked for more than there is does not throw half way
+ * through a message: it gives 0 (or "") and remembers that it ran out -
+ * `ok()` is false. The code that decodes a message asks once, at the end.
+ *
+ *      C++ comparison: what you would do with memcpy and htons/ntohs.
+ */
+class byte_writer {
+    private data : _uint8[] = new _uint8[32];
+    private used : _int64 = 0;
+
+    private def room(more: _int64) {
+        if(used + more <= sizeof(data)) { return; }
+        size : _int64 = sizeof(data) * 2;
+        while(size < used + more) { size = size * 2; }
+        grown := new _uint8[size];
+        for(i : _int64 = 0; i < used; i++) { grown[i] = data[i]; }
+        data = grown;
+    }
+
+    def u8(value: _int64) : byte_writer {
+        room(1);
+        data[used] = value & 255;
+        used++;
+        return self;
+    }
+
+    def u16(value: _int64) : byte_writer {
+        u8(value >> 8);
+        return u8(value);
+    }
+
+    def u32(value: _int64) : byte_writer {
+        u16(value >> 16);
+        return u16(value);
+    }
+
+    def i64(value: _int64) : byte_writer {
+        u32(value >> 32);
+        return u32(value);
+    }
+
+    def text(value: string) : byte_writer {
+        size : _int64 = sizeof(value.data);
+        u16(size);
+        for(i : _int64 = 0; i < size; i++) { u8(value.data!![i]); }
+        return self;
+    }
+
+    def raw(more: _uint8[]) : byte_writer {
+        for(i : _int64 = 0; i < sizeof(more); i++) { u8(more[i]); }
+        return self;
+    }
+
+    def size() : _int64 { return used; }
+
+    /** the bytes written so far, as an array of exactly that length */
+    def bytes() : _uint8[] {
+        made := new _uint8[used];
+        for(i : _int64 = 0; i < used; i++) { made[i] = data[i]; }
+        return made;
+    }
+}
+
+class byte_reader {
+    private data : _uint8[];
+    private at : _int64 = 0;
+    private ran_out : _int64 = false;
+
+    byte_reader(data: _uint8[]) {
+        self->data = data;
+    }
+
+    /** true when everything that was asked for was there */
+    def ok() : _int64 { return !ran_out; }
+
+    /** how many bytes have not been read yet */
+    def left() : _int64 { return sizeof(data) - at; }
+
+    def u8() : _int64 {
+        if(at >= sizeof(data)) {
+            ran_out = true;
+            return 0;
+        }
+        value : _int64 = data[at];
+        at++;
+        return value;
+    }
+
+    def u16() : _int64 {
+        high : _int64 = u8();
+        return (high << 8) | u8();
+    }
+
+    def u32() : _int64 {
+        high : _int64 = u16();
+        return (high << 16) | u16();
+    }
+
+    def i64() : _int64 {
+        high : _int64 = u32();
+        return (high << 32) | u32();
+    }
+
+    def text() : string {
+        size : _int64 = u16();
+        if(size > left()) {
+            ran_out = true;
+            return "";
+        }
+        if(size == 0) { return ""; }
+        chars := new _int8[size];
+        for(i : _int64 = 0; i < size; i++) { chars[i] = u8(); }
+        return new string(chars);
+    }
+}

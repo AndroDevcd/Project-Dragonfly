@@ -1,0 +1,361 @@
+mod main;
+
+import ( std, checks, link, link.hardware, link.protocol, link.messages,
+         ui, ui.icons, controller, controller.hardware, controller.input, controller.screens );
+
+/**
+ * THE CONTROLLER, TESTED ON A PC
+ *
+ * The real app runs against a fake display, fake pins, a fake radio and a
+ * clock the test moves. "The drone" is a second link on the other end of the
+ * radio. A test presses buttons by setting pins and reads the screen by asking
+ * the fake display what was drawn where.
+ *
+ *      sharpc -P tests/controller      then    sharp tests/controller/build/outputs/controller_tests
+ */
+class bench {
+    air := new radio_pair();
+    time := new fake_clock();
+    pins := new fake_gpio();
+    panel := new fake_display();
+    saved := new memory_store();
+    app : controller_app;
+    drone : radio_link;                     // the other end
+
+    bench() {
+        time.advance(100000);
+        make_app();
+        drone = new radio_link(air.second, time);
+    }
+
+    /** a new app on the same hardware: what turning the controller off and on again does */
+    def make_app() {
+        app = new controller_app(new controller_devices(air.first, time, pins, panel, saved));
+    }
+
+    def run(rounds: _int64, ms: _int64) {
+        for(i : _int64 = 0; i < rounds; i++) {
+            app.step();
+            drone.step();
+            time.advance(ms);
+        }
+    }
+
+    /** press and release buttons: the pins go high for 50 ms */
+    def press(up: _int64, down: _int64) {
+        pins.force(UP_BUTTON_PIN, up);
+        pins.force(DOWN_BUTTON_PIN, down);
+        run(5, 10);
+        pins.force(UP_BUTTON_PIN, false);
+        pins.force(DOWN_BUTTON_PIN, false);
+        run(5, 10);
+    }
+
+    def press_up() { press(true, false); }
+    def press_down() { press(false, true); }
+    def press_select() { press(true, true); }
+
+    def send_telemetry(altitude: _int64, speed: _int64, battery: _int64, mode: _int64) {
+        drone.publish(new telemetry(altitude, speed, battery, mode).to_message());
+        run(3, 10);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// the toolkit
+// ---------------------------------------------------------------------------
+
+def test_layout() {
+    section("layout: views placed by their relations");
+    screen := new fake_display();
+    battery := picture(icon_battery_3);
+    title := text("ALT");
+    big := text("42").size(2);
+    wide := text("hi").width(60).align_content(ALIGN_END);
+    root := relative()
+        .add(battery.at_top().at_right())
+        .add(title.below(battery).align_right(battery).margin_top(4))
+        .add(big.center())
+        .add(wide.at_bottom().at_left());
+    draw_frame(screen, root);
+
+    check_equal("at_right: against the right edge", battery.right(), DISPLAY_WIDTH);
+    check_equal("at_top", battery.y, 0);
+    check_equal("below + margin_top", title.y, battery.bottom() + 4);
+    check_equal("align_right: the same right edge", title.right(), battery.right());
+    check_equal("text is 6 pixels a character", title.wide, 18);
+    check_equal("size 2 is twice as wide", big.wide, 24);
+    check_equal("... and twice as high", big.high, 16);
+    check_equal("center: across", big.x, (DISPLAY_WIDTH - 24) / 2);
+    check_equal("center: down", big.y, (DISPLAY_HEIGHT - 16) / 2);
+    check_equal("at_bottom", wide.bottom(), DISPLAY_HEIGHT);
+    drawn := screen.find("hi");
+    check("content aligned to the end of a wider view", drawn != null && drawn!!.right() == 60);
+    check("nothing is off the screen", !screen.anything_off_screen());
+
+    // a hidden view is not drawn; text wider than its view is cut to whole characters
+    hidden := text("secret").hide();
+    cut := text("abcdefgh").width(20);
+    draw_frame(screen, relative().add(hidden).add(cut.below(hidden)));
+    check("a hidden view is not drawn", !screen.has("secret"));
+    check("text is cut to the characters that fit", screen.has("abc"));
+
+    // a container in a container
+    inner := relative();
+    inner.width(40).height(20);
+    dot := text("x");
+    inner.add(dot.at_right().at_bottom());
+    draw_frame(screen, relative().add(inner.at_right().at_bottom()));
+    check_equal("a nested container places its own views: across", dot.right(), DISPLAY_WIDTH);
+    check_equal("... and down", dot.bottom(), DISPLAY_HEIGHT);
+}
+
+def test_layout_mistakes() {
+    section("layout: mistakes are said, not looped on");
+    first := text("a");
+    second := text("b");
+    circle : _int64 = false;
+    try {
+        draw_frame(new fake_display(), relative().add(first.below(second)).add(second.below(first)));
+    } catch(e: layout_exception) {
+        circle = true;
+    }
+    check("two views placed by each other are refused", circle);
+
+    third := text("d");
+    stranger := text("c");
+    outside : _int64 = false;
+    try {
+        draw_frame(new fake_display(), relative().add(third.right_of(stranger)));
+    } catch(e: layout_exception) {
+        outside = true;
+    }
+    check("a view placed against one that was never added is refused", outside);
+}
+
+def test_menu() {
+    section("menu: the chosen line is marked and always shown");
+    screen := new fake_display();
+    lines := new list<string>();
+    for(i : _int64 = 0; i < 6; i++) { lines.add("line " + i); }
+
+    draw_frame(screen, relative().add(menu(lines, 1).rows(3)));
+    check("the first three lines are shown", screen.has("line 0") && screen.has("line 2") && !screen.has("line 3"));
+    marker := screen.find("item_selector");
+    chosen := screen.find("line 1");
+    check("the marker is on the chosen line", marker != null && chosen != null && marker!!.y == chosen!!.y);
+
+    draw_frame(screen, relative().add(menu(lines, 5).rows(3)));
+    check("it scrolls to the chosen line", screen.has("line 5") && screen.has("line 3") && !screen.has("line 2"));
+}
+
+def test_buttons() {
+    section("buttons: up, down, both, and holding");
+    time := new fake_clock();
+    time.advance(1000);
+    pins := new fake_gpio();
+    reader := new button_reader(pins, time, 28, 29);
+
+    pins.force(28, true);
+    reader.step();
+    time.advance(50);
+    reader.step();
+    check_equal("nothing while the button is still down", reader.next(), BUTTON_NONE);
+    pins.force(28, false);
+    reader.step();
+    check_equal("up, on the release", reader.next(), BUTTON_UP);
+    check_equal("once", reader.next(), BUTTON_NONE);
+
+    pins.force(29, true);
+    reader.step();
+    time.advance(20);
+    pins.force(28, true);
+    reader.step();
+    time.advance(50);
+    pins.force(28, false);
+    pins.force(29, false);
+    reader.step();
+    check_equal("both together are select", reader.next(), BUTTON_SELECT);
+    check_equal("and nothing else", reader.next(), BUTTON_NONE);
+
+    pins.force(29, true);
+    for(i : _int64 = 0; i < 80; i++) {
+        reader.step();
+        time.advance(10);
+    }
+    pins.force(29, false);
+    reader.step();
+    repeats : _int64 = 0;
+    while(reader.next() == BUTTON_DOWN) { repeats++; }
+    check_equal("held for 800 ms: down three times, and not again on the release", repeats, 3);
+
+    pins.force(28, true);
+    reader.step();
+    time.advance(3);
+    pins.force(28, false);
+    reader.step();
+    check_equal("a 3 ms blip is bounce", reader.next(), BUTTON_NONE);
+}
+
+// ---------------------------------------------------------------------------
+// the app
+// ---------------------------------------------------------------------------
+
+def test_splash_then_home() {
+    section("the splash, then home");
+    t := new bench();
+    t.app.start(new splash_screen(t.app));
+    t.run(5, 20);
+    check("the splash shows the name", t.panel.has("Project Dragonfly") && t.panel.has("product"));
+    check("nothing is off the screen", !t.panel.anything_off_screen());
+    t.run(120, 20);                         // 2.4 seconds
+    check("after two seconds it is gone", !t.panel.has("Project Dragonfly"));
+    check("home shows the clock", t.panel.find(t.app.state.clock_text) != null);
+}
+
+def test_home_follows_the_drone() {
+    section("home shows what the drone says");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(3, 20);
+    check("connected (the drone answered the hello)", t.app.state.is_connected());
+
+    t.send_telemetry(120, 42, 3, MODE_NORMAL);
+    t.run(4, 20);
+    check("the speed", t.panel.has("42"));
+    check("the altitude, as metres", t.panel.has("1.20"));
+    check("the battery picture for 3 bars", t.panel.has("battery_3"));
+    check("the mode picture", t.panel.has("normal_mode"));
+    check("full signal while telemetry is fresh", t.panel.has("signal_4"));
+    check("nothing is off the screen", !t.panel.anything_off_screen());
+
+    t.send_telemetry(5, 7, 1, MODE_SPORT);
+    t.run(4, 20);
+    check("the next reading replaces it", t.panel.has("0.05") && t.panel.has("battery_1") && t.panel.has("sport_mode") && !t.panel.has("1.20"));
+
+    t.drone.send(new notice(NOTICE_WARNING, "low battery").to_message());
+    t.run(10, 20);
+    check("a notice from the drone is shown", t.panel.has("low battery"));
+    t.run(260, 20);                         // more than four seconds
+    check("... for a few seconds", !t.panel.has("low battery"));
+    check("telemetry that stopped coming costs signal bars", t.app.state.signal < 4);
+}
+
+def test_losing_the_drone() {
+    section("losing the drone");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.send_telemetry(300, 10, 4, MODE_NORMAL);
+    t.run(4, 20);
+    check("flying: numbers on the screen", t.panel.has("3.00"));
+    check("the light is on", t.pins.read(CONNECTING_LIGHT_PIN));
+
+    t.air.first.set_blocked(true);
+    t.air.second.set_blocked(true);
+    t.run(120, 20);                         // 2.4 seconds of silence
+    check("the screen says so", t.panel.has("signal lost"));
+    check("the old numbers are gone", !t.panel.has("3.00"));
+    check("no signal bars", t.panel.has("signal_0"));
+
+    on : _int64 = 0;
+    off : _int64 = 0;
+    for(i : _int64 = 0; i < 100; i++) {
+        t.run(1, 20);
+        if(t.pins.read(CONNECTING_LIGHT_PIN)) { on++; } else { off++; }
+    }
+    check("the light blinks", on > 20 && off > 20);
+
+    t.air.first.set_blocked(false);
+    t.air.second.set_blocked(false);
+    t.run(60, 20);
+    t.send_telemetry(310, 10, 4, MODE_NORMAL);
+    t.run(4, 20);
+    check("back: numbers again", t.panel.has("3.10") && !t.panel.has("signal lost"));
+}
+
+def test_settings() {
+    section("settings: the buttons, the drone, and the file");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(20, 20);
+    first := t.drone.next();
+    check("on connecting, the drone is told the chosen mode", first != null && set_mode.from_message(first!!) != null
+          && set_mode.from_message(first!!)!!.mode == MODE_NORMAL);
+
+    t.press_select();
+    check("both buttons open the settings", t.panel.has("Mode: normal") && t.panel.has("Back"));
+    check_equal("on top of home", t.app.screens.depth(), 2);
+    check("nothing is off the screen", !t.panel.anything_off_screen());
+
+    t.press_select();                       // the first line: the mode
+    t.run(20, 20);
+    check("the mode changed on the screen", t.panel.has("Mode: sport"));
+    told := t.drone.next();
+    check("and the drone was told", told != null && set_mode.from_message(told!!)!!.mode == MODE_SPORT);
+    check("and it is saved", t.saved.text != null && t.saved.saves == 1);
+
+    t.press_down();
+    t.press_select();                       // the second line: the screen
+    check("the display was dimmed", t.panel.is_dim && t.panel.has("Screen: dim"));
+
+    t.press_up();
+    t.press_up();                           // from the first line up: around to the last
+    marker := t.panel.find("item_selector");
+    back := t.panel.find("Back");
+    check("up from the first line goes to the last", marker != null && back != null && marker!!.y == back!!.y);
+    t.press_select();
+    check_equal("Back returns to home", t.app.screens.depth(), 1);
+    check("home is shown again", !t.panel.has("Back"));
+
+    // off and on again: the settings are still there, and the drone is told again
+    t.make_app();
+    t.app.start(new home_screen(t.app));
+    check_equal("the mode was loaded", t.app.chosen.flight_mode, MODE_SPORT);
+    check("the dimming was loaded", t.app.chosen.dim_screen);
+    while(t.drone.next() != null) { }
+    t.run(40, 20);
+    again := t.drone.next();
+    check("a restarted controller tells the drone its mode", again != null && set_mode.from_message(again!!) != null
+          && set_mode.from_message(again!!)!!.mode == MODE_SPORT);
+}
+
+def test_mode_waits_for_the_drone() {
+    section("a mode the drone has not confirmed is marked");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(20, 20);
+    t.press_select();
+    t.air.first.set_blocked(true);          // the drone cannot hear the controller any more
+    t.press_select();
+    t.run(10, 20);
+    check("the unconfirmed mode has a star", t.panel.has("Mode: sport *"));
+    t.air.first.set_blocked(false);
+    t.run(200, 20);
+    check("confirmed: the star is gone", t.panel.has("Mode: sport") && !t.panel.has("Mode: sport *"));
+}
+
+def test_settings_file() {
+    section("the settings text: what is not understood is skipped");
+    store := new memory_store();
+    store.text = "flight_mode=1\nsomething_new=7\ndim_screen=1\nradio_power=9\nutc_offset=-3\ngarbage\n";
+    loaded := new settings(store);
+    check_equal("flight_mode", loaded.flight_mode, MODE_SPORT);
+    check("dim_screen", loaded.dim_screen);
+    check_equal("a radio power that does not exist is not taken", loaded.radio_power, 0);
+    check_equal("a negative number", loaded.utc_offset, 0 - 3);
+    check_text("the clock: five past nine", clock_text_of(9 * 60 + 5), "09:05");
+}
+
+def main(args: string[]) : int {
+    test_layout();
+    test_layout_mistakes();
+    test_menu();
+    test_buttons();
+    test_splash_then_home();
+    test_home_follows_the_drone();
+    test_losing_the_drone();
+    test_settings();
+    test_mode_waits_for_the_drone();
+    test_settings_file();
+    return finish();
+}

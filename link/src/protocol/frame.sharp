@@ -1,0 +1,105 @@
+mod link.protocol;
+
+import ( std, link.hardware );
+
+/**
+ * ONE FRAME ON THE AIR
+ *
+ * The radio carries 32 bytes at a time. A message can be any length, so it is
+ * cut into PIECES and each piece travels in one frame:
+ *
+ *      byte 0      what kind of message this is                (message_types)
+ *      byte 1      flags                                       (below)
+ *      byte 2-3    the message's number: counts up with every message sent
+ *      byte 4-5    which piece of the message this is: 0, 1, 2 ...
+ *      byte 6      how many bytes of the message are in this frame (0 to 25)
+ *      byte 7-31   those bytes
+ *
+ *      a 60-byte message, number 9:
+ *        [type][ RELIABLE       ][9][0][25][ bytes  0 - 24 ]
+ *        [type][ RELIABLE       ][9][1][25][ bytes 25 - 49 ]
+ *        [type][ RELIABLE | LAST][9][2][10][ bytes 50 - 59 ]
+ *
+ * The piece number is 16 bits, so one message can be 65,536 pieces: over 1.6
+ * million bytes. Nothing the drone and its controller say to each other comes
+ * near that - the point is that no message has to be designed around 32 bytes.
+ *
+ * THE FLAGS
+ *      RELIABLE    the sender waits for an acknowledgement of every piece and
+ *                  sends a piece again until it gets one (commands)
+ *      LAST        the last piece: the message is complete
+ *      ACK         not a piece at all: "I got piece N of message M". It
+ *                  carries no bytes.
+ *
+ * A frame that is not RELIABLE is sent once and forgotten (telemetry: the
+ * next one is already on its way, so a lost one is not worth repeating).
+ *
+ *      C++ comparison: a packed struct with a 7-byte header.
+ */
+const FRAME_HEADER_SIZE : _int64 = 7;
+const FRAME_PAYLOAD_SIZE : _int64 = 25;         // FRAME_SIZE - FRAME_HEADER_SIZE
+const MAX_PIECES : _int64 = 65536;
+
+const FLAG_RELIABLE : _int64 = 1;
+const FLAG_LAST : _int64 = 2;
+const FLAG_ACK : _int64 = 4;
+
+class frame {
+    type : _int64 = 0;
+    flags : _int64 = 0;
+    number : _int64 = 0;            // the message's number
+    piece : _int64 = 0;             // which piece of it
+    payload : _uint8[] = new _uint8[0];
+
+    def is_reliable() : _int64 { return (flags & FLAG_RELIABLE) != 0; }
+    def is_last() : _int64 { return (flags & FLAG_LAST) != 0; }
+    def is_ack() : _int64 { return (flags & FLAG_ACK) != 0; }
+
+    /** the 32 bytes that go on the air (the rest after the payload is 0) */
+    def encode() : _uint8[] {
+        bytes := new _uint8[FRAME_SIZE];
+        size : _int64 = sizeof(payload);
+        bytes[0] = type & 255;
+        bytes[1] = flags & 255;
+        bytes[2] = (number >> 8) & 255;
+        bytes[3] = number & 255;
+        bytes[4] = (piece >> 8) & 255;
+        bytes[5] = piece & 255;
+        bytes[6] = size;
+        for(i : _int64 = 0; i < size; i++) { bytes[FRAME_HEADER_SIZE + i] = payload[i]; }
+        return bytes;
+    }
+
+    /**
+     * A frame from the 32 bytes that came off the air; null when they cannot
+     * be one (too short, or a length that does not fit). The radio checks
+     * every frame against a checksum of its own, so this is about honest
+     * mistakes - another program on the same channel - not about damage.
+     */
+    static def decode(bytes: _uint8[]) : frame? {
+        if(sizeof(bytes) < FRAME_HEADER_SIZE) { return null; }
+        size : _int64 = bytes[6];
+        if(size > FRAME_PAYLOAD_SIZE || FRAME_HEADER_SIZE + size > sizeof(bytes)) { return null; }
+
+        made := new frame();
+        made.type = bytes[0];
+        made.flags = bytes[1];
+        high : _int64 = bytes[2];
+        made.number = (high << 8) | bytes[3];
+        high = bytes[4];
+        made.piece = (high << 8) | bytes[5];
+        made.payload = new _uint8[size];
+        for(i : _int64 = 0; i < size; i++) { made.payload[i] = bytes[FRAME_HEADER_SIZE + i]; }
+        return made;
+    }
+
+    /** the acknowledgement of piece `piece` of message `number` */
+    static def ack_of(type: _int64, number: _int64, piece: _int64) : frame {
+        made := new frame();
+        made.type = type;
+        made.flags = FLAG_ACK;
+        made.number = number;
+        made.piece = piece;
+        return made;
+    }
+}

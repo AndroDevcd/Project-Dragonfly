@@ -1,0 +1,69 @@
+mod drone;
+
+import ( std, link.hardware, drone.hardware );
+
+/**
+ * HOW HIGH THE DRONE IS, and how fast that is changing
+ *
+ * The distance sensor is asked more often the closer the ground is: near the
+ * ground a tenth of a second matters, ten feet up it does not, and every
+ * reading costs time (the sensor waits for an echo).
+ *
+ *      up to 150 cm        every 100 ms
+ *      up to 305 cm        every 150 ms
+ *      above that          every 250 ms
+ *
+ * The climb rate is the change between the last two readings over the time
+ * between them. A reading of -1 (no echo) is not a height: the last good one
+ * is kept and `has_ground` says there is none.
+ *
+ * Nothing here waits: `step()` reads the sensor when a reading is due and
+ * returns at once otherwise.
+ */
+const NEAR_GROUND_CM : _int64 = 150;
+const MIDDLE_HEIGHT_CM : _int64 = 305;
+const NEAR_INTERVAL_MS : _int64 = 100;
+const MIDDLE_INTERVAL_MS : _int64 = 150;
+const FAR_INTERVAL_MS : _int64 = 250;
+
+class altimeter {
+    private sensor : distance_sensor;
+    private time : clock;
+    private read_at : _int64 = 0 - 1;       // when the sensor was last read (-1: never)
+
+    altitude_cm : _int64 = 0;
+    climb_cm_s : _int64 = 0;                // + up, - down
+    has_ground : _int64 = false;            // false: the last reading had no echo
+
+    altimeter(sensor: distance_sensor, time: clock) {
+        self->sensor = sensor;
+        self->time = time;
+    }
+
+    /** how long to wait between readings at the height we are at */
+    def interval_ms() : _int64 {
+        if(!has_ground) { return FAR_INTERVAL_MS; }
+        if(altitude_cm <= NEAR_GROUND_CM) { return NEAR_INTERVAL_MS; }
+        if(altitude_cm <= MIDDLE_HEIGHT_CM) { return MIDDLE_INTERVAL_MS; }
+        return FAR_INTERVAL_MS;
+    }
+
+    def step() {
+        now : _int64 = time.now_ms();
+        if(read_at >= 0 && now - read_at < interval_ms()) { return; }
+
+        reading : _int64 = sensor.read_cm();
+        if(reading < 0) {
+            has_ground = false;
+            climb_cm_s = 0;
+            read_at = now;
+            return;
+        }
+        if(has_ground && read_at >= 0 && now > read_at) {
+            climb_cm_s = ((reading - altitude_cm) * 1000) / (now - read_at);
+        }
+        altitude_cm = reading;
+        has_ground = true;
+        read_at = now;
+    }
+}

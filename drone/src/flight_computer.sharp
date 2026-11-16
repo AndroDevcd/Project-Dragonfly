@@ -1,0 +1,160 @@
+mod drone;
+
+import ( std, link, link.hardware, link.protocol, link.messages, drone.hardware );
+
+/**
+ * THE FLIGHT COMPUTER: the whole drone program, as one object that is stepped
+ *
+ *      computer := new flight_computer(devices);
+ *      for(;;) { computer.step(); }
+ *
+ * Each step, in order:
+ *
+ *      1. the link does its work            frames in, acknowledgements, resends
+ *      2. messages from the controller      set_mode, steer, jam
+ *      3. the height is read, when due      (altimeter.sharp)
+ *      4. the failsafe is decided           no controller: stop obeying the sticks
+ *      5. the motors are told what to do
+ *      6. telemetry goes out                every TELEMETRY_EVERY_MS
+ *
+ * Nothing in a step waits, so the loop turns hundreds of times a second and
+ * everything stays responsive without a single thread.
+ *
+ * THE FAILSAFE. The drone obeys the sticks only while it hears the
+ * controller. When the link is lost - or was never made - the sticks are
+ * treated as centred and the throttle as FAILSAFE_THROTTLE (a gentle
+ * descent). A stick message older than STICKS_STALE_MS counts as centred too:
+ * a controller that is connected but stopped steering must not leave the last
+ * command running. When the link comes back the pilot gets a notice, and the
+ * sticks count again with the next steer message.
+ *
+ * Everything the computer decides is in `state` (flight_state.sharp): the
+ * tests read it, and telemetry is made from it.
+ */
+const TELEMETRY_EVERY_MS : _int64 = 200;
+const STICKS_STALE_MS : _int64 = 500;
+const FAILSAFE_THROTTLE : _int64 = 0 - 200;
+
+class flight_computer {
+    private devices : drone_devices;
+    net : radio_link;
+    height : altimeter;
+    state := new flight_state();
+
+    private telemetry_at : _int64 = 0 - 1;      // when telemetry was last sent
+    private steer_at : _int64 = 0 - 1;          // when the sticks were last heard
+    private was_connected : _int64 = false;
+    private jammer : radio_control? = null;
+
+    flight_computer(devices: drone_devices) {
+        self->devices = devices;
+        net = new radio_link(devices.air, devices.time);
+        height = new altimeter(devices.ground, devices.time);
+    }
+
+    /** the radio can also disturb a channel (the real one can; a fake need not) */
+    def set_jammer(jammer: radio_control) {
+        self->jammer = jammer;
+    }
+
+    def step() {
+        now : _int64 = devices.time.now_ms();
+        net.step();
+        hear_controller(now);
+        height.step();
+        decide_failsafe(now);
+        devices.thrust.drive(state.throttle, state.yaw, state.pitch, state.roll);
+        send_telemetry(now);
+    }
+
+    // ------------------------------------------------------------------ what the controller says
+
+    private def hear_controller(now: _int64) {
+        for(;;) {
+            heard := net.next();
+            if(heard == null) { return; }
+            m : message = heard!!;
+            state.messages_heard++;
+
+            if(m.type == message_types.SET_MODE) {
+                wanted := set_mode.from_message(m);
+                if(wanted != null) { state.mode = wanted!!.mode; }
+            } else if(m.type == message_types.STEER) {
+                sticks := steer.from_message(m);
+                if(sticks != null) {
+                    state.stick_throttle = sticks!!.throttle;
+                    state.stick_yaw = sticks!!.yaw;
+                    state.stick_pitch = sticks!!.pitch;
+                    state.stick_roll = sticks!!.roll;
+                    steer_at = now;
+                }
+            } else if(m.type == message_types.JAM) {
+                wanted := jam.from_message(m);
+                if(wanted != null) { disturb(wanted!!.channel); }
+            } else {
+                // a kind this drone does not know: said once to the pilot, not ignored in silence
+                net.send(new notice(NOTICE_WARNING, "the drone does not understand " + message_types.name_of(m.type)).to_message());
+            }
+        }
+    }
+
+    private def disturb(channel: _int64) {
+        if(jammer == null) {
+            net.send(new notice(NOTICE_WARNING, "this drone cannot jam").to_message());
+            return;
+        }
+        jammer!!.jam(channel);
+        state.jams++;
+        net.send(new notice(NOTICE_INFO, "jammed channel " + channel).to_message());
+    }
+
+    // ------------------------------------------------------------------ the failsafe
+
+    private def decide_failsafe(now: _int64) {
+        connected : _int64 = net.is_connected();
+        sticks_fresh : _int64 = steer_at >= 0 && now - steer_at <= STICKS_STALE_MS;
+
+        if(connected && !was_connected && state.failsafe_count > 0) {
+            net.send(new notice(NOTICE_INFO, "link restored").to_message());
+        }
+        if(!connected && was_connected) { state.failsafe_count++; }
+        was_connected = connected;
+
+        state.connected = connected;
+        state.failsafe = !connected;
+        if(!connected) {
+            state.throttle = FAILSAFE_THROTTLE;
+            state.yaw = 0;
+            state.pitch = 0;
+            state.roll = 0;
+            steer_at = 0 - 1;                       // the old stick position does not come back with the link
+            return;
+        }
+        if(!sticks_fresh) {
+            state.throttle = 0;
+            state.yaw = 0;
+            state.pitch = 0;
+            state.roll = 0;
+            return;
+        }
+        // sport mode obeys the sticks fully; normal mode half as much
+        scale : _int64 = 2;
+        if(state.mode == MODE_SPORT) { scale = 1; }
+        state.throttle = state.stick_throttle / scale;
+        state.yaw = state.stick_yaw / scale;
+        state.pitch = state.stick_pitch / scale;
+        state.roll = state.stick_roll / scale;
+    }
+
+    // ------------------------------------------------------------------ what the drone says
+
+    private def send_telemetry(now: _int64) {
+        if(!net.is_connected()) { return; }
+        if(telemetry_at >= 0 && now - telemetry_at < TELEMETRY_EVERY_MS) { return; }
+        telemetry_at = now;
+        speed : _int64 = height.climb_cm_s;
+        if(speed < 0) { speed = 0 - speed; }
+        net.publish(new telemetry(height.altitude_cm, speed, devices.power.level(), state.mode).to_message());
+        state.telemetry_sent++;
+    }
+}

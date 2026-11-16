@@ -1,0 +1,53 @@
+mod link.protocol;
+
+import ( std );
+
+/**
+ * A growing list of whole numbers.
+ *
+ * (The standard `list<T>` holds objects; plain numbers such as `_int64` do not
+ * go in it. The link remembers ids - of messages delivered, of messages given
+ * up - and this is all it needs for that.)
+ *
+ * It keeps at most `limit` numbers: when one more is added, the oldest is
+ * forgotten. A link that runs for days must not remember every id it ever gave.
+ */
+class number_list {
+    private items : _int64[] = new _int64[16];
+    private used : _int64 = 0;
+    private limit : _int64;
+
+    number_list() {
+        limit = 256;
+    }
+
+    number_list(limit: _int64) {
+        self->limit = limit;
+    }
+
+    def add(value: _int64) {
+        if(used == limit) {
+            // forget the oldest: everything moves one place down
+            for(i : _int64 = 1; i < used; i++) { items[i - 1] = items[i]; }
+            used--;
+        }
+        if(used == sizeof(items)) {
+            grown := new _int64[used * 2];
+            for(i : _int64 = 0; i < used; i++) { grown[i] = items[i]; }
+            items = grown;
+        }
+        items[used] = value;
+        used++;
+    }
+
+    def contains(value: _int64) : _int64 {
+        for(i : _int64 = 0; i < used; i++) {
+            if(items[i] == value) { return true; }
+        }
+        return false;
+    }
+
+    def size() : _int64 { return used; }
+
+    def at(index: _int64) : _int64 { return items[index]; }
+}

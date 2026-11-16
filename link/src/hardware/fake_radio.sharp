@@ -1,0 +1,95 @@
+mod link.hardware;
+
+import ( std );
+
+/**
+ * TWO RADIOS JOINED IN MEMORY: the drone and the controller on one PC
+ *
+ *      pair := new radio_pair();
+ *      controller_link := new radio_link(pair.first, clock);
+ *      drone_link      := new radio_link(pair.second, clock);
+ *
+ * What one transmits, the other receives - unless the test says a frame is
+ * lost. Losing frames ON PURPOSE is the point: the real air loses them all the
+ * time, and the link's retries and acknowledgements only mean something when
+ * they are tried against that.
+ *
+ *      pair.first.lose_every(3);       every third frame it sends disappears
+ *      pair.first.lose_next(5);        the next five do
+ *      pair.first.set_blocked(true);   nothing gets through (the drone flew out of range)
+ *
+ * Which frames are lost is decided by counting, never by chance: a test that
+ * fails fails the same way every time.
+ */
+class fake_radio : radio {
+    private arrived := new list<held_frame>();      // frames waiting to be received by THIS radio
+    private other : fake_radio?;                     // where this one's frames go
+
+    private lose_period : _int64 = 0;               // 0: none; n: every n-th frame sent is lost
+    private lose_count : _int64 = 0;                // this many of the next frames sent are lost
+    private blocked : _int64 = false;
+
+    sent : _int64 = 0;                              // frames handed to transmit()
+    lost : _int64 = 0;                              // ... of which this many never arrived
+
+    def join(peer: fake_radio) {
+        other = peer;
+    }
+
+    def lose_every(n: _int64) { lose_period = n; }
+    def lose_next(n: _int64) { lose_count = n; }
+    def set_blocked(yes: _int64) { blocked = yes; }
+
+    override def transmit(frame: _uint8[]) : _int64 {
+        sent++;
+        gone : _int64 = blocked;
+        if(lose_count > 0) {
+            lose_count--;
+            gone = true;
+        }
+        if(lose_period > 0 && (sent % lose_period) == 0) { gone = true; }
+        if(gone || other == null) {
+            lost++;
+            return true;            // it left the radio; that it never arrived is not something a radio knows
+        }
+
+        // the receiver gets its own copy: the sender may reuse its array
+        copy := new _uint8[sizeof(frame)];
+        for(i : _int64 = 0; i < sizeof(frame); i++) { copy[i] = frame[i]; }
+        other!!.deliver(copy);
+        return true;
+    }
+
+    override def receive() : _uint8[]? {
+        lock(self) {
+            if(arrived.size() == 0) { return null; }
+            return arrived.pop_first().bytes;
+        }
+    }
+
+    def deliver(frame: _uint8[]) {
+        lock(self) {
+            arrived.add(new held_frame(frame));
+        }
+    }
+}
+
+/** one frame in a fake radio's queue (a list cannot hold arrays themselves, so each sits in one of these) */
+class held_frame {
+    bytes : _uint8[];
+
+    held_frame(bytes: _uint8[]) {
+        self->bytes = bytes;
+    }
+}
+
+/** two fake radios that hear each other */
+class radio_pair {
+    first := new fake_radio();
+    second := new fake_radio();
+
+    radio_pair() {
+        first.join(second);
+        second.join(first);
+    }
+}

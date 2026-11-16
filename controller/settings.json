@@ -1,12 +1,34 @@
 {
   "name": "controller",
-  "version": "1.0",
+  "version": "2.0",
   "output": "controller",
   "ignore_folders": [
-     "build",
-     "src/cpp"
+    "build",
+    "native"
   ],
   "extern_lib": [
-     "../common"
-  ]
+    "../link/src"
+  ],
+  "native": {
+    "sources": [
+      "../link/native",
+      "native"
+    ],
+    "toolchain": {
+      "include": [
+        "../link/native",
+        "native"
+      ],
+      "linux": {
+        "processor": {
+          "arm": {
+            "libraries": [
+              "rf24",
+              "wiringPi"
+            ]
+          }
+        }
+      }
+    }
+  }
 }

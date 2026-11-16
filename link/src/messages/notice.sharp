@@ -1,0 +1,63 @@
+mod link.messages;
+
+import ( std, link.protocol );
+
+/**
+ * drone -> controller: a line (or a page) of text for the pilot - a warning,
+ * a log. Sent reliably. It can be as long as it needs: the link cuts it into
+ * frames.
+ *
+ *      bytes:  [level: 1][text: 2 bytes of length, then the characters]
+ */
+const NOTICE_INFO : _int64 = 0;
+const NOTICE_WARNING : _int64 = 1;
+const NOTICE_ERROR : _int64 = 2;
+
+class notice {
+    level : _int64;
+    text : string;
+
+    notice(level: _int64, text: string) {
+        self->level = level;
+        self->text = text;
+    }
+
+    def to_message() : message {
+        return new message(message_types.NOTICE, new byte_writer().u8(level).text(text).bytes());
+    }
+
+    static def from_message(m: message) : notice? {
+        if(m.type != message_types.NOTICE) { return null; }
+        r := m.reader();
+        level : _int64 = r.u8();
+        text := r.text();
+        if(!r.ok()) { return null; }
+        return new notice(level, text);
+    }
+}
+
+/**
+ * controller -> drone: disturb this radio channel (the project's jammer).
+ * Sent reliably.
+ *
+ *      bytes:  [channel: 1]
+ */
+class jam {
+    channel : _int64;
+
+    jam(channel: _int64) {
+        self->channel = channel;
+    }
+
+    def to_message() : message {
+        return new message(message_types.JAM, new byte_writer().u8(channel).bytes());
+    }
+
+    static def from_message(m: message) : jam? {
+        if(m.type != message_types.JAM) { return null; }
+        r := m.reader();
+        channel : _int64 = r.u8();
+        if(!r.ok()) { return null; }
+        return new jam(channel);
+    }
+}

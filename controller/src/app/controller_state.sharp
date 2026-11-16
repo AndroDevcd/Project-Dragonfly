@@ -1,0 +1,61 @@
+mod controller;
+
+import ( std, link, link.messages );
+
+/**
+ * WHAT THE CONTROLLER KNOWS RIGHT NOW
+ *
+ * One plain object. The app writes it - from the link, the clock and the
+ * drone's telemetry - and the screens read it when they describe themselves.
+ * A screen never asks the radio anything and never keeps a copy of a value:
+ * that is what made the old screens need a background loop each.
+ */
+class controller_state {
+    // ---- the connection
+    link_state : _int64 = LINK_DISCONNECTED;
+    signal : _int64 = 0;                        // 0 .. 4 bars
+
+    // ---- the drone, as its last telemetry said
+    has_telemetry : _int64 = false;
+    altitude_cm : _int64 = 0;
+    speed_cm_s : _int64 = 0;
+    battery : _int64 = 0;                       // 0 .. 4 bars
+    drone_mode : _int64 = MODE_NORMAL;          // the mode the DRONE says it is in
+
+    // ---- what the drone last told the pilot
+    notice_text : string = "";
+    notice_level : _int64 = NOTICE_INFO;
+    notice_until : _int64 = 0;                  // shown until this time
+
+    // ---- the clock on the status bar
+    clock_text : string = "--:--";
+
+    def is_connected() : _int64 { return link_state == LINK_CONNECTED; }
+
+    /** "12" and "34": centimetres as metres with two digits behind the point, in two pieces */
+    def altitude_text() : string {
+        if(!has_telemetry) { return "-.--"; }
+        whole : _int64 = altitude_cm / 100;
+        part : _int64 = altitude_cm % 100;
+        if(part < 10) { return "" + whole + ".0" + part; }
+        return "" + whole + "." + part;
+    }
+
+    /** the speed in centimetres a second, as the big number of the home screen */
+    def speed_text() : string {
+        if(!has_telemetry) { return "--"; }
+        return "" + speed_cm_s;
+    }
+}
+
+/** "09:05" for a time of day given in minutes since midnight */
+def clock_text_of(minutes: _int64) : string {
+    hours : _int64 = minutes / 60;          // (a whole number: `/` alone gives a decimal)
+    hours = hours % 24;
+    rest : _int64 = minutes % 60;
+    text := "";
+    if(hours < 10) { text = "0"; }
+    text = text + hours + ":";
+    if(rest < 10) { text = text + "0"; }
+    return text + rest;
+}

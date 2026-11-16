@@ -1,0 +1,52 @@
+mod link.hardware;
+
+import ( std );
+
+/**
+ * THE PINS OF THE BOARD (GPIO)
+ *
+ *      pins.set_output(27);
+ *      pins.write(27, true);           // the "connecting" light on
+ *      pressed := pins.read(28);       // a button
+ *
+ * Pins are numbered the way the wiringPi library numbers them, as in the
+ * wiring of this project.
+ *
+ *      real hardware      pi_gpio        wiringPi behind it (hardware/pi_gpio.sharp)
+ *      a test on a PC     fake_gpio      a table in memory: a test "presses a
+ *                                        button" by setting a pin, and looks at
+ *                                        what the program wrote
+ */
+interface gpio {
+    def set_input(pin: _int64);
+    def set_output(pin: _int64);
+    def write(pin: _int64, high: _int64);
+    /** true when the pin is high */
+    def read(pin: _int64) : _int64;
+}
+
+/** pins in memory, for tests and for running on a PC */
+class fake_gpio : gpio {
+    private levels : _int64[] = new _int64[64];
+    private outputs : _int64[] = new _int64[64];
+    writes : _int64 = 0;                    // how often the program wrote a pin
+
+    override def set_input(pin: _int64) { outputs[pin] = false; }
+    override def set_output(pin: _int64) { outputs[pin] = true; }
+
+    override def write(pin: _int64, high: _int64) {
+        levels[pin] = high ? 1 : 0;
+        writes++;
+    }
+
+    override def read(pin: _int64) : _int64 {
+        return levels[pin] != 0;
+    }
+
+    /** what a test does to press (true) or release (false) a button wired to `pin` */
+    def force(pin: _int64, high: _int64) {
+        levels[pin] = high ? 1 : 0;
+    }
+
+    def is_output(pin: _int64) : _int64 { return outputs[pin]; }
+}

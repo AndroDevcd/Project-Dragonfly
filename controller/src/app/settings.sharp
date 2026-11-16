@@ -1,0 +1,121 @@
+mod controller;
+
+import ( std, std.io, link.messages );
+
+/**
+ * WHAT THE PILOT CHOSE, kept between runs
+ *
+ *      flight_mode     normal / sport                  (sent to the drone)
+ *      dim_screen      low brightness
+ *      radio_power     0 (least) .. 3 (most)
+ *      utc_offset      hours to add to UTC for the clock on the status bar
+ *
+ * They are saved as lines of `name=value` text through a `settings_store`:
+ * a file on the controller, a string in memory in a test. A line that is not
+ * understood is skipped, so a file written by a newer version still loads.
+ * Every `change_...` function saves at once: there is no "apply" button on a
+ * screen with two buttons.
+ */
+interface settings_store {
+    /** the saved text, or null when nothing was saved yet */
+    def load() : string?;
+    def save(text: string);
+}
+
+/** the settings in a file */
+class file_store : settings_store {
+    private path : string;
+
+    file_store(path: string) {
+        self->path = path;
+    }
+
+    override def load() : string? {
+        saved := new file(path);
+        if(!saved.exists()) { return null; }
+        return saved.read();
+    }
+
+    override def save(text: string) {
+        saved := new file(path);
+        saved.write(text);
+    }
+}
+
+/** the settings in memory: for tests, and for running on a PC without leaving files behind */
+class memory_store : settings_store {
+    text : string? = null;
+    saves : _int64 = 0;
+
+    override def load() : string? { return text; }
+
+    override def save(text: string) {
+        self->text = text;
+        saves++;
+    }
+}
+
+class settings {
+    private store : settings_store;
+
+    flight_mode : _int64 = MODE_NORMAL;
+    dim_screen : _int64 = false;
+    radio_power : _int64 = 0;
+    utc_offset : _int64 = 0 - 5;
+
+    settings(store: settings_store) {
+        self->store = store;
+        read(store.load());
+    }
+
+    def change_flight_mode(mode: _int64) { flight_mode = mode; write(); }
+    def change_dim_screen(yes: _int64) { dim_screen = yes; write(); }
+    def change_radio_power(level: _int64) { radio_power = level; write(); }
+
+    private def write() {
+        store.save("flight_mode=" + flight_mode + "\ndim_screen=" + dim_screen
+                   + "\nradio_power=" + radio_power + "\nutc_offset=" + utc_offset + "\n");
+    }
+
+    /** take every `name=value` line that is understood; skip the rest */
+    private def read(saved: string?) {
+        if(saved == null) { return; }
+        text : string = saved!!;
+        size : _int64 = sizeof(text.data);
+        start : _int64 = 0;
+        for(i : _int64 = 0; i <= size; i++) {
+            if(i < size && text.data!![i] != '\n') { continue; }
+            take_line(text, start, i);
+            start = i + 1;
+        }
+    }
+
+    private def take_line(text: string, from: _int64, to: _int64) {
+        equals : _int64 = 0 - 1;
+        for(i : _int64 = from; i < to; i++) {
+            if(text.data!![i] == '=') { equals = i; break; }
+        }
+        if(equals <= from || equals + 1 >= to) { return; }
+        name := new string(text.data!!, from, equals);
+        value : _int64 = number_in(text, equals + 1, to);
+
+        if(name == "flight_mode" && (value == MODE_NORMAL || value == MODE_SPORT)) { flight_mode = value; }
+        else if(name == "dim_screen") { dim_screen = value != 0; }
+        else if(name == "radio_power" && value >= 0 && value <= 3) { radio_power = value; }
+        else if(name == "utc_offset" && value >= 0 - 12 && value <= 14) { utc_offset = value; }
+    }
+
+    /** the whole number written in text[from .. to), with an optional `-` in front; 0 for anything else */
+    private static def number_in(text: string, from: _int64, to: _int64) : _int64 {
+        value : _int64 = 0;
+        negative : _int64 = false;
+        for(i : _int64 = from; i < to; i++) {
+            ch : _int64 = text.data!![i];
+            if(i == from && ch == '-') { negative = true; continue; }
+            if(ch < '0' || ch > '9') { break; }
+            value = value * 10 + (ch - '0');
+        }
+        if(negative) { return 0 - value; }
+        return value;
+    }
+}

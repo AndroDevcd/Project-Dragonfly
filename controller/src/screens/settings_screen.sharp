@@ -1,0 +1,85 @@
+mod controller.screens;
+
+import ( std, ui, controller, link.messages );
+
+/**
+ * SETTINGS: a list; up and down move, both buttons together change the line
+ *
+ *      12:30                          [mode] [signal] [battery]
+ *      ------------------------------------------------------
+ *       >  Mode: sport *
+ *          Screen: bright
+ *          Radio power: 2
+ *          Back
+ *
+ * Each line shows the setting's value, so there are no sub-screens: choosing a
+ * line moves it to its next value (and saves it - controller/settings.sharp).
+ * The `*` after the mode means the drone has not confirmed it yet.
+ *
+ * The one piece of state this screen owns is which line is chosen. The list
+ * itself is made new for every frame from the settings as they are.
+ */
+const LINE_MODE : _int64 = 0;
+const LINE_SCREEN : _int64 = 1;
+const LINE_POWER : _int64 = 2;
+const LINE_BACK : _int64 = 3;
+const LINE_COUNT : _int64 = 4;
+
+class settings_screen base screen {
+    private app : controller_app;
+    chosen_line : _int64 = 0;
+
+    settings_screen(app: controller_app) {
+        self->app = app;
+    }
+
+    override def on_enter() { }
+
+    override def on_button(button: _int64) {
+        if(button == BUTTON_UP) {
+            chosen_line = (chosen_line + LINE_COUNT - 1) % LINE_COUNT;       // from the first line up to the last
+            return;
+        }
+        if(button == BUTTON_DOWN) {
+            chosen_line = (chosen_line + 1) % LINE_COUNT;
+            return;
+        }
+        if(button != BUTTON_SELECT) { return; }
+
+        chosen := app.chosen;
+        if(chosen_line == LINE_MODE) {
+            if(chosen.flight_mode == MODE_SPORT) { chosen.change_flight_mode(MODE_NORMAL); }
+            else { chosen.change_flight_mode(MODE_SPORT); }
+        } else if(chosen_line == LINE_SCREEN) {
+            chosen.change_dim_screen(!chosen.dim_screen);
+        } else if(chosen_line == LINE_POWER) {
+            chosen.change_radio_power((chosen.radio_power + 1) % 4);
+        } else {
+            app.screens.back();
+        }
+    }
+
+    /** the lines as they read right now */
+    def lines() : list<string> {
+        chosen := app.chosen;
+        made := new list<string>();
+
+        mode : string = "Mode: " + flight_mode_name(chosen.flight_mode);
+        if(app.mode_is_pending()) { mode = mode + " *"; }
+        made.add(mode);
+
+        if(chosen.dim_screen) { made.add("Screen: dim"); }
+        else { made.add("Screen: bright"); }
+        made.add("Radio power: " + chosen.radio_power);
+        made.add("Back");
+        return made;
+    }
+
+    override def body() : view {
+        bar := status_bar(app.state);
+        list := menu(lines(), chosen_line).rows(4);
+        return relative()
+            .add(bar.at_top())
+            .add(list.below(bar).at_left().margin_top(4).margin_left(2));
+    }
+}

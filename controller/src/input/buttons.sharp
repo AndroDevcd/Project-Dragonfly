@@ -1,0 +1,101 @@
+mod controller.input;
+
+import ( std, link.hardware, ui );
+
+/**
+ * THE TWO BUTTONS
+ *
+ * The controller has an UP and a DOWN button. Out of those two come three
+ * things a screen can react to (ui: BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT):
+ *
+ *      press and release one button            UP or DOWN, once, on the release
+ *      keep one button down                    UP or DOWN again every HOLD_REPEAT_MS
+ *                                              (scrolling a list), and nothing
+ *                                              more on the release
+ *      both buttons down at the same time      SELECT, once, when both are let go
+ *
+ * A press shorter than DEBOUNCE_MS is contact bounce and is ignored.
+ *
+ * `step()` looks at the pins once; `next()` hands out what happened. Nothing
+ * waits - the old button code sat in loops "while the pin is high", which is
+ * why it needed a thread of its own.
+ */
+const DEBOUNCE_MS : _int64 = 10;
+const HOLD_REPEAT_MS : _int64 = 250;
+
+class button_reader {
+    private pins : gpio;
+    private time : clock;
+    private up_pin : _int64;
+    private down_pin : _int64;
+
+    private pressing : _int64 = false;          // a press is going on
+    private pressed_at : _int64 = 0;
+    private which : _int64 = BUTTON_NONE;       // the button of this press (when it is one button)
+    private both_seen : _int64 = false;         // both were down at some point of this press
+    private repeated : _int64 = false;          // a hold already produced an event
+    private repeat_at : _int64 = 0;
+
+    // what happened and was not handed out yet (a ring of 16: more than a person can press between two frames)
+    private events : _int64[] = new _int64[16];
+    private first : _int64 = 0;
+    private count : _int64 = 0;
+
+    button_reader(pins: gpio, time: clock, up_pin: _int64, down_pin: _int64) {
+        self->pins = pins;
+        self->time = time;
+        self->up_pin = up_pin;
+        self->down_pin = down_pin;
+        pins.set_input(up_pin);
+        pins.set_input(down_pin);
+    }
+
+    private def happened(button: _int64) {
+        if(count == sizeof(events)) { return; }
+        events[(first + count) % sizeof(events)] = button;
+        count++;
+    }
+
+    /** the next thing that happened, or BUTTON_NONE */
+    def next() : _int64 {
+        if(count == 0) { return BUTTON_NONE; }
+        button : _int64 = events[first];
+        first = (first + 1) % sizeof(events);
+        count--;
+        return button;
+    }
+
+    def step() {
+        now : _int64 = time.now_ms();
+        up : _int64 = pins.read(up_pin);
+        down : _int64 = pins.read(down_pin);
+
+        if(up || down) {
+            if(!pressing) {
+                pressing = true;
+                pressed_at = now;
+                both_seen = false;
+                repeated = false;
+                repeat_at = now + HOLD_REPEAT_MS;
+                which = BUTTON_NONE;
+            }
+            if(up && down) { both_seen = true; }
+            else if(up) { which = BUTTON_UP; }
+            else { which = BUTTON_DOWN; }
+
+            // one button kept down: it happens again and again
+            if(!both_seen && now >= repeat_at) {
+                happened(which);
+                repeated = true;
+                repeat_at = repeat_at + HOLD_REPEAT_MS;
+            }
+            return;
+        }
+
+        if(!pressing) { return; }
+        pressing = false;
+        if(now - pressed_at < DEBOUNCE_MS) { return; }         // bounce
+        if(both_seen) { happened(BUTTON_SELECT); }
+        else if(!repeated) { happened(which); }
+    }
+}

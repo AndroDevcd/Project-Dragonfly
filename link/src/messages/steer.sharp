@@ -1,0 +1,48 @@
+mod link.messages;
+
+import ( std, link.protocol );
+
+/**
+ * controller -> drone: where the sticks are. Sent many times a second and NOT
+ * reliably: a lost one is replaced by the next before it could be repeated.
+ *
+ * Each value is -1000 (full one way) to 1000 (full the other), 0 in the middle.
+ *
+ *      bytes:  [throttle: 2][yaw: 2][pitch: 2][roll: 2]      each + 1000, so it is never negative
+ */
+class steer {
+    throttle : _int64 = 0;
+    yaw : _int64 = 0;
+    pitch : _int64 = 0;
+    roll : _int64 = 0;
+
+    steer(throttle: _int64, yaw: _int64, pitch: _int64, roll: _int64) {
+        self->throttle = limited(throttle);
+        self->yaw = limited(yaw);
+        self->pitch = limited(pitch);
+        self->roll = limited(roll);
+    }
+
+    private static def limited(value: _int64) : _int64 {
+        if(value < 0 - 1000) { return 0 - 1000; }
+        if(value > 1000) { return 1000; }
+        return value;
+    }
+
+    def to_message() : message {
+        w := new byte_writer();
+        w.u16(throttle + 1000).u16(yaw + 1000).u16(pitch + 1000).u16(roll + 1000);
+        return new message(message_types.STEER, w.bytes());
+    }
+
+    static def from_message(m: message) : steer? {
+        if(m.type != message_types.STEER) { return null; }
+        r := m.reader();
+        throttle : _int64 = r.u16() - 1000;
+        yaw : _int64 = r.u16() - 1000;
+        pitch : _int64 = r.u16() - 1000;
+        roll : _int64 = r.u16() - 1000;
+        if(!r.ok()) { return null; }
+        return new steer(throttle, yaw, pitch, roll);
+    }
+}

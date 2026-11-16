@@ -1,0 +1,49 @@
+mod link.hardware;
+
+/**
+ * A RADIO: the one thing the link needs from the hardware
+ *
+ * A radio sends and receives FRAMES: small blocks of bytes, at most
+ * `FRAME_SIZE` long (32 for the nRF24L01). It promises nothing else - a frame
+ * may be lost, and nobody tells the sender. Everything that makes that usable
+ * (messages of any length, acknowledgements, retries) is the link's job, built
+ * on these two functions (link/link.sharp).
+ *
+ *      real hardware      nrf24_radio      C++ behind it, on the Raspberry Pi
+ *      a test on a PC     fake_radio       two of them joined in memory, with
+ *                                          frames lost on purpose
+ *
+ * Both functions return at once: `receive` never waits for a frame. The link
+ * is driven by calling its `step()` again and again, so nothing in it may block.
+ *
+ * A NOTE ON YES/NO VALUES IN THIS LIBRARY: they are `_int64` holding `true`
+ * or `false`, never the class `bool`. A `bool` is an object, and assigning to
+ * a `bool` variable changes that object in place - `gone = true;` after
+ * `gone : bool = blocked;` sets `blocked` as well. A plain number is copied.
+ *
+ *      C++ comparison: an abstract class with two pure virtual functions.
+ */
+interface radio {
+    /**
+     * Send one frame. `frame` is at most FRAME_SIZE bytes.
+     * @return true when the frame left the radio (NOT that it arrived)
+     */
+    def transmit(frame: _uint8[]) : _int64;
+
+    /** The next frame that arrived, or null when none is waiting. */
+    def receive() : _uint8[]?;
+}
+
+/**
+ * What a radio can do besides carrying frames. The real one implements this
+ * too; a program that is handed one may use it, and works without.
+ */
+interface radio_control {
+    /** how strongly it transmits: 0 (least, for the bench) .. 3 (most) */
+    def set_power(level: _int64);
+    /** disturb a channel (0 .. 125) for a moment: the project's jammer */
+    def jam(channel: _int64);
+}
+
+/** the bytes of one frame of the nRF24L01, the radio this project uses */
+const FRAME_SIZE : _int64 = 32;

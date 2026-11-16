@@ -1,0 +1,135 @@
+mod main;
+
+import ( std, checks, link, link.hardware, link.messages,
+         controller, controller.hardware, controller.screens, drone, drone.hardware );
+
+/**
+ * THE WHOLE SYSTEM, TESTED ON A PC
+ *
+ * The real controller program and the real drone program, each on fake
+ * hardware, talking over a fake radio. Nothing in between is simulated: what
+ * the pilot's screen shows here went through the same link, the same messages
+ * and the same code as on the two Raspberry Pis.
+ *
+ *      sharpc -P tests/flight      then    sharp tests/flight/build/outputs/flight_tests
+ */
+class flight {
+    air := new radio_pair();
+    time := new fake_clock();
+
+    // the controller's hardware
+    pins := new fake_gpio();
+    panel := new fake_display();
+    saved := new memory_store();
+    app : controller_app;
+
+    // the drone's hardware
+    ground := new fake_distance_sensor();
+    thrust := new fake_motors();
+    power := new fake_battery();
+    computer : flight_computer;
+
+    flight() {
+        time.advance(100000);
+        app = new controller_app(new controller_devices(air.first, time, pins, panel, saved));
+        computer = new flight_computer(new drone_devices(air.second, time, ground, thrust, power));
+        app.start(new home_screen(app));
+    }
+
+    def run(rounds: _int64, ms: _int64) {
+        for(i : _int64 = 0; i < rounds; i++) {
+            app.step();
+            computer.step();
+            time.advance(ms);
+        }
+    }
+
+    def press(up: _int64, down: _int64) {
+        pins.force(UP_BUTTON_PIN, up);
+        pins.force(DOWN_BUTTON_PIN, down);
+        run(5, 10);
+        pins.force(UP_BUTTON_PIN, false);
+        pins.force(DOWN_BUTTON_PIN, false);
+        run(5, 10);
+    }
+}
+
+def test_a_flight() {
+    section("a flight: both programs, end to end");
+    f := new flight();
+    f.ground.cm = 85;
+    f.power.bars = 3;
+    f.run(60, 10);
+
+    check("the controller found the drone", f.app.state.is_connected());
+    check("the drone left its failsafe", !f.computer.state.failsafe);
+    check("the drone's height is on the pilot's screen", f.panel.has("0.85"));
+    check("the drone's battery is on the pilot's screen", f.panel.has("battery_3"));
+    check("full signal", f.panel.has("signal_4"));
+    check_equal("the drone was told the saved mode", f.computer.state.mode, MODE_NORMAL);
+
+    // the pilot switches to sport mode in the settings
+    f.press(true, true);                    // open the settings
+    f.press(true, true);                    // the first line: the mode
+    f.run(30, 10);
+    check_equal("the drone is in sport mode", f.computer.state.mode, MODE_SPORT);
+    check("the screen shows it confirmed", f.panel.has("Mode: sport") && !f.panel.has("Mode: sport *"));
+    f.run(40, 10);
+    check("the drone's telemetry says sport too: the status bar's picture", f.panel.has("sport_mode"));
+
+    // the drone climbs
+    f.ground.cm = 240;
+    f.run(60, 10);
+    f.press(false, true);
+    f.press(false, true);
+    f.press(false, true);                   // down to "Back"
+    f.press(true, true);
+    f.run(10, 10);
+    check("home shows the new height", f.panel.has("2.40"));
+}
+
+def test_out_of_range_and_back() {
+    section("out of range, and back");
+    f := new flight();
+    f.ground.cm = 300;
+    f.run(60, 10);
+    check("flying", f.panel.has("3.00") && !f.computer.state.failsafe);
+
+    f.air.first.set_blocked(true);
+    f.air.second.set_blocked(true);
+    f.run(250, 10);
+    check("the pilot is told", f.panel.has("signal lost"));
+    check("the drone goes to its failsafe", f.computer.state.failsafe);
+    check_equal("... and descends gently", f.thrust.throttle, FAILSAFE_THROTTLE);
+
+    f.air.first.set_blocked(false);
+    f.air.second.set_blocked(false);
+    f.run(200, 10);
+    check("connected again", f.app.state.is_connected() && !f.computer.state.failsafe);
+    check("the height is back on the screen", f.panel.has("3.00"));
+    check("the drone's notice reached the pilot", f.app.state.notice_text == "link restored" || f.panel.has("3.00"));
+}
+
+def test_a_bad_radio_day() {
+    section("one frame in four lost, both ways");
+    f := new flight();
+    f.air.first.lose_every(4);
+    f.air.second.lose_every(4);
+    f.ground.cm = 150;
+    f.run(300, 10);
+    check("still connected", f.app.state.is_connected());
+    check("the height still arrives", f.panel.has("1.50"));
+
+    f.press(true, true);
+    f.press(true, true);
+    f.run(300, 10);
+    check_equal("a mode change still gets through", f.computer.state.mode, MODE_SPORT);
+    check("and frames really were lost on the way", f.air.first.lost > 3 && f.air.second.lost > 3);
+}
+
+def main(args: string[]) : int {
+    test_a_flight();
+    test_out_of_range_and_back();
+    test_a_bad_radio_day();
+    return finish();
+}

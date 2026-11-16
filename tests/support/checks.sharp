@@ -1,0 +1,62 @@
+mod checks;
+
+import ( std );
+
+/**
+ * THE SMALLEST TEST HELPER THAT WORKS
+ *
+ *      section("long messages");
+ *      check("5,000 bytes arrive", got == sent);
+ *      check_equal("pieces", frames, 200);
+ *      ...
+ *      return finish();        // prints the totals; 0 when everything passed, 1 otherwise
+ *
+ * A check that fails prints what it was about and the test goes on, so one run
+ * shows every failure. The program's exit code is what a script looks at.
+ */
+passed : _int64 = 0;
+failed : _int64 = 0;
+current_section : string = "";
+
+def section(name: string) {
+    current_section = name;
+    println("-- " + name);
+}
+
+def check(what: string, ok: _int64) {
+    if(ok) {
+        passed++;
+        return;
+    }
+    failed++;
+    println("   FAIL  " + what);
+}
+
+def check_equal(what: string, got: _int64, wanted: _int64) {
+    if(got == wanted) {
+        passed++;
+        return;
+    }
+    failed++;
+    println("   FAIL  " + what + ": got " + got + ", wanted " + wanted);
+}
+
+def check_text(what: string, got: string, wanted: string) {
+    if(got == wanted) {
+        passed++;
+        return;
+    }
+    failed++;
+    println("   FAIL  " + what + ": got \"" + got + "\", wanted \"" + wanted + "\"");
+}
+
+/** print the totals; the exit code for main() */
+def finish() : _int64 {
+    println("");
+    if(failed == 0) {
+        println("RESULT PASS  (" + passed + " checks)");
+        return 0;
+    }
+    println("RESULT FAIL  (" + failed + " of " + (passed + failed) + " checks failed)");
+    return 1;
+}

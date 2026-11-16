@@ -1,0 +1,4 @@
+# what sharpc builds: executables, the generated C++ glue, the native libraries, the build cache
+build/
+# the controller keeps what the pilot chose here, beside the program
+settings.prefs
