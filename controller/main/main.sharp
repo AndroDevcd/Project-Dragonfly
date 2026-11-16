@@ -15,13 +15,30 @@ import ( std, std.io, platform, link.hardware, controller, controller.hardware, 
  * program itself is `controller_app` (controller/src/app). To see it run
  * without any hardware, use the simulator project (simulator/).
  */
+/**
+ * The display: the real one - or, when the program is started with `nodisplay`, one that only
+ * exists in memory. That is for the bench: the radio, the buttons and the console can be tried
+ * while the display is not wired up (or is the thing being hunted).
+ *
+ *      sharp build/outputs/controller nodisplay
+ */
+def display_for(args: string[]) : display {
+    for(i : _int64 = 0; i < sizeof(args); i++) {
+        if(args[i] == "nodisplay") {
+            println("dragonfly controller: running WITHOUT the display (nodisplay)");
+            return new fake_display();
+        }
+    }
+    return new ssd1306_display();
+}
+
 def main(args: string[]) : int {
     try {
         load_library(program_folder() + "/dragonfly");
 
         pins := new pi_gpio();
         air := new nrf24_radio(true, 0);
-        devices := new controller_devices(air, new system_clock(), pins, new ssd1306_display(),
+        devices := new controller_devices(air, new system_clock(), pins, display_for(args),
                                           new file_store(program_folder() + "/settings.prefs"));
         devices.tuning = air;
 

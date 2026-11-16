@@ -19,6 +19,8 @@
 #include "vendor/ssd1306_i2c.h"
 #include <unistd.h>
 #include <cstring>
+#include <cerrno>
+#include <cstdio>
 
 // The driver's picture of the screen (vendor/ssd1306_i2c.cpp): one number per 8 pixels, a column
 // of one PAGE. The screen is 8 pages of 128 columns; a page is a strip 8 pixels high.
@@ -74,17 +76,36 @@ static bool send_changed_pages() {
 
 // 1 when the display was started and answers
 int32_t dragonfly_display_begin(sni_env* env) {
+    // WHICH step fails is printed (to the error output): "does not answer" alone cannot tell a
+    // display that is not there from one that drops out when it is switched on.
     ssd1306_begin(SSD1306_SWITCHCAPVCC, SSD1306_I2C_ADDRESS);
-    if(i2cd < 0) return 0;
+    if(i2cd < 0) {
+        fprintf(stderr, "display: the I2C bus could not be opened (%s) - is I2C switched on? (sudo raspi-config)\n", strerror(errno));
+        return 0;
+    }
     // Is a chip there at all? The driver never looks at what its messages come back with, so a
     // display that is not connected used to count as started. One message that does nothing
-    // (0xE3) is the question: no chip, no acknowledgement, and the write fails.
+    // (0xE3) is the question: no chip, no acknowledgement, and the write fails. It is asked a
+    // few times: a chip that was just switched on may need a moment.
     uint8_t nothing[] = { 0x00, 0xE3 };
-    if(write(i2cd, nothing, sizeof(nothing)) != (ssize_t) sizeof(nothing)) return 0;
+    bool answered = false;
+    for(int attempt = 0; attempt < 5 && !answered; attempt++) {
+        if(write(i2cd, nothing, sizeof(nothing)) == (ssize_t) sizeof(nothing)) answered = true;
+        else usleep(20000);
+    }
+    if(!answered) {
+        fprintf(stderr, "display: nothing at I2C address 0x%02X acknowledged a message after the start-up commands (%s)\n",
+                SSD1306_I2C_ADDRESS, strerror(errno));
+        return 0;
+    }
 
     ssd1306_clearDisplay();
     sent_valid = false;                 // the first frame is sent whole
-    return send_changed_pages() ? 1 : 0;
+    if(!send_changed_pages()) {
+        fprintf(stderr, "display: the chip answered, then stopped while the first picture was sent (%s)\n", strerror(errno));
+        return 0;
+    }
+    return 1;
 }
 
 void dragonfly_display_clear(sni_env* env) {
