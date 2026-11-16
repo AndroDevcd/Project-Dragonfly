@@ -18,7 +18,7 @@ native "dragonfly" {
 class ssd1306_display : display {
     ssd1306_display() {
         if(display_begin() == 0) {
-            throw new hardware_exception("the display does not answer: check its wiring (I2C) - or run with `sim`");
+            throw new hardware_exception("the display does not answer: check its wiring (SDA on pin 3, SCL on pin 5, 3.3 V, ground) - `sudo i2cdetect -y 1` should show 3c");
         }
     }
 

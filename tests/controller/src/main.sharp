@@ -195,6 +195,39 @@ def test_buttons() {
     pins.force(28, false);
     reader.step();
     check_equal("a 3 ms blip is bounce", reader.next(), BUTTON_NONE);
+
+    // a long press: one button kept down for a second
+    pins.force(28, true);
+    for(i : _int64 = 0; i < 150; i++) {
+        reader.step();
+        time.advance(10);
+    }
+    pins.force(28, false);
+    reader.step();
+    holds : _int64 = 0;
+    ups : _int64 = 0;
+    for(;;) {
+        event : _int64 = reader.next();
+        if(event == BUTTON_NONE) { break; }
+        if(event == BUTTON_HOLD) { holds++; }
+        if(event == BUTTON_UP) { ups++; }
+    }
+    check_equal("held for 1.5 s: one long press", holds, 1);
+    check_equal("... beside the repeats", ups, 5);
+}
+
+/** a long press on the home screen opens the settings */
+def test_long_press_opens_settings() {
+    section("a long press opens the settings");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(4, 20);
+    check_equal("the home screen alone", t.app.screens.depth(), 1);
+    t.pins.force(UP_BUTTON_PIN, true);
+    t.run(60, 20);                          // 1.2 seconds
+    t.pins.force(UP_BUTTON_PIN, false);
+    t.run(4, 20);
+    check_equal("the settings are on top of it", t.app.screens.depth(), 2);
 }
 
 // ---------------------------------------------------------------------------
@@ -367,6 +400,7 @@ def main(args: string[]) : int {
     test_layout_mistakes();
     test_menu();
     test_buttons();
+    test_long_press_opens_settings();
     test_splash_then_home();
     test_home_follows_the_drone();
     test_losing_the_drone();

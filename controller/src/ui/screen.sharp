@@ -27,6 +27,7 @@ const BUTTON_NONE : _int64 = 0;
 const BUTTON_UP : _int64 = 1;
 const BUTTON_DOWN : _int64 = 2;
 const BUTTON_SELECT : _int64 = 3;           // both buttons together
+const BUTTON_HOLD : _int64 = 4;             // one button kept down for a second (a "long press")
 
 class screen {
     def body() : view;

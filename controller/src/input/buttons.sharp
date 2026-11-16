@@ -12,6 +12,8 @@ import ( std, link.hardware, ui );
  *      keep one button down                    UP or DOWN again every HOLD_REPEAT_MS
  *                                              (scrolling a list), and nothing
  *                                              more on the release
+ *      keep one button down for a second       HOLD, once (a long press: the home
+ *                                              screen opens the settings on it)
  *      both buttons down at the same time      SELECT, once, when both are let go
  *
  * A press shorter than DEBOUNCE_MS is contact bounce and is ignored.
@@ -22,6 +24,7 @@ import ( std, link.hardware, ui );
  */
 const DEBOUNCE_MS : _int64 = 10;
 const HOLD_REPEAT_MS : _int64 = 250;
+const LONG_PRESS_MS : _int64 = 1000;
 
 class button_reader {
     private pins : gpio;
@@ -34,6 +37,7 @@ class button_reader {
     private which : _int64 = BUTTON_NONE;       // the button of this press (when it is one button)
     private both_seen : _int64 = false;         // both were down at some point of this press
     private repeated : _int64 = false;          // a hold already produced an event
+    private held : _int64 = false;              // this press already counted as a long press
     private repeat_at : _int64 = 0;
 
     // what happened and was not handed out yet (a ring of 16: more than a person can press between two frames)
@@ -76,6 +80,7 @@ class button_reader {
                 pressed_at = now;
                 both_seen = false;
                 repeated = false;
+                held = false;
                 repeat_at = now + HOLD_REPEAT_MS;
                 which = BUTTON_NONE;
             }
@@ -88,6 +93,13 @@ class button_reader {
                 happened(which);
                 repeated = true;
                 repeat_at = repeat_at + HOLD_REPEAT_MS;
+            }
+            // ... and after a second it is a long press as well, once. (A screen takes the one it
+            // has a use for: a list scrolls on the repeats, the home screen opens the settings on
+            // the long press.)
+            if(!both_seen && !held && now - pressed_at >= LONG_PRESS_MS) {
+                happened(BUTTON_HOLD);
+                held = true;
             }
             return;
         }

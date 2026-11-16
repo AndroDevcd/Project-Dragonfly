@@ -27,7 +27,8 @@ class home_screen base screen {
     override def on_enter() { }
 
     override def on_button(button: _int64) {
-        if(button == BUTTON_SELECT) { app.screens.open(new settings_screen(app)); }
+        // the settings: a long press of either button, or both buttons together
+        if(button == BUTTON_SELECT || button == BUTTON_HOLD) { app.screens.open(new settings_screen(app)); }
     }
 
     override def body() : view {

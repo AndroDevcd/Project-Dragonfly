@@ -17,13 +17,74 @@
 #ifndef DRAGONFLY_NO_HARDWARE
 
 #include "vendor/ssd1306_i2c.h"
+#include <unistd.h>
+#include <cstring>
 
-// 1 when the display was started
+// The driver's picture of the screen (vendor/ssd1306_i2c.cpp): one number per 8 pixels, a column
+// of one PAGE. The screen is 8 pages of 128 columns; a page is a strip 8 pixels high.
+extern unsigned int buffer[];
+extern int i2cd;                        // the open I2C connection to the chip
+
+#define PAGES (DISPLAY_HEIGHT / 8)
+
+// what the chip was last sent, page by page - so a page that did not change is not sent again
+static uint8_t sent[PAGES][DISPLAY_WIDTH];
+static bool sent_valid = false;
+
+// PUTTING A FRAME ON THE SCREEN
+//
+// The driver's own ssd1306_display() sends the 1024 bytes of a frame as 1024 separate I2C
+// messages (its comment says so: "Should be optimized"). Each message is an address, a control
+// byte and one byte of picture: about a third of a second for a frame, and the program draws 30
+// a second. The screen could be watched filling in from one side, and nothing else - the radio,
+// the buttons - got a turn while it did.
+//
+// Here a frame is sent as it should be:
+//   - a PAGE that is the same as what the chip already shows is not sent at all. Most frames are
+//     the same as the one before, and those now cost nothing;
+//   - a page that changed is sent as ONE message of 128 bytes (after one that says where it goes).
+//
+// Returns false when the chip did not take a message (it is not there any more).
+static bool send_changed_pages() {
+    bool ok = true;
+    for(int page = 0; page < PAGES; page++) {
+        uint8_t now[DISPLAY_WIDTH];
+        for(int column = 0; column < DISPLAY_WIDTH; column++) {
+            now[column] = (uint8_t) buffer[page * DISPLAY_WIDTH + column];
+        }
+        if(sent_valid && memcmp(now, sent[page], DISPLAY_WIDTH) == 0) continue;
+
+        // where the bytes go: columns 0-127 of this one page (0x00: "commands follow")
+        uint8_t where[] = { 0x00, SSD1306_COLUMNADDR, 0, DISPLAY_WIDTH - 1, SSD1306_PAGEADDR, (uint8_t) page, (uint8_t) page };
+        // the bytes (0x40: "picture follows")
+        uint8_t message[1 + DISPLAY_WIDTH];
+        message[0] = 0x40;
+        memcpy(message + 1, now, DISPLAY_WIDTH);
+
+        if(write(i2cd, where, sizeof(where)) != (ssize_t) sizeof(where)
+           || write(i2cd, message, sizeof(message)) != (ssize_t) sizeof(message)) {
+            ok = false;                 // not remembered as sent: it is tried again with the next frame
+            continue;
+        }
+        memcpy(sent[page], now, DISPLAY_WIDTH);
+    }
+    sent_valid = ok;
+    return ok;
+}
+
+// 1 when the display was started and answers
 int32_t dragonfly_display_begin(sni_env* env) {
     ssd1306_begin(SSD1306_SWITCHCAPVCC, SSD1306_I2C_ADDRESS);
+    if(i2cd < 0) return 0;
+    // Is a chip there at all? The driver never looks at what its messages come back with, so a
+    // display that is not connected used to count as started. One message that does nothing
+    // (0xE3) is the question: no chip, no acknowledgement, and the write fails.
+    uint8_t nothing[] = { 0x00, 0xE3 };
+    if(write(i2cd, nothing, sizeof(nothing)) != (ssize_t) sizeof(nothing)) return 0;
+
     ssd1306_clearDisplay();
-    ssd1306_display();
-    return 1;
+    sent_valid = false;                 // the first frame is sent whole
+    return send_changed_pages() ? 1 : 0;
 }
 
 void dragonfly_display_clear(sni_env* env) {
@@ -58,7 +119,7 @@ void dragonfly_display_picture(sni_env* env, int32_t x, int32_t y, int32_t width
 }
 
 void dragonfly_display_show(sni_env* env) {
-    ssd1306_display();
+    send_changed_pages();
 }
 
 void dragonfly_display_dim(sni_env* env, int32_t yes) {
