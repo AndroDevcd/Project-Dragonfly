@@ -62,6 +62,9 @@ sharp controller/build/outputs/controller           on the controller's Pi
 sharp drone/build/outputs/drone                     on the drone's Pi
 ```
 
+To stop either program type `q` and Enter: the controller blanks its screen and turns its light off,
+the drone tells its motors to stop. Ctrl+C stops it at once, without the tidying.
+
 `sharpc -P controller` builds the Sharp code and the C++ library in one go
 (`controller/build/outputs/controller` and `dragonfly.so` beside it). The same command works on a
 PC: there the C++ is built without hardware, so it is still compiled and checked, and the

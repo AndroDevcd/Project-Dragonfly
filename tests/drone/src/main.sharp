@@ -143,6 +143,19 @@ def test_altimeter() {
     check_equal("the last good height is kept", meter.altitude_cm, 500);
 }
 
+/** told to stop (q at the console): the motors are stopped, whatever the sticks said */
+def test_shutting_down() {
+    section("shutting down");
+    t := new bench();
+    t.connect();
+    t.controller.publish(new steer(600, 100, 0, 0).to_message());
+    t.run(4, 5);
+    check("flying: the motors are driven", t.thrust.throttle > 0);
+    t.computer.shut_down();
+    check_equal("stopped: throttle", t.thrust.throttle, 0);
+    check_equal("stopped: yaw", t.thrust.yaw, 0);
+}
+
 def test_losing_the_controller() {
     section("losing the controller");
     t := new bench();
@@ -204,6 +217,7 @@ def main(args: string[]) : int {
     test_telemetry();
     test_altimeter();
     test_losing_the_controller();
+    test_shutting_down();
     test_jam_and_unknown();
     return finish();
 }

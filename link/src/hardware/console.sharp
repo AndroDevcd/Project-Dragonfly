@@ -1,0 +1,159 @@
+mod link.hardware;
+
+import ( std, std.io, platform );
+
+/**
+ * COMMANDS TYPED AT THE CONSOLE - without the program ever waiting for them
+ *
+ * A program on the bench is started from a terminal, and the only way to stop
+ * it used to be Ctrl+C: the program is cut off wherever it is, the screen keeps
+ * its last picture, the light stays on. Now it can be told:
+ *
+ *      q <Enter>       stop, the tidy way
+ *
+ * Reading a line the usual way (`read_line()`) WAITS for the Enter key, and a
+ * program that is stepped must never wait (docs/ARCHITECTURE.md, "the one
+ * idea"). So the keys are collected a few at a time, as they arrive:
+ *
+ *      commands := new command_line(new console_keys(), time);
+ *      for(;;) {
+ *          typed := commands.next();           // null almost every time
+ *          if(typed != null) { ... }
+ *          app.step();
+ *      }
+ *
+ * Like every device here the keyboard is behind an interface (`key_source`),
+ * so a test types with `fake_keys` and no keyboard is needed.
+ *
+ * (C++: a loop around kbhit() / getch(). Java: a thread blocked in
+ * Scanner.nextLine() that hands lines over through a queue - the thread is
+ * what this spares.)
+ */
+
+/** no key is waiting */
+const NO_KEY : _int64 = 0 - 1;
+
+/** how often the keyboard is looked at: often enough to feel instant, rare enough to cost nothing */
+const KEYS_EVERY_MS : _int64 = 50;
+
+/** the longest command kept; what is typed past it is dropped */
+const COMMAND_MAX : _int64 = 120;
+
+/** where keys come from */
+interface key_source {
+    /** the next key that was pressed, or NO_KEY - never waits */
+    def next_key() : _int64;
+}
+
+/** the real keyboard, through the console the program was started from */
+class console_keys : key_source {
+    override def next_key() : _int64 {
+        if(!key_waiting()) { return NO_KEY; }
+        key : _int64 = read_raw_char().value;
+        // (what a console that has gone away hands out instead of a key)
+        if(key <= 0 || key >= 255) { return NO_KEY; }
+        // On Linux the terminal itself shows what is typed. On Windows a key read this way is not
+        // shown by anyone, so it is shown here.
+        if(build.is_windows()) {
+            if(key == 13) { println(); } else { print(new char(key)); }
+        }
+        return key;
+    }
+}
+
+/** a keyboard a test types on */
+class fake_keys : key_source {
+    private waiting := new _int8[512];
+    private first : _int64 = 0;
+    private count : _int64 = 0;
+
+    /** press these keys, one after the other ("q\n" is q and then Enter) */
+    def type(text: string) {
+        size : _int64 = sizeof(text.data);
+        for(i : _int64 = 0; i < size; i++) { press(text.data!![i]); }
+    }
+
+    def press(key: _int64) {
+        if(count == 512) { return; }
+        waiting[(first + count) % 512] = key;
+        count++;
+    }
+
+    override def next_key() : _int64 {
+        if(count == 0) { return NO_KEY; }
+        key : _int64 = waiting[first];
+        first = (first + 1) % 512;
+        count--;
+        return key;
+    }
+}
+
+/**
+ * Puts keys together into commands: a command is a line, finished by Enter.
+ *
+ * `next()` is called every turn of the program's loop. It looks at the keyboard
+ * only every KEYS_EVERY_MS, takes the keys that are there, and hands back a
+ * finished line - trimmed, in small letters - or null.
+ */
+class command_line {
+    private keys : key_source;
+    private time : clock;
+    private typed := new _int8[COMMAND_MAX];
+    private length : _int64 = 0;
+    private looked_at : _int64 = 0 - 1;
+
+    command_line(keys: key_source, time: clock) {
+        self->keys = keys;
+        self->time = time;
+    }
+
+    def next() : string? {
+        now : _int64 = time.now_ms();
+        if(looked_at >= 0 && now - looked_at < KEYS_EVERY_MS) { return null; }
+        looked_at = now;
+
+        for(;;) {
+            key : _int64 = keys.next_key();
+            if(key == NO_KEY) { return null; }
+
+            if(key == 10 || key == 13) {                    // Enter (\n, or \r on Windows)
+                line := finished();
+                length = 0;
+                if(line != null) { return line; }
+                continue;                                   // an empty line is not a command
+            }
+            if(key == 8 || key == 127) {                    // backspace
+                if(length > 0) { length--; }
+                continue;
+            }
+            if(key < 32) { continue; }                      // arrows and other keys that are not text
+            if(length < COMMAND_MAX) {
+                typed[length] = key;
+                length++;
+            }
+        }
+        return null;
+    }
+
+    /** what was typed, without the spaces around it and in small letters; null when that is nothing */
+    private def finished() : string? {
+        from : _int64 = 0;
+        to : _int64 = length;
+        while(from < to && typed[from] == 32) { from++; }
+        while(to > from && typed[to - 1] == 32) { to--; }
+        if(to == from) { return null; }
+
+        chars := new _int8[to - from];
+        for(i : _int64 = from; i < to; i++) {
+            letter : _int64 = typed[i];
+            if(letter >= 65 && letter <= 90) { letter = letter + 32; }      // A-Z -> a-z
+            chars[i - from] = letter;
+        }
+        return new string(chars);
+    }
+}
+
+/** is this the command to stop? (`q`, `quit`, `exit`, `stop`) */
+def is_quit_command(command: string) : _int64 {
+    return command == "q" || command == "quit" || command == "exit" || command == "stop";
+}

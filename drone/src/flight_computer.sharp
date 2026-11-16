@@ -67,6 +67,20 @@ class flight_computer {
         send_telemetry(now);
     }
 
+    /**
+     * STOP THE MOTORS. Called once, after the last step(), when the program is told to stop
+     * (`q` at the console - drone/main): a program that just ended would leave the motors at
+     * whatever they were last told. This is for the bench: in the air the answer to trouble is
+     * the failsafe, which descends - it does not cut the motors.
+     */
+    def shut_down() {
+        state.throttle = 0;
+        state.yaw = 0;
+        state.pitch = 0;
+        state.roll = 0;
+        devices.thrust.drive(0, 0, 0, 0);
+    }
+
     // ------------------------------------------------------------------ what the controller says
 
     private def hear_controller(now: _int64) {

@@ -225,4 +225,19 @@ class controller_app {
         screens.draw(devices.panel);
         frames_drawn++;
     }
+
+    // ------------------------------------------------------------------ 7. the end
+
+    /**
+     * LEAVE THE HARDWARE TIDY: the screen blank, the light off.
+     *
+     * Called once, after the last step(), when the program is told to stop (`q` at the console -
+     * controller/main). Without it the screen keeps showing its last picture - an altitude, a
+     * "connected" - for as long as it has power, which is a lie from then on.
+     */
+    def shut_down() {
+        devices.panel.clear();
+        devices.panel.show();
+        devices.pins.write(CONNECTING_LIGHT_PIN, false);
+    }
 }

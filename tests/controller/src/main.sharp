@@ -241,6 +241,22 @@ def test_home_follows_the_drone() {
     check("telemetry that stopped coming costs signal bars", t.app.state.signal < 4);
 }
 
+/** told to stop (q at the console): the screen is left blank and the light off */
+def test_shutting_down() {
+    section("shutting down");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.send_telemetry(300, 10, 4, MODE_NORMAL);
+    t.run(4, 20);
+    drawn : _int64 = t.panel.shown.size().value;
+    check("running: something is on the screen", drawn > 0);
+    check("running: the light is on", t.pins.read(CONNECTING_LIGHT_PIN));
+    t.app.shut_down();
+    drawn = t.panel.shown.size().value;
+    check_equal("stopped: things on the screen", drawn, 0);
+    check("stopped: the light is off", !t.pins.read(CONNECTING_LIGHT_PIN));
+}
+
 def test_losing_the_drone() {
     section("losing the drone");
     t := new bench();
@@ -354,6 +370,7 @@ def main(args: string[]) : int {
     test_splash_then_home();
     test_home_follows_the_drone();
     test_losing_the_drone();
+    test_shutting_down();
     test_settings();
     test_mode_waits_for_the_drone();
     test_settings_file();

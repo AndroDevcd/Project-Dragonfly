@@ -313,7 +313,68 @@ def test_typed_messages() {
     check_text("a kind has a name", message_types.name_of(message_types.TELEMETRY), "telemetry");
 }
 
+/** commands typed at the console: put together from keys that arrive a few at a time */
+def test_console_commands() {
+    section("console commands");
+    keys := new fake_keys();
+    time := new fake_clock();
+    commands := new command_line(keys, time);
+
+    check("nothing typed: no command", commands.next() == null);
+
+    // a command arrives in pieces, over several looks at the keyboard
+    keys.type("q");
+    time.advance(60);
+    check("a letter without Enter is not a command yet", commands.next() == null);
+    keys.type("\n");
+    time.advance(60);
+    typed := commands.next();
+    check("Enter finishes it", typed != null);
+    if(typed != null) {
+        check_text("the command", typed!!, "q");
+        check("q is the command to stop", is_quit_command(typed!!));
+    }
+
+    // the keyboard is looked at only every 50 ms
+    keys.type("quit\n");
+    time.advance(10);
+    check("not looked at again so soon", commands.next() == null);
+    time.advance(50);
+    typed = commands.next();
+    check("looked at once the time has passed", typed != null);
+    if(typed != null) { check_text("the command", typed!!, "quit"); }
+
+    // spaces around it, capital letters, backspace, Windows' Enter
+    keys.type("  STOx");
+    keys.press(127);
+    keys.type("P \r");
+    time.advance(60);
+    typed = commands.next();
+    check("a command with a correction", typed != null);
+    if(typed != null) {
+        check_text("trimmed, small letters, the x taken back", typed!!, "stop");
+        check("stop is a command to stop too", is_quit_command(typed!!));
+    }
+
+    // empty lines are not commands; two commands typed at once come one at a time
+    keys.type("\n   \nfoo\nq\n");
+    time.advance(60);
+    typed = commands.next();
+    check("the empty lines are passed over", typed != null);
+    if(typed != null) {
+        check_text("the first command", typed!!, "foo");
+        check("foo is not a command to stop", !is_quit_command(typed!!));
+    }
+    time.advance(60);
+    typed = commands.next();
+    check("the second command is still there", typed != null);
+    if(typed != null) { check_text("the second command", typed!!, "q"); }
+    time.advance(60);
+    check("and then nothing", commands.next() == null);
+}
+
 def main(args: string[]) : int {
+    test_console_commands();
     test_bytes();
     test_frames();
     test_connect();

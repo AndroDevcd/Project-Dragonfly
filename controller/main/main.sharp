@@ -8,6 +8,9 @@ import ( std, std.io, platform, link.hardware, controller, controller.hardware, 
  *      sharpc -P controller                        builds the program and its C++ library
  *      sharp controller/build/outputs/controller
  *
+ * Typing `q` and Enter stops it the tidy way: the screen goes blank and the light off.
+ * (Ctrl+C stops it too, at once, and leaves the screen as it was.)
+ *
  * This file only puts the real hardware together and turns the loop; the
  * program itself is `controller_app` (controller/src/app). To see it run
  * without any hardware, use the simulator project (simulator/).
@@ -24,11 +27,25 @@ def main(args: string[]) : int {
 
         app := new controller_app(devices);
         app.start(new splash_screen(app));
-        println("dragonfly controller: running");
-        for(;;) {
+        println("dragonfly controller: running   (type q and Enter to stop)");
+
+        // commands typed at the console, taken a few keys at a time: the loop never waits for them
+        commands := new command_line(new console_keys(), devices.time);
+        running : _int64 = true;
+        while(running) {
+            typed := commands.next();
+            if(typed != null) {
+                if(is_quit_command(typed!!)) {
+                    running = false;
+                } else {
+                    println("dragonfly controller: no command `" + typed!! + "`; the commands are: q (stop)");
+                }
+            }
             app.step();
             thread.sleep(2);
         }
+        app.shut_down();
+        println("dragonfly controller: stopped");
     } catch(problem: hardware_exception) {
         println("dragonfly controller: " + problem.get_message());
         return 1;
