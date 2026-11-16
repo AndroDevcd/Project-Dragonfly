@@ -2,3 +2,4 @@
 build/
 # the controller keeps what the pilot chose here, beside the program
 settings.prefs
+.idea/
