@@ -3,8 +3,7 @@
   "version": "2.0",
   "output": "controller",
   "ignore_folders": [
-    "build",
-    "native"
+    "build"
   ],
   "extern_lib": [
     "../link/src"
@@ -15,10 +14,6 @@
       "native"
     ],
     "toolchain": {
-      "include": [
-        "../link/native",
-        "native"
-      ],
       "linux": {
         "processor": {
           "arm": {
