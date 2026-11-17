@@ -168,12 +168,19 @@ class jam_channel_setting : value_setting {
     // (62) - so where a channel is a Wi-Fi centre its number is shown too.
     override def note(value: _int64) : string {
         here : string = "" + (2400 + value) + " MHz";
-        if(value == 84) { return here + "  WiFi 14"; }
-        if(value >= 12 && value <= 72 && ((value - 7) % 5) == 0) {
-            n : _int64 = (value - 7) / 5;
-            return here + "  WiFi " + n;
+        // the Wi-Fi channel this sits ON: the one whose centre has been reached and not yet passed
+        // by the next (Wi-Fi 1 is at channel 12, then every 5 channels; 14 sits apart at 84). So
+        // between two centres it still names the lower one, the way the pilot thinks of it.
+        n : _int64 = 1;
+        centre : _int64 = 12;
+        step : _int64 = 1;
+        while(step <= 13 && centre <= value) {
+            n = step;
+            centre = centre + 5;
+            step = step + 1;
         }
-        return here;
+        if(value >= 84) { n = 14; }
+        return here + "  WiFi " + n;
     }
     override def apply(value: _int64) { chosen.set_jam_channel(value); }
 }

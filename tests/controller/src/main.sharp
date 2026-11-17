@@ -466,6 +466,20 @@ def test_jam_guards() {
 
 /** the power-off line asks to confirm; No goes back, Yes powers off */
 /** the reusable value picker: scroll, speed up, and save or cancel */
+/** a channel's frequency and the Wi-Fi channel it sits on (a floor: it steps at each centre) */
+def test_channel_frequency() {
+    section("channel -> frequency and Wi-Fi channel");
+    picker := new jam_channel_setting(new settings(new memory_store()));
+    check_text("channel 0 = 2400 MHz, below Wi-Fi 1 shows 1", picker.note(0), "2400 MHz  WiFi 1");
+    check_text("channel 12 = Wi-Fi 1", picker.note(12), "2412 MHz  WiFi 1");
+    check_text("channel 37 = Wi-Fi 6", picker.note(37), "2437 MHz  WiFi 6");
+    check_text("between 6 and 7 still names 6", picker.note(41), "2441 MHz  WiFi 6");
+    check_text("channel 42 steps to Wi-Fi 7", picker.note(42), "2442 MHz  WiFi 7");
+    check_text("channel 62 = Wi-Fi 11", picker.note(62), "2462 MHz  WiFi 11");
+    check_text("channel 84 = Wi-Fi 14", picker.note(84), "2484 MHz  WiFi 14");
+    check_text("high channels stay Wi-Fi 14", picker.note(125), "2525 MHz  WiFi 14");
+}
+
 def test_picker() {
     section("the value picker");
     t := new bench();
@@ -479,11 +493,9 @@ def test_picker() {
     check("its title", t.panel.has("Jam channel"));
     check("the value now", t.panel.has("10"));
 
-    check("the value's frequency is shown", t.panel.has("2410 MHz"));
+    check("the value's frequency and Wi-Fi channel are shown", t.panel.has("2410 MHz  WiFi 1"));
     t.press_down();                         // 10 -> 11
     check("the value went up", t.panel.has("11"));
-    t.press_down();                         // 11 -> 12 = Wi-Fi channel 1 (2412 MHz)
-    check("a Wi-Fi centre names the Wi-Fi channel", t.panel.has("2412 MHz  WiFi 1"));
     t.press_select();                       // ask to save
     check("it asks to save", t.panel.has("[Save]"));
     t.press_down();                         // Save -> Cancel
@@ -590,6 +602,7 @@ def main(args: string[]) : int {
     test_channels_screen();
     test_jam_guards();
     test_power_off();
+    test_channel_frequency();
     test_picker();
     return finish();
 }
