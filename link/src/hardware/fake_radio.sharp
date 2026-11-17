@@ -27,7 +27,7 @@ import ( std );
  *      pair.first.set_channel(40);     the two no longer hear each other
  *      pair.first.make_busy(37);       the scanner finds something on 37
  */
-class fake_radio : radio, channel_control, radio_control {
+class fake_radio : radio, channel_control, radio_control, sustained_jammer {
     private arrived := new list<held_frame>();      // frames waiting to be received by THIS radio
     private other : fake_radio?;                     // where this one's frames go
 
@@ -40,8 +40,9 @@ class fake_radio : radio, channel_control, radio_control {
 
     sent : _int64 = 0;                              // frames handed to transmit()
     lost : _int64 = 0;                              // ... of which this many never arrived
-    jams : _int64 = 0;                              // times jam() was called
-    last_jam_channel : _int64 = 0 - 1;              // the channel of the last jam
+    jams : _int64 = 0;                              // times the jammer was ticked (or jam() called)
+    last_jam_channel : _int64 = 0 - 1;              // the centre of the last jam
+    jam_running : _int64 = false;
     power_set : _int64 = 0 - 1;                     // the last power set_power() was told
 
     def join(peer: fake_radio) {
@@ -102,6 +103,14 @@ class fake_radio : radio, channel_control, radio_control {
         jams++;
         last_jam_channel = channel;
     }
+
+    override def jam_begin(channel: _int64) : _int64 {
+        jam_running = true;
+        last_jam_channel = channel;
+        return true;
+    }
+    override def jam_tick() { if(jam_running) { jams++; } }
+    override def jam_end() { jam_running = false; }
 
     def make_busy(channel: _int64) { busy[channel] = 1; }
     def make_quiet(channel: _int64) { busy[channel] = 0; }

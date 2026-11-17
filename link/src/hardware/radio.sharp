@@ -41,9 +41,30 @@ interface radio {
 interface radio_control {
     /** how strongly it transmits: 0 (least, for the bench) .. 3 (most) */
     def set_power(level: _int64);
-    /** disturb a channel (0 .. 125) for a moment: the project's jammer */
+    /** disturb a channel (0 .. 125) for a moment: the drone's brief jammer */
     def jam(channel: _int64);
 }
+
+/**
+ * SUSTAINED JAMMING of a BAND of channels around one centre, begun, kept going a tick at a time,
+ * then ended.
+ *
+ * One radio cannot jam for several seconds in a single call AND stay responsive - the screen and
+ * the cancel button would be dead the whole time. So it is split: `jam_begin` takes the radio,
+ * `jam_tick` floods the band for a few milliseconds (called every turn of the loop), `jam_end`
+ * hands the radio back. The band is the centre channel and JAM_SPREAD on each side (50: 25..75),
+ * because a signal is wider than one channel and hops about; the flood is real packets at full
+ * power, hopping across the whole band, which an nRF24 can do and a receiver in it cannot see
+ * past.
+ */
+interface sustained_jammer {
+    def jam_begin(channel: _int64) : _int64;    // take the radio, flood around `channel`; true when it could
+    def jam_tick();                             // keep flooding (every step while jamming)
+    def jam_end();                              // stop, give the radio back
+}
+
+/** how many channels each side of the centre a jam covers (kept the same in radio_nrf24.cpp) */
+const JAM_SPREAD : _int64 = 25;
 
 /**
  * The radio's CHANNELS: which one it is on, and how busy the others are.

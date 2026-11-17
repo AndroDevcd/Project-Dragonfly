@@ -42,6 +42,7 @@ def main(args: string[]) : int {
                                           new file_store(program_folder() + "/settings.prefs"));
         devices.tuning = air;
         devices.channels = air;
+        devices.jammer = air;
 
         app := new controller_app(devices);
         app.start(new splash_screen(app));

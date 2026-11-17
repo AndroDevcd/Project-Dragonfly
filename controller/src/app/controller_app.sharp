@@ -46,6 +46,7 @@ class controller_devices {
     saved : settings_store;
     tuning : radio_control? = null;             // the radio's own settings, when it has them
     channels : channel_control? = null;         // the radio's channels, when it can change them
+    jammer : sustained_jammer? = null;          // the radio as a jammer, when it can be one
 
     controller_devices(air: radio, time: clock, pins: gpio, panel: display, saved: settings_store) {
         self->air = air;
@@ -285,9 +286,10 @@ class controller_app {
      */
     def start_jam() : _int64 {
         at : _int64 = now_ms();
-        if(devices.tuning == null) { tell("this radio cannot jam", at); return false; }
+        if(devices.jammer == null) { tell("this radio cannot jam", at); return false; }
         if(chosen.jam_seconds <= 0) { tell("jam is off: set a time in settings", at); return false; }
         jam_on_channel = chosen.jam_channel;
+        if(devices.jammer!!.jam_begin(jam_on_channel) == 0) { tell("the radio would not jam", at); return false; }
         jam_until = at + chosen.jam_seconds * 1000;
         return true;
     }
@@ -296,12 +298,25 @@ class controller_app {
     def stop_jam() {
         if(jam_until >= 0) {
             jam_until = 0 - 1;
+            if(devices.jammer != null) { devices.jammer!!.jam_end(); }
             tell("jam cancelled", now_ms());
         }
     }
 
     def is_jamming() : _int64 { return jam_until >= 0; }
     def jam_channel() : _int64 { return jam_on_channel; }
+
+    /** the band a jam covers: the centre and JAM_SPREAD each side, kept on the dial (0 .. 125) */
+    def jam_low() : _int64 {
+        low : _int64 = jam_on_channel - JAM_SPREAD;
+        if(low < 0) { low = 0; }
+        return low;
+    }
+    def jam_high() : _int64 {
+        high : _int64 = jam_on_channel + JAM_SPREAD;
+        if(high > 125) { high = 125; }
+        return high;
+    }
 
     /** whole seconds left in the running jam (0 when none), for the countdown */
     def jam_seconds_left() : _int64 {
@@ -315,10 +330,11 @@ class controller_app {
         if(jam_until < 0) { return; }
         if(now >= jam_until) {
             jam_until = 0 - 1;
+            if(devices.jammer != null) { devices.jammer!!.jam_end(); }
             tell("jam done", now);
             return;
         }
-        if(devices.tuning != null) { devices.tuning!!.jam(jam_on_channel); }
+        if(devices.jammer != null) { devices.jammer!!.jam_tick(); }
     }
 
     // ------------------------------------------------------------------ stopping and powering off

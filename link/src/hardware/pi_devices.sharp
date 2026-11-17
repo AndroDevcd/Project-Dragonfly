@@ -24,6 +24,9 @@ native "dragonfly" {
     def radio_receive(into: _uint8[]) : _int32;
     def radio_set_power(level: _int32);
     def radio_jam(channel: _int32, millis: _int32);
+    def radio_jam_begin(channel: _int32) : _int32;
+    def radio_jam_tick();
+    def radio_jam_end();
     def radio_set_channel(channel: _int32);
     def radio_sense(first: _int32, count: _int32, into: _uint8[]) : _int32;
     def radio_print_details();
@@ -44,7 +47,7 @@ class hardware_exception base exception {
 }
 
 /** the nRF24L01 */
-class nrf24_radio : radio, radio_control, channel_control {
+class nrf24_radio : radio, radio_control, channel_control, sustained_jammer {
     private scratch : _uint8[] = new _uint8[FRAME_SIZE];       // where the C++ puts a frame that arrived
     private tuned : _int64 = RADIO_CHANNEL;
 
@@ -79,6 +82,10 @@ class nrf24_radio : radio, radio_control, channel_control {
     override def jam(channel: _int64) {
         radio_jam(channel, JAM_MS);
     }
+
+    override def jam_begin(channel: _int64) : _int64 { return radio_jam_begin(channel) != 0; }
+    override def jam_tick() { radio_jam_tick(); }
+    override def jam_end() { radio_jam_end(); }
 
     override def set_channel(channel: _int64) {
         if(channel < 0 || channel > 125) { return; }

@@ -16,6 +16,8 @@ public:
     bool available();
     void read(void* buf, uint8_t len);
     bool write(const void* buf, uint8_t len);
+    void startFastWrite(const void* buf, uint8_t len, const bool multicast);
+    void flush_tx();
     void openWritingPipe(const uint8_t* address);
     void openReadingPipe(uint8_t number, const uint8_t* address);
     void printDetails();

@@ -33,6 +33,7 @@ class bench {
         made := new controller_devices(air.first, time, pins, panel, saved);
         made.channels = air.first;
         made.tuning = air.first;
+        made.jammer = air.first;
         app = new controller_app(made);
     }
 

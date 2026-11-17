@@ -47,8 +47,9 @@ class jam_screen base screen {
             return root;
         }
 
-        root.add(text("jamming ch " + app.jam_channel()).below(bar).center_across().margin_top(3));
-        root.add(text("" + app.jam_seconds_left()).size(3).below(bar).center_across().margin_top(16));
+        root.add(text("jamming ch " + app.jam_channel()).below(bar).center_across().margin_top(2));
+        root.add(text("" + app.jam_low() + " - " + app.jam_high()).below(bar).center_across().margin_top(11));
+        root.add(text("" + app.jam_seconds_left()).size(3).below(bar).center_across().margin_top(22));
         root.add(text("press to cancel").at_bottom().center_across());
         return root;
     }
