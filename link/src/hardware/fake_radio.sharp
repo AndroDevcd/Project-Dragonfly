@@ -106,9 +106,12 @@ class fake_radio : radio, channel_control, radio_control, sustained_jammer {
 
     jam_running : _int64 = false;
 
-    override def jam_begin(channel: _int64) : _int64 {
+    last_jam_spread : _int64 = 0;
+
+    override def jam_begin(channel: _int64, spread: _int64) : _int64 {
         jam_running = true;
         last_jam_channel = channel;
+        last_jam_spread = spread;
         return true;
     }
     override def jam_flood(millis: _int64, up_pin: _int64, down_pin: _int64) : _int64 {

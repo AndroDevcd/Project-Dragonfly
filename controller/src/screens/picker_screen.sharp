@@ -185,6 +185,22 @@ class jam_channel_setting : value_setting {
     override def apply(value: _int64) { chosen.set_jam_channel(value); }
 }
 
+/** how wide the jam is: channels each side of the centre (narrow = stronger on one Wi-Fi channel) */
+class jam_width_setting : value_setting {
+    private chosen : settings;
+    jam_width_setting(chosen: settings) { self->chosen = chosen; }
+    override def title() : string { return "Jam width"; }
+    override def values() : number_list {
+        made := new number_list(100);
+        made.add(3); made.add(6); made.add(11); made.add(20); made.add(30); made.add(50); made.add(62);
+        return made;
+    }
+    override def current() : _int64 { return chosen.jam_width; }
+    override def label(value: _int64) : string { return "+/- " + value; }
+    override def note(value: _int64) : string { return "" + (2 * value + 1) + " MHz wide"; }
+    override def apply(value: _int64) { chosen.set_jam_width(value); }
+}
+
 /** how strongly the radio transmits: 0 (least) .. 3 (most) */
 class power_setting : value_setting {
     private chosen : settings;

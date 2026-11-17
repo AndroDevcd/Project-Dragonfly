@@ -39,6 +39,7 @@ extern "C" int digitalRead(int pin);
 static RF24 radio(22, 0);
 static bool started = false;
 static uint8_t power_level = 0;
+static rf24_datarate_e link_rate = RF24_250KBPS;   // the link's data rate, restored after a jam
 
 // The two ends listen on each other's sending address: one byte differs.
 static uint8_t controller_address[5] = { 0x1A, 0xCE, 0x2B, 0xCE, 0x5F };
@@ -80,7 +81,8 @@ int32_t dragonfly_radio_begin(sni_env* env, int32_t is_controller, int32_t chann
 
     power_level = (uint8_t) (power < 0 ? 0 : power > 3 ? 3 : power);
     radio.setPALevel(power_of(power_level));
-    radio.setDataRate(rate_of(rate));
+    link_rate = rate_of(rate);
+    radio.setDataRate(link_rate);
     radio.setChannel((uint8_t) (channel < 0 ? 0 : channel > 125 ? 125 : channel));
     radio.setPayloadSize(FRAME_SIZE);
     // The chip's own acknowledgement and three quick resends: cheap, and it takes most of the
@@ -169,10 +171,11 @@ void dragonfly_radio_print_details(sni_env* env) {
 
 // ---- SUSTAINED BAND JAMMING (the controller's jammer) --------------------------------------
 //
-// A jam covers a BAND: the centre channel and JAM_SPREAD on each side (centre 50 -> 0..100), kept inside
-// 0..125, flooded with real packets at full power, hopping across the whole band back to back.
-// Real packets (not one steady tone) spread energy across each channel's width and are what
-// actually stops a receiver there.
+// A jam covers a BAND: the centre channel and `spread` channels on each side (the pilot sets the
+// width), kept inside 0..125, flooded with real packets at full power, hopping across the band
+// back to back. A NARROW band around a Wi-Fi channel concentrates the energy where the victim is;
+// a wide band disturbs more but weakly. Real packets (not one steady tone) spread energy across
+// each channel's width.
 //
 // THE WHOLE JAM RUNS HERE IN C++, in one call, for the whole time. It used to be driven a tick at
 // a time from the Sharp loop, but between ticks the loop drew the screen and slept, and the radio
@@ -183,8 +186,6 @@ void dragonfly_radio_print_details(sni_env* env) {
 // pressed, and it ends if the program is being shut down (should_stop). It returns 1 when it ran
 // the full time, 0 when a button cancelled it. The button that STARTED the jam is ignored until
 // it is let go, so the press that opened this does not cancel it at once.
-#define JAM_SPREAD 50               // keep the same as JAM_SPREAD in link/src/hardware/radio.sharp
-
 static const uint8_t JAM_NOISE[FRAME_SIZE] = {
     0x9A, 0x55, 0xF3, 0x0C, 0xA5, 0x5A, 0xFF, 0x00, 0x33, 0xCC, 0x96, 0x69, 0x0F, 0xF0, 0x5A, 0xA5,
     0xC3, 0x3C, 0x77, 0x88, 0x11, 0xEE, 0xDB, 0x24, 0xB4, 0x4B, 0x6D, 0x92, 0x1C, 0xE1, 0x7E, 0x81
@@ -197,11 +198,13 @@ static uint8_t jam_home = 0;
 static bool jam_released = false;   // the button that opened the jam, let go yet?
 
 // take the radio onto the band around `centre` and set it up to flood. 1 when it could.
-int32_t dragonfly_radio_jam_begin(sni_env* env, int32_t centre) {
+int32_t dragonfly_radio_jam_begin(sni_env* env, int32_t centre, int32_t spread) {
     if(!chip_there() || centre < 0 || centre > 125) return 0;
-    jam_low = centre - JAM_SPREAD;
+    if(spread < 1) spread = 1;
+    if(spread > 125) spread = 125;
+    jam_low = centre - spread;
     if(jam_low < 0) jam_low = 0;
-    jam_high = centre + JAM_SPREAD;
+    jam_high = centre + spread;
     if(jam_high > 125) jam_high = 125;
     jam_home = radio.getChannel();
 
@@ -209,10 +212,17 @@ int32_t dragonfly_radio_jam_begin(sni_env* env, int32_t centre) {
     radio.setAutoAck(false);        // no waiting for an answer that will never come
     radio.setRetries(0, 0);
     radio.setPALevel(RF24_PA_MAX);
+    // 2 Mbps for jamming: it occupies about 2 MHz of air (wider, so it covers more of a 20 MHz
+    // Wi-Fi channel each hop) and sends packets ~8x faster than the link's 250 kbps.
+    radio.setDataRate(RF24_2MBPS);
     jamming = true;
     jam_released = false;
     return 1;
 }
+
+// packets sent on a channel before hopping to the next: dwelling a few deep puts real energy on
+// each channel instead of one packet in passing
+#define JAM_DWELL 4
 
 // FLOOD THE BAND for `millis` - one chunk of the jam, a tight C++ loop with no gaps. The whole jam
 // is several of these back to back; the loop comes up for air once a chunk (about a second) to
@@ -226,7 +236,9 @@ int32_t dragonfly_radio_jam_flood(sni_env* env, int32_t millis, int32_t up_pin, 
         if(env->should_stop()) break;                   // the program is shutting down
         for(int channel = jam_low; channel <= jam_high; channel++) {
             radio.setChannel((uint8_t) channel);
-            radio.startFastWrite(JAM_NOISE, FRAME_SIZE, false);
+            for(int shot = 0; shot < JAM_DWELL; shot++) {
+                radio.startFastWrite(JAM_NOISE, FRAME_SIZE, false);
+            }
         }
         bool up = digitalRead(up_pin) == 1;
         bool down = digitalRead(down_pin) == 1;
@@ -247,6 +259,7 @@ void dragonfly_radio_jam_end(sni_env* env) {
         radio.flush_tx();
         radio.setChannel(jam_home);
         radio.setPALevel(power_of(power_level));
+        radio.setDataRate(link_rate);               // back to the link's rate
         radio.setAutoAck(true);
         radio.setRetries(2, 3);
         radio.startListening();
@@ -303,7 +316,7 @@ int32_t dragonfly_radio_receive(sni_env* env, sni_ref into) { return 0; }
 void dragonfly_radio_set_power(sni_env* env, int32_t level) { }
 void dragonfly_radio_jam(sni_env* env, int32_t channel, int32_t millis) { }
 void dragonfly_radio_print_details(sni_env* env) { }
-int32_t dragonfly_radio_jam_begin(sni_env* env, int32_t centre) { return 0; }
+int32_t dragonfly_radio_jam_begin(sni_env* env, int32_t centre, int32_t spread) { return 0; }
 int32_t dragonfly_radio_jam_flood(sni_env* env, int32_t millis, int32_t up_pin, int32_t down_pin) { return 1; }
 void dragonfly_radio_jam_end(sni_env* env) { }
 void dragonfly_radio_set_channel(sni_env* env, int32_t channel) { }

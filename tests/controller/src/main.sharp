@@ -411,7 +411,7 @@ def test_channels_screen() {
     check("the band is drawn", t.panel.has("spectrum"));
     check("nothing is off the screen", !t.panel.anything_off_screen());
     check("it names the busiest and the quietest", t.panel.has("on121 best125 busy37"));
-    check("the channel numbers are under the bars", t.panel.has("0") && t.panel.has("50") && t.panel.has("100") && t.panel.has("125"));
+    check("the Wi-Fi channel numbers are under the bars", t.panel.has("1") && t.panel.has("6") && t.panel.has("11") && t.panel.has("14"));
 
     t.press_select();                       // move to the quietest
     t.run(10, 10);
@@ -435,7 +435,7 @@ def test_channels_screen() {
     t.app.screens.open(new jam_screen(t.app));
     t.app.screens.draw(t.panel);            // the jam screen, as the loop draws it each second
     check("the centre and the seconds left are shown", t.panel.has("jamming ch 80 (20s)"));
-    check("the band is shown (80 +/- 50, clamped)", t.panel.has("30 - 125"));
+    check("the band is shown (80 +/- 11, the default width)", t.panel.has("69 - 91"));
 
     // let it run out: the loop floods a chunk each step and the clock moves on past the 20 s
     t.run(210, 100);
@@ -528,8 +528,8 @@ def test_power_off() {
     t.app.start(new home_screen(t.app));
     t.run(20, 20);
     t.press_select();                       // the settings
-    // down to "Power off": mode, screen, power, channel, jam, jam ch, power off
-    for(i : _int64 = 0; i < 6; i++) { t.press_down(); }
+    // down to "Power off": mode, screen, power, channel, jam, jam ch, jam width, power off
+    for(i : _int64 = 0; i < 7; i++) { t.press_down(); }
     t.press_select();
     check_equal("the confirm screen is open", t.app.screens.depth(), 3);
     check("it asks", t.panel.has("Are you sure you would"));

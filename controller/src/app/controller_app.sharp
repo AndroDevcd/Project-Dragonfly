@@ -311,7 +311,7 @@ class controller_app {
         if(devices.jammer == null) { tell("this radio cannot jam", at); return false; }
         if(chosen.jam_seconds <= 0) { tell("jam is off: set a time in settings", at); return false; }
         jam_on_channel = chosen.jam_channel;
-        if(devices.jammer!!.jam_begin(jam_on_channel) == 0) { tell("the radio would not jam", at); return false; }
+        if(devices.jammer!!.jam_begin(jam_on_channel, chosen.jam_width) == 0) { tell("the radio would not jam", at); return false; }
         jam_until = at + chosen.jam_seconds * 1000;
         return true;
     }
@@ -328,14 +328,14 @@ class controller_app {
         return (left + 999) / 1000;
     }
 
-    /** the band a jam covers: the centre and JAM_SPREAD each side, kept on the dial (0 .. 125) */
+    /** the band a jam covers: the centre and the chosen width each side, kept on the dial (0 .. 125) */
     def jam_low() : _int64 {
-        low : _int64 = jam_on_channel - JAM_SPREAD;
+        low : _int64 = jam_on_channel - chosen.jam_width;
         if(low < 0) { low = 0; }
         return low;
     }
     def jam_high() : _int64 {
-        high : _int64 = jam_on_channel + JAM_SPREAD;
+        high : _int64 = jam_on_channel + chosen.jam_width;
         if(high > 125) { high = 125; }
         return high;
     }

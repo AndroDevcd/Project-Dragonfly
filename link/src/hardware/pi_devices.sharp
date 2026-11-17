@@ -24,7 +24,7 @@ native "dragonfly" {
     def radio_receive(into: _uint8[]) : _int32;
     def radio_set_power(level: _int32);
     def radio_jam(channel: _int32, millis: _int32);
-    def radio_jam_begin(channel: _int32) : _int32;
+    def radio_jam_begin(channel: _int32, spread: _int32) : _int32;
     def radio_jam_flood(millis: _int32, up_pin: _int32, down_pin: _int32) : _int32;
     def radio_jam_end();
     def radio_set_channel(channel: _int32);
@@ -83,7 +83,7 @@ class nrf24_radio : radio, radio_control, channel_control, sustained_jammer {
         radio_jam(channel, JAM_MS);
     }
 
-    override def jam_begin(channel: _int64) : _int64 { return radio_jam_begin(channel) != 0; }
+    override def jam_begin(channel: _int64, spread: _int64) : _int64 { return radio_jam_begin(channel, spread) != 0; }
     override def jam_flood(millis: _int64, up_pin: _int64, down_pin: _int64) : _int64 {
         return radio_jam_flood(millis, up_pin, down_pin);
     }

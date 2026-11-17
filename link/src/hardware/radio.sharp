@@ -48,7 +48,7 @@ interface radio_control {
 /**
  * JAM a BAND of channels around one centre, the WHOLE jam in one call.
  *
- * The band is the centre channel and JAM_SPREAD on each side (centre 50 -> 0..100), because a signal is
+ * The band is the centre channel and the chosen width on each side, because a signal is
  * wider than one channel and hops about. The flood is real packets at full power, hopping across
  * the whole band - what an nRF24 can do that a receiver in the band cannot see past.
  *
@@ -59,13 +59,11 @@ interface radio_control {
  * full time, 0 when a button cancelled it.
  */
 interface sustained_jammer {
-    def jam_begin(channel: _int64) : _int64;                                // take the radio onto the band; true when it could
+    def jam_begin(channel: _int64, spread: _int64) : _int64;                // take the radio onto the band (centre +/- spread)
     def jam_flood(millis: _int64, up_pin: _int64, down_pin: _int64) : _int64;  // flood a chunk; 1 ran it, 0 a button cancelled
     def jam_end();                                                          // stop, give the radio back
 }
 
-/** how many channels each side of the centre a jam covers (kept the same in radio_nrf24.cpp) */
-const JAM_SPREAD : _int64 = 50;
 
 /**
  * The radio's CHANNELS: which one it is on, and how busy the others are.
