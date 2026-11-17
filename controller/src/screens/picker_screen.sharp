@@ -97,7 +97,13 @@ class picker_screen base screen {
 
         value : _int64 = values.at(index);
         big := text(setting.label(value)).size(2);
-        root.add(big.below(bar).center_across().margin_top(18));
+        root.add(big.below(bar).center_across().margin_top(16));
+
+        // a small note under the value, e.g. a channel's frequency ("2437 MHz  WiFi 6")
+        note : string = setting.note(value);
+        if(sizeof(note.data) > 0) {
+            root.add(text(note).below(big).center_across().margin_top(3));
+        }
 
         if(confirming) {
             save_word : string = "Save";
@@ -122,6 +128,7 @@ interface value_setting {
     def values() : number_list;                 // every value the pilot may pick, in order
     def current() : _int64;                     // the one chosen now
     def label(value: _int64) : string;          // how a value reads ("off", "20s", "50")
+    def note(value: _int64) : string;           // a small line under it (a frequency), or "" for none
     def apply(value: _int64);                   // save it
 }
 
@@ -143,6 +150,7 @@ class jam_time_setting : value_setting {
         if(value <= 0) { return "off"; }
         return "" + value + "s";
     }
+    override def note(value: _int64) : string { return ""; }
     override def apply(value: _int64) { chosen.set_jam_seconds(value); }
 }
 
@@ -154,6 +162,19 @@ class jam_channel_setting : value_setting {
     override def values() : number_list { return value_range(0, 125, 1); }
     override def current() : _int64 { return chosen.jam_channel; }
     override def label(value: _int64) : string { return "" + value; }
+
+    // the nRF24 numbers 2.4 GHz in 1 MHz steps: channel N is 2400 + N MHz. Wi-Fi's channels are
+    // 5 MHz apart on top of that - Wi-Fi 1 is 2412 MHz (channel 12), 6 is 2437 (37), 11 is 2462
+    // (62) - so where a channel is a Wi-Fi centre its number is shown too.
+    override def note(value: _int64) : string {
+        here : string = "" + (2400 + value) + " MHz";
+        if(value == 84) { return here + "  WiFi 14"; }
+        if(value >= 12 && value <= 72 && ((value - 7) % 5) == 0) {
+            n : _int64 = (value - 7) / 5;
+            return here + "  WiFi " + n;
+        }
+        return here;
+    }
     override def apply(value: _int64) { chosen.set_jam_channel(value); }
 }
 
@@ -165,5 +186,6 @@ class power_setting : value_setting {
     override def values() : number_list { return value_range(0, 3, 1); }
     override def current() : _int64 { return chosen.radio_power; }
     override def label(value: _int64) : string { return "" + value; }
+    override def note(value: _int64) : string { return ""; }
     override def apply(value: _int64) { chosen.change_radio_power(value); }
 }

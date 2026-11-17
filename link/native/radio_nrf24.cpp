@@ -169,7 +169,7 @@ void dragonfly_radio_print_details(sni_env* env) {
 
 // ---- SUSTAINED BAND JAMMING (the controller's jammer) --------------------------------------
 //
-// A jam covers a BAND: the centre channel and JAM_SPREAD on each side (50 -> 25..75), kept inside
+// A jam covers a BAND: the centre channel and JAM_SPREAD on each side (centre 50 -> 0..100), kept inside
 // 0..125, flooded with real packets at full power, hopping across the whole band back to back.
 // Real packets (not one steady tone) spread energy across each channel's width and are what
 // actually stops a receiver there.
@@ -183,7 +183,7 @@ void dragonfly_radio_print_details(sni_env* env) {
 // pressed, and it ends if the program is being shut down (should_stop). It returns 1 when it ran
 // the full time, 0 when a button cancelled it. The button that STARTED the jam is ignored until
 // it is let go, so the press that opened this does not cancel it at once.
-#define JAM_SPREAD 25               // keep the same as JAM_SPREAD in link/src/hardware/radio.sharp
+#define JAM_SPREAD 50               // keep the same as JAM_SPREAD in link/src/hardware/radio.sharp
 
 static const uint8_t JAM_NOISE[FRAME_SIZE] = {
     0x9A, 0x55, 0xF3, 0x0C, 0xA5, 0x5A, 0xFF, 0x00, 0x33, 0xCC, 0x96, 0x69, 0x0F, 0xF0, 0x5A, 0xA5,

@@ -435,7 +435,7 @@ def test_channels_screen() {
     t.app.screens.open(new jam_screen(t.app));
     t.app.screens.draw(t.panel);            // the jam screen, as the loop draws it each second
     check("the centre and the seconds left are shown", t.panel.has("jamming ch 80 (20s)"));
-    check("the band is shown (80 +/- 25)", t.panel.has("55 - 105"));
+    check("the band is shown (80 +/- 50, clamped)", t.panel.has("30 - 125"));
 
     // let it run out: the loop floods a chunk each step and the clock moves on past the 20 s
     t.run(210, 100);
@@ -479,8 +479,11 @@ def test_picker() {
     check("its title", t.panel.has("Jam channel"));
     check("the value now", t.panel.has("10"));
 
+    check("the value's frequency is shown", t.panel.has("2410 MHz"));
     t.press_down();                         // 10 -> 11
     check("the value went up", t.panel.has("11"));
+    t.press_down();                         // 11 -> 12 = Wi-Fi channel 1 (2412 MHz)
+    check("a Wi-Fi centre names the Wi-Fi channel", t.panel.has("2412 MHz  WiFi 1"));
     t.press_select();                       // ask to save
     check("it asks to save", t.panel.has("[Save]"));
     t.press_down();                         // Save -> Cancel
