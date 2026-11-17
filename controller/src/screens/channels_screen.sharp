@@ -66,7 +66,7 @@ class channels_screen base screen {
         if(action == ACTION_MOVE) {
             if(app.scanner != null) { app.change_channel(app.scanner!!.quietest()); }
         } else if(action == ACTION_JAM) {
-            app.start_jam();
+            if(app.start_jam()) { app.screens.open(new jam_screen(app)); }
         } else {
             app.stop_scan();
             app.screens.back();

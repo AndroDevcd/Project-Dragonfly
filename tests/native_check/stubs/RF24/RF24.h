@@ -10,6 +10,7 @@ class RF24 {
 public:
     RF24(uint16_t ce_pin, uint16_t csn_pin, uint32_t spi_speed = 10000000);
     bool begin();
+    bool isChipConnected();
     void startListening();
     void stopListening();
     bool available();

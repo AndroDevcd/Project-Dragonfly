@@ -57,9 +57,22 @@ static rf24_datarate_e rate_of(int32_t rate) {
     }
 }
 
+// IS THE CHIP STILL THERE? asked before anything that talks to it.
+//
+// If the radio is unplugged (or its power or a wire fails) while the program runs, the RF24
+// library's write() waits in a loop for a "finished" bit from a chip that will never answer, and
+// the whole controller freezes - the screen, the buttons, everything, because it is all one loop.
+// isChipConnected() reads one register and checks it makes sense; it cannot hang. Every call to
+// the radio below asks it first, so a radio that has gone away just means "no frame" / "did not
+// send", and the controller keeps running.
+static bool chip_there() {
+    return started && radio.isChipConnected();
+}
+
 // 1 when the chip answered and is listening; 0 when it did not (wiring, power)
 int32_t dragonfly_radio_begin(sni_env* env, int32_t is_controller, int32_t channel, int32_t power, int32_t rate) {
     if(!radio.begin()) return 0;
+    if(!radio.isChipConnected()) return 0;
 
     power_level = (uint8_t) (power < 0 ? 0 : power > 3 ? 3 : power);
     radio.setPALevel(power_of(power_level));
@@ -86,7 +99,7 @@ int32_t dragonfly_radio_begin(sni_env* env, int32_t is_controller, int32_t chann
 // 1 when the frame left the radio. (The chip's "nobody acknowledged" is NOT an error here:
 // the link finds out by itself, and a frame without an answer is normal while out of range.)
 int32_t dragonfly_radio_send(sni_env* env, sni_ref frame) {
-    if(!started) return 0;
+    if(!chip_there()) return 0;
     sni_array bytes = env->array(frame);
     if(bytes.data == nullptr || bytes.count <= 0) return 0;
 
@@ -102,7 +115,7 @@ int32_t dragonfly_radio_send(sni_env* env, sni_ref frame) {
 
 // copies the next frame into `into` (an array of at least 32 bytes); the number of bytes, 0 when none is waiting
 int32_t dragonfly_radio_receive(sni_env* env, sni_ref into) {
-    if(!started || !radio.available()) return 0;
+    if(!chip_there() || !radio.available()) return 0;
     sni_array bytes = env->array(into);
     if(bytes.data == nullptr || bytes.count < FRAME_SIZE) return 0;
     radio.read(bytes.data, FRAME_SIZE);
@@ -110,7 +123,7 @@ int32_t dragonfly_radio_receive(sni_env* env, sni_ref into) {
 }
 
 void dragonfly_radio_set_power(sni_env* env, int32_t level) {
-    if(!started) return;
+    if(!chip_there()) return;
     power_level = (uint8_t) (level < 0 ? 0 : level > 3 ? 3 : level);
     radio.setPALevel(power_of(power_level));
 }
@@ -124,7 +137,7 @@ void dragonfly_radio_set_power(sni_env* env, int32_t level) {
 // channel's traffic did not drop. Sitting on the one channel with a carrier at full power is the
 // most a radio like this can do, and it actually blocks it.
 void dragonfly_radio_jam(sni_env* env, int32_t channel, int32_t millis) {
-    if(!started) return;
+    if(!chip_there()) return;
     if(channel < 0 || channel > 125) return;
     if(millis > 1000) millis = 1000;
     uint8_t home = radio.getChannel();
@@ -147,11 +160,11 @@ void dragonfly_radio_jam(sni_env* env, int32_t channel, int32_t millis) {
 }
 
 void dragonfly_radio_print_details(sni_env* env) {
-    if(started) radio.printDetails();
+    if(chip_there()) radio.printDetails();
 }
 
 void dragonfly_radio_set_channel(sni_env* env, int32_t channel) {
-    if(!started || channel < 0 || channel > 125) return;
+    if(!chip_there() || channel < 0 || channel > 125) return;
     radio.setChannel((uint8_t) channel);
 }
 
@@ -164,7 +177,7 @@ void dragonfly_radio_set_channel(sni_env* env, int32_t channel) {
 // listening when this returns. Returns how many channels were asked. At most 16 a call, about
 // 3 ms: the program's loop is not held up for longer.
 int32_t dragonfly_radio_sense(sni_env* env, int32_t first, int32_t count, sni_ref into) {
-    if(!started) return 0;
+    if(!chip_there()) return 0;
     sni_array answers = env->array(into);
     if(answers.data == nullptr) return 0;
     if(count > 16) count = 16;
