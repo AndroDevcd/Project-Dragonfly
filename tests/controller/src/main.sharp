@@ -425,25 +425,23 @@ def test_channels_screen() {
     t.run(200, 10);
     check_equal("alone on 125: back on the home channel", t.app.channel(), RADIO_CHANNEL);
 
-    // the jam screen shows the centre and the band; the jam itself runs all at once (in C++)
-    // (driven here by hand - through a button the bench's many steps would run the instant test
-    //  jam before anything could be checked)
+    // the jam screen shows the centre, a live seconds countdown, and the band; the jam floods in
+    // C++ a second at a time (driven here by hand so the screen can be checked before it runs out)
     t.app.chosen.jam_seconds = 20;
     t.app.chosen.jam_channel = 80;
     before : _int64 = t.air.first.jams;
     check("a jam starts", t.app.start_jam());
-    check("a jam is pending", t.app.is_jamming());
+    check("a jam is running", t.app.is_jamming());
     t.app.screens.open(new jam_screen(t.app));
-    t.app.screens.draw(t.panel);            // the jam screen, as the loop draws it before the jam runs
-    check("the centre channel is shown", t.panel.has("jamming ch 80"));
+    t.app.screens.draw(t.panel);            // the jam screen, as the loop draws it each second
+    check("the centre and the seconds left are shown", t.panel.has("jamming ch 80 (20s)"));
     check("the band is shown (80 +/- 25)", t.panel.has("55 - 105"));
 
-    // the loop: one step draws the screen, the next runs the (test) jam at once and returns
-    t.run(3, 10);
+    // let it run out: the loop floods a chunk each step and the clock moves on past the 20 s
+    t.run(210, 100);
     check_equal("the configured channel is jammed", t.air.first.last_jam_channel, 80);
-    check_equal("for the configured time", t.air.first.last_jam_ms, 20000);
-    check("the radio was told to jam", t.air.first.jams > before);
-    check("the jam is over", !t.app.is_jamming());
+    check("the radio was flooded", t.air.first.jams > before);
+    check("the jam ended by itself", !t.app.is_jamming());
     check_equal("it returned to the channels screen", t.app.screens.depth(), 3);
 
     t.press_down();                         // Move -> Jam

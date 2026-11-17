@@ -104,12 +104,18 @@ class fake_radio : radio, channel_control, radio_control, sustained_jammer {
         last_jam_channel = channel;
     }
 
-    override def jam_run(channel: _int64, millis: _int64, up_pin: _int64, down_pin: _int64) : _int64 {
-        jams++;
+    jam_running : _int64 = false;
+
+    override def jam_begin(channel: _int64) : _int64 {
+        jam_running = true;
         last_jam_channel = channel;
-        last_jam_ms = millis;
-        return true;                                // a test's jam always runs the full time at once
+        return true;
     }
+    override def jam_flood(millis: _int64, up_pin: _int64, down_pin: _int64) : _int64 {
+        if(jam_running) { jams++; last_jam_ms = last_jam_ms + millis; }
+        return true;                                // a test's flood always finishes its chunk
+    }
+    override def jam_end() { jam_running = false; }
 
     def make_busy(channel: _int64) { busy[channel] = 1; }
     def make_quiet(channel: _int64) { busy[channel] = 0; }

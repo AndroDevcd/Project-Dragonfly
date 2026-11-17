@@ -59,7 +59,9 @@ interface radio_control {
  * full time, 0 when a button cancelled it.
  */
 interface sustained_jammer {
-    def jam_run(channel: _int64, millis: _int64, up_pin: _int64, down_pin: _int64) : _int64;
+    def jam_begin(channel: _int64) : _int64;                                // take the radio onto the band; true when it could
+    def jam_flood(millis: _int64, up_pin: _int64, down_pin: _int64) : _int64;  // flood a chunk; 1 ran it, 0 a button cancelled
+    def jam_end();                                                          // stop, give the radio back
 }
 
 /** how many channels each side of the centre a jam covers (kept the same in radio_nrf24.cpp) */

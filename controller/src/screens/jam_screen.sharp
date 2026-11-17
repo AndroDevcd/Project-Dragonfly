@@ -45,9 +45,8 @@ class jam_screen base screen {
             return root;
         }
 
-        root.add(text("jamming ch " + app.jam_channel()).below(bar).center_across().margin_top(4));
-        root.add(text("" + app.jam_low() + " - " + app.jam_high()).size(2).below(bar).center_across().margin_top(16));
-        root.add(text("for " + app.jam_length() + "s").below(bar).center_across().margin_top(36));
+        root.add(text("jamming ch " + app.jam_channel() + " (" + app.jam_seconds_left() + "s)").below(bar).center_across().margin_top(6));
+        root.add(text("" + app.jam_low() + " - " + app.jam_high()).size(2).below(bar).center_across().margin_top(22));
         root.add(text("press a button to stop").at_bottom().center_across());
         return root;
     }
