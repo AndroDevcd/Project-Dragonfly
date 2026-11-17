@@ -149,6 +149,12 @@ settings carried out -> buttons -> a frame.
 - **Buttons.** Two buttons give three events: UP, DOWN, and SELECT (both together). Holding
   one repeats it every 250 ms. (`controller/src/input/buttons.sharp`)
 
+The settings also hold a **Jam** time (0 / 10 ... 60 s, 0 = off) and a **Jam channel**, and a
+**Power off** line that opens a confirm screen (Are you sure... / Yes / No, No marked first); Yes
+tidies the hardware and, on the Pi, powers it down. On the channels screen the bottom row chooses
+between **Move** (to the quietest channel), **Jam** (the saved channel for the saved time, in
+bursts that stop by themselves) and **Back**.
+
 ## 6. The UI toolkit
 
 Android's relative layout, written the way Compose and SwiftUI build a screen.

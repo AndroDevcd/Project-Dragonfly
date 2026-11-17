@@ -11,6 +11,9 @@ import ( std, ui, controller, link.messages );
  *          Screen: bright
  *          Radio power: 2
  *          Channel: 121            (opens the channels screen)
+ *          Jam: 20s                (how long a jam lasts; off = 0)
+ *          Jam ch: 100             (which channel the jammer disturbs)
+ *          Power off               (asks to confirm, then powers the Pi down)
  *          Back
  *
  * Each line shows the setting's value, so there are no sub-screens: choosing a
@@ -24,8 +27,11 @@ const LINE_MODE : _int64 = 0;
 const LINE_SCREEN : _int64 = 1;
 const LINE_POWER : _int64 = 2;
 const LINE_CHANNEL : _int64 = 3;
-const LINE_BACK : _int64 = 4;
-const LINE_COUNT : _int64 = 5;
+const LINE_JAM : _int64 = 4;
+const LINE_JAM_CHANNEL : _int64 = 5;
+const LINE_POWER_OFF : _int64 = 6;
+const LINE_BACK : _int64 = 7;
+const LINE_COUNT : _int64 = 8;
 
 class settings_screen base screen {
     private app : controller_app;
@@ -58,6 +64,12 @@ class settings_screen base screen {
             chosen.change_radio_power((chosen.radio_power + 1) % 4);
         } else if(chosen_line == LINE_CHANNEL) {
             app.screens.open(new channels_screen(app));
+        } else if(chosen_line == LINE_JAM) {
+            chosen.change_jam_seconds();
+        } else if(chosen_line == LINE_JAM_CHANNEL) {
+            chosen.change_jam_channel();
+        } else if(chosen_line == LINE_POWER_OFF) {
+            app.screens.open(new confirm_power_screen(app));
         } else {
             app.screens.back();
         }
@@ -77,13 +89,17 @@ class settings_screen base screen {
         made.add("Radio power: " + chosen.radio_power);
         if(app.channel_is_pending()) { made.add("Channel: " + app.channel() + " > " + app.channel_wanted); }
         else { made.add("Channel: " + app.channel()); }
+        if(chosen.jam_seconds <= 0) { made.add("Jam: off"); }
+        else { made.add("Jam: " + chosen.jam_seconds + "s"); }
+        made.add("Jam ch: " + chosen.jam_channel);
+        made.add("Power off");
         made.add("Back");
         return made;
     }
 
     override def body() : view {
         bar := status_bar(app.state);
-        list := menu(lines(), chosen_line).rows(4);
+        list := menu(lines(), chosen_line).rows(5);
         return relative()
             .add(bar.at_top())
             .add(list.below(bar).at_left().margin_top(4).margin_left(2));

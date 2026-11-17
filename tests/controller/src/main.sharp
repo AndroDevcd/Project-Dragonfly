@@ -32,6 +32,7 @@ class bench {
     def make_app() {
         made := new controller_devices(air.first, time, pins, panel, saved);
         made.channels = air.first;
+        made.tuning = air.first;
         app = new controller_app(made);
     }
 
@@ -423,9 +424,68 @@ def test_channels_screen() {
     t.run(200, 10);
     check_equal("alone on 125: back on the home channel", t.app.channel(), RADIO_CHANNEL);
 
-    t.press_up();
-    check_equal("either button: back to the settings", t.app.screens.depth(), 2);
+    // the Jam action: the configured channel, for the configured time
+    t.app.chosen.jam_seconds = 20;
+    t.app.chosen.jam_channel = 80;
+    before : _int64 = t.air.first.jams;
+    t.press_down();                         // Move -> Jam
+    t.press_select();
+    t.run(4, 10);
+    check("jamming started", t.app.is_jamming());
+    check_equal("the configured channel is jammed", t.air.first.last_jam_channel, 80);
+    check("the radio was told to jam", t.air.first.jams > before);
+    t.run(1100, 20);                        // past the 20 s
+    check("the jam stopped by itself", !t.app.is_jamming());
+
+    t.press_down();                         // Jam -> Back
+    t.press_select();
+    check_equal("Back: to the settings", t.app.screens.depth(), 2);
     check("and the scanner stopped", t.app.scanner == null);
+}
+
+/** a jam with no time set, and on a radio that cannot jam, does nothing */
+def test_jam_guards() {
+    section("jam: off, and no radio");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(20, 20);
+    t.app.chosen.jam_seconds = 0;           // off
+    before : _int64 = t.air.first.jams;
+    t.app.start_jam();
+    t.run(4, 10);
+    check("off: nothing is jammed", !t.app.is_jamming() && t.air.first.jams == before);
+}
+
+/** the power-off line asks to confirm; No goes back, Yes powers off */
+def test_power_off() {
+    section("power off: confirm, no and yes");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(20, 20);
+    t.press_select();                       // the settings
+    // down to "Power off": mode, screen, power, channel, jam, jam ch, power off
+    for(i : _int64 = 0; i < 6; i++) { t.press_down(); }
+    t.press_select();
+    check_equal("the confirm screen is open", t.app.screens.depth(), 3);
+    check("it asks", t.panel.has("Are you sure you would"));
+    check("No is marked to begin with", t.panel.has("[No]"));
+    check("the program is still running", t.app.is_running());
+
+    t.press_up();                           // No -> Yes
+    check("Yes is marked now", t.panel.has("[Yes]"));
+    t.press_down();                         // back to No
+    check("No again", t.panel.has("[No]"));
+
+    t.press_select();                       // No: back to the settings
+    check_equal("No returns to the settings", t.app.screens.depth(), 2);
+    check("still running", t.app.is_running());
+
+    // open it again (the marker is still on "Power off") and say Yes
+    t.press_select();                       // the confirm screen
+    check_equal("the confirm screen is open again", t.app.screens.depth(), 3);
+    t.press_up();                           // No -> Yes
+    t.press_select();                       // Yes
+    check("Yes powers off", t.app.wants_power_off && !t.app.is_running());
 }
 
 def test_settings_file() {
@@ -438,6 +498,27 @@ def test_settings_file() {
     check_equal("a radio power that does not exist is not taken", loaded.radio_power, 0);
     check_equal("a negative number", loaded.utc_offset, 0 - 3);
     check_text("the clock: five past nine", clock_text_of(9 * 60 + 5), "09:05");
+
+    // the jam settings cycle and are kept
+    fresh := new memory_store();
+    s := new settings(fresh);
+    check_equal("jam is off to begin with", s.jam_seconds, 0);
+    s.change_jam_seconds();
+    s.change_jam_seconds();
+    check_equal("two steps: 20 seconds", s.jam_seconds, 20);
+    for(i : _int64 = 0; i < 6; i++) { s.change_jam_seconds(); }   // 20 -> 30 40 50 60 0 10
+    check_equal("past 60 it goes back round", s.jam_seconds, 10);
+    s.change_jam_channel();
+    check_equal("the jam channel moved", s.jam_channel, 122);
+    reloaded := new settings(fresh);
+    check_equal("the jam time was kept", reloaded.jam_seconds, 10);
+    check_equal("the jam channel was kept", reloaded.jam_channel, 122);
+
+    bad := new memory_store();
+    bad.text = "jam_seconds=25\njam_channel=200\n";           // not a multiple of ten; past 125
+    odd := new settings(bad);
+    check_equal("a jam time that is not allowed is skipped", odd.jam_seconds, 0);
+    check_equal("a jam channel that does not exist is skipped", odd.jam_channel, 121);
 }
 
 def main(args: string[]) : int {
@@ -454,5 +535,7 @@ def main(args: string[]) : int {
     test_mode_waits_for_the_drone();
     test_settings_file();
     test_channels_screen();
+    test_jam_guards();
+    test_power_off();
     return finish();
 }

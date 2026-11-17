@@ -51,13 +51,12 @@ def main(args: string[]) : int {
 
         // commands typed at the console, taken a few keys at a time: the loop never waits for them
         commands := new command_line(new console_keys(), devices.time);
-        running : _int64 = true;
-        while(running) {
+        while(app.is_running()) {
             typed := commands.next();
             if(typed != null) {
                 command : string = typed!!;
                 if(is_quit_command(command)) {
-                    running = false;
+                    app.request_stop();
                 } else if(command == "pins") {
                     println(app.pins_text());
                 } else if(command == "status") {
@@ -74,7 +73,12 @@ def main(args: string[]) : int {
             thread.sleep(2);
         }
         app.shut_down();
-        println("dragonfly controller: stopped");
+        if(app.wants_power_off) {
+            println("dragonfly controller: powering down");
+            sys("poweroff");                    // the Pi turns off (the program runs as root); on a PC this is just a command
+        } else {
+            println("dragonfly controller: stopped");
+        }
     } catch(problem: hardware_exception) {
         println("dragonfly controller: " + problem.get_message());
         return 1;

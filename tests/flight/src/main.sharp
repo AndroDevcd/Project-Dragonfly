@@ -84,10 +84,7 @@ def test_a_flight() {
     // the drone climbs
     f.ground.cm = 240;
     f.run(60, 10);
-    f.press(false, true);
-    f.press(false, true);
-    f.press(false, true);
-    f.press(false, true);                   // down to "Back" (mode, screen, power, channel, back)
+    f.press(true, false);                   // up from the first line wraps straight to "Back"
     f.press(true, true);
     f.run(10, 10);
     check("home shows the new height", f.panel.has("2.40"));

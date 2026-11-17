@@ -62,6 +62,8 @@ class settings {
     dim_screen : _int64 = false;
     radio_power : _int64 = 0;
     utc_offset : _int64 = 0 - 5;
+    jam_seconds : _int64 = 0;                    // how long a jam lasts: 0 (off), 10, 20 ... 60
+    jam_channel : _int64 = 121;                  // which channel the jammer disturbs (0 .. 125; 121 = the home channel)
 
     settings(store: settings_store) {
         self->store = store;
@@ -71,10 +73,13 @@ class settings {
     def change_flight_mode(mode: _int64) { flight_mode = mode; write(); }
     def change_dim_screen(yes: _int64) { dim_screen = yes; write(); }
     def change_radio_power(level: _int64) { radio_power = level; write(); }
+    def change_jam_seconds() { jam_seconds = (jam_seconds + 10) % 70; write(); }   // 0,10..60, then 0
+    def change_jam_channel() { jam_channel = (jam_channel + 1) % 126; write(); }   // 0..125, then 0
 
     private def write() {
         store.save("flight_mode=" + flight_mode + "\ndim_screen=" + dim_screen
-                   + "\nradio_power=" + radio_power + "\nutc_offset=" + utc_offset + "\n");
+                   + "\nradio_power=" + radio_power + "\nutc_offset=" + utc_offset
+                   + "\njam_seconds=" + jam_seconds + "\njam_channel=" + jam_channel + "\n");
     }
 
     /** take every `name=value` line that is understood; skip the rest */
@@ -103,6 +108,8 @@ class settings {
         else if(name == "dim_screen") { dim_screen = value != 0; }
         else if(name == "radio_power" && value >= 0 && value <= 3) { radio_power = value; }
         else if(name == "utc_offset" && value >= 0 - 12 && value <= 14) { utc_offset = value; }
+        else if(name == "jam_seconds" && value >= 0 && value <= 60 && (value % 10) == 0) { jam_seconds = value; }
+        else if(name == "jam_channel" && value >= 0 && value <= 125) { jam_channel = value; }
     }
 
     /** the whole number written in text[from .. to), with an optional `-` in front; 0 for anything else */

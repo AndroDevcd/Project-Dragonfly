@@ -77,6 +77,11 @@ class controller_app {
     private started_at : _int64 = 0;
     report_buttons : _int64 = false;            // print every button event (the console on the Pi turns it on)
 
+    private keep_running : _int64 = true;       // the main loop runs while this is true
+    wants_power_off : _int64 = false;           // the pilot chose "power off" (not just "quit"): power the Pi down
+    private jam_until : _int64 = 0 - 1;         // when the running jam ends (-1: not jamming)
+    private jam_on_channel : _int64 = 0;        // the channel it is jamming
+
     keeper : channel_keeper? = null;            // the channel, when the radio can change it
     scanner : channel_scanner? = null;          // while the channels screen is open
     private channel_message : _int64 = 0 - 1;   // the set_channel on its way (-1: none)
@@ -109,6 +114,7 @@ class controller_app {
         follow_channel_change(now);
         if(keeper != null && keeper!!.step()) { tell("lost the drone: back on channel " + RADIO_CHANNEL, now); }
         if(scanner != null) { scanner!!.step(); }
+        run_jam(now);
         hear_drone(now);
         judge_connection(now);
         carry_out_settings();
@@ -257,6 +263,48 @@ class controller_app {
     }
 
     def can_change_channel() : _int64 { return keeper != null; }
+
+    /**
+     * JAM: disturb a channel for a while, then stop by itself. The channel and how long are
+     * settings (settings.jam_channel, settings.jam_seconds); 0 seconds means jamming is off.
+     * The radio does it in short bursts, one a step (run_jam), so the screen still updates. It
+     * jams THIS controller's own radio - the drone has its own, separate jammer.
+     */
+    def start_jam() {
+        at : _int64 = now_ms();
+        if(devices.tuning == null) { tell("this radio cannot jam", at); return; }
+        if(chosen.jam_seconds <= 0) { tell("jam is off: set a time in settings", at); return; }
+        jam_on_channel = chosen.jam_channel;
+        jam_until = at + chosen.jam_seconds * 1000;
+        tell("jamming " + jam_on_channel + " for " + chosen.jam_seconds + "s", at);
+    }
+
+    def is_jamming() : _int64 { return jam_until >= 0; }
+    def jam_channel() : _int64 { return jam_on_channel; }
+
+    private def run_jam(now: _int64) {
+        if(jam_until < 0) { return; }
+        if(now >= jam_until) {
+            jam_until = 0 - 1;
+            tell("jam finished", now);
+            return;
+        }
+        if(devices.tuning != null) { devices.tuning!!.jam(jam_on_channel); }
+    }
+
+    // ------------------------------------------------------------------ stopping and powering off
+
+    /** the main loop asks this every turn (controller/main) */
+    def is_running() : _int64 { return keep_running; }
+
+    /** stop the program the tidy way (`q` at the console) */
+    def request_stop() { keep_running = false; }
+
+    /** stop, and power the Raspberry Pi down (the "Power off" line in the settings) */
+    def power_off() {
+        wants_power_off = true;
+        keep_running = false;
+    }
     def channel_is_pending() : _int64 { return channel_message >= 0; }
 
     /**

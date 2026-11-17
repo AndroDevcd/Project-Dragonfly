@@ -30,12 +30,19 @@ import ( std, ui, controller, controller.hardware, link, link.hardware );
  * The scanner runs only while this screen is open: listening on other channels
  * takes the radio's time, and the link loses a few more frames meanwhile.
  */
-const GRAPH_HEIGHT : _int64 = 24;               // the bars
+const GRAPH_HEIGHT : _int64 = 20;               // the bars
 const SCALE_HEIGHT : _int64 = 4;                // the line under them and the marks below it
 const GRAPH_LEFT : _int64 = 1;                  // where channel 0's column is on the screen
 
+// the three things the bottom row can do
+const ACTION_MOVE : _int64 = 0;                 // move both sides to the quietest channel
+const ACTION_JAM : _int64 = 1;                  // jam (the channel and time are settings)
+const ACTION_BACK : _int64 = 2;                 // back to the settings
+const ACTION_COUNT : _int64 = 3;
+
 class channels_screen base screen {
     private app : controller_app;
+    private action : _int64 = ACTION_MOVE;       // which of the three is marked
 
     channels_screen(app: controller_app) {
         self->app = app;
@@ -46,11 +53,21 @@ class channels_screen base screen {
     }
 
     override def on_button(button: _int64) {
-        if(button == BUTTON_SELECT) {
-            if(app.scanner != null) { app.change_channel(app.scanner!!.quietest()); }
+        if(button == BUTTON_UP) {
+            action = (action + ACTION_COUNT - 1) % ACTION_COUNT;
             return;
         }
-        if(button == BUTTON_UP || button == BUTTON_DOWN) {
+        if(button == BUTTON_DOWN) {
+            action = (action + 1) % ACTION_COUNT;
+            return;
+        }
+        if(button != BUTTON_SELECT) { return; }
+
+        if(action == ACTION_MOVE) {
+            if(app.scanner != null) { app.change_channel(app.scanner!!.quietest()); }
+        } else if(action == ACTION_JAM) {
+            app.start_jam();
+        } else {
             app.stop_scan();
             app.screens.back();
         }
@@ -76,27 +93,37 @@ class channels_screen base screen {
         labels[3] = 75;
         labels[4] = 100;
         labels[5] = 125;
-        last : view = graph;
         for(i : _int64 = 0; i < 6; i++) {
             number : string = "" + labels[i];
             wide : _int64 = sizeof(number.data) * GLYPH_WIDTH;
             x : _int64 = GRAPH_LEFT + labels[i] - wide / 2;
             if(x < 0) { x = 0; }
             if(x + wide > DISPLAY_WIDTH) { x = DISPLAY_WIDTH - wide; }
-            label := text(number);
-            root.add(label.below(graph).at_left().margin_left(x));
-            last = label;
+            root.add(text(number).below(graph).at_left().margin_left(x));
         }
 
+        // a short word about what the radio is doing (a move, a jam, or the scan's findings)
         words : string = "scanning";
-        if(app.channel_is_pending()) {
+        if(app.is_jamming()) {
+            words = "jamming " + app.jam_channel();
+        } else if(app.channel_is_pending()) {
             words = "moving to " + app.channel_wanted;
         } else if(sizeof(app.state.notice_text.data) > 0) {
             words = app.state.notice_text;
         } else if(scan.sweeps > 0) {
             words = "on" + app.channel() + " best" + scan.quietest() + " busy" + scan.busiest();
         }
-        root.add(text(words).below(last).at_left().margin_left(1));
+        info := text(words);
+        root.add(info.below(graph).at_left().margin_left(1).margin_top(8));
+
+        // the action row: the marked one in [brackets]
+        move_word : string = "Move";
+        jam_word : string = "Jam";
+        back_word : string = "Back";
+        if(action == ACTION_MOVE) { move_word = "[Move]"; }
+        else if(action == ACTION_JAM) { jam_word = "[Jam]"; }
+        else { back_word = "[Back]"; }
+        root.add(text(move_word + " " + jam_word + " " + back_word).below(info).at_left().margin_left(1));
         return root;
     }
 }
