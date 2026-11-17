@@ -26,5 +26,7 @@ public:
     void setAutoAck(bool enable);
     void setRetries(uint8_t delay, uint8_t count);
     bool testRPD();
+    void startConstCarrier(rf24_pa_dbm_e level, uint8_t channel);
+    void stopConstCarrier();
 };
 #endif

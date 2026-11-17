@@ -9,12 +9,16 @@ import ( std, ui, controller, link.messages );
  *      ------------------------------------------------------
  *       >  Mode: sport *
  *          Screen: bright
- *          Radio power: 2
+ *          Radio power: 2         (opens a picker)
  *          Channel: 121            (opens the channels screen)
- *          Jam: 20s                (how long a jam lasts; off = 0)
- *          Jam ch: 100             (which channel the jammer disturbs)
+ *          Jam: 20s                (opens a picker; off = 0)
+ *          Jam ch: 100             (opens a picker)
  *          Power off               (asks to confirm, then powers the Pi down)
  *          Back
+ *
+ * A line with one of a few values (the mode, the screen) changes in place when it is chosen. A
+ * line with many (the power, the jam time, the jam channel) opens the picker screen instead, so
+ * the pilot is not pressing a button a hundred times (picker_screen.sharp).
  *
  * Each line shows the setting's value, so there are no sub-screens: choosing a
  * line moves it to its next value (and saves it - controller/settings.sharp).
@@ -61,13 +65,13 @@ class settings_screen base screen {
         } else if(chosen_line == LINE_SCREEN) {
             chosen.change_dim_screen(!chosen.dim_screen);
         } else if(chosen_line == LINE_POWER) {
-            chosen.change_radio_power((chosen.radio_power + 1) % 4);
+            app.screens.open(new picker_screen(app, new power_setting(chosen)));
         } else if(chosen_line == LINE_CHANNEL) {
             app.screens.open(new channels_screen(app));
         } else if(chosen_line == LINE_JAM) {
-            chosen.change_jam_seconds();
+            app.screens.open(new picker_screen(app, new jam_time_setting(chosen)));
         } else if(chosen_line == LINE_JAM_CHANNEL) {
-            chosen.change_jam_channel();
+            app.screens.open(new picker_screen(app, new jam_channel_setting(chosen)));
         } else if(chosen_line == LINE_POWER_OFF) {
             app.screens.open(new confirm_power_screen(app));
         } else {

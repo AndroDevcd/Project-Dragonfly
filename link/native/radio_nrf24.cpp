@@ -115,26 +115,31 @@ void dragonfly_radio_set_power(sni_env* env, int32_t level) {
     radio.setPALevel(power_of(power_level));
 }
 
-// Disturb `channel` and the 24 above it for `millis` milliseconds (at most one second a call),
-// at full power, then put everything back. Stops early when the VM asks the thread to stop.
+// Disturb ONE channel for `millis` milliseconds (at most one second a call), then put everything
+// back. Stops early when the VM asks the thread to stop.
+//
+// It sends a CONSTANT CARRIER: the chip holds an unmodulated signal on the channel the whole time.
+// The first version hopped across 25 channels writing packets, so each channel got a few
+// microseconds out of every pass - far too little to drown out anything, which is why a set
+// channel's traffic did not drop. Sitting on the one channel with a carrier at full power is the
+// most a radio like this can do, and it actually blocks it.
 void dragonfly_radio_jam(sni_env* env, int32_t channel, int32_t millis) {
     if(!started) return;
+    if(channel < 0 || channel > 125) return;
     if(millis > 1000) millis = 1000;
     uint8_t home = radio.getChannel();
-    static const char noise[FRAME_SIZE] = "{fmju=j\"!@#$%^&\",hygt3454fr7";
 
     radio.stopListening();
     radio.setAutoAck(false);
-    radio.setPALevel(RF24_PA_MAX);
+    // a steady carrier on this one channel, at the most power the chip has
+    radio.startConstCarrier(RF24_PA_MAX, (uint8_t) channel);
+
     auto until = std::chrono::steady_clock::now() + std::chrono::milliseconds(millis);
     while(std::chrono::steady_clock::now() < until && !env->should_stop()) {
-        for(int i = 0; i < 25; i++) {
-            int at = channel + i;
-            if(at > 125) break;
-            radio.setChannel((uint8_t) at);
-            radio.write(noise, FRAME_SIZE);
-        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
+
+    radio.stopConstCarrier();
     radio.setChannel(home);
     radio.setPALevel(power_of(power_level));
     radio.setAutoAck(true);

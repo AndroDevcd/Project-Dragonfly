@@ -457,6 +457,48 @@ def test_jam_guards() {
 }
 
 /** the power-off line asks to confirm; No goes back, Yes powers off */
+/** the reusable value picker: scroll, speed up, and save or cancel */
+def test_picker() {
+    section("the value picker");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(20, 20);
+    t.app.chosen.set_jam_channel(10);
+    t.press_select();                       // the settings
+    for(i : _int64 = 0; i < 5; i++) { t.press_down(); }   // down to "Jam ch"
+    t.press_select();                       // opens the picker
+    check_equal("the picker is open", t.app.screens.depth(), 3);
+    check("its title", t.panel.has("Jam channel"));
+    check("the value now", t.panel.has("10"));
+
+    t.press_down();                         // 10 -> 11
+    check("the value went up", t.panel.has("11"));
+    t.press_select();                       // ask to save
+    check("it asks to save", t.panel.has("[Save]"));
+    t.press_down();                         // Save -> Cancel
+    check("cancel can be chosen", t.panel.has("[Cancel]"));
+    t.press_select();                       // cancel
+    check_equal("cancel: back to the settings", t.app.screens.depth(), 2);
+    check_equal("cancel changed nothing", t.app.chosen.jam_channel, 10);
+
+    // open again, move and save
+    t.press_select();                       // the picker again (marker still on Jam ch)
+    t.press_down();
+    t.press_down();                         // 10 -> 12
+    t.press_select();                       // ask to save ([Save] is marked first)
+    t.press_select();                       // save
+    check_equal("save: back to the settings", t.app.screens.depth(), 2);
+    check_equal("the new value was saved", t.app.chosen.jam_channel, 12);
+
+    // holding speeds up: eight quick presses move much more than eight
+    t.app.chosen.set_jam_channel(0);
+    t.press_select();                       // the picker
+    for(i : _int64 = 0; i < 8; i++) { t.press_down(); }
+    t.press_select();
+    t.press_select();                       // save
+    check("holding moved far more than eight steps", t.app.chosen.jam_channel > 8);
+}
+
 def test_power_off() {
     section("power off: confirm, no and yes");
     t := new bench();
@@ -537,5 +579,6 @@ def main(args: string[]) : int {
     test_channels_screen();
     test_jam_guards();
     test_power_off();
+    test_picker();
     return finish();
 }

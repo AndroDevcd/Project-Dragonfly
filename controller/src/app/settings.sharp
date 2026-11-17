@@ -75,6 +75,8 @@ class settings {
     def change_radio_power(level: _int64) { radio_power = level; write(); }
     def change_jam_seconds() { jam_seconds = (jam_seconds + 10) % 70; write(); }   // 0,10..60, then 0
     def change_jam_channel() { jam_channel = (jam_channel + 1) % 126; write(); }   // 0..125, then 0
+    def set_jam_seconds(value: _int64) { if(value >= 0 && value <= 60) { jam_seconds = value; write(); } }
+    def set_jam_channel(value: _int64) { if(value >= 0 && value <= 125) { jam_channel = value; write(); } }
 
     private def write() {
         store.save("flight_mode=" + flight_mode + "\ndim_screen=" + dim_screen
