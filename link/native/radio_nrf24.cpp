@@ -31,7 +31,10 @@
 #include <RF24/RF24.h>
 #include <chrono>
 #include <thread>
-#include <wiringPi.h>        // digitalRead: the cancel button, read inside the jam loop
+// The jam loop reads the two button pins to let it be cancelled. wiringPi's header cannot be
+// included beside RF24's - their macros (millis) and a shared "GPIO" name collide - so the one
+// function needed is declared here by hand; -lwiringPi provides it. HIGH is 1.
+extern "C" int digitalRead(int pin);
 
 static RF24 radio(22, 0);
 static bool started = false;
@@ -209,8 +212,8 @@ int32_t dragonfly_radio_jam_run(sni_env* env, int32_t centre, int32_t millis, in
             radio.setChannel((uint8_t) channel);
             radio.startFastWrite(JAM_NOISE, FRAME_SIZE, false);
         }
-        bool up = digitalRead(up_pin) == HIGH;
-        bool down = digitalRead(down_pin) == HIGH;
+        bool up = digitalRead(up_pin) == 1;
+        bool down = digitalRead(down_pin) == 1;
         if(!released) {
             if(!up && !down) released = true;
         } else if(up || down) {
