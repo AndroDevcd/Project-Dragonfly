@@ -152,7 +152,7 @@ settings carried out -> buttons -> a frame.
 The settings also hold a **Jam** time (0 / 10 ... 60 s, 0 = off) and a **Jam channel**, and a
 **Power off** line that opens a confirm screen (Are you sure... / Yes / No, No marked first); Yes
 tidies the hardware and, on the Pi, powers it down. A setting with many values (radio power, jam time, jam channel) opens a reusable **picker** screen (`picker_screen.sharp`): a title, the value large in the middle, up/down to change it (holding speeds up, 1 then 3 then 10 at a time), both buttons to ask Save / Cancel. Nothing is saved unless Save is chosen. On the channels screen the bottom row chooses
-between **Move** (to the quietest channel), **Jam** (the saved channel for the saved time) and **Back**. Choosing **Jam** opens a countdown screen: the jam runs there, any button cancels it, and it returns on its own when the time is up. While a jam runs the controller does nothing but jam, read the buttons and draw, so the one radio stays locked on the channel.
+between **Move** (to the quietest channel), **Jam** (the saved channel for the saved time) and **Back**. Choosing **Jam** opens a countdown screen: the jam runs there, any button cancels it, and it returns on its own when the time is up. The whole jam runs in one C++ call for the set time, flooding the band back to back with no gaps; it reads the buttons itself and stops when one is pressed.
 
 ## 6. The UI toolkit
 

@@ -31,6 +31,7 @@
 #include <RF24/RF24.h>
 #include <chrono>
 #include <thread>
+#include <wiringPi.h>        // digitalRead: the cancel button, read inside the jam loop
 
 static RF24 radio(22, 0);
 static bool started = false;
@@ -166,68 +167,65 @@ void dragonfly_radio_print_details(sni_env* env) {
 // ---- SUSTAINED BAND JAMMING (the controller's jammer) --------------------------------------
 //
 // A jam covers a BAND: the centre channel and JAM_SPREAD on each side (50 -> 25..75), kept inside
-// 0..125. It is split into begin / tick / end so the program's loop keeps running - the screen
-// counts down and a button can cancel - while the radio stays busy jamming.
+// 0..125, flooded with real packets at full power, hopping across the whole band back to back.
+// Real packets (not one steady tone) spread energy across each channel's width and are what
+// actually stops a receiver there.
 //
-// jam_tick FLOODS the band: it hops across every channel in it writing packets at full power,
-// back to back, for a few milliseconds. Real packets (not a single steady tone) spread energy
-// across each channel's width and are what actually stops a receiver there. The first version
-// held one steady carrier on one channel for 250 ms then tore it all down and hopped home every
-// burst, so almost no energy landed on the band - which is why a set channel's traffic did not
-// change.
+// THE WHOLE JAM RUNS HERE IN C++, in one call, for the whole time. It used to be driven a tick at
+// a time from the Sharp loop, but between ticks the loop drew the screen and slept, and the radio
+// sat idle in those gaps - so the flood was full of holes. A tight C++ loop keeps the radio
+// hammering without a break.
+//
+// It can still be stopped: it reads the two buttons itself (wiringPi) and ends when one is
+// pressed, and it ends if the program is being shut down (should_stop). It returns 1 when it ran
+// the full time, 0 when a button cancelled it. The button that STARTED the jam is ignored until
+// it is let go, so the press that opened this does not cancel it at once.
 #define JAM_SPREAD 25               // keep the same as JAM_SPREAD in link/src/hardware/radio.sharp
 
-static bool jamming_band = false;
-static int jam_home_channel = 0;
-static int jam_low = 0;
-static int jam_high = 0;
 static const uint8_t JAM_NOISE[FRAME_SIZE] = {
     0x9A, 0x55, 0xF3, 0x0C, 0xA5, 0x5A, 0xFF, 0x00, 0x33, 0xCC, 0x96, 0x69, 0x0F, 0xF0, 0x5A, 0xA5,
     0xC3, 0x3C, 0x77, 0x88, 0x11, 0xEE, 0xDB, 0x24, 0xB4, 0x4B, 0x6D, 0x92, 0x1C, 0xE1, 0x7E, 0x81
 };
 
-// set up to flood the band around `centre`. 1 when it could, 0 when the chip is not there.
-int32_t dragonfly_radio_jam_begin(sni_env* env, int32_t centre) {
-    if(!chip_there() || centre < 0 || centre > 125) return 0;
-    jam_home_channel = radio.getChannel();
-    jam_low = centre - JAM_SPREAD;
-    if(jam_low < 0) jam_low = 0;
-    jam_high = centre + JAM_SPREAD;
-    if(jam_high > 125) jam_high = 125;
+int32_t dragonfly_radio_jam_run(sni_env* env, int32_t centre, int32_t millis, int32_t up_pin, int32_t down_pin) {
+    if(!chip_there() || centre < 0 || centre > 125) return 1;
+    int low = centre - JAM_SPREAD;
+    if(low < 0) low = 0;
+    int high = centre + JAM_SPREAD;
+    if(high > 125) high = 125;
+    uint8_t home = radio.getChannel();
 
     radio.stopListening();
     radio.setAutoAck(false);        // no waiting for an answer that will never come
     radio.setRetries(0, 0);
     radio.setPALevel(RF24_PA_MAX);
-    jamming_band = true;
-    return 1;
-}
 
-// keep flooding the whole band; called every loop turn while jamming. Non-blocking (startFastWrite
-// loads the send buffer and does not wait), bounded to a few ms so the loop stays responsive.
-void dragonfly_radio_jam_tick(sni_env* env) {
-    if(!jamming_band || !chip_there()) return;
-    auto until = std::chrono::steady_clock::now() + std::chrono::milliseconds(6);
-    while(std::chrono::steady_clock::now() < until && !env->should_stop()) {
-        for(int channel = jam_low; channel <= jam_high; channel++) {
+    int result = 1;                 // ran the full time
+    bool released = false;          // the button that opened the jam must be let go before one cancels
+    auto end = std::chrono::steady_clock::now() + std::chrono::milliseconds(millis);
+    while(std::chrono::steady_clock::now() < end) {
+        if(env->should_stop()) break;                   // the program is shutting down
+        for(int channel = low; channel <= high; channel++) {
             radio.setChannel((uint8_t) channel);
             radio.startFastWrite(JAM_NOISE, FRAME_SIZE, false);
         }
+        bool up = digitalRead(up_pin) == HIGH;
+        bool down = digitalRead(down_pin) == HIGH;
+        if(!released) {
+            if(!up && !down) released = true;
+        } else if(up || down) {
+            result = 0;                                 // a button cancelled it
+            break;
+        }
     }
-}
 
-// stop the flood and give the radio back to the link
-void dragonfly_radio_jam_end(sni_env* env) {
-    if(!jamming_band) return;
-    jamming_band = false;
-    if(chip_there()) {
-        radio.flush_tx();
-        radio.setChannel(jam_home_channel);
-        radio.setPALevel(power_of(power_level));
-        radio.setAutoAck(true);
-        radio.setRetries(2, 3);
-        radio.startListening();
-    }
+    radio.flush_tx();
+    radio.setChannel(home);
+    radio.setPALevel(power_of(power_level));
+    radio.setAutoAck(true);
+    radio.setRetries(2, 3);
+    radio.startListening();
+    return result;
 }
 
 void dragonfly_radio_set_channel(sni_env* env, int32_t channel) {
@@ -280,9 +278,7 @@ int32_t dragonfly_radio_receive(sni_env* env, sni_ref into) { return 0; }
 void dragonfly_radio_set_power(sni_env* env, int32_t level) { }
 void dragonfly_radio_jam(sni_env* env, int32_t channel, int32_t millis) { }
 void dragonfly_radio_print_details(sni_env* env) { }
-int32_t dragonfly_radio_jam_begin(sni_env* env, int32_t centre) { return 0; }
-void dragonfly_radio_jam_tick(sni_env* env) { }
-void dragonfly_radio_jam_end(sni_env* env) { }
+int32_t dragonfly_radio_jam_run(sni_env* env, int32_t centre, int32_t millis, int32_t up_pin, int32_t down_pin) { return 1; }
 void dragonfly_radio_set_channel(sni_env* env, int32_t channel) { }
 int32_t dragonfly_radio_sense(sni_env* env, int32_t first, int32_t count, sni_ref into) { return 0; }
 

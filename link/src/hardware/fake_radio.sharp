@@ -40,9 +40,9 @@ class fake_radio : radio, channel_control, radio_control, sustained_jammer {
 
     sent : _int64 = 0;                              // frames handed to transmit()
     lost : _int64 = 0;                              // ... of which this many never arrived
-    jams : _int64 = 0;                              // times the jammer was ticked (or jam() called)
+    jams : _int64 = 0;                              // times the jammer was run (or jam() called)
     last_jam_channel : _int64 = 0 - 1;              // the centre of the last jam
-    jam_running : _int64 = false;
+    last_jam_ms : _int64 = 0;                       // how long the last jam asked for
     power_set : _int64 = 0 - 1;                     // the last power set_power() was told
 
     def join(peer: fake_radio) {
@@ -104,13 +104,12 @@ class fake_radio : radio, channel_control, radio_control, sustained_jammer {
         last_jam_channel = channel;
     }
 
-    override def jam_begin(channel: _int64) : _int64 {
-        jam_running = true;
+    override def jam_run(channel: _int64, millis: _int64, up_pin: _int64, down_pin: _int64) : _int64 {
+        jams++;
         last_jam_channel = channel;
-        return true;
+        last_jam_ms = millis;
+        return true;                                // a test's jam always runs the full time at once
     }
-    override def jam_tick() { if(jam_running) { jams++; } }
-    override def jam_end() { jam_running = false; }
 
     def make_busy(channel: _int64) { busy[channel] = 1; }
     def make_quiet(channel: _int64) { busy[channel] = 0; }

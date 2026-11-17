@@ -425,35 +425,28 @@ def test_channels_screen() {
     t.run(200, 10);
     check_equal("alone on 125: back on the home channel", t.app.channel(), RADIO_CHANNEL);
 
-    // the Jam action takes the pilot to the countdown screen, where the jam runs
+    // the jam screen shows the centre and the band; the jam itself runs all at once (in C++)
+    // (driven here by hand - through a button the bench's many steps would run the instant test
+    //  jam before anything could be checked)
     t.app.chosen.jam_seconds = 20;
     t.app.chosen.jam_channel = 80;
     before : _int64 = t.air.first.jams;
-    t.press_down();                         // Move -> Jam
-    t.press_select();
-    check_equal("the jam countdown screen is open", t.app.screens.depth(), 4);
-    check("the countdown is shown", t.panel.has("jamming ch 80"));
-    t.run(4, 10);
-    check("jamming started", t.app.is_jamming());
+    check("a jam starts", t.app.start_jam());
+    check("a jam is pending", t.app.is_jamming());
+    t.app.screens.open(new jam_screen(t.app));
+    t.app.screens.draw(t.panel);            // the jam screen, as the loop draws it before the jam runs
+    check("the centre channel is shown", t.panel.has("jamming ch 80"));
+    check("the band is shown (80 +/- 25)", t.panel.has("55 - 105"));
+
+    // the loop: one step draws the screen, the next runs the (test) jam at once and returns
+    t.run(3, 10);
     check_equal("the configured channel is jammed", t.air.first.last_jam_channel, 80);
+    check_equal("for the configured time", t.air.first.last_jam_ms, 20000);
     check("the radio was told to jam", t.air.first.jams > before);
-    sweeps_at_jam : _int64 = t.app.scanner!!.sweeps;
-    t.run(40, 10);
-    check_equal("the scanner is paused while jamming (the radio stays on the jam channel)", t.app.scanner!!.sweeps, sweeps_at_jam);
-    t.run(1100, 20);                        // past the 20 s
-    check("the jam stopped by itself", !t.app.is_jamming());
-    check_equal("the countdown screen returned to the channels on its own", t.app.screens.depth(), 3);
+    check("the jam is over", !t.app.is_jamming());
+    check_equal("it returned to the channels screen", t.app.screens.depth(), 3);
 
-    // a jam, then cancel it early with a button
-    before = t.air.first.jams;
-    t.press_select();                       // Jam is still the marked action
-    check_equal("the countdown is open again", t.app.screens.depth(), 4);
-    t.run(4, 10);
-    check("jamming again", t.app.is_jamming());
-    t.press_up();                           // any button cancels
-    check("the jam was cancelled", !t.app.is_jamming());
-    check_equal("cancel returned to the channels", t.app.screens.depth(), 3);
-
+    t.press_down();                         // Move -> Jam
     t.press_down();                         // Jam -> Back
     t.press_select();
     check_equal("Back: to the settings", t.app.screens.depth(), 2);

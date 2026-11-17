@@ -46,21 +46,20 @@ interface radio_control {
 }
 
 /**
- * SUSTAINED JAMMING of a BAND of channels around one centre, begun, kept going a tick at a time,
- * then ended.
+ * JAM a BAND of channels around one centre, the WHOLE jam in one call.
  *
- * One radio cannot jam for several seconds in a single call AND stay responsive - the screen and
- * the cancel button would be dead the whole time. So it is split: `jam_begin` takes the radio,
- * `jam_tick` floods the band for a few milliseconds (called every turn of the loop), `jam_end`
- * hands the radio back. The band is the centre channel and JAM_SPREAD on each side (50: 25..75),
- * because a signal is wider than one channel and hops about; the flood is real packets at full
- * power, hopping across the whole band, which an nRF24 can do and a receiver in it cannot see
- * past.
+ * The band is the centre channel and JAM_SPREAD on each side (50: 25..75), because a signal is
+ * wider than one channel and hops about. The flood is real packets at full power, hopping across
+ * the whole band - what an nRF24 can do that a receiver in the band cannot see past.
+ *
+ * It all happens in one call (in C++), for the whole time, because driving it a step at a time
+ * from the program's loop left gaps - the loop drew the screen and slept between steps and the
+ * radio sat idle - so the flood was full of holes. The call does not come back until the time is
+ * up or a BUTTON is pressed (it reads the two button pins itself); it returns 1 when it ran the
+ * full time, 0 when a button cancelled it.
  */
 interface sustained_jammer {
-    def jam_begin(channel: _int64) : _int64;    // take the radio, flood around `channel`; true when it could
-    def jam_tick();                             // keep flooding (every step while jamming)
-    def jam_end();                              // stop, give the radio back
+    def jam_run(channel: _int64, millis: _int64, up_pin: _int64, down_pin: _int64) : _int64;
 }
 
 /** how many channels each side of the centre a jam covers (kept the same in radio_nrf24.cpp) */

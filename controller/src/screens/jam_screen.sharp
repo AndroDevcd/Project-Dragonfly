@@ -31,11 +31,9 @@ class jam_screen base screen {
 
     override def on_enter() { }
 
-    /** any button cancels the jam */
-    override def on_button(button: _int64) {
-        app.stop_jam();
-        app.screens.back();
-    }
+    // A running jam does not come back to the loop, so buttons are not read here - the jam itself
+    // (in C++) watches the buttons and stops when one is pressed. Nothing to do here.
+    override def on_button(button: _int64) { }
 
     override def body() : view {
         bar := status_bar(app.state);
@@ -47,10 +45,10 @@ class jam_screen base screen {
             return root;
         }
 
-        root.add(text("jamming ch " + app.jam_channel()).below(bar).center_across().margin_top(2));
-        root.add(text("" + app.jam_low() + " - " + app.jam_high()).below(bar).center_across().margin_top(11));
-        root.add(text("" + app.jam_seconds_left()).size(3).below(bar).center_across().margin_top(22));
-        root.add(text("press to cancel").at_bottom().center_across());
+        root.add(text("jamming ch " + app.jam_channel()).below(bar).center_across().margin_top(4));
+        root.add(text("" + app.jam_low() + " - " + app.jam_high()).size(2).below(bar).center_across().margin_top(16));
+        root.add(text("for " + app.jam_length() + "s").below(bar).center_across().margin_top(36));
+        root.add(text("press a button to stop").at_bottom().center_across());
         return root;
     }
 }
