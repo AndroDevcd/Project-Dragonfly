@@ -48,6 +48,7 @@ class message_types {
     static const SET_MODE : _int64 = 16;        // normal / sport
     static const STEER : _int64 = 17;           // the sticks
     static const JAM : _int64 = 18;             // disturb a channel
+    static const SET_CHANNEL : _int64 = 19;     // both move to another radio channel
 
     // ---- drone -> controller
     static const TELEMETRY : _int64 = 32;       // altitude, speed, battery
@@ -59,6 +60,7 @@ class message_types {
         if(type == SET_MODE) { return "set_mode"; }
         if(type == STEER) { return "steer"; }
         if(type == JAM) { return "jam"; }
+        if(type == SET_CHANNEL) { return "set_channel"; }
         if(type == TELEMETRY) { return "telemetry"; }
         if(type == NOTICE) { return "notice"; }
         return "message " + type;

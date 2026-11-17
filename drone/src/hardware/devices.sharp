@@ -78,6 +78,7 @@ class drone_devices {
     ground : distance_sensor;
     thrust : motors;
     power : battery;
+    channels : channel_control? = null;         // the radio's channels, when it can change them
 
     drone_devices(air: radio, time: clock, ground: distance_sensor, thrust: motors, power: battery) {
         self->air = air;

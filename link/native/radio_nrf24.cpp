@@ -30,6 +30,7 @@
 
 #include <RF24/RF24.h>
 #include <chrono>
+#include <thread>
 
 static RF24 radio(22, 0);
 static bool started = false;
@@ -144,6 +145,48 @@ void dragonfly_radio_print_details(sni_env* env) {
     if(started) radio.printDetails();
 }
 
+void dragonfly_radio_set_channel(sni_env* env, int32_t channel) {
+    if(!started || channel < 0 || channel > 125) return;
+    radio.setChannel((uint8_t) channel);
+}
+
+// IS ANYTHING STRONG ON THESE CHANNELS? - the chip's "received power detector" (RPD): after
+// listening on a channel for at least 130 microseconds it says whether a signal of about -64 dBm
+// or more was there. That is all the chip can tell: yes or no. (The RF24 library's own "scanner"
+// example does exactly this.)
+//
+// `into` gets 1 or 0 for channel first, first + 1 ...; the radio is back on its own channel and
+// listening when this returns. Returns how many channels were asked. At most 16 a call, about
+// 3 ms: the program's loop is not held up for longer.
+int32_t dragonfly_radio_sense(sni_env* env, int32_t first, int32_t count, sni_ref into) {
+    if(!started) return 0;
+    sni_array answers = env->array(into);
+    if(answers.data == nullptr) return 0;
+    if(count > 16) count = 16;
+    if(count > answers.count) count = (int32_t) answers.count;
+    uint8_t* out = (uint8_t*) answers.data;
+    uint8_t home = radio.getChannel();
+
+    int32_t asked = 0;
+    radio.stopListening();
+    for(int32_t i = 0; i < count; i++) {
+        int32_t channel = first + i;
+        if(channel < 0) continue;
+        if(channel > 125) break;
+        radio.setChannel((uint8_t) channel);
+        radio.startListening();
+        std::this_thread::sleep_for(std::chrono::microseconds(140));
+        bool heard = radio.testRPD();
+        radio.stopListening();
+        heard = heard || radio.testRPD();       // (what the library's example does too: the bit may set late)
+        out[i] = heard ? 1 : 0;
+        asked++;
+    }
+    radio.setChannel(home);
+    radio.startListening();
+    return asked;
+}
+
 #else   // ---- no hardware under this build: every function says so
 
 int32_t dragonfly_radio_begin(sni_env* env, int32_t is_controller, int32_t channel, int32_t power, int32_t rate) { return 0; }
@@ -152,5 +195,7 @@ int32_t dragonfly_radio_receive(sni_env* env, sni_ref into) { return 0; }
 void dragonfly_radio_set_power(sni_env* env, int32_t level) { }
 void dragonfly_radio_jam(sni_env* env, int32_t channel, int32_t millis) { }
 void dragonfly_radio_print_details(sni_env* env) { }
+void dragonfly_radio_set_channel(sni_env* env, int32_t channel) { }
+int32_t dragonfly_radio_sense(sni_env* env, int32_t first, int32_t count, sni_ref into) { return 0; }
 
 #endif

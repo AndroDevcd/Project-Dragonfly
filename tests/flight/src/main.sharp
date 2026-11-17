@@ -31,8 +31,12 @@ class flight {
 
     flight() {
         time.advance(100000);
-        app = new controller_app(new controller_devices(air.first, time, pins, panel, saved));
-        computer = new flight_computer(new drone_devices(air.second, time, ground, thrust, power));
+        on_controller := new controller_devices(air.first, time, pins, panel, saved);
+        on_controller.channels = air.first;
+        app = new controller_app(on_controller);
+        on_drone := new drone_devices(air.second, time, ground, thrust, power);
+        on_drone.channels = air.second;
+        computer = new flight_computer(on_drone);
         app.start(new home_screen(app));
     }
 
@@ -82,7 +86,8 @@ def test_a_flight() {
     f.run(60, 10);
     f.press(false, true);
     f.press(false, true);
-    f.press(false, true);                   // down to "Back"
+    f.press(false, true);
+    f.press(false, true);                   // down to "Back" (mode, screen, power, channel, back)
     f.press(true, true);
     f.run(10, 10);
     check("home shows the new height", f.panel.has("2.40"));
@@ -127,9 +132,37 @@ def test_a_bad_radio_day() {
     check("and frames really were lost on the way", f.air.first.lost > 3 && f.air.second.lost > 3);
 }
 
+/** moving both to another channel; and the way back when the drone's acknowledgement is lost */
+def test_changing_channel() {
+    section("changing channel: both programs");
+    f := new flight();
+    f.run(60, 10);
+    check("connected on the home channel", f.app.state.is_connected() && f.app.channel() == RADIO_CHANNEL);
+
+    check("the change is sent", f.app.change_channel(90));
+    f.run(5, 10);
+    check_equal("the drone moved", f.air.second.current_channel(), 90);
+    check_equal("the controller moved after it", f.air.first.current_channel(), 90);
+    f.run(100, 10);
+    check("still connected, on 90", f.app.state.is_connected() && f.app.channel() == 90);
+    check("the drone said so on the new channel", f.panel.has("on channel 90") || f.computer.state.channel_moves == 1);
+
+    // the drone's acknowledgement is lost: it moves, the controller cannot know and stays
+    check("the next change is sent", f.app.change_channel(30));
+    f.air.second.lose_next(1);
+    f.run(5, 10);
+    check_equal("the drone moved", f.air.second.current_channel(), 30);
+    check_equal("the controller did not", f.air.first.current_channel(), 90);
+    f.run(600, 10);                         // six seconds: both are alone, then both go home
+    check_equal("the drone went home", f.air.second.current_channel(), RADIO_CHANNEL);
+    check_equal("the controller went home", f.air.first.current_channel(), RADIO_CHANNEL);
+    check("and they found each other there", f.app.state.is_connected() && f.computer.state.connected);
+}
+
 def main(args: string[]) : int {
     test_a_flight();
     test_out_of_range_and_back();
     test_a_bad_radio_day();
+    test_changing_channel();
     return finish();
 }

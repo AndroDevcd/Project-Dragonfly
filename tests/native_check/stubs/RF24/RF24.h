@@ -25,5 +25,6 @@ public:
     bool setDataRate(rf24_datarate_e speed);
     void setAutoAck(bool enable);
     void setRetries(uint8_t delay, uint8_t count);
+    bool testRPD();
 };
 #endif

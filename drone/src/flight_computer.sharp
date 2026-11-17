@@ -45,11 +45,13 @@ class flight_computer {
     private steer_at : _int64 = 0 - 1;          // when the sticks were last heard
     private was_connected : _int64 = false;
     private jammer : radio_control? = null;
+    keeper : channel_keeper? = null;            // the channel, when the radio can change it
 
     flight_computer(devices: drone_devices) {
         self->devices = devices;
         net = new radio_link(devices.air, devices.time);
         height = new altimeter(devices.ground, devices.time);
+        if(devices.channels != null) { keeper = new channel_keeper(devices.channels!!, net, devices.time); }
     }
 
     /** the radio can also disturb a channel (the real one can; a fake need not) */
@@ -61,6 +63,7 @@ class flight_computer {
         now : _int64 = devices.time.now_ms();
         net.step();
         hear_controller(now);
+        if(keeper != null) { keeper!!.step(); }
         height.step();
         decide_failsafe(now);
         devices.thrust.drive(state.throttle, state.yaw, state.pitch, state.roll);
@@ -102,6 +105,20 @@ class flight_computer {
                     state.stick_roll = sticks!!.roll;
                     steer_at = now;
                 }
+            } else if(m.type == message_types.SET_CHANNEL) {
+                // The link has ALREADY acknowledged this message - on the old channel, inside
+                // net.step() above - so the controller hears that and moves after us. Moving now
+                // cannot cut the acknowledgement off.
+                wanted := set_channel.from_message(m);
+                if(wanted == null) { continue; }
+                if(keeper == null) {
+                    net.send(new notice(NOTICE_WARNING, "this drone cannot change channel").to_message());
+                    continue;
+                }
+                keeper!!.move_to(wanted!!.channel);
+                state.channel_moves++;
+                // said on the NEW channel: the controller hearing it proves the move worked
+                net.send(new notice(NOTICE_INFO, "on channel " + wanted!!.channel).to_message());
             } else if(m.type == message_types.JAM) {
                 wanted := jam.from_message(m);
                 if(wanted != null) { disturb(wanted!!.channel); }

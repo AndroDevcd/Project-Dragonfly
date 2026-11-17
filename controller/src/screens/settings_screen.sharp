@@ -10,6 +10,7 @@ import ( std, ui, controller, link.messages );
  *       >  Mode: sport *
  *          Screen: bright
  *          Radio power: 2
+ *          Channel: 121            (opens the channels screen)
  *          Back
  *
  * Each line shows the setting's value, so there are no sub-screens: choosing a
@@ -22,8 +23,9 @@ import ( std, ui, controller, link.messages );
 const LINE_MODE : _int64 = 0;
 const LINE_SCREEN : _int64 = 1;
 const LINE_POWER : _int64 = 2;
-const LINE_BACK : _int64 = 3;
-const LINE_COUNT : _int64 = 4;
+const LINE_CHANNEL : _int64 = 3;
+const LINE_BACK : _int64 = 4;
+const LINE_COUNT : _int64 = 5;
 
 class settings_screen base screen {
     private app : controller_app;
@@ -54,6 +56,8 @@ class settings_screen base screen {
             chosen.change_dim_screen(!chosen.dim_screen);
         } else if(chosen_line == LINE_POWER) {
             chosen.change_radio_power((chosen.radio_power + 1) % 4);
+        } else if(chosen_line == LINE_CHANNEL) {
+            app.screens.open(new channels_screen(app));
         } else {
             app.screens.back();
         }
@@ -71,6 +75,8 @@ class settings_screen base screen {
         if(chosen.dim_screen) { made.add("Screen: dim"); }
         else { made.add("Screen: bright"); }
         made.add("Radio power: " + chosen.radio_power);
+        if(app.channel_is_pending()) { made.add("Channel: " + app.channel() + " > " + app.channel_wanted); }
+        else { made.add("Channel: " + app.channel()); }
         made.add("Back");
         return made;
     }

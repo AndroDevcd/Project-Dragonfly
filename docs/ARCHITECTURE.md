@@ -101,8 +101,25 @@ Each message is a small class with `to_message()` and `from_message(m)`
 | `set_mode` | controller -> drone | yes | mode |
 | `steer` | controller -> drone | no | throttle, yaw, pitch, roll |
 | `jam` | controller -> drone | yes | channel |
+| `set_channel` | controller -> drone | yes | channel |
 | `telemetry` | drone -> controller | no | altitude, speed, battery, mode |
 | `notice` | drone -> controller | yes | level, text of any length |
+
+### Channels
+
+Both sides start on the home channel, 121. The settings' **Channel** line opens a scan of all
+126 channels (`link/src/scanner.sharp`): a bar per channel for how often something strong was
+heard there, with the numbers 0, 25, 50, 75, 100, 125 under them and Wi-Fi 1, 6 and 11 marked.
+Both buttons together move to the quietest channel:
+
+1. the controller sends `set_channel` on the current channel;
+2. the drone's link acknowledges it, and then the drone moves;
+3. the controller moves only when that acknowledgement has arrived.
+
+If the acknowledgement is lost, the drone has moved and the controller has not. Neither hears the
+other, and each side goes back to the home channel by itself, 3 s after the link called the other
+side lost (`link/src/channels.sharp`). Nothing about a move is saved, so after a restart both are
+home again.
 
 ## 4. The drone
 

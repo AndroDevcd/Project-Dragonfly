@@ -1,0 +1,41 @@
+mod link.messages;
+
+import ( std, link.protocol );
+
+/**
+ * controller -> drone: move to this radio channel (0 .. 125). Sent reliably.
+ *
+ *      bytes:  [channel: 1]
+ *
+ * The order of the move matters, because the message itself travels on the
+ * OLD channel:
+ *
+ *      1. the controller sends set_channel on the old channel
+ *      2. the drone's link acknowledges it (still on the old channel),
+ *         and then the drone moves
+ *      3. the controller moves when the acknowledgement arrives
+ *
+ * If anything goes wrong in between - the acknowledgement is lost, one side
+ * restarts - each side goes back to the home channel by itself after hearing
+ * nothing for a few seconds (link/channels.sharp), and they meet there.
+ */
+class set_channel {
+    channel : _int64;
+
+    set_channel(channel: _int64) {
+        self->channel = channel;
+    }
+
+    def to_message() : message {
+        return new message(message_types.SET_CHANNEL, new byte_writer().u8(channel).bytes());
+    }
+
+    /** null when the message is not a well-formed set_channel, or names a channel that does not exist */
+    static def from_message(m: message) : set_channel? {
+        if(m.type != message_types.SET_CHANNEL) { return null; }
+        r := m.reader();
+        channel : _int64 = r.u8();
+        if(!r.ok() || channel > 125) { return null; }
+        return new set_channel(channel);
+    }
+}

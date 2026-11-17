@@ -45,5 +45,28 @@ interface radio_control {
     def jam(channel: _int64);
 }
 
+/**
+ * The radio's CHANNELS: which one it is on, and how busy the others are.
+ * (The real radio has them; so does the fake one, so a test can move two
+ * radios apart and see them lose each other.)
+ */
+interface channel_control {
+    /** move to `channel` (0 .. 125) */
+    def set_channel(channel: _int64);
+    def current_channel() : _int64;
+    /**
+     * Listen for a moment on channels first .. first + count - 1 and put, for each, 1 into
+     * `into` when something strong was on the air there, 0 when not; then come back to the
+     * channel it was on. Returns how many were asked (it stops at the last channel, 125).
+     */
+    def sense(first: _int64, count: _int64, into: _uint8[]) : _int64;
+}
+
 /** the bytes of one frame of the nRF24L01, the radio this project uses */
 const FRAME_SIZE : _int64 = 32;
+
+/**
+ * The HOME channel: where both ends start, and where each goes back to when it has lost
+ * the other (link/channels.sharp). 2521 MHz: above every Wi-Fi channel.
+ */
+const RADIO_CHANNEL : _int64 = 121;

@@ -1,0 +1,104 @@
+mod link;
+
+import ( std, link.hardware );
+
+/**
+ * HOW BUSY EACH RADIO CHANNEL IS
+ *
+ * The nRF24L01 has 126 channels, 2400 to 2525 MHz, one MHz apart - the same
+ * band as Wi-Fi, Bluetooth and microwave ovens. The chip can tell, for one
+ * channel at a time, whether something STRONG is on the air there (about
+ * -64 dBm or more). It is a yes or a no, nothing finer.
+ *
+ * So the scanner asks every channel again and again, and keeps for each one
+ * how often the answer was "yes" lately: its LEVEL, 0 (quiet) to 1000 (always
+ * busy). The level follows the air: a channel that goes quiet drops again
+ * within a few sweeps.
+ *
+ *      scan := new channel_scanner(radio);
+ *      for(;;) { scan.step(); ... }        a few channels a step: the loop never waits
+ *      scan.level(37)                      0 .. 1000
+ *      scan.quietest()                     the best channel to move to
+ *
+ * Wi-Fi's channels 1, 6 and 11 sit on 12, 37 and 62 here (2412, 2437, 2462
+ * MHz), each about 22 channels wide.
+ */
+const CHANNEL_COUNT : _int64 = 126;
+const CHANNELS_PER_STEP : _int64 = 6;           // about 2 ms of listening a step
+const LEVEL_MAX : _int64 = 1000;
+const WIFI_1 : _int64 = 12;
+const WIFI_6 : _int64 = 37;
+const WIFI_11 : _int64 = 62;
+
+class channel_scanner {
+    private channels : channel_control;
+    private levels : _int64[] = new _int64[CHANNEL_COUNT];
+    private answers : _uint8[] = new _uint8[CHANNELS_PER_STEP];
+    private next_channel : _int64 = 0;
+    sweeps : _int64 = 0;                        // times every channel has been asked
+
+    channel_scanner(channels: channel_control) {
+        self->channels = channels;
+    }
+
+    /** ask the next few channels */
+    def step() {
+        count : _int64 = CHANNELS_PER_STEP;
+        if(next_channel + count > CHANNEL_COUNT) { count = CHANNEL_COUNT - next_channel; }
+        channels.sense(next_channel, count, answers);
+        for(i : _int64 = 0; i < count; i++) {
+            heard : _int64 = 0;
+            if(answers[i] != 0) { heard = LEVEL_MAX; }
+            // an eighth of the new answer, seven eighths of what was there: the level moves
+            // towards how often the channel is busy, without jumping on one stray answer
+            smoothed : _int64 = (levels[next_channel + i] * 7 + heard) / 8;
+            levels[next_channel + i] = smoothed;
+        }
+        next_channel = next_channel + count;
+        if(next_channel >= CHANNEL_COUNT) {
+            next_channel = 0;
+            sweeps++;
+        }
+    }
+
+    /** how busy `channel` is lately: 0 .. 1000 */
+    def level(channel: _int64) : _int64 {
+        if(channel < 0 || channel >= CHANNEL_COUNT) { return 0; }
+        return levels[channel];
+    }
+
+    /** the busiest channel */
+    def busiest() : _int64 {
+        best : _int64 = 0;
+        for(c : _int64 = 1; c < CHANNEL_COUNT; c++) {
+            if(levels[c] > levels[best]) { best = c; }
+        }
+        return best;
+    }
+
+    /**
+     * The channel to move to: the one whose NEIGHBOURHOOD is quietest (itself and two on each
+     * side), because a signal spreads over several channels and drifts. On a tie the higher
+     * channel wins: above Wi-Fi's channels, the air is usually emptier.
+     */
+    def quietest() : _int64 {
+        best : _int64 = CHANNEL_COUNT - 1;
+        best_noise : _int64 = noise_around(best);
+        for(c : _int64 = CHANNEL_COUNT - 2; c >= 0; c--) {
+            noise : _int64 = noise_around(c);
+            if(noise < best_noise) {
+                best = c;
+                best_noise = noise;
+            }
+        }
+        return best;
+    }
+
+    private def noise_around(channel: _int64) : _int64 {
+        total : _int64 = 0;
+        for(c : _int64 = channel - 2; c <= channel + 2; c++) {
+            if(c >= 0 && c < CHANNEL_COUNT) { total = total + levels[c]; }
+        }
+        return total;
+    }
+}

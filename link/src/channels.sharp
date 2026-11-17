@@ -1,0 +1,67 @@
+mod link;
+
+import ( std, link.hardware );
+
+/**
+ * WHICH CHANNEL THIS SIDE IS ON, and the way back when the two sides lose each other
+ *
+ * Both programs start on the HOME channel (RADIO_CHANNEL). The controller can
+ * move both to another one (link.messages.set_channel). Nothing about the
+ * move is saved: after a restart each side is on the home channel again.
+ *
+ * That makes one rule enough to bring them back together whatever went
+ * wrong - a lost acknowledgement, a drone that was restarted, a controller
+ * that was:
+ *
+ *      on a channel that is not home, and nothing heard for FALLBACK_MS
+ *          ->  go home
+ *
+ * ("nothing heard" starts when the link calls the other side lost, 1.5 s after
+ * the last frame: so a side goes home about 4.5 s after it last heard anything.)
+ *
+ * The other side does the same, so both end up home and the link reconnects.
+ *
+ *      keeper := new channel_keeper(radio, net, clock);
+ *      keeper.move_to(98);                 now
+ *      keeper.step();                      every turn of the loop: watches for silence
+ */
+const FALLBACK_MS : _int64 = 3000;
+
+class channel_keeper {
+    private channels : channel_control;
+    private net : radio_link;
+    private time : clock;
+    private heard_at : _int64;
+    went_home : _int64 = 0;                     // times the silence rule brought this side home
+
+    channel_keeper(channels: channel_control, net: radio_link, time: clock) {
+        self->channels = channels;
+        self->net = net;
+        self->time = time;
+        heard_at = time.now_ms();
+        channels.set_channel(RADIO_CHANNEL);
+    }
+
+    def current() : _int64 { return channels.current_channel(); }
+    def is_home() : _int64 { return channels.current_channel() == RADIO_CHANNEL; }
+
+    def move_to(channel: _int64) {
+        if(channel < 0 || channel > 125) { return; }
+        channels.set_channel(channel);
+        heard_at = time.now_ms();               // the other side gets its few seconds to arrive
+    }
+
+    /** true when this step went back home */
+    def step() : _int64 {
+        now : _int64 = time.now_ms();
+        if(net.is_connected()) {
+            heard_at = now;
+            return false;
+        }
+        if(is_home() || now - heard_at < FALLBACK_MS) { return false; }
+        channels.set_channel(RADIO_CHANNEL);
+        heard_at = now;
+        went_home++;
+        return true;
+    }
+}

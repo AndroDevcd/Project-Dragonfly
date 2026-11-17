@@ -20,14 +20,23 @@ import ( std );
  *
  * Which frames are lost is decided by counting, never by chance: a test that
  * fails fails the same way every time.
+ *
+ * It has CHANNELS too: a frame only arrives when both radios are on the same
+ * one, and a test can say which channels are busy for the scanner to find.
+ *
+ *      pair.first.set_channel(40);     the two no longer hear each other
+ *      pair.first.make_busy(37);       the scanner finds something on 37
  */
-class fake_radio : radio {
+class fake_radio : radio, channel_control {
     private arrived := new list<held_frame>();      // frames waiting to be received by THIS radio
     private other : fake_radio?;                     // where this one's frames go
 
     private lose_period : _int64 = 0;               // 0: none; n: every n-th frame sent is lost
     private lose_count : _int64 = 0;                // this many of the next frames sent are lost
     private blocked : _int64 = false;
+
+    private tuned : _int64 = RADIO_CHANNEL;
+    private busy := new _int64[126];                // 1: something is on the air there
 
     sent : _int64 = 0;                              // frames handed to transmit()
     lost : _int64 = 0;                              // ... of which this many never arrived
@@ -48,6 +57,7 @@ class fake_radio : radio {
             gone = true;
         }
         if(lose_period > 0 && (sent % lose_period) == 0) { gone = true; }
+        if(other != null && other!!.current_channel() != tuned) { gone = true; }     // not listening here
         if(gone || other == null) {
             lost++;
             return true;            // it left the radio; that it never arrived is not something a radio knows
@@ -66,6 +76,25 @@ class fake_radio : radio {
             return arrived.pop_first().bytes;
         }
     }
+
+    override def set_channel(channel: _int64) {
+        if(channel < 0 || channel > 125) { return; }
+        tuned = channel;
+    }
+
+    override def current_channel() : _int64 { return tuned; }
+
+    override def sense(first: _int64, count: _int64, into: _uint8[]) : _int64 {
+        asked : _int64 = 0;
+        for(i : _int64 = 0; i < count && first + i <= 125; i++) {
+            into[i] = busy[first + i];
+            asked++;
+        }
+        return asked;
+    }
+
+    def make_busy(channel: _int64) { busy[channel] = 1; }
+    def make_quiet(channel: _int64) { busy[channel] = 0; }
 
     def deliver(frame: _uint8[]) {
         lock(self) {

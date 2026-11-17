@@ -30,7 +30,9 @@ class bench {
 
     /** a new app on the same hardware: what turning the controller off and on again does */
     def make_app() {
-        app = new controller_app(new controller_devices(air.first, time, pins, panel, saved));
+        made := new controller_devices(air.first, time, pins, panel, saved);
+        made.channels = air.first;
+        app = new controller_app(made);
     }
 
     def run(rounds: _int64, ms: _int64) {
@@ -335,7 +337,7 @@ def test_settings() {
           && set_mode.from_message(first!!)!!.mode == MODE_NORMAL);
 
     t.press_select();
-    check("both buttons open the settings", t.panel.has("Mode: normal") && t.panel.has("Back"));
+    check("both buttons open the settings", t.panel.has("Mode: normal") && t.panel.has("Channel: 121"));
     check_equal("on top of home", t.app.screens.depth(), 2);
     check("nothing is off the screen", !t.panel.anything_off_screen());
 
@@ -386,6 +388,46 @@ def test_mode_waits_for_the_drone() {
     check("confirmed: the star is gone", t.panel.has("Mode: sport") && !t.panel.has("Mode: sport *"));
 }
 
+/** the channels screen: the bars, then moving both sides to the quietest channel */
+def test_channels_screen() {
+    section("the channels screen");
+    t := new bench();
+    t.app.start(new home_screen(t.app));
+    t.run(20, 20);
+    check("connected", t.app.state.is_connected());
+
+    t.air.first.make_busy(37);
+    t.press_select();                       // the settings
+    check("the settings show the channel", t.panel.has("Channel: 121"));
+    t.press_down();
+    t.press_down();
+    t.press_down();
+    t.press_select();                       // the fourth line: the channel
+    check_equal("the channels screen is open", t.app.screens.depth(), 3);
+    check("it scans", t.app.scanner != null);
+    t.run(60, 10);
+    check("the band is drawn", t.panel.has("spectrum"));
+    check("nothing is off the screen", !t.panel.anything_off_screen());
+    check("it names the busiest and the quietest", t.panel.has("on121 best125 busy37"));
+    check("the channel numbers are under the bars", t.panel.has("0") && t.panel.has("50") && t.panel.has("100") && t.panel.has("125"));
+
+    t.press_select();                       // move to the quietest
+    t.run(10, 10);
+    check_equal("the controller moved once the drone acknowledged", t.app.channel(), 125);
+    check_equal("... its radio too", t.air.first.current_channel(), 125);
+
+    // this test's "drone" is a bare link that does not move: the link calls it lost after
+    // 1.5 s of silence, and 3 s after that the controller goes home
+    t.run(300, 10);
+    check_equal("alone on 125 for 3 s: not yet home", t.app.channel(), 125);
+    t.run(200, 10);
+    check_equal("alone on 125: back on the home channel", t.app.channel(), RADIO_CHANNEL);
+
+    t.press_up();
+    check_equal("either button: back to the settings", t.app.screens.depth(), 2);
+    check("and the scanner stopped", t.app.scanner == null);
+}
+
 def test_settings_file() {
     section("the settings text: what is not understood is skipped");
     store := new memory_store();
@@ -411,5 +453,6 @@ def main(args: string[]) : int {
     test_settings();
     test_mode_waits_for_the_drone();
     test_settings_file();
+    test_channels_screen();
     return finish();
 }

@@ -24,6 +24,8 @@ native "dragonfly" {
     def radio_receive(into: _uint8[]) : _int32;
     def radio_set_power(level: _int32);
     def radio_jam(channel: _int32, millis: _int32);
+    def radio_set_channel(channel: _int32);
+    def radio_sense(first: _int32, count: _int32, into: _uint8[]) : _int32;
     def radio_print_details();
 
     def gpio_begin() : _int32;
@@ -32,8 +34,6 @@ native "dragonfly" {
     def gpio_read(pin: _int32) : _int32;
 }
 
-/** the channel both ends talk on (0 .. 125); away from the busiest Wi-Fi channels */
-const RADIO_CHANNEL : _int64 = 121;
 /** the slowest rate: the longest range */
 const RADIO_RATE : _int64 = 0;
 /** how long one jam() disturbs a channel */
@@ -44,8 +44,9 @@ class hardware_exception base exception {
 }
 
 /** the nRF24L01 */
-class nrf24_radio : radio, radio_control {
+class nrf24_radio : radio, radio_control, channel_control {
     private scratch : _uint8[] = new _uint8[FRAME_SIZE];       // where the C++ puts a frame that arrived
+    private tuned : _int64 = RADIO_CHANNEL;
 
     /**
      * @param is_controller  true on the controller, false on the drone: the two ends
@@ -77,6 +78,18 @@ class nrf24_radio : radio, radio_control {
 
     override def jam(channel: _int64) {
         radio_jam(channel, JAM_MS);
+    }
+
+    override def set_channel(channel: _int64) {
+        if(channel < 0 || channel > 125) { return; }
+        radio_set_channel(channel);
+        tuned = channel;
+    }
+
+    override def current_channel() : _int64 { return tuned; }
+
+    override def sense(first: _int64, count: _int64, into: _uint8[]) : _int64 {
+        return radio_sense(first, count, into);
     }
 
     def print_details() {

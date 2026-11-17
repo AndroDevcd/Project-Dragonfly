@@ -1,0 +1,140 @@
+mod controller.screens;
+
+import ( std, ui, controller, controller.hardware, link, link.hardware );
+
+/**
+ * THE CHANNELS: how busy the whole 2.4 GHz band is, one bar a channel
+ *
+ *      12:30                          [mode] [signal] [battery]
+ *      ------------------------------------------------------
+ *            |          ||
+ *        ||  |||       ||||    |                          |
+ *      ________________________________________________________
+ *      |  '     |  '     |  '   |        |            ^     |
+ *      0       25       50     75      100              125
+ *      on121 best98 busy37
+ *
+ * 126 channels, 126 columns of the 128 the screen has: channel 0 on the left,
+ * 125 on the right. A bar's height is how often something strong was heard
+ * there lately (link/scanner.sharp). Under the line:
+ *
+ *      |   a channel with its number under it: 0, 25, 50, 75, 100, 125
+ *      '   Wi-Fi's channels 1, 6 and 11 (where a router usually is)
+ *      ^   the channel Dragonfly is on (the tallest mark)
+ *
+ * The buttons:
+ *
+ *      both together       move to the quietest channel (the drone is told first)
+ *      either one          back to the settings
+ *
+ * The scanner runs only while this screen is open: listening on other channels
+ * takes the radio's time, and the link loses a few more frames meanwhile.
+ */
+const GRAPH_HEIGHT : _int64 = 24;               // the bars
+const SCALE_HEIGHT : _int64 = 4;                // the line under them and the marks below it
+const GRAPH_LEFT : _int64 = 1;                  // where channel 0's column is on the screen
+
+class channels_screen base screen {
+    private app : controller_app;
+
+    channels_screen(app: controller_app) {
+        self->app = app;
+    }
+
+    override def on_enter() {
+        app.start_scan();
+    }
+
+    override def on_button(button: _int64) {
+        if(button == BUTTON_SELECT) {
+            if(app.scanner != null) { app.change_channel(app.scanner!!.quietest()); }
+            return;
+        }
+        if(button == BUTTON_UP || button == BUTTON_DOWN) {
+            app.stop_scan();
+            app.screens.back();
+        }
+    }
+
+    override def body() : view {
+        bar := status_bar(app.state);
+        root := relative().add(bar.at_top());
+        if(app.scanner == null) {
+            root.add(text("no scanner on this radio").center());
+            return root;
+        }
+        scan : channel_scanner = app.scanner!!;
+
+        graph := picture(spectrum(scan, app.channel()));
+        root.add(graph.below(bar).at_left().margin_left(GRAPH_LEFT).margin_top(1));
+
+        // the numbers, each centred under its mark (and kept on the screen at the two ends)
+        labels := new _int64[6];
+        labels[0] = 0;
+        labels[1] = 25;
+        labels[2] = 50;
+        labels[3] = 75;
+        labels[4] = 100;
+        labels[5] = 125;
+        last : view = graph;
+        for(i : _int64 = 0; i < 6; i++) {
+            number : string = "" + labels[i];
+            wide : _int64 = sizeof(number.data) * GLYPH_WIDTH;
+            x : _int64 = GRAPH_LEFT + labels[i] - wide / 2;
+            if(x < 0) { x = 0; }
+            if(x + wide > DISPLAY_WIDTH) { x = DISPLAY_WIDTH - wide; }
+            label := text(number);
+            root.add(label.below(graph).at_left().margin_left(x));
+            last = label;
+        }
+
+        words : string = "scanning";
+        if(app.channel_is_pending()) {
+            words = "moving to " + app.channel_wanted;
+        } else if(sizeof(app.state.notice_text.data) > 0) {
+            words = app.state.notice_text;
+        } else if(scan.sweeps > 0) {
+            words = "on" + app.channel() + " best" + scan.quietest() + " busy" + scan.busiest();
+        }
+        root.add(text(words).below(last).at_left().margin_left(1));
+        return root;
+    }
+}
+
+/** the picture of the band: a bar for each channel, the scale and its marks under them */
+def spectrum(scan: channel_scanner, on_channel: _int64) : image {
+    width : _int64 = CHANNEL_COUNT;
+    height : _int64 = GRAPH_HEIGHT + SCALE_HEIGHT;
+    pixels := new _uint8[width * height];
+
+    for(c : _int64 = 0; c < width; c++) {
+        // the bar: from the bottom of the graph up; anything heard at all is at least one pixel
+        tall : _int64 = (scan.level(c) * GRAPH_HEIGHT) / LEVEL_MAX;
+        if(tall == 0 && scan.level(c) > 0) { tall = 1; }
+        for(row : _int64 = GRAPH_HEIGHT - tall; row < GRAPH_HEIGHT; row++) {
+            pixels[row * width + c] = PIXEL_ON;
+        }
+        // the line under the bars
+        pixels[GRAPH_HEIGHT * width + c] = PIXEL_ON;
+    }
+
+    // the marks: a numbered channel two pixels deep, Wi-Fi 1, 6, 11 one pixel (at the bottom),
+    // our channel all three
+    for(c : _int64 = 0; c < width; c = c + 25) {
+        pixels[(GRAPH_HEIGHT + 1) * width + c] = PIXEL_ON;
+        pixels[(GRAPH_HEIGHT + 2) * width + c] = PIXEL_ON;
+    }
+    marks := new _int64[3];
+    marks[0] = WIFI_1;
+    marks[1] = WIFI_6;
+    marks[2] = WIFI_11;
+    for(i : _int64 = 0; i < 3; i++) {
+        pixels[(GRAPH_HEIGHT + 3) * width + marks[i]] = PIXEL_ON;
+    }
+    if(on_channel >= 0 && on_channel < width) {
+        for(row : _int64 = GRAPH_HEIGHT + 1; row < height; row++) {
+            pixels[row * width + on_channel] = PIXEL_ON;
+        }
+    }
+    return new image("spectrum", width, height, pixels);
+}

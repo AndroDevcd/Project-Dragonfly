@@ -37,9 +37,22 @@ class home_screen base screen {
         root := relative().add(bar.at_top());
 
         if(!state.is_connected()) {
-            words : string = "searching...";
+            // the dots move (one more every 400 ms, then none again), so a screen that stands still
+            // means the program stopped - not that it is still looking. They are a text of their
+            // own, always 3 places wide, beside the word: the word stays put as they come and go.
+            words : string = "searching";
             if(state.link_state == LINK_LOST) { words = "signal lost"; }
-            root.add(text(words).center());
+            count : _int64 = (app.now_ms() / 400) % 4;
+            dots : string = "";
+            for(i : _int64 = 0; i < 3; i++) {
+                if(i < count) { dots = dots + "."; } else { dots = dots + " "; }
+            }
+            word := text(words);
+            root.add(word.center());
+            root.add(text(dots).right_of(word).align_top(word));
+            if(sizeof(state.notice_text.data) > 0) {
+                root.add(text(state.notice_text).at_bottom().at_left().fill_width());
+            }
             return root;
         }
 

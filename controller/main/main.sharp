@@ -41,10 +41,13 @@ def main(args: string[]) : int {
         devices := new controller_devices(air, new system_clock(), pins, display_for(args),
                                           new file_store(program_folder() + "/settings.prefs"));
         devices.tuning = air;
+        devices.channels = air;
 
         app := new controller_app(devices);
         app.start(new splash_screen(app));
-        println("dragonfly controller: running   (type q and Enter to stop)");
+        println("dragonfly controller: running   (q + Enter stops it; also: pins, status, settings)");
+
+        app.report_buttons = true;          // every button event is printed: "button: long press"
 
         // commands typed at the console, taken a few keys at a time: the loop never waits for them
         commands := new command_line(new console_keys(), devices.time);
@@ -52,10 +55,19 @@ def main(args: string[]) : int {
         while(running) {
             typed := commands.next();
             if(typed != null) {
-                if(is_quit_command(typed!!)) {
+                command : string = typed!!;
+                if(is_quit_command(command)) {
                     running = false;
+                } else if(command == "pins") {
+                    println(app.pins_text());
+                } else if(command == "status") {
+                    println(app.status_text());
+                } else if(command == "settings") {
+                    app.screens.open(new settings_screen(app));
+                    println("dragonfly controller: the settings are open");
                 } else {
-                    println("dragonfly controller: no command `" + typed!! + "`; the commands are: q (stop)");
+                    println("dragonfly controller: no command `" + command + "`");
+                    println("  the commands: q (stop), pins (the buttons as the Pi reads them), status (is the loop running), settings (open them)");
                 }
             }
             app.step();

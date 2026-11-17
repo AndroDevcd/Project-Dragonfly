@@ -45,6 +45,7 @@ class controller_devices {
     panel : display;
     saved : settings_store;
     tuning : radio_control? = null;             // the radio's own settings, when it has them
+    channels : channel_control? = null;         // the radio's channels, when it can change them
 
     controller_devices(air: radio, time: clock, pins: gpio, panel: display, saved: settings_store) {
         self->air = air;
@@ -72,6 +73,14 @@ class controller_app {
     private dim_set : _int64 = 0 - 1;
 
     frames_drawn : _int64 = 0;
+    steps : _int64 = 0;                         // turns of the loop so far
+    private started_at : _int64 = 0;
+    report_buttons : _int64 = false;            // print every button event (the console on the Pi turns it on)
+
+    keeper : channel_keeper? = null;            // the channel, when the radio can change it
+    scanner : channel_scanner? = null;          // while the channels screen is open
+    private channel_message : _int64 = 0 - 1;   // the set_channel on its way (-1: none)
+    channel_wanted : _int64 = 0 - 1;            // ... and the channel it names
 
     controller_app(devices: controller_devices) {
         self->devices = devices;
@@ -81,6 +90,8 @@ class controller_app {
         devices.pins.set_output(CONNECTING_LIGHT_PIN);
         devices.pins.set_output(BUTTON_POWER_PIN);
         devices.pins.write(BUTTON_POWER_PIN, true);
+        started_at = devices.time.now_ms();
+        if(devices.channels != null) { keeper = new channel_keeper(devices.channels!!, net, devices.time); }
         net.connect();
     }
 
@@ -92,8 +103,12 @@ class controller_app {
     def now_ms() : _int64 { return devices.time.now_ms(); }
 
     def step() {
+        steps++;
         now : _int64 = devices.time.now_ms();
         net.step();
+        follow_channel_change(now);
+        if(keeper != null && keeper!!.step()) { tell("lost the drone: back on channel " + RADIO_CHANNEL, now); }
+        if(scanner != null) { scanner!!.step(); }
         hear_drone(now);
         judge_connection(now);
         carry_out_settings();
@@ -218,6 +233,7 @@ class controller_app {
         for(;;) {
             pressed : _int64 = buttons.next();
             if(pressed == BUTTON_NONE) { return; }
+            if(report_buttons) { println("button: " + button_name(pressed)); }
             shown := screens.current();
             if(shown != null) { shown!!.on_button(pressed); }
         }
@@ -232,7 +248,87 @@ class controller_app {
         frames_drawn++;
     }
 
-    // ------------------------------------------------------------------ 7. the end
+    // ------------------------------------------------------------------ 7. the radio channel
+
+    /** the channel the radio is on */
+    def channel() : _int64 {
+        if(keeper == null) { return RADIO_CHANNEL; }
+        return keeper!!.current();
+    }
+
+    def can_change_channel() : _int64 { return keeper != null; }
+    def channel_is_pending() : _int64 { return channel_message >= 0; }
+
+    /**
+     * MOVE BOTH SIDES TO `channel`.
+     *
+     * The drone is told on the channel both are on now. It moves as soon as its link has
+     * acknowledged the message; THIS side moves only when that acknowledgement has arrived
+     * (follow_channel_change). Not before: until then the drone may not have the message at all.
+     *
+     * The one thing nobody can know is whether the drone's acknowledgement got through: if it
+     * was lost, the drone has moved and the controller has not. Then neither hears the other,
+     * and both go back to the home channel after FALLBACK_MS (link/channels.sharp).
+     */
+    def change_channel(channel: _int64) : _int64 {
+        if(keeper == null || channel_message >= 0) { return false; }
+        if(channel < 0 || channel > 125 || channel == keeper!!.current()) { return false; }
+        if(!net.is_connected()) {
+            tell("no drone to tell: the channel stays " + keeper!!.current(), devices.time.now_ms());
+            return false;
+        }
+        channel_wanted = channel;
+        channel_message = net.send(new set_channel(channel).to_message());
+        return true;
+    }
+
+    private def follow_channel_change(now: _int64) {
+        if(channel_message < 0) { return; }
+        if(net.is_delivered(channel_message)) {
+            channel_message = 0 - 1;
+            keeper!!.move_to(channel_wanted);
+            tell("moved to channel " + channel_wanted, now);
+        } else if(net.has_failed(channel_message)) {
+            channel_message = 0 - 1;
+            tell("the drone did not answer: the channel stays " + keeper!!.current(), now);
+        }
+    }
+
+    /** the scanner runs only while someone looks at it: it takes the radio's time */
+    def start_scan() {
+        if(devices.channels != null && scanner == null) { scanner = new channel_scanner(devices.channels!!); }
+    }
+
+    def stop_scan() { scanner = null; }
+
+    /** a line for the pilot at the bottom of the screen, for a few seconds */
+    def tell(text: string, now: _int64) {
+        state.notice_text = text;
+        state.notice_level = NOTICE_INFO;
+        state.notice_until = now + NOTICE_SHOWN_MS;
+    }
+
+    // ------------------------------------------------------------------ 8. what the console can ask
+
+    /** the buttons' pins as the Pi reads them right now: `pins` at the console */
+    def pins_text() : string {
+        return "up (pin 38): " + devices.pins.read(UP_BUTTON_PIN)
+             + "   down (pin 40): " + devices.pins.read(DOWN_BUTTON_PIN)
+             + "   buttons' power (pin 37): " + devices.pins.read(BUTTON_POWER_PIN)
+             + "   (1 = 3.3 V)";
+    }
+
+    /** is the loop going round, and how fast: `status` at the console */
+    def status_text() : string {
+        now : _int64 = devices.time.now_ms();
+        seconds : _int64 = (now - started_at) / 1000;
+        per_second : _int64 = 0;
+        if(seconds > 0) { per_second = steps / seconds; }
+        return "running " + seconds + " s, " + steps + " turns of the loop (" + per_second + " a second), "
+             + frames_drawn + " frames drawn, " + screens.depth() + " screen(s) open";
+    }
+
+    // ------------------------------------------------------------------ 9. the end
 
     /**
      * LEAVE THE HARDWARE TIDY: the screen blank, the light off.

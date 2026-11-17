@@ -24,7 +24,9 @@ def main(args: string[]) : int {
         new pi_gpio();                              // the sensor's pins need wiringPi started
         air := new nrf24_radio(false, 0);
         time := new system_clock();
-        computer := new flight_computer(new drone_devices(air, time, new hc_sr04(), new unwired_motors(), new unwired_battery()));
+        devices := new drone_devices(air, time, new hc_sr04(), new unwired_motors(), new unwired_battery());
+        devices.channels = air;
+        computer := new flight_computer(devices);
         computer.set_jammer(air);
 
         println("dragonfly drone: running   (type q and Enter to stop)");

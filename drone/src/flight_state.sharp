@@ -10,6 +10,7 @@ import ( std, link.messages );
  * here decides anything.
  */
 class flight_state {
+    channel_moves : _int64 = 0;                 // set_channel messages carried out
     mode : _int64 = MODE_NORMAL;
 
     // where the pilot's sticks are (as last heard)

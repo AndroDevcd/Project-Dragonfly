@@ -373,7 +373,87 @@ def test_console_commands() {
     check("and then nothing", commands.next() == null);
 }
 
+/** radios on different channels do not hear each other; the scanner finds the busy ones */
+def test_channels() {
+    section("channels and the scanner");
+    t := new bench();
+    t.a.connect();
+    t.run(10, 5);
+    check("connected on the home channel", t.a.is_connected() && t.b.is_connected());
+
+    t.air.first.set_channel(40);
+    t.run(400, 5);                          // two seconds
+    check("on different channels the two lose each other", !t.a.is_connected());
+    t.air.second.set_channel(40);
+    t.run(20, 5);
+    check("on the same one again, they find each other", t.a.is_connected() && t.b.is_connected());
+
+    // the scanner
+    radio := new fake_radio();
+    radio.make_busy(37);
+    scan := new channel_scanner(radio);
+    check_equal("nothing heard before it looked", scan.level(37), 0);
+    for(i : _int64 = 0; i < 21 * 10; i++) { scan.step(); }  // 21 steps a sweep, 10 sweeps
+    check_equal("sweeps counted", scan.sweeps, 10);
+    check("the busy channel is high", scan.level(37) > 600);
+    check_equal("a quiet one is nothing", scan.level(100), 0);
+    check_equal("the busiest", scan.busiest(), 37);
+    check_equal("the quietest: the highest of the quiet ones", scan.quietest(), 125);
+
+    radio.make_busy(120);
+    radio.make_busy(123);
+    radio.make_busy(125);
+    for(i : _int64 = 0; i < 21 * 10; i++) { scan.step(); }
+    best : _int64 = scan.quietest();
+    check("the quietest keeps away from busy neighbours", best < 118 && best != 37 && (best < 35 || best > 39));
+
+    radio.make_quiet(37);
+    for(i : _int64 = 0; i < 21 * 30; i++) { scan.step(); }
+    check("a channel that went quiet drops again", scan.level(37) < 50);
+    check_equal("the radio is back on its own channel", radio.current_channel(), RADIO_CHANNEL);
+}
+
+/** the way home: a side that hears nothing on another channel goes back to the home channel */
+def test_going_home() {
+    section("going home after silence");
+    t := new bench();
+    keeper_a := new channel_keeper(t.air.first, t.a, t.time);
+    keeper_b := new channel_keeper(t.air.second, t.b, t.time);
+    t.a.connect();
+    t.run(10, 5);
+    check("connected", t.a.is_connected());
+
+    keeper_a.move_to(70);
+    keeper_b.move_to(70);
+    for(i : _int64 = 0; i < 200; i++) {
+        t.run(1, 5);
+        keeper_a.step();
+        keeper_b.step();
+    }
+    check("both moved: still connected on 70", t.a.is_connected() && keeper_a.current() == 70);
+    check_equal("nobody went home", keeper_a.went_home + keeper_b.went_home, 0);
+
+    // only one side moves (the other never heard of it)
+    keeper_a.move_to(90);
+    for(i : _int64 = 0; i < 300; i++) {     // 1.5 seconds
+        t.run(1, 5);
+        keeper_a.step();
+        keeper_b.step();
+    }
+    check("apart: not yet home after 1.5 s", keeper_a.current() == 90);
+    for(i : _int64 = 0; i < 700; i++) {     // 3.5 seconds more
+        t.run(1, 5);
+        keeper_a.step();
+        keeper_b.step();
+    }
+    check_equal("the lost side went home", keeper_a.current(), RADIO_CHANNEL);
+    check_equal("so did the other", keeper_b.current(), RADIO_CHANNEL);
+    check("and they found each other there", t.a.is_connected() && t.b.is_connected());
+}
+
 def main(args: string[]) : int {
+    test_channels();
+    test_going_home();
     test_console_commands();
     test_bytes();
     test_frames();

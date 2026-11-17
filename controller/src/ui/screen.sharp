@@ -29,6 +29,15 @@ const BUTTON_DOWN : _int64 = 2;
 const BUTTON_SELECT : _int64 = 3;           // both buttons together
 const BUTTON_HOLD : _int64 = 4;             // one button kept down for a second (a "long press")
 
+/** a button event's name, for printing */
+def button_name(button: _int64) : string {
+    if(button == BUTTON_UP) { return "up"; }
+    if(button == BUTTON_DOWN) { return "down"; }
+    if(button == BUTTON_SELECT) { return "both (select)"; }
+    if(button == BUTTON_HOLD) { return "long press"; }
+    return "none";
+}
+
 class screen {
     def body() : view;
     def on_button(button: _int64);
