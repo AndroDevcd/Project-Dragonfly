@@ -434,6 +434,9 @@ def test_channels_screen() {
     check("jamming started", t.app.is_jamming());
     check_equal("the configured channel is jammed", t.air.first.last_jam_channel, 80);
     check("the radio was told to jam", t.air.first.jams > before);
+    sweeps_at_jam : _int64 = t.app.scanner!!.sweeps;
+    t.run(40, 10);
+    check_equal("the scanner is paused while jamming (the radio stays on the jam channel)", t.app.scanner!!.sweeps, sweeps_at_jam);
     t.run(1100, 20);                        // past the 20 s
     check("the jam stopped by itself", !t.app.is_jamming());
 

@@ -110,6 +110,19 @@ class controller_app {
     def step() {
         steps++;
         now : _int64 = devices.time.now_ms();
+
+        // WHILE JAMMING, nothing else is allowed to touch the radio. There is one radio: the
+        // scanner's sense() hops it across channels to listen, and the link sends and receives on
+        // its own channel - either one pulls the radio off the jam channel and tears the carrier
+        // down, which is why a jam seemed to do nothing. During a jam the loop does only the jam,
+        // the buttons and the screen; normal work resumes the moment it ends.
+        if(is_jamming()) {
+            run_jam(now);
+            read_buttons();
+            draw(now);
+            return;
+        }
+
         net.step();
         follow_channel_change(now);
         if(keeper != null && keeper!!.step()) { tell("lost the drone: back on channel " + RADIO_CHANNEL, now); }
