@@ -5,11 +5,15 @@
 #define OUTPUT 1
 #define LOW 0
 #define HIGH 1
+#define PUD_OFF 0
+#define PUD_DOWN 1
+#define PUD_UP 2
 #ifdef __cplusplus
 extern "C" {
 #endif
 int wiringPiSetup(void);
 void pinMode(int pin, int mode);
+void pullUpDnControl(int pin, int pud);
 void digitalWrite(int pin, int value);
 int digitalRead(int pin);
 void delayMicroseconds(unsigned int howLong);

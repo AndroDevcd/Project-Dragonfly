@@ -23,6 +23,10 @@ int32_t dragonfly_gpio_begin(sni_env* env) {
 
 void dragonfly_gpio_mode(sni_env* env, int32_t pin, int32_t output) {
     pinMode(pin, output ? OUTPUT : INPUT);
+    // An input is held LOW by the Pi's own resistor (about 50 kOhm) while nothing drives it: a
+    // button wired from 3.3 V to the pin then reads 0 when let go and 1 when pressed, with no
+    // resistor of its own. Without it the pin "floats" and reads whatever it picks up.
+    if(!output) pullUpDnControl(pin, PUD_DOWN);
 }
 
 void dragonfly_gpio_write(sni_env* env, int32_t pin, int32_t high) {

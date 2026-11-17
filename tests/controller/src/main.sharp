@@ -223,6 +223,8 @@ def test_long_press_opens_settings() {
     t.app.start(new home_screen(t.app));
     t.run(4, 20);
     check_equal("the home screen alone", t.app.screens.depth(), 1);
+    check("the buttons' power pin is an output", t.pins.is_output(BUTTON_POWER_PIN));
+    check("... and on", t.pins.read(BUTTON_POWER_PIN));
     t.pins.force(UP_BUTTON_PIN, true);
     t.run(60, 20);                          // 1.2 seconds
     t.pins.force(UP_BUTTON_PIN, false);
@@ -288,6 +290,7 @@ def test_shutting_down() {
     drawn = t.panel.shown.size().value;
     check_equal("stopped: things on the screen", drawn, 0);
     check("stopped: the light is off", !t.pins.read(CONNECTING_LIGHT_PIN));
+    check("stopped: the buttons' power is off", !t.pins.read(BUTTON_POWER_PIN));
 }
 
 def test_losing_the_drone() {

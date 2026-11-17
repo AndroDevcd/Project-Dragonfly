@@ -32,6 +32,10 @@ const NOTICE_SHOWN_MS : _int64 = 4000;
 const UP_BUTTON_PIN : _int64 = 28;
 const DOWN_BUTTON_PIN : _int64 = 29;
 const CONNECTING_LIGHT_PIN : _int64 = 27;
+// The buttons' power: a pin kept on (3.3 V) for as long as the program runs, because the Pi has
+// too few 3.3 V pins to go round. Both buttons take their positive side from it. wiringPi 25 is
+// GPIO 26, physical pin 37 - beside the buttons' own pins 38 and 40.
+const BUTTON_POWER_PIN : _int64 = 25;
 
 /** everything the controller is made of */
 class controller_devices {
@@ -75,6 +79,8 @@ class controller_app {
         chosen = new settings(devices.saved);
         buttons = new button_reader(devices.pins, devices.time, UP_BUTTON_PIN, DOWN_BUTTON_PIN);
         devices.pins.set_output(CONNECTING_LIGHT_PIN);
+        devices.pins.set_output(BUTTON_POWER_PIN);
+        devices.pins.write(BUTTON_POWER_PIN, true);
         net.connect();
     }
 
@@ -239,5 +245,6 @@ class controller_app {
         devices.panel.clear();
         devices.panel.show();
         devices.pins.write(CONNECTING_LIGHT_PIN, false);
+        devices.pins.write(BUTTON_POWER_PIN, false);
     }
 }
