@@ -17,6 +17,7 @@
 #ifndef DRAGONFLY_NO_HARDWARE
 
 #include "vendor/ssd1306_i2c.h"
+#include <wiringPiI2C.h>
 #include <unistd.h>
 #include <cstring>
 #include <cerrno>
@@ -44,8 +45,31 @@ static bool sent_valid = false;
 // Here a frame is sent as it should be:
 //   - a PAGE that is the same as what the chip already shows is not sent at all. Most frames are
 //     the same as the one before, and those now cost nothing;
-//   - a page that changed is sent as ONE message of 128 bytes (after one that says where it goes).
+//   - a page that changed is sent in pieces of CHUNK bytes, one message each.
 //
+// WHY PIECES, NOT ONE MESSAGE OF 128: on the Raspberry Pi a long I2C message failed (seen on a
+// Pi 2: the chip took every short command, then "Input/output error" on the first 129-byte
+// message - and afterwards it did not answer at all until it was powered again). 16 bytes a
+// message is what Adafruit's own driver sends and works everywhere; it is still 8 messages a page
+// instead of 128. The chip's address pointer moves on by itself, so the pieces need nothing
+// between them.
+//
+// And if even a piece fails, that piece is sent the old way, one byte a message - slow, but the
+// way that was known to reach this chip.
+#define CHUNK 16
+
+// one message of picture bytes (0x40: "picture follows"); false when the chip did not take it
+static bool send_bytes(const uint8_t* bytes, int count) {
+    uint8_t message[1 + CHUNK];
+    message[0] = 0x40;
+    memcpy(message + 1, bytes, count);
+    if(write(i2cd, message, 1 + count) == (ssize_t) (1 + count)) return true;
+    for(int i = 0; i < count; i++) {
+        if(wiringPiI2CWriteReg8(i2cd, 0x40, bytes[i]) < 0) return false;
+    }
+    return true;
+}
+
 // Returns false when the chip did not take a message (it is not there any more).
 static bool send_changed_pages() {
     bool ok = true;
@@ -56,15 +80,20 @@ static bool send_changed_pages() {
         }
         if(sent_valid && memcmp(now, sent[page], DISPLAY_WIDTH) == 0) continue;
 
-        // where the bytes go: columns 0-127 of this one page (0x00: "commands follow")
-        uint8_t where[] = { 0x00, SSD1306_COLUMNADDR, 0, DISPLAY_WIDTH - 1, SSD1306_PAGEADDR, (uint8_t) page, (uint8_t) page };
-        // the bytes (0x40: "picture follows")
-        uint8_t message[1 + DISPLAY_WIDTH];
-        message[0] = 0x40;
-        memcpy(message + 1, now, DISPLAY_WIDTH);
+        // where the bytes go: columns 0-127 of this one page - as single commands, the way the
+        // driver sends every command (and the way the start-up commands just got through)
+        ssd1306_command(SSD1306_COLUMNADDR);
+        ssd1306_command(0);
+        ssd1306_command(DISPLAY_WIDTH - 1);
+        ssd1306_command(SSD1306_PAGEADDR);
+        ssd1306_command(page);
+        ssd1306_command(page);
 
-        if(write(i2cd, where, sizeof(where)) != (ssize_t) sizeof(where)
-           || write(i2cd, message, sizeof(message)) != (ssize_t) sizeof(message)) {
+        bool page_ok = true;
+        for(int at = 0; at < DISPLAY_WIDTH && page_ok; at += CHUNK) {
+            page_ok = send_bytes(now + at, CHUNK);
+        }
+        if(!page_ok) {
             ok = false;                 // not remembered as sent: it is tried again with the next frame
             continue;
         }
