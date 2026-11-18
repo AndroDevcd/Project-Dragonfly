@@ -1,6 +1,6 @@
 mod main;
 
-import ( std, checks, link, link.hardware, link.protocol, link.messages, drone, drone.hardware );
+import ( std, std.testing, link, link.hardware, link.protocol, link.messages, drone, drone.hardware );
 
 /**
  * THE DRONE, TESTED ON A PC
@@ -51,134 +51,140 @@ class bench {
 }
 
 def test_failsafe_before_contact() {
-    section("before any controller is heard");
-    t := new bench();
-    t.run(20, 10);
-    check("the failsafe is on", t.computer.state.failsafe);
-    check_equal("the motors get the failsafe throttle", t.thrust.throttle, FAILSAFE_THROTTLE);
-    check_equal("no telemetry is sent into the void", t.computer.state.telemetry_sent, 0);
+    tests("before any controller is heard") {
+        t := new bench();
+        t.run(20, 10);
+        test("the failsafe is on") { expect_true(t.computer.state.failsafe); };
+        test("the motors get the failsafe throttle") { expect(t.thrust.throttle).should_be(FAILSAFE_THROTTLE); };
+        test("no telemetry is sent into the void") { expect(t.computer.state.telemetry_sent).should_be(0); };
+    };
 }
 
 def test_mode_and_sticks() {
-    section("mode and sticks");
-    t := new bench();
-    t.connect();
-    check("connected: the failsafe is off", !t.computer.state.failsafe);
+    tests("mode and sticks") {
+        t := new bench();
+        t.connect();
+        test("connected: the failsafe is off") { expect_true(!t.computer.state.failsafe); };
 
-    t.controller.publish(new steer(600, 0 - 400, 200, 0).to_message());
-    t.run(4, 5);
-    check_equal("normal mode obeys the sticks half way: throttle", t.thrust.throttle, 300);
-    check_equal("... yaw", t.thrust.yaw, 0 - 200);
-    check_equal("... pitch", t.thrust.pitch, 100);
+        t.controller.publish(new steer(600, 0 - 400, 200, 0).to_message());
+        t.run(4, 5);
+        test("normal mode obeys the sticks half way: throttle") { expect(t.thrust.throttle).should_be(300); };
+        test("... yaw") { expect(t.thrust.yaw).should_be(0 - 200); };
+        test("... pitch") { expect(t.thrust.pitch).should_be(100); };
 
-    id := t.controller.send(new set_mode(MODE_SPORT).to_message());
-    t.run(4, 5);
-    check("the mode change was acknowledged", t.controller.is_delivered(id));
-    check_equal("the drone is in sport mode", t.computer.state.mode, MODE_SPORT);
-    t.controller.publish(new steer(600, 0 - 400, 200, 0).to_message());
-    t.run(4, 5);
-    check_equal("sport mode obeys the sticks fully", t.thrust.throttle, 600);
+        id := t.controller.send(new set_mode(MODE_SPORT).to_message());
+        t.run(4, 5);
+        test("the mode change was acknowledged") { expect_true(t.controller.is_delivered(id)); };
+        test("the drone is in sport mode") { expect(t.computer.state.mode).should_be(MODE_SPORT); };
+        t.controller.publish(new steer(600, 0 - 400, 200, 0).to_message());
+        t.run(4, 5);
+        test("sport mode obeys the sticks fully") { expect(t.thrust.throttle).should_be(600); };
 
-    // a controller that stops steering must not leave the last command running
-    t.run(80, 10);                              // 800 ms without a steer message (heartbeats keep the link up)
-    check("still connected", t.computer.state.connected);
-    check_equal("stale sticks count as centred", t.thrust.throttle, 0);
+        // a controller that stops steering must not leave the last command running
+        t.run(80, 10);                              // 800 ms without a steer message (heartbeats keep the link up)
+        test("still connected") { expect_true(t.computer.state.connected); };
+        test("stale sticks count as centred") { expect(t.thrust.throttle).should_be(0); };
+    };
 }
 
 def test_telemetry() {
-    section("telemetry");
-    t := new bench();
-    t.connect();
-    t.ground.cm = 120;
-    t.power.bars = 2;
-    t.run(60, 10);
-    reading := t.heard(message_types.TELEMETRY);
-    check("telemetry arrives", reading != null);
-    if(reading != null) {
-        read := telemetry.from_message(reading!!);
-        check("it decodes", read != null);
-        if(read != null) {
-            check_equal("the altitude", read!!.altitude_cm, 120);
-            check_equal("the battery", read!!.battery, 2);
-            check_equal("the mode", read!!.mode, MODE_NORMAL);
+    tests("telemetry") {
+        t := new bench();
+        t.connect();
+        t.ground.cm = 120;
+        t.power.bars = 2;
+        t.run(60, 10);
+        reading := t.heard(message_types.TELEMETRY);
+        test("telemetry arrives") { expect_true(reading != null); };
+        if(reading != null) {
+            read := telemetry.from_message(reading!!);
+            test("it decodes") { expect_true(read != null); };
+            if(read != null) {
+                test("the altitude") { expect(read!!.altitude_cm).should_be(120); };
+                test("the battery") { expect(read!!.battery).should_be(2); };
+                test("the mode") { expect(read!!.mode).should_be(MODE_NORMAL); };
+            }
         }
-    }
-    check("about five a second", t.computer.state.telemetry_sent >= 2 && t.computer.state.telemetry_sent <= 5);
+        test("about five a second") { expect_true(t.computer.state.telemetry_sent >= 2 && t.computer.state.telemetry_sent <= 5); };
 
-    // climbing 50 cm in half a second is 100 cm/s
-    t.ground.cm = 170;
-    t.run(50, 10);
-    climbing := t.heard(message_types.TELEMETRY);
-    check("the speed follows the height", climbing != null && telemetry.from_message(climbing!!)!!.altitude_cm == 170);
+        // climbing 50 cm in half a second is 100 cm/s
+        t.ground.cm = 170;
+        t.run(50, 10);
+        climbing := t.heard(message_types.TELEMETRY);
+        test("the speed follows the height") { expect_true(climbing != null && telemetry.from_message(climbing!!)!!.altitude_cm == 170); };
+    };
 }
 
 def test_altimeter() {
-    section("the altimeter reads more often near the ground");
-    time := new fake_clock();
-    time.advance(1000);
-    sensor := new fake_distance_sensor();
-    meter := new altimeter(sensor, time);
-    sensor.cm = 100;
-    meter.step();
-    check_equal("near the ground", meter.interval_ms(), NEAR_INTERVAL_MS);
-    sensor.cm = 200;
-    time.advance(100);
-    meter.step();
-    check_equal("in the middle", meter.interval_ms(), MIDDLE_INTERVAL_MS);
-    check_equal("it climbed 100 cm in 100 ms: 1000 cm/s", meter.climb_cm_s, 1000);
-    sensor.cm = 500;
-    time.advance(150);
-    meter.step();
-    check_equal("high up", meter.interval_ms(), FAR_INTERVAL_MS);
+    tests("the altimeter reads more often near the ground") {
+        time := new fake_clock();
+        time.advance(1000);
+        sensor := new fake_distance_sensor();
+        meter := new altimeter(sensor, time);
+        sensor.cm = 100;
+        meter.step();
+        test("near the ground") { expect(meter.interval_ms()).should_be(NEAR_INTERVAL_MS); };
+        sensor.cm = 200;
+        time.advance(100);
+        meter.step();
+        test("in the middle") { expect(meter.interval_ms()).should_be(MIDDLE_INTERVAL_MS); };
+        test("it climbed 100 cm in 100 ms: 1000 cm/s") { expect(meter.climb_cm_s).should_be(1000); };
+        sensor.cm = 500;
+        time.advance(150);
+        meter.step();
+        test("high up") { expect(meter.interval_ms()).should_be(FAR_INTERVAL_MS); };
 
-    reads : _int64 = sensor.reads;
-    time.advance(100);
-    meter.step();
-    check_equal("not read again before it is due", sensor.reads, reads);
+        reads : _int64 = sensor.reads;
+        time.advance(100);
+        meter.step();
+        test("not read again before it is due") { expect(sensor.reads).should_be(reads); };
 
-    sensor.cm = 0 - 1;
-    time.advance(250);
-    meter.step();
-    check("no echo: no ground", !meter.has_ground);
-    check_equal("the last good height is kept", meter.altitude_cm, 500);
+        sensor.cm = 0 - 1;
+        time.advance(250);
+        meter.step();
+        test("no echo: no ground") { expect_true(!meter.has_ground); };
+        test("the last good height is kept") { expect(meter.altitude_cm).should_be(500); };
+    };
 }
 
 /** told to stop (q at the console): the motors are stopped, whatever the sticks said */
 def test_shutting_down() {
-    section("shutting down");
-    t := new bench();
-    t.connect();
-    t.controller.publish(new steer(600, 100, 0, 0).to_message());
-    t.run(4, 5);
-    check("flying: the motors are driven", t.thrust.throttle > 0);
-    t.computer.shut_down();
-    check_equal("stopped: throttle", t.thrust.throttle, 0);
-    check_equal("stopped: yaw", t.thrust.yaw, 0);
+    tests("shutting down") {
+        t := new bench();
+        t.connect();
+        t.controller.publish(new steer(600, 100, 0, 0).to_message());
+        t.run(4, 5);
+        test("flying: the motors are driven") { expect_true(t.thrust.throttle > 0); };
+        t.computer.shut_down();
+        test("stopped: throttle") { expect(t.thrust.throttle).should_be(0); };
+        test("stopped: yaw") { expect(t.thrust.yaw).should_be(0); };
+    };
 }
 
 def test_losing_the_controller() {
-    section("losing the controller");
-    t := new bench();
-    t.connect();
-    t.controller.publish(new steer(800, 0, 0, 0).to_message());
-    t.run(4, 5);
-    check("flying on the sticks", t.thrust.throttle > 0 && !t.computer.state.failsafe);
+    tests("losing the controller") {
+        t := new bench();
+        t.connect();
+        t.controller.publish(new steer(800, 0, 0, 0).to_message());
+        t.run(4, 5);
+        test("flying on the sticks") { expect_true(t.thrust.throttle > 0 && !t.computer.state.failsafe); };
 
-    t.air.first.set_blocked(true);
-    t.air.second.set_blocked(true);
-    t.run(200, 10);                             // two seconds out of range
-    check("the failsafe is on", t.computer.state.failsafe);
-    check_equal("the motors get the failsafe throttle, not the last stick", t.thrust.throttle, FAILSAFE_THROTTLE);
-    check_equal("and nothing else", t.thrust.yaw + t.thrust.pitch + t.thrust.roll, 0);
-    check_equal("it was counted", t.computer.state.failsafe_count, 1);
+        t.air.first.set_blocked(true);
+        t.air.second.set_blocked(true);
+        t.run(200, 10);                             // two seconds out of range
+        test("the failsafe is on") { expect_true(t.computer.state.failsafe); };
+        test("the motors get the failsafe throttle, not the last stick") { expect(t.thrust.throttle).should_be(FAILSAFE_THROTTLE); };
+        test("and nothing else") { expect(t.thrust.yaw + t.thrust.pitch + t.thrust.roll).should_be(0); };
+        test("it was counted") { expect(t.computer.state.failsafe_count).should_be(1); };
 
-    t.air.first.set_blocked(false);
-    t.air.second.set_blocked(false);
-    t.run(100, 10);
-    check("back in range: the failsafe is off", !t.computer.state.failsafe);
-    check_equal("the old stick position did not come back by itself", t.thrust.throttle, 0);
-    told := t.heard(message_types.NOTICE);
-    check("the pilot is told the link is back", told != null && notice.from_message(told!!)!!.text == "link restored");
+        t.air.first.set_blocked(false);
+        t.air.second.set_blocked(false);
+        t.run(100, 10);
+        test("back in range: the failsafe is off") { expect_true(!t.computer.state.failsafe); };
+        test("the old stick position did not come back by itself") { expect(t.thrust.throttle).should_be(0); };
+        told := t.heard(message_types.NOTICE);
+        test("the pilot is told the link is back") { expect_true(told != null && notice.from_message(told!!)!!.text == "link restored"); };
+    };
 }
 
 /** a jammer that remembers the channel it was asked for */
@@ -189,26 +195,102 @@ class recording_jammer : radio_control {
 }
 
 def test_jam_and_unknown() {
-    section("jam, and a message the drone does not know");
-    t := new bench();
-    t.connect();
-    t.controller.send(new jam(40).to_message());
-    t.run(20, 5);
-    refused := t.heard(message_types.NOTICE);
-    check("a drone without a jammer says so", refused != null && notice.from_message(refused!!)!!.level == NOTICE_WARNING);
+    tests("jam, and a message the drone does not know") {
+        t := new bench();
+        t.connect();
+        t.controller.send(new jam(40).to_message());
+        t.run(20, 5);
+        refused := t.heard(message_types.NOTICE);
+        test("a drone without a jammer says so") { expect_true(refused != null && notice.from_message(refused!!)!!.level == NOTICE_WARNING); };
 
-    jammer := new recording_jammer();
-    t.computer.set_jammer(jammer);
-    t.controller.send(new jam(77).to_message());
-    t.run(20, 5);
-    check_equal("the jammer got the channel", jammer.channel, 77);
-    done := t.heard(message_types.NOTICE);
-    check("and the pilot is told", done != null && notice.from_message(done!!)!!.text == "jammed channel 77");
+        jammer := new recording_jammer();
+        t.computer.set_jammer(jammer);
+        t.controller.send(new jam(77).to_message());
+        t.run(20, 5);
+        test("the jammer got the channel") { expect(jammer.channel).should_be(77); };
+        done := t.heard(message_types.NOTICE);
+        test("and the pilot is told") { expect_true(done != null && notice.from_message(done!!)!!.text == "jammed channel 77"); };
 
-    t.controller.send(new message(99));
-    t.run(20, 5);
-    unknown := t.heard(message_types.NOTICE);
-    check("an unknown message is answered, not swallowed", unknown != null);
+        t.controller.send(new message(99));
+        t.run(20, 5);
+        unknown := t.heard(message_types.NOTICE);
+        test("an unknown message is answered, not swallowed") { expect_true(unknown != null); };
+    };
+}
+
+/**
+ * The drone on MOCK devices. The fakes above are small working devices: a
+ * test sets `ground.cm` and looks at `thrust.throttle` afterwards. These
+ * tests ask the other question - what did the flight computer ASK of its
+ * devices? - which only something that watches the calls can answer.
+ * Nothing is written for the mocks: mock<motors>() and friends.
+ */
+def test_what_the_drone_asks_of_its_devices() {
+    tests("the drone on mock devices: what it asks of them") {
+        test("with no controller, the motors are driven at the failsafe throttle - and never at any other") {
+            air := new radio_pair();
+            time := new fake_clock();
+            time.advance(1000);
+            thrust := mock<motors>();
+            computer := new flight_computer(new drone_devices(air.second, time, mock<distance_sensor>(), thrust, mock<battery>()));
+
+            for(i : _int64 = 0; i < 20; i++) {
+                computer.step();
+                time.advance(10);
+            }
+
+            verify { thrust.drive(FAILSAFE_THROTTLE, any_number(), any_number(), any_number()); }.at_least(1);
+            verify_nothing_else(thrust);            // every single command was the failsafe one
+        };
+
+        test("the height sensor and the battery are read, and what they say is what telemetry carries") {
+            air := new radio_pair();
+            time := new fake_clock();
+            time.advance(1000);
+            ground := mock<distance_sensor>();
+            power := mock<battery>();
+            given { ground.read_cm(); }.returns(120);
+            given { power.level(); }.returns(2);
+            computer := new flight_computer(new drone_devices(air.second, time, ground, mock<motors>(), power));
+            controller := new radio_link(air.first, time);
+
+            controller.connect();
+            for(i : _int64 = 0; i < 70; i++) {
+                controller.step();
+                computer.step();
+                time.advance(10);
+            }
+
+            verify { ground.read_cm(); }.at_least(1);
+            verify { power.level(); }.at_least(1);
+
+            reading : message? = null;
+            for(;;) {
+                arrived := controller.next();
+                if(arrived == null) { break; }
+                if(arrived!!.type == message_types.TELEMETRY) { reading = arrived; }
+            }
+            expect_not_null(reading);
+            read := telemetry.from_message(reading!!);
+            expect_not_null(read);
+            expect(read!!.altitude_cm).should_be(120);
+            expect(read!!.battery).should_be(2);
+        };
+
+        test("devices that say nothing at all do not stop the drone: every reading is 0") {
+            air := new radio_pair();
+            time := new fake_clock();
+            time.advance(1000);
+            computer := new flight_computer(new drone_devices(air.second, time, mock<distance_sensor>(), mock<motors>(), mock<battery>()));
+
+            for(i : _int64 = 0; i < 50; i++) {
+                computer.step();
+                time.advance(10);
+            }
+
+            expect_true(computer.state.failsafe);
+        };
+    };
 }
 
 def main(args: string[]) : int {
@@ -219,5 +301,7 @@ def main(args: string[]) : int {
     test_losing_the_controller();
     test_shutting_down();
     test_jam_and_unknown();
-    return finish();
+    test_what_the_drone_asks_of_its_devices();
+    finish_tests();
+    return 0;
 }

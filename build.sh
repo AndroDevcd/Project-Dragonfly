@@ -7,7 +7,7 @@
 #     drone/build/outputs/drone             + dragonfly.so
 #     simulator/build/outputs/simulator
 #
-# Needs Sharp installed (0.4.5 or newer) and a C++ compiler (g++). On a Raspberry Pi the C++ is
+# Needs Sharp installed (0.7.0 or newer) and a C++ compiler (g++). On a Raspberry Pi the C++ is
 # built against the real hardware libraries (RF24, wiringPi: pi_system_setup.bash installs them);
 # anywhere else it is built without hardware, so everything still compiles and is checked.
 HERE="$(cd "$(dirname "$0")" && pwd)"

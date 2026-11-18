@@ -1,6 +1,6 @@
 mod main;
 
-import ( std, checks, link, link.hardware, link.protocol, link.messages,
+import ( std, std.testing, link, link.hardware, link.protocol, link.messages,
          ui, ui.icons, controller, controller.hardware, controller.input, controller.screens );
 
 /**
@@ -70,170 +70,175 @@ class bench {
 // ---------------------------------------------------------------------------
 
 def test_layout() {
-    section("layout: views placed by their relations");
-    screen := new fake_display();
-    battery := picture(icon_battery_3);
-    title := text("ALT");
-    big := text("42").size(2);
-    wide := text("hi").width(60).align_content(ALIGN_END);
-    root := relative()
-        .add(battery.at_top().at_right())
-        .add(title.below(battery).align_right(battery).margin_top(4))
-        .add(big.center())
-        .add(wide.at_bottom().at_left());
-    draw_frame(screen, root);
+    tests("layout: views placed by their relations") {
+        screen := new fake_display();
+        battery := picture(icon_battery_3);
+        title := text("ALT");
+        big := text("42").size(2);
+        wide := text("hi").width(60).align_content(ALIGN_END);
+        root := relative()
+            .add(battery.at_top().at_right())
+            .add(title.below(battery).align_right(battery).margin_top(4))
+            .add(big.center())
+            .add(wide.at_bottom().at_left());
+        draw_frame(screen, root);
 
-    check_equal("at_right: against the right edge", battery.right(), DISPLAY_WIDTH);
-    check_equal("at_top", battery.y, 0);
-    check_equal("below + margin_top", title.y, battery.bottom() + 4);
-    check_equal("align_right: the same right edge", title.right(), battery.right());
-    check_equal("text is 6 pixels a character", title.wide, 18);
-    check_equal("size 2 is twice as wide", big.wide, 24);
-    check_equal("... and twice as high", big.high, 16);
-    check_equal("center: across", big.x, (DISPLAY_WIDTH - 24) / 2);
-    check_equal("center: down", big.y, (DISPLAY_HEIGHT - 16) / 2);
-    check_equal("at_bottom", wide.bottom(), DISPLAY_HEIGHT);
-    drawn := screen.find("hi");
-    check("content aligned to the end of a wider view", drawn != null && drawn!!.right() == 60);
-    check("nothing is off the screen", !screen.anything_off_screen());
+        test("at_right: against the right edge") { expect(battery.right()).should_be(DISPLAY_WIDTH); };
+        test("at_top") { expect(battery.y).should_be(0); };
+        test("below + margin_top") { expect(title.y).should_be(battery.bottom() + 4); };
+        test("align_right: the same right edge") { expect(title.right()).should_be(battery.right()); };
+        test("text is 6 pixels a character") { expect(title.wide).should_be(18); };
+        test("size 2 is twice as wide") { expect(big.wide).should_be(24); };
+        test("... and twice as high") { expect(big.high).should_be(16); };
+        test("center: across") { expect(big.x).should_be((DISPLAY_WIDTH - 24) / 2); };
+        test("center: down") { expect(big.y).should_be((DISPLAY_HEIGHT - 16) / 2); };
+        test("at_bottom") { expect(wide.bottom()).should_be(DISPLAY_HEIGHT); };
+        drawn := screen.find("hi");
+        test("content aligned to the end of a wider view") { expect_true(drawn != null && drawn!!.right() == 60); };
+        test("nothing is off the screen") { expect_true(!screen.anything_off_screen()); };
 
-    // a hidden view is not drawn; text wider than its view is cut to whole characters
-    hidden := text("secret").hide();
-    cut := text("abcdefgh").width(20);
-    draw_frame(screen, relative().add(hidden).add(cut.below(hidden)));
-    check("a hidden view is not drawn", !screen.has("secret"));
-    check("text is cut to the characters that fit", screen.has("abc"));
+        // a hidden view is not drawn; text wider than its view is cut to whole characters
+        hidden := text("secret").hide();
+        cut := text("abcdefgh").width(20);
+        draw_frame(screen, relative().add(hidden).add(cut.below(hidden)));
+        test("a hidden view is not drawn") { expect_true(!screen.has("secret")); };
+        test("text is cut to the characters that fit") { expect_true(screen.has("abc")); };
 
-    // a container in a container
-    inner := relative();
-    inner.width(40).height(20);
-    dot := text("x");
-    inner.add(dot.at_right().at_bottom());
-    draw_frame(screen, relative().add(inner.at_right().at_bottom()));
-    check_equal("a nested container places its own views: across", dot.right(), DISPLAY_WIDTH);
-    check_equal("... and down", dot.bottom(), DISPLAY_HEIGHT);
+        // a container in a container
+        inner := relative();
+        inner.width(40).height(20);
+        dot := text("x");
+        inner.add(dot.at_right().at_bottom());
+        draw_frame(screen, relative().add(inner.at_right().at_bottom()));
+        test("a nested container places its own views: across") { expect(dot.right()).should_be(DISPLAY_WIDTH); };
+        test("... and down") { expect(dot.bottom()).should_be(DISPLAY_HEIGHT); };
+    };
 }
 
 def test_layout_mistakes() {
-    section("layout: mistakes are said, not looped on");
-    first := text("a");
-    second := text("b");
-    circle : _int64 = false;
-    try {
-        draw_frame(new fake_display(), relative().add(first.below(second)).add(second.below(first)));
-    } catch(e: layout_exception) {
-        circle = true;
-    }
-    check("two views placed by each other are refused", circle);
+    tests("layout: mistakes are said, not looped on") {
+        first := text("a");
+        second := text("b");
+        circle : _int64 = false;
+        try {
+            draw_frame(new fake_display(), relative().add(first.below(second)).add(second.below(first)));
+        } catch(e: layout_exception) {
+            circle = true;
+        }
+        test("two views placed by each other are refused") { expect_true(circle); };
 
-    third := text("d");
-    stranger := text("c");
-    outside : _int64 = false;
-    try {
-        draw_frame(new fake_display(), relative().add(third.right_of(stranger)));
-    } catch(e: layout_exception) {
-        outside = true;
-    }
-    check("a view placed against one that was never added is refused", outside);
+        third := text("d");
+        stranger := text("c");
+        outside : _int64 = false;
+        try {
+            draw_frame(new fake_display(), relative().add(third.right_of(stranger)));
+        } catch(e: layout_exception) {
+            outside = true;
+        }
+        test("a view placed against one that was never added is refused") { expect_true(outside); };
+    };
 }
 
 def test_menu() {
-    section("menu: the chosen line is marked and always shown");
-    screen := new fake_display();
-    lines := new list<string>();
-    for(i : _int64 = 0; i < 6; i++) { lines.add("line " + i); }
+    tests("menu: the chosen line is marked and always shown") {
+        screen := new fake_display();
+        lines := new list<string>();
+        for(i : _int64 = 0; i < 6; i++) { lines.add("line " + i); }
 
-    draw_frame(screen, relative().add(menu(lines, 1).rows(3)));
-    check("the first three lines are shown", screen.has("line 0") && screen.has("line 2") && !screen.has("line 3"));
-    marker := screen.find("item_selector");
-    chosen := screen.find("line 1");
-    check("the marker is on the chosen line", marker != null && chosen != null && marker!!.y == chosen!!.y);
+        draw_frame(screen, relative().add(menu(lines, 1).rows(3)));
+        test("the first three lines are shown") { expect_true(screen.has("line 0") && screen.has("line 2") && !screen.has("line 3")); };
+        marker := screen.find("item_selector");
+        chosen := screen.find("line 1");
+        test("the marker is on the chosen line") { expect_true(marker != null && chosen != null && marker!!.y == chosen!!.y); };
 
-    draw_frame(screen, relative().add(menu(lines, 5).rows(3)));
-    check("it scrolls to the chosen line", screen.has("line 5") && screen.has("line 3") && !screen.has("line 2"));
+        draw_frame(screen, relative().add(menu(lines, 5).rows(3)));
+        test("it scrolls to the chosen line") { expect_true(screen.has("line 5") && screen.has("line 3") && !screen.has("line 2")); };
+    };
 }
 
 def test_buttons() {
-    section("buttons: up, down, both, and holding");
-    time := new fake_clock();
-    time.advance(1000);
-    pins := new fake_gpio();
-    reader := new button_reader(pins, time, 28, 29);
+    tests("buttons: up, down, both, and holding") {
+        time := new fake_clock();
+        time.advance(1000);
+        pins := new fake_gpio();
+        reader := new button_reader(pins, time, 28, 29);
 
-    pins.force(28, true);
-    reader.step();
-    time.advance(50);
-    reader.step();
-    check_equal("nothing while the button is still down", reader.next(), BUTTON_NONE);
-    pins.force(28, false);
-    reader.step();
-    check_equal("up, on the release", reader.next(), BUTTON_UP);
-    check_equal("once", reader.next(), BUTTON_NONE);
-
-    pins.force(29, true);
-    reader.step();
-    time.advance(20);
-    pins.force(28, true);
-    reader.step();
-    time.advance(50);
-    pins.force(28, false);
-    pins.force(29, false);
-    reader.step();
-    check_equal("both together are select", reader.next(), BUTTON_SELECT);
-    check_equal("and nothing else", reader.next(), BUTTON_NONE);
-
-    pins.force(29, true);
-    for(i : _int64 = 0; i < 80; i++) {
+        pins.force(28, true);
         reader.step();
-        time.advance(10);
-    }
-    pins.force(29, false);
-    reader.step();
-    repeats : _int64 = 0;
-    while(reader.next() == BUTTON_DOWN) { repeats++; }
-    check_equal("held for 800 ms: down three times, and not again on the release", repeats, 3);
-
-    pins.force(28, true);
-    reader.step();
-    time.advance(3);
-    pins.force(28, false);
-    reader.step();
-    check_equal("a 3 ms blip is bounce", reader.next(), BUTTON_NONE);
-
-    // a long press: one button kept down for a second
-    pins.force(28, true);
-    for(i : _int64 = 0; i < 150; i++) {
+        time.advance(50);
         reader.step();
-        time.advance(10);
-    }
-    pins.force(28, false);
-    reader.step();
-    holds : _int64 = 0;
-    ups : _int64 = 0;
-    for(;;) {
-        event : _int64 = reader.next();
-        if(event == BUTTON_NONE) { break; }
-        if(event == BUTTON_HOLD) { holds++; }
-        if(event == BUTTON_UP) { ups++; }
-    }
-    check_equal("held for 1.5 s: one long press", holds, 1);
-    check_equal("... beside the repeats", ups, 5);
+        test("nothing while the button is still down") { expect(reader.next()).should_be(BUTTON_NONE); };
+        pins.force(28, false);
+        reader.step();
+        test("up, on the release") { expect(reader.next()).should_be(BUTTON_UP); };
+        test("once") { expect(reader.next()).should_be(BUTTON_NONE); };
+
+        pins.force(29, true);
+        reader.step();
+        time.advance(20);
+        pins.force(28, true);
+        reader.step();
+        time.advance(50);
+        pins.force(28, false);
+        pins.force(29, false);
+        reader.step();
+        test("both together are select") { expect(reader.next()).should_be(BUTTON_SELECT); };
+        test("and nothing else") { expect(reader.next()).should_be(BUTTON_NONE); };
+
+        pins.force(29, true);
+        for(i : _int64 = 0; i < 80; i++) {
+            reader.step();
+            time.advance(10);
+        }
+        pins.force(29, false);
+        reader.step();
+        repeats : _int64 = 0;
+        while(reader.next() == BUTTON_DOWN) { repeats++; }
+        test("held for 800 ms: down three times, and not again on the release") { expect(repeats).should_be(3); };
+
+        pins.force(28, true);
+        reader.step();
+        time.advance(3);
+        pins.force(28, false);
+        reader.step();
+        test("a 3 ms blip is bounce") { expect(reader.next()).should_be(BUTTON_NONE); };
+
+        // a long press: one button kept down for a second
+        pins.force(28, true);
+        for(i : _int64 = 0; i < 150; i++) {
+            reader.step();
+            time.advance(10);
+        }
+        pins.force(28, false);
+        reader.step();
+        holds : _int64 = 0;
+        ups : _int64 = 0;
+        for(;;) {
+            event : _int64 = reader.next();
+            if(event == BUTTON_NONE) { break; }
+            if(event == BUTTON_HOLD) { holds++; }
+            if(event == BUTTON_UP) { ups++; }
+        }
+        test("held for 1.5 s: one long press") { expect(holds).should_be(1); };
+        test("... beside the repeats") { expect(ups).should_be(5); };
+    };
 }
 
 /** a long press on the home screen opens the settings */
 def test_long_press_opens_settings() {
-    section("a long press opens the settings");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(4, 20);
-    check_equal("the home screen alone", t.app.screens.depth(), 1);
-    check("the buttons' power pin is an output", t.pins.is_output(BUTTON_POWER_PIN));
-    check("... and on", t.pins.read(BUTTON_POWER_PIN));
-    t.pins.force(UP_BUTTON_PIN, true);
-    t.run(60, 20);                          // 1.2 seconds
-    t.pins.force(UP_BUTTON_PIN, false);
-    t.run(4, 20);
-    check_equal("the settings are on top of it", t.app.screens.depth(), 2);
+    tests("a long press opens the settings") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(4, 20);
+        test("the home screen alone") { expect(t.app.screens.depth()).should_be(1); };
+        test("the buttons' power pin is an output") { expect_true(t.pins.is_output(BUTTON_POWER_PIN)); };
+        test("... and on") { expect_true(t.pins.read(BUTTON_POWER_PIN)); };
+        t.pins.force(UP_BUTTON_PIN, true);
+        t.run(60, 20);                          // 1.2 seconds
+        t.pins.force(UP_BUTTON_PIN, false);
+        t.run(4, 20);
+        test("the settings are on top of it") { expect(t.app.screens.depth()).should_be(2); };
+    };
 }
 
 // ---------------------------------------------------------------------------
@@ -241,349 +246,440 @@ def test_long_press_opens_settings() {
 // ---------------------------------------------------------------------------
 
 def test_splash_then_home() {
-    section("the splash, then home");
-    t := new bench();
-    t.app.start(new splash_screen(t.app));
-    t.run(5, 20);
-    check("the splash shows the name", t.panel.has("Project Dragonfly") && t.panel.has("product"));
-    check("nothing is off the screen", !t.panel.anything_off_screen());
-    t.run(120, 20);                         // 2.4 seconds
-    check("after two seconds it is gone", !t.panel.has("Project Dragonfly"));
-    check("home shows the clock", t.panel.find(t.app.state.clock_text) != null);
+    tests("the splash, then home") {
+        t := new bench();
+        t.app.start(new splash_screen(t.app));
+        t.run(5, 20);
+        test("the splash shows the name") { expect_true(t.panel.has("Project Dragonfly") && t.panel.has("product")); };
+        test("nothing is off the screen") { expect_true(!t.panel.anything_off_screen()); };
+        t.run(120, 20);                         // 2.4 seconds
+        test("after two seconds it is gone") { expect_true(!t.panel.has("Project Dragonfly")); };
+        test("home shows the clock") { expect_true(t.panel.find(t.app.state.clock_text) != null); };
+    };
 }
 
 def test_home_follows_the_drone() {
-    section("home shows what the drone says");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(3, 20);
-    check("connected (the drone answered the hello)", t.app.state.is_connected());
+    tests("home shows what the drone says") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(3, 20);
+        test("connected (the drone answered the hello)") { expect_true(t.app.state.is_connected()); };
 
-    t.send_telemetry(120, 42, 3, MODE_NORMAL);
-    t.run(4, 20);
-    check("the speed", t.panel.has("42"));
-    check("the altitude, as metres", t.panel.has("1.20"));
-    check("the battery picture for 3 bars", t.panel.has("battery_3"));
-    check("the mode picture", t.panel.has("normal_mode"));
-    check("full signal while telemetry is fresh", t.panel.has("signal_4"));
-    check("nothing is off the screen", !t.panel.anything_off_screen());
+        t.send_telemetry(120, 42, 3, MODE_NORMAL);
+        t.run(4, 20);
+        test("the speed") { expect_true(t.panel.has("42")); };
+        test("the altitude, as metres") { expect_true(t.panel.has("1.20")); };
+        test("the battery picture for 3 bars") { expect_true(t.panel.has("battery_3")); };
+        test("the mode picture") { expect_true(t.panel.has("normal_mode")); };
+        test("full signal while telemetry is fresh") { expect_true(t.panel.has("signal_4")); };
+        test("nothing is off the screen") { expect_true(!t.panel.anything_off_screen()); };
 
-    t.send_telemetry(5, 7, 1, MODE_SPORT);
-    t.run(4, 20);
-    check("the next reading replaces it", t.panel.has("0.05") && t.panel.has("battery_1") && t.panel.has("sport_mode") && !t.panel.has("1.20"));
+        t.send_telemetry(5, 7, 1, MODE_SPORT);
+        t.run(4, 20);
+        test("the next reading replaces it") { expect_true(t.panel.has("0.05") && t.panel.has("battery_1") && t.panel.has("sport_mode") && !t.panel.has("1.20")); };
 
-    t.drone.send(new notice(NOTICE_WARNING, "low battery").to_message());
-    t.run(10, 20);
-    check("a notice from the drone is shown", t.panel.has("low battery"));
-    t.run(260, 20);                         // more than four seconds
-    check("... for a few seconds", !t.panel.has("low battery"));
-    check("telemetry that stopped coming costs signal bars", t.app.state.signal < 4);
+        t.drone.send(new notice(NOTICE_WARNING, "low battery").to_message());
+        t.run(10, 20);
+        test("a notice from the drone is shown") { expect_true(t.panel.has("low battery")); };
+        t.run(260, 20);                         // more than four seconds
+        test("... for a few seconds") { expect_true(!t.panel.has("low battery")); };
+        test("telemetry that stopped coming costs signal bars") { expect_true(t.app.state.signal < 4); };
+    };
 }
 
 /** told to stop (q at the console): the screen is left blank and the light off */
 def test_shutting_down() {
-    section("shutting down");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.send_telemetry(300, 10, 4, MODE_NORMAL);
-    t.run(4, 20);
-    drawn : _int64 = t.panel.shown.size().value;
-    check("running: something is on the screen", drawn > 0);
-    check("running: the light is on", t.pins.read(CONNECTING_LIGHT_PIN));
-    t.app.shut_down();
-    drawn = t.panel.shown.size().value;
-    check_equal("stopped: things on the screen", drawn, 0);
-    check("stopped: the light is off", !t.pins.read(CONNECTING_LIGHT_PIN));
-    check("stopped: the buttons' power is off", !t.pins.read(BUTTON_POWER_PIN));
+    tests("shutting down") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.send_telemetry(300, 10, 4, MODE_NORMAL);
+        t.run(4, 20);
+        drawn : _int64 = t.panel.shown.size().value;
+        test("running: something is on the screen") { expect_true(drawn > 0); };
+        test("running: the light is on") { expect_true(t.pins.read(CONNECTING_LIGHT_PIN)); };
+        t.app.shut_down();
+        drawn = t.panel.shown.size().value;
+        test("stopped: things on the screen") { expect(drawn).should_be(0); };
+        test("stopped: the light is off") { expect_true(!t.pins.read(CONNECTING_LIGHT_PIN)); };
+        test("stopped: the buttons' power is off") { expect_true(!t.pins.read(BUTTON_POWER_PIN)); };
+    };
 }
 
 def test_losing_the_drone() {
-    section("losing the drone");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.send_telemetry(300, 10, 4, MODE_NORMAL);
-    t.run(4, 20);
-    check("flying: numbers on the screen", t.panel.has("3.00"));
-    check("the light is on", t.pins.read(CONNECTING_LIGHT_PIN));
+    tests("losing the drone") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.send_telemetry(300, 10, 4, MODE_NORMAL);
+        t.run(4, 20);
+        test("flying: numbers on the screen") { expect_true(t.panel.has("3.00")); };
+        test("the light is on") { expect_true(t.pins.read(CONNECTING_LIGHT_PIN)); };
 
-    t.air.first.set_blocked(true);
-    t.air.second.set_blocked(true);
-    t.run(120, 20);                         // 2.4 seconds of silence
-    check("the screen says so", t.panel.has("signal lost"));
-    check("the old numbers are gone", !t.panel.has("3.00"));
-    check("no signal bars", t.panel.has("signal_0"));
+        t.air.first.set_blocked(true);
+        t.air.second.set_blocked(true);
+        t.run(120, 20);                         // 2.4 seconds of silence
+        test("the screen says so") { expect_true(t.panel.has("signal lost")); };
+        test("the old numbers are gone") { expect_true(!t.panel.has("3.00")); };
+        test("no signal bars") { expect_true(t.panel.has("signal_0")); };
 
-    on : _int64 = 0;
-    off : _int64 = 0;
-    for(i : _int64 = 0; i < 100; i++) {
-        t.run(1, 20);
-        if(t.pins.read(CONNECTING_LIGHT_PIN)) { on++; } else { off++; }
-    }
-    check("the light blinks", on > 20 && off > 20);
+        on : _int64 = 0;
+        off : _int64 = 0;
+        for(i : _int64 = 0; i < 100; i++) {
+            t.run(1, 20);
+            if(t.pins.read(CONNECTING_LIGHT_PIN)) { on++; } else { off++; }
+        }
+        test("the light blinks") { expect_true(on > 20 && off > 20); };
 
-    t.air.first.set_blocked(false);
-    t.air.second.set_blocked(false);
-    t.run(60, 20);
-    t.send_telemetry(310, 10, 4, MODE_NORMAL);
-    t.run(4, 20);
-    check("back: numbers again", t.panel.has("3.10") && !t.panel.has("signal lost"));
+        t.air.first.set_blocked(false);
+        t.air.second.set_blocked(false);
+        t.run(60, 20);
+        t.send_telemetry(310, 10, 4, MODE_NORMAL);
+        t.run(4, 20);
+        test("back: numbers again") { expect_true(t.panel.has("3.10") && !t.panel.has("signal lost")); };
+    };
 }
 
 def test_settings() {
-    section("settings: the buttons, the drone, and the file");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(20, 20);
-    first := t.drone.next();
-    check("on connecting, the drone is told the chosen mode", first != null && set_mode.from_message(first!!) != null
-          && set_mode.from_message(first!!)!!.mode == MODE_NORMAL);
+    tests("settings: the buttons, the drone, and the file") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(20, 20);
+        first := t.drone.next();
+        test("on connecting, the drone is told the chosen mode") { expect_true(first != null && set_mode.from_message(first!!) != null
+              && set_mode.from_message(first!!)!!.mode == MODE_NORMAL); };
 
-    t.press_select();
-    check("both buttons open the settings", t.panel.has("Mode: normal") && t.panel.has("Channel: 121"));
-    check_equal("on top of home", t.app.screens.depth(), 2);
-    check("nothing is off the screen", !t.panel.anything_off_screen());
+        t.press_select();
+        test("both buttons open the settings") { expect_true(t.panel.has("Mode: normal") && t.panel.has("Channel: 121")); };
+        test("on top of home") { expect(t.app.screens.depth()).should_be(2); };
+        test("nothing is off the screen") { expect_true(!t.panel.anything_off_screen()); };
 
-    t.press_select();                       // the first line: the mode
-    t.run(20, 20);
-    check("the mode changed on the screen", t.panel.has("Mode: sport"));
-    told := t.drone.next();
-    check("and the drone was told", told != null && set_mode.from_message(told!!)!!.mode == MODE_SPORT);
-    check("and it is saved", t.saved.text != null && t.saved.saves == 1);
+        t.press_select();                       // the first line: the mode
+        t.run(20, 20);
+        test("the mode changed on the screen") { expect_true(t.panel.has("Mode: sport")); };
+        told := t.drone.next();
+        test("and the drone was told") { expect_true(told != null && set_mode.from_message(told!!)!!.mode == MODE_SPORT); };
+        test("and it is saved") { expect_true(t.saved.text != null && t.saved.saves == 1); };
 
-    t.press_down();
-    t.press_select();                       // the second line: the screen
-    check("the display was dimmed", t.panel.is_dim && t.panel.has("Screen: dim"));
+        t.press_down();
+        t.press_select();                       // the second line: the screen
+        test("the display was dimmed") { expect_true(t.panel.is_dim && t.panel.has("Screen: dim")); };
 
-    t.press_up();
-    t.press_up();                           // from the first line up: around to the last
-    marker := t.panel.find("item_selector");
-    back := t.panel.find("Back");
-    check("up from the first line goes to the last", marker != null && back != null && marker!!.y == back!!.y);
-    t.press_select();
-    check_equal("Back returns to home", t.app.screens.depth(), 1);
-    check("home is shown again", !t.panel.has("Back"));
+        t.press_up();
+        t.press_up();                           // from the first line up: around to the last
+        marker := t.panel.find("item_selector");
+        back := t.panel.find("Back");
+        test("up from the first line goes to the last") { expect_true(marker != null && back != null && marker!!.y == back!!.y); };
+        t.press_select();
+        test("Back returns to home") { expect(t.app.screens.depth()).should_be(1); };
+        test("home is shown again") { expect_true(!t.panel.has("Back")); };
 
-    // off and on again: the settings are still there, and the drone is told again
-    t.make_app();
-    t.app.start(new home_screen(t.app));
-    check_equal("the mode was loaded", t.app.chosen.flight_mode, MODE_SPORT);
-    check("the dimming was loaded", t.app.chosen.dim_screen);
-    while(t.drone.next() != null) { }
-    t.run(40, 20);
-    again := t.drone.next();
-    check("a restarted controller tells the drone its mode", again != null && set_mode.from_message(again!!) != null
-          && set_mode.from_message(again!!)!!.mode == MODE_SPORT);
+        // off and on again: the settings are still there, and the drone is told again
+        t.make_app();
+        t.app.start(new home_screen(t.app));
+        test("the mode was loaded") { expect(t.app.chosen.flight_mode).should_be(MODE_SPORT); };
+        test("the dimming was loaded") { expect_true(t.app.chosen.dim_screen); };
+        while(t.drone.next() != null) { }
+        t.run(40, 20);
+        again := t.drone.next();
+        test("a restarted controller tells the drone its mode") { expect_true(again != null && set_mode.from_message(again!!) != null
+              && set_mode.from_message(again!!)!!.mode == MODE_SPORT); };
+    };
 }
 
 def test_mode_waits_for_the_drone() {
-    section("a mode the drone has not confirmed is marked");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(20, 20);
-    t.press_select();
-    t.air.first.set_blocked(true);          // the drone cannot hear the controller any more
-    t.press_select();
-    t.run(10, 20);
-    check("the unconfirmed mode has a star", t.panel.has("Mode: sport *"));
-    t.air.first.set_blocked(false);
-    t.run(200, 20);
-    check("confirmed: the star is gone", t.panel.has("Mode: sport") && !t.panel.has("Mode: sport *"));
+    tests("a mode the drone has not confirmed is marked") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(20, 20);
+        t.press_select();
+        t.air.first.set_blocked(true);          // the drone cannot hear the controller any more
+        t.press_select();
+        t.run(10, 20);
+        test("the unconfirmed mode has a star") { expect_true(t.panel.has("Mode: sport *")); };
+        t.air.first.set_blocked(false);
+        t.run(200, 20);
+        test("confirmed: the star is gone") { expect_true(t.panel.has("Mode: sport") && !t.panel.has("Mode: sport *")); };
+    };
 }
 
 /** the channels screen: the bars, then moving both sides to the quietest channel */
 def test_channels_screen() {
-    section("the channels screen");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(20, 20);
-    check("connected", t.app.state.is_connected());
+    tests("the channels screen") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(20, 20);
+        test("connected") { expect_true(t.app.state.is_connected()); };
 
-    t.air.first.make_busy(37);
-    t.press_select();                       // the settings
-    check("the settings show the channel", t.panel.has("Channel: 121"));
-    t.press_down();
-    t.press_down();
-    t.press_down();
-    t.press_select();                       // the fourth line: the channel
-    check_equal("the channels screen is open", t.app.screens.depth(), 3);
-    check("it scans", t.app.scanner != null);
-    t.run(60, 10);
-    check("the band is drawn", t.panel.has("spectrum"));
-    check("nothing is off the screen", !t.panel.anything_off_screen());
-    check("it names the busiest and the quietest", t.panel.has("on121 best125 busy37"));
-    check("the Wi-Fi channel numbers are under the bars", t.panel.has("1") && t.panel.has("6") && t.panel.has("11") && t.panel.has("14"));
+        t.air.first.make_busy(37);
+        t.press_select();                       // the settings
+        test("the settings show the channel") { expect_true(t.panel.has("Channel: 121")); };
+        t.press_down();
+        t.press_down();
+        t.press_down();
+        t.press_select();                       // the fourth line: the channel
+        test("the channels screen is open") { expect(t.app.screens.depth()).should_be(3); };
+        test("it scans") { expect_true(t.app.scanner != null); };
+        t.run(60, 10);
+        test("the band is drawn") { expect_true(t.panel.has("spectrum")); };
+        test("nothing is off the screen") { expect_true(!t.panel.anything_off_screen()); };
+        test("it names the busiest and the quietest") { expect_true(t.panel.has("on121 best125 busy37")); };
+        test("the Wi-Fi channel numbers are under the bars") { expect_true(t.panel.has("1") && t.panel.has("6") && t.panel.has("11") && t.panel.has("14")); };
 
-    t.press_select();                       // move to the quietest
-    t.run(10, 10);
-    check_equal("the controller moved once the drone acknowledged", t.app.channel(), 125);
-    check_equal("... its radio too", t.air.first.current_channel(), 125);
+        t.press_select();                       // move to the quietest
+        t.run(10, 10);
+        test("the controller moved once the drone acknowledged") { expect(t.app.channel()).should_be(125); };
+        test("... its radio too") { expect(t.air.first.current_channel()).should_be(125); };
 
-    // this test's "drone" is a bare link that does not move: the link calls it lost after
-    // 1.5 s of silence, and 3 s after that the controller goes home
-    t.run(300, 10);
-    check_equal("alone on 125 for 3 s: not yet home", t.app.channel(), 125);
-    t.run(200, 10);
-    check_equal("alone on 125: back on the home channel", t.app.channel(), RADIO_CHANNEL);
+        // this test's "drone" is a bare link that does not move: the link calls it lost after
+        // 1.5 s of silence, and 3 s after that the controller goes home
+        t.run(300, 10);
+        test("alone on 125 for 3 s: not yet home") { expect(t.app.channel()).should_be(125); };
+        t.run(200, 10);
+        test("alone on 125: back on the home channel") { expect(t.app.channel()).should_be(RADIO_CHANNEL); };
 
-    // the jam screen shows the centre, a live seconds countdown, and the band; the jam floods in
-    // C++ a second at a time (driven here by hand so the screen can be checked before it runs out)
-    t.app.chosen.jam_seconds = 20;
-    t.app.chosen.jam_channel = 80;
-    before : _int64 = t.air.first.jams;
-    check("a jam starts", t.app.start_jam());
-    check("a jam is running", t.app.is_jamming());
-    t.app.screens.open(new jam_screen(t.app));
-    t.app.screens.draw(t.panel);            // the jam screen, as the loop draws it each second
-    check("the centre and the seconds left are shown", t.panel.has("jamming ch 80 (20s)"));
-    check("the band is shown (80 +/- 11, the default width)", t.panel.has("69 - 91"));
+        // the jam screen shows the centre, a live seconds countdown, and the band; the jam floods in
+        // C++ a second at a time (driven here by hand so the screen can be checked before it runs out)
+        t.app.chosen.jam_seconds = 20;
+        t.app.chosen.jam_channel = 80;
+        before : _int64 = t.air.first.jams;
+        test("a jam starts") { expect_true(t.app.start_jam()); };
+        test("a jam is running") { expect_true(t.app.is_jamming()); };
+        t.app.screens.open(new jam_screen(t.app));
+        t.app.screens.draw(t.panel);            // the jam screen, as the loop draws it each second
+        test("the centre and the seconds left are shown") { expect_true(t.panel.has("jamming ch 80 (20s)")); };
+        test("the band is shown (80 +/- 11, the default width)") { expect_true(t.panel.has("69 - 91")); };
 
-    // let it run out: the loop floods a chunk each step and the clock moves on past the 20 s
-    t.run(210, 100);
-    check_equal("the configured channel is jammed", t.air.first.last_jam_channel, 80);
-    check("the radio was flooded", t.air.first.jams > before);
-    check("the jam ended by itself", !t.app.is_jamming());
-    check_equal("it returned to the channels screen", t.app.screens.depth(), 3);
+        // let it run out: the loop floods a chunk each step and the clock moves on past the 20 s
+        t.run(210, 100);
+        test("the configured channel is jammed") { expect(t.air.first.last_jam_channel).should_be(80); };
+        test("the radio was flooded") { expect_true(t.air.first.jams > before); };
+        test("the jam ended by itself") { expect_true(!t.app.is_jamming()); };
+        test("it returned to the channels screen") { expect(t.app.screens.depth()).should_be(3); };
 
-    t.press_down();                         // Move -> Jam
-    t.press_down();                         // Jam -> Back
-    t.press_select();
-    check_equal("Back: to the settings", t.app.screens.depth(), 2);
-    check("and the scanner stopped", t.app.scanner == null);
+        t.press_down();                         // Move -> Jam
+        t.press_down();                         // Jam -> Back
+        t.press_select();
+        test("Back: to the settings") { expect(t.app.screens.depth()).should_be(2); };
+        test("and the scanner stopped") { expect_true(t.app.scanner == null); };
+    };
 }
 
 /** a jam with no time set, and on a radio that cannot jam, does nothing */
 def test_jam_guards() {
-    section("jam: off, and no radio");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(20, 20);
-    t.app.chosen.jam_seconds = 0;           // off
-    before : _int64 = t.air.first.jams;
-    t.app.start_jam();
-    t.run(4, 10);
-    check("off: nothing is jammed", !t.app.is_jamming() && t.air.first.jams == before);
+    tests("jam: off, and no radio") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(20, 20);
+        t.app.chosen.jam_seconds = 0;           // off
+        before : _int64 = t.air.first.jams;
+        t.app.start_jam();
+        t.run(4, 10);
+        test("off: nothing is jammed") { expect_true(!t.app.is_jamming() && t.air.first.jams == before); };
+    };
 }
 
 /** the power-off line asks to confirm; No goes back, Yes powers off */
 /** the reusable value picker: scroll, speed up, and save or cancel */
 /** a channel's frequency and the Wi-Fi channel it sits on (a floor: it steps at each centre) */
 def test_channel_frequency() {
-    section("channel -> frequency and Wi-Fi channel");
-    picker := new jam_channel_setting(new settings(new memory_store()));
-    check_text("channel 0 = 2400 MHz, below Wi-Fi 1 shows 1", picker.note(0), "2400 MHz  WiFi 1");
-    check_text("channel 12 = Wi-Fi 1", picker.note(12), "2412 MHz  WiFi 1");
-    check_text("channel 37 = Wi-Fi 6", picker.note(37), "2437 MHz  WiFi 6");
-    check_text("between 6 and 7 still names 6", picker.note(41), "2441 MHz  WiFi 6");
-    check_text("channel 42 steps to Wi-Fi 7", picker.note(42), "2442 MHz  WiFi 7");
-    check_text("channel 62 = Wi-Fi 11", picker.note(62), "2462 MHz  WiFi 11");
-    check_text("channel 84 = Wi-Fi 14", picker.note(84), "2484 MHz  WiFi 14");
-    check_text("high channels stay Wi-Fi 14", picker.note(125), "2525 MHz  WiFi 14");
+    tests("channel -> frequency and Wi-Fi channel") {
+        picker := new jam_channel_setting(new settings(new memory_store()));
+        test("channel 0 = 2400 MHz, below Wi-Fi 1 shows 1") { expect(picker.note(0)).should_be("2400 MHz  WiFi 1"); };
+        test("channel 12 = Wi-Fi 1") { expect(picker.note(12)).should_be("2412 MHz  WiFi 1"); };
+        test("channel 37 = Wi-Fi 6") { expect(picker.note(37)).should_be("2437 MHz  WiFi 6"); };
+        test("between 6 and 7 still names 6") { expect(picker.note(41)).should_be("2441 MHz  WiFi 6"); };
+        test("channel 42 steps to Wi-Fi 7") { expect(picker.note(42)).should_be("2442 MHz  WiFi 7"); };
+        test("channel 62 = Wi-Fi 11") { expect(picker.note(62)).should_be("2462 MHz  WiFi 11"); };
+        test("channel 84 = Wi-Fi 14") { expect(picker.note(84)).should_be("2484 MHz  WiFi 14"); };
+        test("high channels stay Wi-Fi 14") { expect(picker.note(125)).should_be("2525 MHz  WiFi 14"); };
+    };
 }
 
 def test_picker() {
-    section("the value picker");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(20, 20);
-    t.app.chosen.set_jam_channel(10);
-    t.press_select();                       // the settings
-    for(i : _int64 = 0; i < 5; i++) { t.press_down(); }   // down to "Jam ch"
-    t.press_select();                       // opens the picker
-    check_equal("the picker is open", t.app.screens.depth(), 3);
-    check("its title", t.panel.has("Jam channel"));
-    check("the value now", t.panel.has("10"));
+    tests("the value picker") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(20, 20);
+        t.app.chosen.set_jam_channel(10);
+        t.press_select();                       // the settings
+        for(i : _int64 = 0; i < 5; i++) { t.press_down(); }   // down to "Jam ch"
+        t.press_select();                       // opens the picker
+        test("the picker is open") { expect(t.app.screens.depth()).should_be(3); };
+        test("its title") { expect_true(t.panel.has("Jam channel")); };
+        test("the value now") { expect_true(t.panel.has("10")); };
 
-    check("the value's frequency and Wi-Fi channel are shown", t.panel.has("2410 MHz  WiFi 1"));
-    t.press_down();                         // 10 -> 11
-    check("the value went up", t.panel.has("11"));
-    t.press_select();                       // ask to save
-    check("it asks to save", t.panel.has("[Save]"));
-    t.press_down();                         // Save -> Cancel
-    check("cancel can be chosen", t.panel.has("[Cancel]"));
-    t.press_select();                       // cancel
-    check_equal("cancel: back to the settings", t.app.screens.depth(), 2);
-    check_equal("cancel changed nothing", t.app.chosen.jam_channel, 10);
+        test("the value's frequency and Wi-Fi channel are shown") { expect_true(t.panel.has("2410 MHz  WiFi 1")); };
+        t.press_down();                         // 10 -> 11
+        test("the value went up") { expect_true(t.panel.has("11")); };
+        t.press_select();                       // ask to save
+        test("it asks to save") { expect_true(t.panel.has("[Save]")); };
+        t.press_down();                         // Save -> Cancel
+        test("cancel can be chosen") { expect_true(t.panel.has("[Cancel]")); };
+        t.press_select();                       // cancel
+        test("cancel: back to the settings") { expect(t.app.screens.depth()).should_be(2); };
+        test("cancel changed nothing") { expect(t.app.chosen.jam_channel).should_be(10); };
 
-    // open again, move and save
-    t.press_select();                       // the picker again (marker still on Jam ch)
-    t.press_down();
-    t.press_down();                         // 10 -> 12
-    t.press_select();                       // ask to save ([Save] is marked first)
-    t.press_select();                       // save
-    check_equal("save: back to the settings", t.app.screens.depth(), 2);
-    check_equal("the new value was saved", t.app.chosen.jam_channel, 12);
+        // open again, move and save
+        t.press_select();                       // the picker again (marker still on Jam ch)
+        t.press_down();
+        t.press_down();                         // 10 -> 12
+        t.press_select();                       // ask to save ([Save] is marked first)
+        t.press_select();                       // save
+        test("save: back to the settings") { expect(t.app.screens.depth()).should_be(2); };
+        test("the new value was saved") { expect(t.app.chosen.jam_channel).should_be(12); };
 
-    // holding speeds up: eight quick presses move much more than eight
-    t.app.chosen.set_jam_channel(0);
-    t.press_select();                       // the picker
-    for(i : _int64 = 0; i < 8; i++) { t.press_down(); }
-    t.press_select();
-    t.press_select();                       // save
-    check("holding moved far more than eight steps", t.app.chosen.jam_channel > 8);
+        // holding speeds up: eight quick presses move much more than eight
+        t.app.chosen.set_jam_channel(0);
+        t.press_select();                       // the picker
+        for(i : _int64 = 0; i < 8; i++) { t.press_down(); }
+        t.press_select();
+        t.press_select();                       // save
+        test("holding moved far more than eight steps") { expect_true(t.app.chosen.jam_channel > 8); };
+    };
 }
 
 def test_power_off() {
-    section("power off: confirm, no and yes");
-    t := new bench();
-    t.app.start(new home_screen(t.app));
-    t.run(20, 20);
-    t.press_select();                       // the settings
-    // down to "Power off": mode, screen, power, channel, jam, jam ch, jam width, power off
-    for(i : _int64 = 0; i < 7; i++) { t.press_down(); }
-    t.press_select();
-    check_equal("the confirm screen is open", t.app.screens.depth(), 3);
-    check("it asks", t.panel.has("Are you sure you would"));
-    check("No is marked to begin with", t.panel.has("[No]"));
-    check("the program is still running", t.app.is_running());
+    tests("power off: confirm, no and yes") {
+        t := new bench();
+        t.app.start(new home_screen(t.app));
+        t.run(20, 20);
+        t.press_select();                       // the settings
+        // down to "Power off": mode, screen, power, channel, jam, jam ch, jam width, power off
+        for(i : _int64 = 0; i < 7; i++) { t.press_down(); }
+        t.press_select();
+        test("the confirm screen is open") { expect(t.app.screens.depth()).should_be(3); };
+        test("it asks") { expect_true(t.panel.has("Are you sure you would")); };
+        test("No is marked to begin with") { expect_true(t.panel.has("[No]")); };
+        test("the program is still running") { expect_true(t.app.is_running()); };
 
-    t.press_up();                           // No -> Yes
-    check("Yes is marked now", t.panel.has("[Yes]"));
-    t.press_down();                         // back to No
-    check("No again", t.panel.has("[No]"));
+        t.press_up();                           // No -> Yes
+        test("Yes is marked now") { expect_true(t.panel.has("[Yes]")); };
+        t.press_down();                         // back to No
+        test("No again") { expect_true(t.panel.has("[No]")); };
 
-    t.press_select();                       // No: back to the settings
-    check_equal("No returns to the settings", t.app.screens.depth(), 2);
-    check("still running", t.app.is_running());
+        t.press_select();                       // No: back to the settings
+        test("No returns to the settings") { expect(t.app.screens.depth()).should_be(2); };
+        test("still running") { expect_true(t.app.is_running()); };
 
-    // open it again (the marker is still on "Power off") and say Yes
-    t.press_select();                       // the confirm screen
-    check_equal("the confirm screen is open again", t.app.screens.depth(), 3);
-    t.press_up();                           // No -> Yes
-    t.press_select();                       // Yes
-    check("Yes powers off", t.app.wants_power_off && !t.app.is_running());
+        // open it again (the marker is still on "Power off") and say Yes
+        t.press_select();                       // the confirm screen
+        test("the confirm screen is open again") { expect(t.app.screens.depth()).should_be(3); };
+        t.press_up();                           // No -> Yes
+        t.press_select();                       // Yes
+        test("Yes powers off") { expect_true(t.app.wants_power_off && !t.app.is_running()); };
+    };
 }
 
 def test_settings_file() {
-    section("the settings text: what is not understood is skipped");
-    store := new memory_store();
-    store.text = "flight_mode=1\nsomething_new=7\ndim_screen=1\nradio_power=9\nutc_offset=-3\ngarbage\n";
-    loaded := new settings(store);
-    check_equal("flight_mode", loaded.flight_mode, MODE_SPORT);
-    check("dim_screen", loaded.dim_screen);
-    check_equal("a radio power that does not exist is not taken", loaded.radio_power, 0);
-    check_equal("a negative number", loaded.utc_offset, 0 - 3);
-    check_text("the clock: five past nine", clock_text_of(9 * 60 + 5), "09:05");
+    tests("the settings text: what is not understood is skipped") {
+        store := new memory_store();
+        store.text = "flight_mode=1\nsomething_new=7\ndim_screen=1\nradio_power=9\nutc_offset=-3\ngarbage\n";
+        loaded := new settings(store);
+        test("flight_mode") { expect(loaded.flight_mode).should_be(MODE_SPORT); };
+        test("dim_screen") { expect_true(loaded.dim_screen); };
+        test("a radio power that does not exist is not taken") { expect(loaded.radio_power).should_be(0); };
+        test("a negative number") { expect(loaded.utc_offset).should_be(0 - 3); };
+        test("the clock: five past nine") { expect(clock_text_of(9 * 60 + 5)).should_be("09:05"); };
 
-    // the jam settings cycle and are kept
-    fresh := new memory_store();
-    s := new settings(fresh);
-    check_equal("jam is off to begin with", s.jam_seconds, 0);
-    s.change_jam_seconds();
-    s.change_jam_seconds();
-    check_equal("two steps: 20 seconds", s.jam_seconds, 20);
-    for(i : _int64 = 0; i < 6; i++) { s.change_jam_seconds(); }   // 20 -> 30 40 50 60 0 10
-    check_equal("past 60 it goes back round", s.jam_seconds, 10);
-    s.change_jam_channel();
-    check_equal("the jam channel moved", s.jam_channel, 122);
-    reloaded := new settings(fresh);
-    check_equal("the jam time was kept", reloaded.jam_seconds, 10);
-    check_equal("the jam channel was kept", reloaded.jam_channel, 122);
+        // the jam settings cycle and are kept
+        fresh := new memory_store();
+        s := new settings(fresh);
+        test("jam is off to begin with") { expect(s.jam_seconds).should_be(0); };
+        s.change_jam_seconds();
+        s.change_jam_seconds();
+        test("two steps: 20 seconds") { expect(s.jam_seconds).should_be(20); };
+        for(i : _int64 = 0; i < 6; i++) { s.change_jam_seconds(); }   // 20 -> 30 40 50 60 0 10
+        test("past 60 it goes back round") { expect(s.jam_seconds).should_be(10); };
+        s.change_jam_channel();
+        test("the jam channel moved") { expect(s.jam_channel).should_be(122); };
+        reloaded := new settings(fresh);
+        test("the jam time was kept") { expect(reloaded.jam_seconds).should_be(10); };
+        test("the jam channel was kept") { expect(reloaded.jam_channel).should_be(122); };
 
-    bad := new memory_store();
-    bad.text = "jam_seconds=25\njam_channel=200\n";           // not a multiple of ten; past 125
-    odd := new settings(bad);
-    check_equal("a jam time that is not allowed is skipped", odd.jam_seconds, 0);
-    check_equal("a jam channel that does not exist is skipped", odd.jam_channel, 121);
+        bad := new memory_store();
+        bad.text = "jam_seconds=25\njam_channel=200\n";           // not a multiple of ten; past 125
+        odd := new settings(bad);
+        test("a jam time that is not allowed is skipped") { expect(odd.jam_seconds).should_be(0); };
+        test("a jam channel that does not exist is skipped") { expect(odd.jam_channel).should_be(121); };
+    };
+}
+
+/**
+ * The settings again - with a MOCK store. The tests above use memory_store, a
+ * small working store, to check what the settings END UP as. These check how
+ * the store is USED: read once, written once per change, never written for a
+ * value that is refused. A mock is written nowhere: mock<settings_store>()
+ * makes one, and its load() gives null (no file yet) unless a test says more.
+ */
+def test_settings_use_their_store_properly() {
+    tests("settings and their store: what is asked of the store (a mock)") {
+        test("making the settings reads the store once and writes nothing") {
+            store := mock<settings_store>();
+            fresh := new settings(store);
+
+            verify { store.load(); }.once();
+            verify { store.save(any_text()); }.never();
+        };
+
+        test("a store with nothing in it gives the defaults") {
+            fresh := new settings(mock<settings_store>());
+
+            expect(fresh.flight_mode).should_be(MODE_NORMAL);
+            expect(fresh.jam_channel).should_be(121);
+            expect(fresh.jam_seconds).should_be(0);
+        };
+
+        test("what the store hands over is what the settings start with") {
+            store := mock<settings_store>();
+            given { store.load(); }.returns("flight_mode=1\ndim_screen=1\n");
+
+            loaded := new settings(store);
+
+            expect(loaded.flight_mode).should_be(MODE_SPORT);
+            expect_true(loaded.dim_screen);
+        };
+
+        test("every change is written, once each") {
+            store := mock<settings_store>();
+            changed := new settings(store);
+
+            changed.change_flight_mode(MODE_SPORT);
+            changed.change_dim_screen(true);
+            changed.change_jam_seconds();
+
+            verify { store.save(any_text()); }.times(3);
+        };
+
+        test("a value that is refused is not written") {
+            store := mock<settings_store>();
+            careful := new settings(store);
+
+            careful.set_jam_channel(500);           // there is no channel 500
+            careful.set_jam_width(0);               // a jam at least one channel wide
+            careful.set_jam_seconds(0 - 5);
+
+            verify { store.save(any_text()); }.never();
+            expect(careful.jam_channel).should_be(121);
+        };
+
+        test("the text that is written carries the new value") {
+            store := mock<settings_store>();
+            changed := new settings(store);
+
+            changed.change_flight_mode(MODE_SPORT);
+
+            written : string = (store as mock).last_argument("save") as string;
+            expect(written).should_contain("flight_mode=1");
+            expect(written).should_contain("jam_channel=121");
+        };
+
+        test("a store that fails does not go unnoticed") {
+            store := mock<settings_store>();
+            given { store.save(any_text()); }.throws(new illegal_state_exception("the card is full"));
+            unlucky := new settings(store);
+
+            expect_throws<illegal_state_exception>() { unlucky.change_dim_screen(true); };
+        };
+    };
 }
 
 def main(args: string[]) : int {
@@ -604,5 +700,7 @@ def main(args: string[]) : int {
     test_power_off();
     test_channel_frequency();
     test_picker();
-    return finish();
+    test_settings_use_their_store_properly();
+    finish_tests();
+    return 0;
 }

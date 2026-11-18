@@ -6,7 +6,6 @@
     "build"
   ],
   "extern_lib": [
-    "../../link/src",
-    "../support"
+    "../../link/src"
   ]
 }

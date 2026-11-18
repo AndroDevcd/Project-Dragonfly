@@ -1,6 +1,6 @@
 mod main;
 
-import ( std, checks, link, link.hardware, link.messages,
+import ( std, std.testing, link, link.hardware, link.messages,
          controller, controller.hardware, controller.screens, drone, drone.hardware );
 
 /**
@@ -59,101 +59,105 @@ class flight {
 }
 
 def test_a_flight() {
-    section("a flight: both programs, end to end");
-    f := new flight();
-    f.ground.cm = 85;
-    f.power.bars = 3;
-    f.run(60, 10);
+    tests("a flight: both programs, end to end") {
+        f := new flight();
+        f.ground.cm = 85;
+        f.power.bars = 3;
+        f.run(60, 10);
 
-    check("the controller found the drone", f.app.state.is_connected());
-    check("the drone left its failsafe", !f.computer.state.failsafe);
-    check("the drone's height is on the pilot's screen", f.panel.has("0.85"));
-    check("the drone's battery is on the pilot's screen", f.panel.has("battery_3"));
-    check("full signal", f.panel.has("signal_4"));
-    check_equal("the drone was told the saved mode", f.computer.state.mode, MODE_NORMAL);
+        test("the controller found the drone") { expect_true(f.app.state.is_connected()); };
+        test("the drone left its failsafe") { expect_true(!f.computer.state.failsafe); };
+        test("the drone's height is on the pilot's screen") { expect_true(f.panel.has("0.85")); };
+        test("the drone's battery is on the pilot's screen") { expect_true(f.panel.has("battery_3")); };
+        test("full signal") { expect_true(f.panel.has("signal_4")); };
+        test("the drone was told the saved mode") { expect(f.computer.state.mode).should_be(MODE_NORMAL); };
 
-    // the pilot switches to sport mode in the settings
-    f.press(true, true);                    // open the settings
-    f.press(true, true);                    // the first line: the mode
-    f.run(30, 10);
-    check_equal("the drone is in sport mode", f.computer.state.mode, MODE_SPORT);
-    check("the screen shows it confirmed", f.panel.has("Mode: sport") && !f.panel.has("Mode: sport *"));
-    f.run(40, 10);
-    check("the drone's telemetry says sport too: the status bar's picture", f.panel.has("sport_mode"));
+        // the pilot switches to sport mode in the settings
+        f.press(true, true);                    // open the settings
+        f.press(true, true);                    // the first line: the mode
+        f.run(30, 10);
+        test("the drone is in sport mode") { expect(f.computer.state.mode).should_be(MODE_SPORT); };
+        test("the screen shows it confirmed") { expect_true(f.panel.has("Mode: sport") && !f.panel.has("Mode: sport *")); };
+        f.run(40, 10);
+        test("the drone's telemetry says sport too: the status bar's picture") { expect_true(f.panel.has("sport_mode")); };
 
-    // the drone climbs
-    f.ground.cm = 240;
-    f.run(60, 10);
-    f.press(true, false);                   // up from the first line wraps straight to "Back"
-    f.press(true, true);
-    f.run(10, 10);
-    check("home shows the new height", f.panel.has("2.40"));
+        // the drone climbs
+        f.ground.cm = 240;
+        f.run(60, 10);
+        f.press(true, false);                   // up from the first line wraps straight to "Back"
+        f.press(true, true);
+        f.run(10, 10);
+        test("home shows the new height") { expect_true(f.panel.has("2.40")); };
+    };
 }
 
 def test_out_of_range_and_back() {
-    section("out of range, and back");
-    f := new flight();
-    f.ground.cm = 300;
-    f.run(60, 10);
-    check("flying", f.panel.has("3.00") && !f.computer.state.failsafe);
+    tests("out of range, and back") {
+        f := new flight();
+        f.ground.cm = 300;
+        f.run(60, 10);
+        test("flying") { expect_true(f.panel.has("3.00") && !f.computer.state.failsafe); };
 
-    f.air.first.set_blocked(true);
-    f.air.second.set_blocked(true);
-    f.run(250, 10);
-    check("the pilot is told", f.panel.has("signal lost"));
-    check("the drone goes to its failsafe", f.computer.state.failsafe);
-    check_equal("... and descends gently", f.thrust.throttle, FAILSAFE_THROTTLE);
+        f.air.first.set_blocked(true);
+        f.air.second.set_blocked(true);
+        f.run(250, 10);
+        test("the pilot is told") { expect_true(f.panel.has("signal lost")); };
+        test("the drone goes to its failsafe") { expect_true(f.computer.state.failsafe); };
+        test("... and descends gently") { expect(f.thrust.throttle).should_be(FAILSAFE_THROTTLE); };
 
-    f.air.first.set_blocked(false);
-    f.air.second.set_blocked(false);
-    f.run(200, 10);
-    check("connected again", f.app.state.is_connected() && !f.computer.state.failsafe);
-    check("the height is back on the screen", f.panel.has("3.00"));
-    check("the drone's notice reached the pilot", f.app.state.notice_text == "link restored" || f.panel.has("3.00"));
+        f.air.first.set_blocked(false);
+        f.air.second.set_blocked(false);
+        f.run(200, 10);
+        test("connected again") { expect_true(f.app.state.is_connected() && !f.computer.state.failsafe); };
+        test("the height is back on the screen") { expect_true(f.panel.has("3.00")); };
+        test("the drone's notice reached the pilot") { expect_true(f.app.state.notice_text == "link restored" || f.panel.has("3.00")); };
+    };
 }
 
 def test_a_bad_radio_day() {
-    section("one frame in four lost, both ways");
-    f := new flight();
-    f.air.first.lose_every(4);
-    f.air.second.lose_every(4);
-    f.ground.cm = 150;
-    f.run(300, 10);
-    check("still connected", f.app.state.is_connected());
-    check("the height still arrives", f.panel.has("1.50"));
+    tests("one frame in four lost, both ways") {
+        f := new flight();
+        f.air.first.lose_every(4);
+        f.air.second.lose_every(4);
+        f.ground.cm = 150;
+        f.run(300, 10);
+        test("still connected") { expect_true(f.app.state.is_connected()); };
+        test("the height still arrives") { expect_true(f.panel.has("1.50")); };
 
-    f.press(true, true);
-    f.press(true, true);
-    f.run(300, 10);
-    check_equal("a mode change still gets through", f.computer.state.mode, MODE_SPORT);
-    check("and frames really were lost on the way", f.air.first.lost > 3 && f.air.second.lost > 3);
+        f.press(true, true);
+        f.press(true, true);
+        f.run(300, 10);
+        test("a mode change still gets through") { expect(f.computer.state.mode).should_be(MODE_SPORT); };
+        test("and frames really were lost on the way") { expect_true(f.air.first.lost > 3 && f.air.second.lost > 3); };
+    };
 }
 
 /** moving both to another channel; and the way back when the drone's acknowledgement is lost */
 def test_changing_channel() {
-    section("changing channel: both programs");
-    f := new flight();
-    f.run(60, 10);
-    check("connected on the home channel", f.app.state.is_connected() && f.app.channel() == RADIO_CHANNEL);
+    tests("changing channel: both programs") {
+        f := new flight();
+        f.run(60, 10);
+        test("connected on the home channel") { expect_true(f.app.state.is_connected() && f.app.channel() == RADIO_CHANNEL); };
 
-    check("the change is sent", f.app.change_channel(90));
-    f.run(5, 10);
-    check_equal("the drone moved", f.air.second.current_channel(), 90);
-    check_equal("the controller moved after it", f.air.first.current_channel(), 90);
-    f.run(100, 10);
-    check("still connected, on 90", f.app.state.is_connected() && f.app.channel() == 90);
-    check("the drone said so on the new channel", f.panel.has("on channel 90") || f.computer.state.channel_moves == 1);
+        test("the change is sent") { expect_true(f.app.change_channel(90)); };
+        f.run(5, 10);
+        test("the drone moved") { expect(f.air.second.current_channel()).should_be(90); };
+        test("the controller moved after it") { expect(f.air.first.current_channel()).should_be(90); };
+        f.run(100, 10);
+        test("still connected, on 90") { expect_true(f.app.state.is_connected() && f.app.channel() == 90); };
+        test("the drone said so on the new channel") { expect_true(f.panel.has("on channel 90") || f.computer.state.channel_moves == 1); };
 
-    // the drone's acknowledgement is lost: it moves, the controller cannot know and stays
-    check("the next change is sent", f.app.change_channel(30));
-    f.air.second.lose_next(1);
-    f.run(5, 10);
-    check_equal("the drone moved", f.air.second.current_channel(), 30);
-    check_equal("the controller did not", f.air.first.current_channel(), 90);
-    f.run(600, 10);                         // six seconds: both are alone, then both go home
-    check_equal("the drone went home", f.air.second.current_channel(), RADIO_CHANNEL);
-    check_equal("the controller went home", f.air.first.current_channel(), RADIO_CHANNEL);
-    check("and they found each other there", f.app.state.is_connected() && f.computer.state.connected);
+        // the drone's acknowledgement is lost: it moves, the controller cannot know and stays
+        test("the next change is sent") { expect_true(f.app.change_channel(30)); };
+        f.air.second.lose_next(1);
+        f.run(5, 10);
+        test("the drone moved") { expect(f.air.second.current_channel()).should_be(30); };
+        test("the controller did not") { expect(f.air.first.current_channel()).should_be(90); };
+        f.run(600, 10);                         // six seconds: both are alone, then both go home
+        test("the drone went home") { expect(f.air.second.current_channel()).should_be(RADIO_CHANNEL); };
+        test("the controller went home") { expect(f.air.first.current_channel()).should_be(RADIO_CHANNEL); };
+        test("and they found each other there") { expect_true(f.app.state.is_connected() && f.computer.state.connected); };
+    };
 }
 
 def main(args: string[]) : int {
@@ -161,5 +165,6 @@ def main(args: string[]) : int {
     test_out_of_range_and_back();
     test_a_bad_radio_day();
     test_changing_channel();
-    return finish();
+    finish_tests();
+    return 0;
 }

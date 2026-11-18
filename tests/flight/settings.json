@@ -8,7 +8,6 @@
   "extern_lib": [
     "../../link/src",
     "../../controller/src",
-    "../../drone/src",
-    "../support"
+    "../../drone/src"
   ]
 }

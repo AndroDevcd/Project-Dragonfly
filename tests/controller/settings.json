@@ -7,7 +7,6 @@
   ],
   "extern_lib": [
     "../../link/src",
-    "../../controller/src",
-    "../support"
+    "../../controller/src"
   ]
 }

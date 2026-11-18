@@ -215,13 +215,26 @@ forever inside C++; a power level of 3 turned into 0; a hand-made packet chain.
 
 ## 8. The tests
 
-| project | what it runs | checks |
+| project | what it runs | tests |
 |---|---|---|
-| `tests/link` | two links over a fake radio: long messages, lost frames, lost acknowledgements, giving up, silence | 74 |
-| `tests/drone` | the flight computer against a controller-side link | 38 |
-| `tests/controller` | the layout, the menu, the buttons; the app against a drone-side link | 71 |
-| `tests/flight` | the real controller app and the real flight computer together | 21 |
+| `tests/link` | two links over a fake radio: long messages, lost frames, lost acknowledgements, giving up, silence | 110 |
+| `tests/drone` | the flight computer against a controller-side link; and on mock devices | 44 |
+| `tests/controller` | the layout, the menu, the buttons; the app against a drone-side link; the settings and their store | 150 |
+| `tests/flight` | the real controller app and the real flight computer together | 33 |
 | `tests/check_native.sh` | compiles the hardware half of every C++ driver against stand-in headers | - |
+
+The tests are written with Sharp's own testing library (`std.testing`): a `tests("...") { }` group
+per scenario, and a `test("...") { expect(...).should_be(...); }` for every single thing that is
+checked, so a run prints one named line per check and a failure says which one, with the file and line.
+
+Two kinds of stand-in are used, on purpose:
+
+- **fakes** (`fake_radio`, `fake_clock`, `fake_motors`, `memory_store` ...) are small working devices.
+  Most tests use them: set the height, step the programs, look at what the screen shows.
+- **mocks** (`mock<motors>()`, `mock<settings_store>()` ...) do no work at all and remember every call.
+  They answer what a fake cannot: *how* a device was used - "the store is written exactly once per
+  change", "with no controller, the motors are never driven with anything but the failsafe throttle".
+  Nothing is written for a mock; the compiler makes it from the interface.
 
 `bash test.sh` runs the first four. None of them needs hardware, and none of them waits:
 time is a clock the test moves.

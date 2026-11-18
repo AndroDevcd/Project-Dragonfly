@@ -28,10 +28,10 @@ uses `link` as a library.
 
 ### Try it on a PC (no hardware)
 
-Install Sharp (0.4.5 or newer), then:
+Install Sharp (0.7.0 or newer), then:
 
 ```
-bash test.sh                                        every test: about 200 checks
+bash test.sh                                        every test: about 340 of them
 sharpc -P simulator
 sharp simulator/build/outputs/simulator             14 seconds of flight, printed once a second
 ```
