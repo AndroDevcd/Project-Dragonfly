@@ -1,0 +1,176 @@
+mod dragonfly.sim;
+
+import ( std, std.guikit.* );
+
+const LINK_SEARCHING : _int64 = 0;
+const LINK_CONNECTED : _int64 = 1;
+const LINK_LOST : _int64 = 2;
+
+/**
+ * THE FLIGHT SCREEN'S LOGIC: what the screen shows, and what it can ask for.
+ *
+ * Every reading is a state, so the screen follows it by itself. The model
+ * knows nothing about widgets or colours (view_model.sharp, THE RULE).
+ *
+ * On a PC the readings come from a fake feed (run_fake_feed, at the bottom):
+ * the sticks move by themselves and the drone answers them - throttle follows
+ * the left stick, the altitude follows the throttle, the speed follows the
+ * right stick - and every 40 seconds the link drops for 4 seconds, so the
+ * "signal lost" screen shows too. On the controller the radio takes its
+ * place and these same states are fed from the drone.
+ *
+ * The feed is the model's own work: when_cleared stops it when the model goes.
+ */
+class flight_model base view_model {
+    // ---- the link
+    link := gui.state(LINK_CONNECTED);
+    signal := gui.state(4);                 // 0..4 bars
+
+    // ---- what the drone says
+    battery := gui.state(82);               // percent of the pack
+    pack_volts := gui.state(12.1);
+    speed := gui.state(0);                  // cm/s
+    altitude := gui.state(0);               // cm
+    heading := gui.state(270);              // degrees
+    distance := gui.state(0);               // metres from where it took off
+    flight_secs := gui.state(0);            // since take-off
+
+    // ---- what the pilot does
+    sport_mode := gui.state(0);             // 0 normal, 1 sport
+    throttle := gui.state(0);               // percent
+    left_x := gui.state(0);                 // the sticks, -100..100 each
+    left_y := gui.state(0);
+    right_x := gui.state(0);
+    right_y := gui.state(0);
+
+    // ---- a short message at the bottom ("battery 30%"); "" when there is none
+    notice := gui.state("");
+    private notice_number : _int64 = 0;     // which notice is showing: an older timer leaves a newer one alone
+
+    flight_model() {
+        run_fake_feed();
+    }
+
+    // ================================================================ what the screen can ask for
+
+    def toggle_mode() {
+        sport_mode.value = 1 - sport_mode.value;
+        if(sport_mode.value == 1) { say("sport mode: full rates"); }
+        else { say("normal mode"); }
+    }
+
+    /** show `words` at the bottom for 3 seconds */
+    def say(words: string) {
+        notice.value = "" + words;          // a copy: the state's text is its own
+        notice_number++;
+        mine : _int64 = notice_number;
+        gui.after(3.0, { -> if(notice_number == mine) { notice.value = ""; } });
+    }
+
+    def dismiss_notice() {
+        notice.value = "";
+    }
+
+    // ================================================================ readings, as the screen shows them
+
+    def is_connected() : _int64 { return link.value == LINK_CONNECTED; }
+    def is_lost() : _int64 { return link.value == LINK_LOST; }
+
+    /** the flight time: "01:35" */
+    def flight_time_text() : string {
+        total : _int64 = flight_secs.value;
+        minutes : _int64 = total / 60;
+        return pad2(minutes) + ":" + pad2(total % 60);
+    }
+
+    /** the altitude in metres: "1.20" */
+    def altitude_text() : string {
+        metres : _int64 = altitude.value / 100;
+        return "" + metres + "." + pad2(altitude.value % 100);
+    }
+
+    /** the pack's voltage: "12.1" */
+    def volts_text() : string {
+        tenths : _int64 = pack_volts.value * 10.0 + 0.5;
+        volts : _int64 = tenths / 10;
+        return "" + volts + "." + (tenths % 10);
+    }
+
+    // ================================================================ the fake feed (a PC only)
+
+    private def run_fake_feed() {
+        tick := new _int64[1];
+        feed := gui.every(0.1, { ->
+            step(tick[0]);
+            tick[0] = tick[0] + 1;
+        });
+        when_cleared({ -> feed.cancel(); });
+        say("link ready");
+    }
+
+    /** one tenth of a second of pretend flight; `n` counts the tenths */
+    private def step(n: _int64) {
+        // the pilot's sticks trace slow paths, each a little out of step
+        left_x.value = wobble(n, 0);
+        lift : _int64 = wobble(n + 7, 0) / 2 + 40;         // mostly up: it is flying
+        left_y.value = lift;
+        right_x.value = wobble(n, 13);
+        right_y.value = wobble(n, 20);
+
+        // every 40 seconds the link drops for 4
+        cycle : _int64 = n % 400;
+        if(cycle == 300) { link.value = LINK_LOST; signal.value = 0; say("signal lost"); }
+        if(cycle == 340) { link.value = LINK_CONNECTED; signal.value = 4; say("link restored"); }
+        if(link.value != LINK_CONNECTED) { return; }
+
+        // the drone answers the sticks
+        thrust : _int64 = (left_y.value + 100) / 2;         // the left stick's height, 0..100
+        throttle.value = thrust;
+        climb : _int64 = (thrust - 50) / 4;
+        height : _int64 = altitude.value + climb;
+        if(height < 0) { height = 0; }
+        if(height > 3000) { height = 3000; }
+        altitude.value = height;
+
+        pace : _int64 = 40 + abs_of(right_y.value) * 3 / 2;
+        speed.value = pace;
+
+        turn : _int64 = left_x.value / 25;
+        heading.value = (heading.value + turn + 360) % 360;
+
+        slow : _int64 = n / 4;
+        away : _int64 = 30 + wobble(slow, 0) / 10;
+        distance.value = away;
+
+        // once a second: the clock; every 15 seconds: a sip of battery
+        if(n % 10 == 0) {
+            flight_secs.value = flight_secs.value + 1;
+            fives : _int64 = n / 50;
+            signal.value = 3 + fives % 2;
+        }
+        if(n % 150 == 0 && n > 0 && battery.value > 0) {
+            battery.value = battery.value - 1;
+            pack_volts.value = 9.9 + battery.value * 2.7 / 100;
+            if(battery.value == 50 || battery.value == 30 || battery.value == 15) {
+                say("battery " + battery.value + "%");
+            }
+        }
+    }
+}
+
+def pad2(n: _int64) : string {
+    if(n < 10) { return "0" + n; }
+    return "" + n;
+}
+
+def abs_of(n: _int64) : _int64 {
+    if(n < 0) { return -n; }
+    return n;
+}
+
+/** a slow back-and-forth, -100..100; `phase` starts it further along */
+def wobble(n: _int64, phase: _int64) : _int64 {
+    step : _int64 = (n + phase) % 40;
+    if(step < 20) { return -100 + step * 10; }
+    return 100 - (step - 20) * 10;
+}

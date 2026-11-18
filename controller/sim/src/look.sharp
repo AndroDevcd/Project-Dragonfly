@@ -1,0 +1,49 @@
+mod dragonfly.sim;
+
+import ( std.guikit.* );
+
+/**
+ * THE COLOURS: Material 3, dark - tonal surfaces instead of borders, a soft
+ * blue for the main readings, green / amber / red only where they mean
+ * something (good / getting low / bad).
+ *
+ * Most of it is the theme (every widget asks the theme); the few colours the
+ * theme has no place for are the functions below it.
+ */
+def material_dark() : theme {
+    t := theme.dark();
+    t.background   = gui.rgb(17, 20, 25);       // surface
+    t.surface      = gui.rgb(29, 32, 38);       // surface container
+    t.surface_high = gui.rgb(39, 42, 49);       // surface container high
+    t.border       = gui.rgb(68, 71, 79);       // outline variant
+    t.text         = gui.rgb(226, 226, 233);    // on surface
+    t.text_dim     = gui.rgb(168, 172, 184);    // on surface variant, a touch quieter for labels
+    t.primary      = gui.rgb(168, 199, 250);    // primary
+    t.primary_high = gui.rgb(190, 214, 252);
+    t.primary_low  = gui.rgb(140, 176, 238);
+    t.on_primary   = gui.rgb(6, 46, 111);
+    t.danger       = gui.rgb(255, 180, 171);    // error
+    t.success      = gui.rgb(109, 213, 140);
+    t.radius = 12;
+    return t;
+}
+
+/** getting low: amber */
+def warning_color() : color { return gui.rgb(255, 185, 92); }
+
+/** the battery's colour: green, amber under 35%, red under 15% */
+def battery_color(percent: _int64) : color {
+    if(percent <= 15) { return gui.current_theme().danger; }
+    if(percent <= 35) { return warning_color(); }
+    return gui.current_theme().success;
+}
+
+// the mode chip: a tonal container for each mode, with its own text colour
+def normal_chip_color() : color { return gui.rgb(59, 72, 95); }        // secondary container
+def normal_chip_text() : color { return gui.rgb(214, 227, 255); }
+def sport_chip_color() : color { return gui.rgb(93, 63, 0); }          // an amber container
+def sport_chip_text() : color { return gui.rgb(255, 221, 183); }
+
+// the notice at the bottom: Material's snackbar, light on dark
+def snackbar_color() : color { return gui.rgb(226, 226, 233); }        // inverse surface
+def snackbar_text() : color { return gui.rgb(46, 48, 54); }            // inverse on surface

@@ -1,0 +1,127 @@
+mod dragonfly.sim;
+
+import ( std.guikit.* );
+
+/**
+ * THE FLIGHT SCREEN: what the pilot looks at while flying (320 x 240, landscape).
+ *
+ *       01:35                                   |||| 12.1V [battery]
+ *      +------------------------------------+  +------------------+
+ *      | SPEED              ALTITUDE        |  | THROTTLE    50 % |
+ *      | 142 cm/s           1.83 m          |  | HEADING      284 |
+ *      |                                    |  | DISTANCE    27 m |
+ *      +------------------------------------+  +------------------+
+ *      +----------------------------------------------------------+
+ *      | [left stick]           MODE               [right stick]   |
+ *      |  THR / YAW            NORMAL              PITCH / ROLL     |
+ *      +----------------------------------------------------------+
+ *      [ a notice, for 3 seconds, over the bottom ]
+ *
+ * The sticks sit at the two bottom corners, where the real ones are. While
+ * there is no link the readings make way for "Signal lost" instead of showing
+ * numbers that are no longer true. The screen decides nothing: it reads the
+ * model and hands clicks to it.
+ */
+// the height of the readings (and of "Signal lost" in their place): the three
+// reading rows on the right, so the speed card beside them is as tall as they are
+const READINGS_HEIGHT : _int64 = 100;
+
+class flight_screen base composable {
+    model := model_of<flight_model>();
+
+    override def build() : element {
+        // the notice floats over the bottom of the page, like a snackbar
+        words : string = model.notice.value;
+        return stack(modifier().fill()) {
+            page();
+            if(sizeof(words.data) > 0) {
+                snackbar(words, { -> model.dismiss_notice(); });
+            }
+        }.place(ALIGN_CENTER, ALIGN_END);
+    }
+
+    private def page() : element {
+        t := gui.current_theme();
+        return column(modifier().fill().background(t.background).padding(8)) {
+            status_bar();
+            if(model.is_connected()) {
+                readings();
+            } else {
+                no_link();
+            }
+            spacer();
+            controls();
+        }.gap(8);
+    }
+
+    /** the time on the left; the signal, the pack's voltage and the battery on the right */
+    private def status_bar() : element {
+        return row(modifier().fill_width().padding(4, 0)) {
+            text(model.flight_time_text()).size(14).bold();
+            spacer();
+            signal_bars(model.signal.value);
+            text(model.volts_text() + "V").size(12).dim();
+            battery_icon(model.battery.value);
+        }.gap(8).align(ALIGN_CENTER);
+    }
+
+    /** the speed and the altitude big on the left; the smaller readings listed on the right */
+    private def readings() : element {
+        t := gui.current_theme();
+        return row(modifier().fill_width().height(READINGS_HEIGHT)) {
+            row(card().grow(1.0).fill_height().padding(14, 12)) {
+                column(modifier().grow(1.0)) {
+                    caption("SPEED");
+                    row(modifier()) {
+                        text("" + model.speed.value).size(36).bold().color(t.primary);
+                        text("cm/s").size(11).dim();
+                    }.gap(4).align(ALIGN_END);
+                }.gap(2);
+                column(modifier()) {
+                    caption("ALTITUDE");
+                    row(modifier()) {
+                        text(model.altitude_text()).size(24).bold();
+                        text("m").size(11).dim();
+                    }.gap(3).align(ALIGN_END);
+                }.gap(2).align(ALIGN_END);
+            }.align(ALIGN_CENTER);
+            column(modifier().width(118)) {
+                reading_row("THROTTLE", "" + model.throttle.value, "%");
+                reading_row("HEADING", "" + model.heading.value, "");
+                reading_row("DISTANCE", "" + model.distance.value, "m");
+            }.gap(6);
+        }.gap(8);
+    }
+
+    /** no link: say so, where the readings would be */
+    private def no_link() : element {
+        t := gui.current_theme();
+        lost : _int64 = model.is_lost();
+        words : string = lost ? "Signal lost" : "Searching";
+        tint := lost ? t.danger : t.text_dim;
+        return column(card().fill_width().height(READINGS_HEIGHT)) {
+            text(words).size(20).bold().color(tint);
+            text("bring the drone closer").size(11).dim();
+        }.gap(4).align(ALIGN_CENTER).justify(ALIGN_CENTER);
+    }
+
+    /** the two sticks at the corners, and the mode chip between them */
+    private def controls() : element {
+        return row(card().fill_width().padding(10, 8)) {
+            column(modifier()) {
+                stick(model.left_x.value, model.left_y.value);
+                caption("THR / YAW");
+            }.gap(4).align(ALIGN_CENTER);
+            spacer();
+            column(modifier()) {
+                caption("MODE");
+                mode_chip(model.sport_mode.value, { -> model.toggle_mode(); });
+            }.gap(6).align(ALIGN_CENTER);
+            spacer();
+            column(modifier()) {
+                stick(model.right_x.value, model.right_y.value);
+                caption("PITCH / ROLL");
+            }.gap(4).align(ALIGN_CENTER);
+        }.align(ALIGN_CENTER);
+    }
+}

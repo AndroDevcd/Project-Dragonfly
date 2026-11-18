@@ -1,0 +1,87 @@
+mod dragonfly.sim;
+
+import ( std.guikit.* );
+
+/**
+ * THE SMALL PIECES of the flight screen. Each takes the values it shows and
+ * reads nothing else, so any screen can use them.
+ */
+
+/** the small grey word above a reading: "SPEED" */
+def caption(words: string) : element {
+    return text(words).size(10).dim().bold();
+}
+
+/** a card: a tonal surface with round corners */
+def card() : modifier {
+    t := gui.current_theme();
+    return modifier().background(t.surface).corner(t.radius);
+}
+
+/** a battery: the body filled to `percent`, and the nub on its right */
+def battery_icon(percent: _int64) : element {
+    t := gui.current_theme();
+    inside : _int64 = 20;
+    filled : _int64 = inside * percent / 100;
+    if(filled < 2 && percent > 0) { filled = 2; }
+    return row(modifier()) {
+        stack(modifier().size(24, 12).background(t.border).corner(3)) {
+            stack(modifier().size(inside, 8).margin(2, 2, 0, 0).background(t.background).corner(2)) { };
+            stack(modifier().size(filled, 8).margin(2, 2, 0, 0).background(battery_color(percent)).corner(2)) { };
+        };
+        stack(modifier().size(2, 5).background(t.border).corner(1)) { };
+    }.gap(1).align(ALIGN_CENTER);
+}
+
+/** four bars, `lit` of them on */
+def signal_bars(lit: _int64) : element {
+    t := gui.current_theme();
+    return row(modifier()) {
+        for(i : _int64 = 0; i < 4; i++) {
+            tint := (i < lit) ? t.text : t.border;
+            stack(modifier().size(3, 4 + i * 3).background(tint).corner(1)) { };
+        }
+    }.gap(2).align(ALIGN_END);
+}
+
+/** one reading on a line of its own: the caption on the left, the value and its unit on the right */
+def reading_row(name: string, value: string, unit: string) : element {
+    return row(card().fill_width().padding(10, 6)) {
+        caption(name);
+        spacer();
+        text(value).size(13).bold();
+        text(unit).size(10).dim();
+    }.gap(3).align(ALIGN_CENTER);
+}
+
+/** a stick: a square with cross lines, and the stick's dot at (x, y), each -100..100 */
+def stick(x: _int64, y: _int64) : element {
+    t := gui.current_theme();
+    field : _int64 = 46;
+    dot : _int64 = 12;
+    middle : _int64 = field / 2;
+    reach : _int64 = (field - dot) / 2;
+    dot_x : _int64 = reach + x * reach / 100;
+    dot_y : _int64 = reach - y * reach / 100;           // up is positive
+    return stack(modifier().size(field, field).background(t.surface_high).corner(10)) {
+        stack(modifier().size(field - 12, 1).margin(6, middle, 0, 0).background(t.border)) { };
+        stack(modifier().size(1, field - 12).margin(middle, 6, 0, 0).background(t.border)) { };
+        stack(modifier().size(dot, dot).margin(dot_x, dot_y, 0, 0).background(t.primary).corner(dot / 2)) { };
+    };
+}
+
+/** the flight mode, as a chip; clicking it runs `pressed` */
+def mode_chip(sport: _int64, pressed: ()()) : element {
+    words : string = sport ? "SPORT" : "NORMAL";
+    fill := sport ? sport_chip_color() : normal_chip_color();
+    ink := sport ? sport_chip_text() : normal_chip_text();
+    return text(words, modifier().padding(12, 6).background(fill).corner(8).click(pressed))
+        .size(11).bold().color(ink);
+}
+
+/** a short message on the light snackbar; clicking it runs `pressed` */
+def snackbar(words: string, pressed: ()()) : element {
+    return text(words, modifier().fill_width().margin(10, 0, 10, 10).padding(14, 10)
+                                 .background(snackbar_color()).corner(8).shadow(6).click(pressed))
+        .size(12).color(snackbar_text());
+}
