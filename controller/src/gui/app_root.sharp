@@ -1,0 +1,65 @@
+mod controller.gui;
+
+import ( std, std.guikit.* );
+
+/**
+ * THE WHOLE GUI: the navigator, the list of screens, and - when virtualization
+ * is on - a bar of on-screen buttons under the display.
+ *
+ * The display is a 2" ST7789V, 320 x 240, mounted landscape. The screen area is
+ * always exactly that, pixel for pixel. With virtualization on, the window is
+ * taller: the extra strip holds the four buttons (UP, DOWN, SELECT, BACK), the
+ * stand-ins for the controller's two physical ones, so the UI can be driven on
+ * a PC with nothing wired up.
+ */
+const SCREEN_W : _int64 = 320;
+const SCREEN_H : _int64 = 240;
+const BUTTON_BAR_H : _int64 = 60;
+
+/** the window height to open: taller when the virtual buttons are shown */
+def window_height() : _int64 {
+    if(controller_host.virtual == 1) { return SCREEN_H + BUTTON_BAR_H; }
+    return SCREEN_H;
+}
+
+class controller_app_root base composable {
+    private nav := navigator();
+    private model := gui.shared_model_of<controller_model>();
+
+    override def build() : element {
+        v : _int64 = controller_host.virtual;
+        return column(modifier().fill()) {
+            screens(nav, to_flight(), screen_box(v)) {
+                screen<to_flight>()   { flight_screen(nav); };
+                screen<to_settings>() { settings_screen(nav); };
+                screen<to_channels>() { channels_screen(nav); };
+                screen<to_jam>()      { jam_screen(nav); };
+                screen<to_power>()    { power_screen(nav); };
+                screen<to_picker>()   { picker_screen(nav, it.kind); };
+            };
+            if(v == 1) { button_bar(); }
+        };
+    }
+
+    private def screen_box(v: _int64) : modifier {
+        if(v == 1) { return modifier().fill_width().height(SCREEN_H); }
+        return modifier().fill();
+    }
+
+    /** the on-screen stand-ins for the two hardware buttons (SELECT = both, BACK = long press) */
+    private def button_bar() : element {
+        t := gui.current_theme();
+        return row(modifier().fill_width().height(BUTTON_BAR_H).background(t.surface).padding(8)) {
+            vbutton("UP", { -> model.do_up(); });
+            vbutton("DOWN", { -> model.do_down(); });
+            vbutton("SELECT", { -> model.do_select(); });
+            vbutton("BACK", { -> model.do_back(); });
+        }.gap(8).align(ALIGN_CENTER);
+    }
+
+    private def vbutton(words: string, action: ()()) : element {
+        t := gui.current_theme();
+        return text(words, modifier().grow(1.0).height(44).background(t.surface_high).corner(10).click(action))
+            .size(12).bold().color(t.text).align(ALIGN_CENTER);
+    }
+}

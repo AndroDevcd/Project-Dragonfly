@@ -1,8 +1,0 @@
-{
-  "name": "sim",
-  "version": "1.0",
-  "output": "sim",
-  "ignore_folders": [
-    "build"
-  ]
-}

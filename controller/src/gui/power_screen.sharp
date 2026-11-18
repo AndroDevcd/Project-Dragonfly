@@ -1,0 +1,42 @@
+mod controller.gui;
+
+import ( std.guikit.* );
+
+/**
+ * "POWER DOWN?" - Yes or No. Pushed on top of the settings when the pilot
+ * chooses "Power off". "No" is highlighted to begin with, so a stray press does
+ * not turn the controller off. "No" goes back; "Yes" powers the Pi down.
+ */
+class power_screen base nav_screen {
+    power_screen(nav: navigator) {
+        arm(nav);
+        focus.value = 0;                                // start on "No", the safe one
+    }
+
+    override def build() : element {
+        t := gui.current_theme();
+        begin();
+        no := item({ -> back(); });
+        yes := item({ -> model.power_off(); });
+        return column(modifier().fill().background(t.background).padding(8)) {
+            top_strip("Power off", model.clock.value);
+            spacer();
+            text("Power the controller down?").size(15).bold();
+            text("the Raspberry Pi will switch off").size(11).dim();
+            row(modifier()) {
+                choice("No", no);
+                choice("Yes", yes);
+            }.gap(14).align(ALIGN_CENTER).justify(ALIGN_CENTER);
+            spacer();
+        }.gap(10).align(ALIGN_CENTER);
+    }
+
+    private def choice(words: string, it: ring_item) : element {
+        t := gui.current_theme();
+        box := modifier().padding(22, 10).corner(10).click(it.click);
+        ink := t.text;
+        if(it.marked == 1) { box = box.background(t.primary); ink = t.on_primary; }
+        else { box = box.background(t.surface_high); }
+        return text(words, box).size(14).bold().color(ink);
+    }
+}

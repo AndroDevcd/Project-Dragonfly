@@ -1,115 +1,50 @@
 mod main;
 
-import ( std, std.io, link, link.hardware, link.messages,
-         controller, controller.hardware, controller.screens, drone, drone.hardware );
+import ( std, std.io, link, link.hardware, controller, controller.gui,
+         drone, drone.hardware, std.guikit.* );
 
 /**
- * THE SIMULATOR: the controller and the drone, running together on a PC
+ * THE SIMULATOR: the controller and the drone, running together on a PC.
  *
  *      sharpc -P simulator
  *      sharp simulator/build/outputs/simulator
  *
- * Both real programs run in this one process, in real time, on simulated
- * hardware: a radio in memory, a display that is printed as text, buttons
- * that a script presses, a drone that climbs when it is given throttle.
- * Once a second it prints what is on the controller's screen and one line
- * about the drone. It plays a short flight and ends:
- *
- *      0 s     the splash; the two find each other
- *      3 s     the pilot opens the settings and chooses sport mode
- *      6 s     back on the home screen
- *      8 s     the drone flies out of range: "signal lost", failsafe
- *      11 s    back in range
- *      14 s    the end
+ * Both real programs run in this one process, on simulated hardware: a radio in
+ * memory, buttons you press on screen, a drone that climbs when it is given
+ * throttle. The controller's GUI opens exactly as it does on the real display
+ * (320 x 240), with the four on-screen buttons under it - drive it with the
+ * mouse. The flight readings are the drone's, through the same link and the
+ * same messages the real one uses.
  *
  * Use it to see a change working before it goes anywhere near a Raspberry Pi.
- * The tests (tests/) check the same things without waiting for the clock.
  */
-const RUN_FOR_MS : _int64 = 14000;
-
-/** the buttons, pressed for `ms` milliseconds at a moment of the script */
-class press {
-    at_ms : _int64;
-    up : _int64;
-    down : _int64;
-
-    press(at_ms: _int64, up: _int64, down: _int64) {
-        self->at_ms = at_ms;
-        self->up = up;
-        self->down = down;
-    }
-}
-
-def main(args: string[]) : int {
+def main() : int {
     air := new radio_pair();
     time := new system_clock();
-
     pins := new fake_gpio();
-    panel := new fake_display();
-    app := new controller_app(new controller_devices(air.first, time, pins, panel, new memory_store()));
-    app.start(new splash_screen(app));
+
+    app := new controller_app(new controller_devices(air.first, time, pins, new memory_store()));
 
     ground := new fake_distance_sensor();
     thrust := new fake_motors();
     computer := new flight_computer(new drone_devices(air.second, time, ground, thrust, new fake_battery()));
 
-    // what the pilot does, and when
-    script := new list<press>();
-    script.add(new press(3000, true, true));        // open the settings
-    script.add(new press(3600, true, true));        // the first line: sport mode
-    script.add(new press(4600, false, true));       // down
-    script.add(new press(5000, false, true));       // down
-    script.add(new press(5400, false, true));       // down: "Back"
-    script.add(new press(6000, true, true));        // choose it
-
-    started : _int64 = time.now_ms();
-    printed : _int64 = 0 - 1;
-    height_tenths : _int64 = 0;                     // the simulated drone's height, in tenths of a centimetre
-
-    // (`/` between whole numbers gives a decimal in Sharp: 14000 / 1000 is 14.0. Put into an `_int64`
-    //  it is a whole number again - which is what counting seconds needs.)
-    whole_seconds : _int64 = RUN_FOR_MS / 1000;
-    println("dragonfly simulator: " + whole_seconds + " seconds of flight\n");
-    for(;;) {
-        elapsed : _int64 = time.now_ms() - started;
-        if(elapsed >= RUN_FOR_MS) { break; }
-
-        // ---- the script: buttons, and the radio's range
-        up : _int64 = false;
-        down : _int64 = false;
-        for(i : _int64 = 0; i < script.size(); i++) {
-            step := script.at(i);
-            if(elapsed >= step.at_ms && elapsed < step.at_ms + 80) {
-                up = step.up;
-                down = step.down;
-            }
-        }
-        pins.force(UP_BUTTON_PIN, up);
-        pins.force(DOWN_BUTTON_PIN, down);
-        out_of_range : _int64 = elapsed >= 8000 && elapsed < 11000;
-        air.first.set_blocked(out_of_range);
-        air.second.set_blocked(out_of_range);
-
-        // ---- the world: the drone hovers at about a metre and a half, sinking in failsafe
-        if(computer.state.failsafe) { height_tenths = height_tenths - 3; }
-        else if(height_tenths < 1500) { height_tenths = height_tenths + 5; }
-        if(height_tenths < 0) { height_tenths = 0; }
-        ground.cm = height_tenths / 10;
-
-        // ---- the two programs
-        app.step();
+    // the pretend world, stepped each GUI tick: the drone hovers at about a metre and a half and
+    // sinks in failsafe. `height` is tenths of a centimetre so the climb is gentle.
+    height := new _int64[1];
+    world := { ->
+        if(computer.state.failsafe) { height[0] = height[0] - 3; }
+        else if(height[0] < 1500) { height[0] = height[0] + 5; }
+        if(height[0] < 0) { height[0] = 0; }
+        ground.cm = height[0] / 10;
         computer.step();
+    };
 
-        // ---- once a second: what the pilot sees, and how the drone is
-        second : _int64 = elapsed / 1000;
-        if(second != printed) {
-            printed = second;
-            println("---- " + printed + " s ------------------------------------------");
-            print(panel.describe());
-            println("  drone: " + computer.state.describe() + ", " + ground.cm + " cm up");
-        }
-        thread.sleep(2);
-    }
-    println("\ndragonfly simulator: done (" + app.frames_drawn + " frames drawn, " + app.net.frames_sent + " radio frames sent by the controller)");
+    controller_host.app = app;
+    controller_host.on_tick = world;
+    controller_host.virtual = 1;
+
+    gui.use_theme(material_dark());
+    gui.run("Dragonfly (sim)", SCREEN_W, window_height(), new controller_app_root());
     return 0;
 }

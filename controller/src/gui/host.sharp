@@ -1,0 +1,27 @@
+mod controller.gui;
+
+import ( std, controller );
+
+/**
+ * WHERE THE GUI FINDS THE CONTROLLER
+ *
+ * A guikit view_model must be makeable with no arguments (gui.shared_model_of
+ * makes it), so it cannot be handed the controller_app - which needs the real
+ * hardware - through its constructor. Instead `main` builds the app and leaves
+ * it here; the model (controller_model) picks it up.
+ *
+ *      controller_host.app = app;              // main, before gui.run
+ *      ... = controller_host.app;              // the model, when it is made
+ *
+ * `on_tick` is extra work to do each time the model steps the app: the
+ * simulator uses it to step the drone and move its pretend world on, so the
+ * one GUI serves both the real controller (on_tick null) and the simulator.
+ */
+stable class controller_host {
+    static app : controller_app? = null;
+    static on_tick : ()()? = null;
+
+    // 1: draw on-screen stand-ins for the two hardware buttons, so the UI can be driven with a
+    // mouse on a PC with no buttons wired up. 0: the real controller, driven by the GPIO buttons.
+    static virtual : _int64 = 1;
+}

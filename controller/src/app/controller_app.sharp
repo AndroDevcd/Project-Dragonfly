@@ -1,12 +1,11 @@
 mod controller;
 
-import ( std, link, link.hardware, link.protocol, link.messages, controller.hardware, controller.input, ui );
+import ( std, link, link.hardware, link.protocol, link.messages, controller.input );
 
 /**
- * THE CONTROLLER: the whole program, as one object that is stepped
+ * THE CONTROLLER: the whole program's LOGIC, as one object that is stepped
  *
  *      app := new controller_app(devices);
- *      app.start(first_screen);
  *      for(;;) { app.step(); }
  *
  * Each step, in order:
@@ -15,17 +14,19 @@ import ( std, link, link.hardware, link.protocol, link.messages, controller.hard
  *      2. what the drone said goes into `state` telemetry, notices
  *      3. the connection is judged              state, signal bars, the light
  *      4. the settings are carried out          the flight mode is sent until the drone has it
- *      5. the buttons are read                  and handed to the screen that is shown
- *      6. a frame is drawn                      every FRAME_MS, from `state`
+ *      5. the buttons are read                  kept for whoever asks (next_button)
  *
  * Nothing waits and there are no threads: the old controller needed four
  * (ui, io, net, default) and locks between them because every part sat in a
  * loop of its own.
  *
- * THE SCREENS reach three things through the app: `state` (what to show),
- * `chosen` (the settings, to change them) and `screens` (to go somewhere).
+ * THERE IS NO DRAWING HERE. This object only knows things - `state` (what the
+ * drone said and how the link is), `chosen` (the settings) - and does things
+ * when asked (change_channel, start_jam). The SCREEN is a separate guikit app
+ * (controller/src/gui): it steps this object on a timer, reads `state`, and
+ * calls these methods. The old controller drew its own pixels; this one does
+ * not, so the same logic runs behind a 320x240 GUI, a test, or the simulator.
  */
-const FRAME_MS : _int64 = 33;                   // 30 frames a second
 const LIGHT_BLINK_MS : _int64 = 500;            // the connecting light: half a second on, half off
 const NOTICE_SHOWN_MS : _int64 = 4000;
 
@@ -42,17 +43,15 @@ class controller_devices {
     air : radio;
     time : clock;
     pins : gpio;
-    panel : display;
     saved : settings_store;
     tuning : radio_control? = null;             // the radio's own settings, when it has them
     channels : channel_control? = null;         // the radio's channels, when it can change them
     jammer : sustained_jammer? = null;          // the radio as a jammer, when it can be one
 
-    controller_devices(air: radio, time: clock, pins: gpio, panel: display, saved: settings_store) {
+    controller_devices(air: radio, time: clock, pins: gpio, saved: settings_store) {
         self->air = air;
         self->time = time;
         self->pins = pins;
-        self->panel = panel;
         self->saved = saved;
     }
 }
@@ -62,18 +61,14 @@ class controller_app {
     net : radio_link;
     state := new controller_state();
     chosen : settings;
-    screens := new navigator();
     buttons : button_reader;
 
-    private drawn_at : _int64 = 0 - 1;          // when the last frame was drawn
     private telemetry_at : _int64 = 0 - 1;      // when telemetry last arrived
     private mode_sent : _int64 = 0 - 1;         // the flight mode the drone was last told (-1: none yet)
     private mode_message : _int64 = 0 - 1;      // the id of the set_mode that is on its way (-1: none)
     private mode_wanted : _int64 = 0 - 1;       // ... and the mode it carries
     private power_set : _int64 = 0 - 1;
-    private dim_set : _int64 = 0 - 1;
 
-    frames_drawn : _int64 = 0;
     steps : _int64 = 0;                         // turns of the loop so far
     private started_at : _int64 = 0;
     report_buttons : _int64 = false;            // print every button event (the console on the Pi turns it on)
@@ -101,11 +96,6 @@ class controller_app {
         net.connect();
     }
 
-    /** show the first screen */
-    def start(first: screen) {
-        screens.open(first);
-    }
-
     def now_ms() : _int64 { return devices.time.now_ms(); }
 
     def step() {
@@ -115,21 +105,19 @@ class controller_app {
         // WHILE JAMMING, nothing else is allowed to touch the radio. There is one radio: the
         // scanner's sense() hops it across channels to listen, and the link sends and receives on
         // its own channel - either one pulls the radio off the jam channel and tears the carrier
-        // down, which is why a jam seemed to do nothing. During a jam the loop does only the jam,
-        // the buttons and the screen; normal work resumes the moment it ends.
-        // A JAM runs in C++, a second at a time (controller_app.start_jam). Each turn the screen is
-        // drawn - so the countdown ticks - and then the radio floods the band hard for about a
-        // second with no gaps; the only break is this one redraw a second. The screen and the link
-        // are left alone until the jam ends or a button cancels it (the flood watches the buttons).
+        // down, which is why a jam seemed to do nothing. During a jam the loop does only the jam
+        // and the buttons; normal work resumes the moment it ends.
+        // A JAM runs in C++, a second at a time. The band is flooded hard for about a second with
+        // no gaps; the screen (a separate timer) repaints between floods, so the countdown ticks.
+        // The link is left alone until the jam ends or a button cancels it (the flood watches the
+        // buttons).
         if(is_jamming()) {
             if(now >= jam_until) {
                 if(devices.jammer != null) { devices.jammer!!.jam_end(); }
                 jam_until = 0 - 1;
                 tell("jam done", now);
-                screens.back();
                 return;
             }
-            screens.draw(devices.panel);                // the countdown, before the radio takes over for a second
             remaining : _int64 = jam_until - now;
             chunk : _int64 = remaining % 1000;          // flood up to the next whole-second tick
             if(chunk == 0) { chunk = 1000; }
@@ -142,7 +130,6 @@ class controller_app {
                 devices.jammer!!.jam_end();
                 jam_until = 0 - 1;
                 tell("jam cancelled", now_ms());
-                screens.back();
             }
             return;
         }
@@ -154,8 +141,7 @@ class controller_app {
         hear_drone(now);
         judge_connection(now);
         carry_out_settings();
-        read_buttons();
-        draw(now);
+        buttons.step();
     }
 
     // ------------------------------------------------------------------ 2. what the drone said
@@ -228,12 +214,7 @@ class controller_app {
     // ------------------------------------------------------------------ 4. the settings
 
     private def carry_out_settings() {
-        // the screen's brightness and the radio's power: told to the hardware when they change
-        dim : _int64 = chosen.dim_screen ? 1 : 0;
-        if(dim != dim_set) {
-            devices.panel.dim(chosen.dim_screen);
-            dim_set = dim;
-        }
+        // the radio's power: told to the hardware when it changes
         if(chosen.radio_power != power_set && devices.tuning != null) {
             devices.tuning!!.set_power(chosen.radio_power);
             power_set = chosen.radio_power;
@@ -270,27 +251,18 @@ class controller_app {
 
     // ------------------------------------------------------------------ 5. the buttons
 
-    private def read_buttons() {
-        buttons.step();
-        for(;;) {
-            pressed : _int64 = buttons.next();
-            if(pressed == BUTTON_NONE) { return; }
-            if(report_buttons) { println("button: " + button_name(pressed)); }
-            shown := screens.current();
-            if(shown != null) { shown!!.on_button(pressed); }
-        }
+    /**
+     * The next physical-button event, or BUTTON_NONE. The screen reads these and turns them into
+     * moving the focus and choosing (controller/src/gui). On a PC the mouse and keyboard do that
+     * instead, and this simply has nothing to hand out.
+     */
+    def next_button() : _int64 {
+        pressed : _int64 = buttons.next();
+        if(pressed != BUTTON_NONE && report_buttons) { println("button: " + button_name(pressed)); }
+        return pressed;
     }
 
-    // ------------------------------------------------------------------ 6. a frame
-
-    private def draw(now: _int64) {
-        if(drawn_at >= 0 && now - drawn_at < FRAME_MS) { return; }
-        drawn_at = now;
-        screens.draw(devices.panel);
-        frames_drawn++;
-    }
-
-    // ------------------------------------------------------------------ 7. the radio channel
+    // ------------------------------------------------------------------ 6. the radio channel
 
     /** the channel the radio is on */
     def channel() : _int64 {
@@ -345,7 +317,7 @@ class controller_app {
     /** the main loop asks this every turn (controller/main) */
     def is_running() : _int64 { return keep_running; }
 
-    /** stop the program the tidy way (`q` at the console) */
+    /** stop the program the tidy way */
     def request_stop() { keep_running = false; }
 
     /** stop, and power the Raspberry Pi down (the "Power off" line in the settings) */
@@ -404,9 +376,9 @@ class controller_app {
         state.notice_until = now + NOTICE_SHOWN_MS;
     }
 
-    // ------------------------------------------------------------------ 8. what the console can ask
+    // ------------------------------------------------------------------ 7. what a console can ask
 
-    /** the buttons' pins as the Pi reads them right now: `pins` at the console */
+    /** the buttons' pins as the Pi reads them right now */
     def pins_text() : string {
         return "up (pin 38): " + devices.pins.read(UP_BUTTON_PIN)
              + "   down (pin 40): " + devices.pins.read(DOWN_BUTTON_PIN)
@@ -414,28 +386,24 @@ class controller_app {
              + "   (1 = 3.3 V)";
     }
 
-    /** is the loop going round, and how fast: `status` at the console */
+    /** is the loop going round, and how fast */
     def status_text() : string {
         now : _int64 = devices.time.now_ms();
         seconds : _int64 = (now - started_at) / 1000;
         per_second : _int64 = 0;
         if(seconds > 0) { per_second = steps / seconds; }
-        return "running " + seconds + " s, " + steps + " turns of the loop (" + per_second + " a second), "
-             + frames_drawn + " frames drawn, " + screens.depth() + " screen(s) open";
+        return "running " + seconds + " s, " + steps + " turns of the loop (" + per_second + " a second)";
     }
 
-    // ------------------------------------------------------------------ 9. the end
+    // ------------------------------------------------------------------ 8. the end
 
     /**
-     * LEAVE THE HARDWARE TIDY: the screen blank, the light off.
+     * LEAVE THE HARDWARE TIDY: the light off, the buttons' power off.
      *
-     * Called once, after the last step(), when the program is told to stop (`q` at the console -
-     * controller/main). Without it the screen keeps showing its last picture - an altitude, a
-     * "connected" - for as long as it has power, which is a lie from then on.
+     * Called once, after the last step(), when the program is told to stop. The screen is the
+     * GUI's (it goes when the window closes); this only tends the pins.
      */
     def shut_down() {
-        devices.panel.clear();
-        devices.panel.show();
         devices.pins.write(CONNECTING_LIGHT_PIN, false);
         devices.pins.write(BUTTON_POWER_PIN, false);
     }

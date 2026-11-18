@@ -1,10 +1,10 @@
-mod dragonfly.sim;
+mod controller.gui;
 
 import ( std.guikit.* );
 
 /**
- * THE SMALL PIECES of the flight screen. Each takes the values it shows and
- * reads nothing else, so any screen can use them.
+ * THE SMALL PIECES of the screens. Each takes the values it shows and reads
+ * nothing else, so any screen can use them.
  */
 
 /** the small grey word above a reading: "SPEED" */
@@ -84,4 +84,30 @@ def snackbar(words: string, pressed: ()()) : element {
     return text(words, modifier().fill_width().margin(10, 0, 10, 10).padding(14, 10)
                                  .background(snackbar_color()).corner(8).shadow(6).click(pressed))
         .size(12).color(snackbar_text());
+}
+
+/**
+ * A ROW OF A LIST (settings, the channel actions): its words on the left and a
+ * value on the right, the whole row a filled container when it is the chosen
+ * one. Clicking it runs `pressed`; the two hardware buttons choose it the same
+ * way by moving `chosen` and pressing select.
+ */
+def list_row(words: string, value: string, chosen: _int64, pressed: ()()) : element {
+    t := gui.current_theme();
+    box := modifier().fill_width().padding(12, 9).corner(10).click(pressed);
+    if(chosen == 1) { box = box.background(row_selected_color()); }
+    return row(box) {
+        text(words).size(13);
+        spacer();
+        if(sizeof(value.data) > 0) { text(value).size(13).bold().color(t.primary); }
+    }.gap(8).align(ALIGN_CENTER);
+}
+
+/** a bar across the top of a screen that is not the flight screen: a title, and the clock */
+def top_strip(title: string, clock: string) : element {
+    return row(modifier().fill_width().padding(4, 0)) {
+        text(title).size(14).bold();
+        spacer();
+        text(clock).size(12).dim();
+    }.gap(8).align(ALIGN_CENTER);
 }

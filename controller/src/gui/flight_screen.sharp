@@ -1,49 +1,54 @@
-mod dragonfly.sim;
+mod controller.gui;
 
 import ( std.guikit.* );
 
 /**
  * THE FLIGHT SCREEN: what the pilot looks at while flying (320 x 240, landscape).
  *
- *       01:35                                   |||| 12.1V [battery]
+ *       = 09:41                                 |||| --V [batt]
  *      +------------------------------------+  +------------------+
- *      | SPEED              ALTITUDE        |  | THROTTLE    50 % |
- *      | 142 cm/s           1.83 m          |  | HEADING      284 |
- *      |                                    |  | DISTANCE    27 m |
+ *      | SPEED              ALTITUDE        |  | THROTTLE     0 % |
+ *      | 142 cm/s           1.83 m          |  | HEADING        0 |
+ *      |                                    |  | DISTANCE     0 m |
  *      +------------------------------------+  +------------------+
  *      +----------------------------------------------------------+
  *      | [left stick]           MODE               [right stick]   |
  *      |  THR / YAW            NORMAL              PITCH / ROLL     |
  *      +----------------------------------------------------------+
- *      [ a notice, for 3 seconds, over the bottom ]
+ *      [ a notice, for a few seconds, over the bottom ]
  *
  * The sticks sit at the two bottom corners, where the real ones are. While
  * there is no link the readings make way for "Signal lost" instead of showing
- * numbers that are no longer true. The screen decides nothing: it reads the
- * model and hands clicks to it.
+ * numbers that are no longer true. The "=" at the top opens the settings. The
+ * screen decides nothing: it reads the model and hands clicks to it.
  */
 // the height of the readings (and of "Signal lost" in their place): the three
 // reading rows on the right, so the speed card beside them is as tall as they are
 const READINGS_HEIGHT : _int64 = 100;
 
-class flight_screen base composable {
-    model := model_of<flight_model>();
+class flight_screen base nav_screen {
+    flight_screen(nav: navigator) {
+        arm(nav);
+    }
 
     override def build() : element {
+        // the one thing the buttons do here: SELECT opens the settings (as the old home did)
+        begin();
+        open := item({ -> go(to_settings()); });
         // the notice floats over the bottom of the page, like a snackbar
         words : string = model.notice.value;
         return stack(modifier().fill()) {
-            page();
+            page(open);
             if(sizeof(words.data) > 0) {
-                snackbar(words, { -> model.dismiss_notice(); });
+                snackbar(words, { -> model.notice.value = ""; });
             }
         }.place(ALIGN_CENTER, ALIGN_END);
     }
 
-    private def page() : element {
+    private def page(open: ring_item) : element {
         t := gui.current_theme();
         return column(modifier().fill().background(t.background).padding(8)) {
-            status_bar();
+            status_bar(open);
             if(model.is_connected()) {
                 readings();
             } else {
@@ -54,14 +59,19 @@ class flight_screen base composable {
         }.gap(8);
     }
 
-    /** the time on the left; the signal, the pack's voltage and the battery on the right */
-    private def status_bar() : element {
+    /** the menu button and clock on the left; the signal, voltage and battery on the right */
+    private def status_bar(open: ring_item) : element {
+        t := gui.current_theme();
+        menu_fill := (open.marked == 1) ? t.primary : t.surface_high;
+        menu_ink := (open.marked == 1) ? t.on_primary : t.text_dim;
         return row(modifier().fill_width().padding(4, 0)) {
-            text(model.flight_time_text()).size(14).bold();
+            text("MENU", modifier().padding(8, 3).corner(8).background(menu_fill).click(open.click))
+                .size(10).bold().color(menu_ink);
+            text(model.clock.value).size(14).bold();
             spacer();
             signal_bars(model.signal.value);
             text(model.volts_text() + "V").size(12).dim();
-            battery_icon(model.battery.value);
+            battery_icon(model.battery_percent());
         }.gap(8).align(ALIGN_CENTER);
     }
 
@@ -115,7 +125,7 @@ class flight_screen base composable {
             spacer();
             column(modifier()) {
                 caption("MODE");
-                mode_chip(model.sport_mode.value, { -> model.toggle_mode(); });
+                mode_chip(model.flight_mode.value, { -> model.toggle_mode(); });
             }.gap(6).align(ALIGN_CENTER);
             spacer();
             column(modifier()) {

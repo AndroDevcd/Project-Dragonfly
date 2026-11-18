@@ -1,6 +1,6 @@
 mod main;
 
-import ( std, std.io, platform, link.hardware, controller, controller.hardware, controller.screens );
+import ( std, std.io, platform, link.hardware, controller, controller.gui, std.guikit.* );
 
 /**
  * THE CONTROLLER, ON THE RASPBERRY PI
@@ -8,81 +8,61 @@ import ( std, std.io, platform, link.hardware, controller, controller.hardware, 
  *      sharpc -P controller                        builds the program and its C++ library
  *      sharp controller/build/outputs/controller
  *
- * Typing `q` and Enter stops it the tidy way: the screen goes blank and the light off.
- * (Ctrl+C stops it too, at once, and leaves the screen as it was.)
+ * The UI is a guikit app (controller/src/gui): it opens a 320 x 240 window -
+ * the size of the real 2" display - steps the controller on a timer and draws
+ * the flight screen and the menus from what the controller knows. Closing the
+ * window stops it; "Power off" in the settings stops it and powers the Pi down.
  *
- * This file only puts the real hardware together and turns the loop; the
- * program itself is `controller_app` (controller/src/app). To see it run
- * without any hardware, use the simulator project (simulator/).
- */
-/**
- * The display: the real one - or, when the program is started with `nodisplay`, one that only
- * exists in memory. That is for the bench: the radio, the buttons and the console can be tried
- * while the display is not wired up (or is the thing being hunted).
+ *      ... controller virtual                       also draw on-screen buttons,
+ *                                                   to drive it with a mouse on a PC
  *
- *      sharp build/outputs/controller nodisplay
+ * This file only puts the real hardware together and hands the controller to
+ * the GUI; the logic is `controller_app` (controller/src/app), and the screens
+ * are controller/src/gui. The simulator (simulator/) runs the same GUI with a
+ * drone and a radio in memory, so a change can be seen on a PC first.
  */
-def display_for(args: string[]) : display {
-    for(i : _int64 = 0; i < sizeof(args); i++) {
-        if(args[i] == "nodisplay") {
-            println("dragonfly controller: running WITHOUT the display (nodisplay)");
-            return new fake_display();
-        }
-    }
-    return new ssd1306_display();
-}
-
 def main(args: string[]) : int {
     try {
         load_library(program_folder() + "/dragonfly");
 
         pins := new pi_gpio();
         air := new nrf24_radio(true, 0);
-        devices := new controller_devices(air, new system_clock(), pins, display_for(args),
+        devices := new controller_devices(air, new system_clock(), pins,
                                           new file_store(program_folder() + "/settings.prefs"));
         devices.tuning = air;
         devices.channels = air;
         devices.jammer = air;
 
         app := new controller_app(devices);
-        app.start(new splash_screen(app));
-        println("dragonfly controller: running   (q + Enter stops it; also: pins, status, settings)");
-
         app.report_buttons = true;          // every button event is printed: "button: long press"
 
-        // commands typed at the console, taken a few keys at a time: the loop never waits for them
-        commands := new command_line(new console_keys(), devices.time);
-        while(app.is_running()) {
-            typed := commands.next();
-            if(typed != null) {
-                command : string = typed!!;
-                if(is_quit_command(command)) {
-                    app.request_stop();
-                } else if(command == "pins") {
-                    println(app.pins_text());
-                } else if(command == "status") {
-                    println(app.status_text());
-                } else if(command == "settings") {
-                    app.screens.open(new settings_screen(app));
-                    println("dragonfly controller: the settings are open");
-                } else {
-                    println("dragonfly controller: no command `" + command + "`");
-                    println("  the commands: q (stop), pins (the buttons as the Pi reads them), status (is the loop running), settings (open them)");
-                }
-            }
-            app.step();
-            thread.sleep(2);
-        }
+        controller_host.app = app;
+        // the on-screen buttons are on by default (controller_host); `real` turns them off for a
+        // Pi with its two buttons wired, `virtual` forces them on
+        if(has_arg(args, "real")) { controller_host.virtual = 0; }
+        else if(has_arg(args, "virtual")) { controller_host.virtual = 1; }
+
+        gui.use_theme(material_dark());
+        gui.run("Dragonfly", SCREEN_W, window_height(), new controller_app_root());
+
         app.shut_down();
         if(app.wants_power_off) {
             println("dragonfly controller: powering down");
-            sys("poweroff");                    // the Pi turns off (the program runs as root); on a PC this is just a command
+            sys("poweroff");                // the Pi turns off (the program runs as root); on a PC this is just a command
         } else {
             println("dragonfly controller: stopped");
         }
     } catch(problem: hardware_exception) {
         println("dragonfly controller: " + problem.get_message());
         return 1;
+    }
+    return 0;
+}
+
+/** was the program started with this word? */
+def has_arg(args: string[], want: string) : _int64 {
+    for(i : _int64 = 0; i < sizeof(args); i++) {
+        if(args[i] == want) { return 1; }
     }
     return 0;
 }

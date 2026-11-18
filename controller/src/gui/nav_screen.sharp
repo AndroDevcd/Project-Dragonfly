@@ -1,0 +1,101 @@
+mod controller.gui;
+
+import ( std, std.guikit.* );
+
+/**
+ * TWO-BUTTON NAVIGATION, for the screens.
+ *
+ * The real controller has two buttons: UP and DOWN move a highlight, both
+ * together (SELECT) choose it, a long press (HOLD) goes back. On a PC there are
+ * no buttons - so when virtualization is on (controller_host.virtual) the app
+ * draws the same four as on-screen buttons, and the mouse works too. One
+ * navigation, three ways in.
+ *
+ * Every screen extends `nav_screen`. In its build() it calls begin() and then
+ * item(action) for each thing the buttons can land on, top to bottom; item
+ * gives back whether that one is highlighted and a click handler for the mouse.
+ * UP / DOWN / SELECT then move and fire the highlight without the screen
+ * writing a line of input code.
+ *
+ *      override def build() : element {
+ *          begin();
+ *          save := item({ -> model.save(); });
+ *          return list_row("Save", "", save.marked, save.click);
+ *      }
+ *
+ * WHICH SCREEN THE BUTTONS DRIVE: the one in front. A screen pushes itself onto
+ * the model's handler stack when it appears and takes itself off when it is
+ * gone for good (when_shown / when_gone). A covered screen stays on the stack,
+ * under the one on top - exactly the navigator's own back stack - so SELECT
+ * always reaches the screen the pilot is looking at.
+ */
+interface button_controls {
+    def up();
+    def down();
+    def select();
+    def back();
+}
+
+/** what item() hands back: is this item highlighted, and the click handler for the mouse */
+class ring_item {
+    marked : _int64 = 0;
+    click : ()();
+    ring_item(marked: _int64, click: ()()) {
+        self->marked = marked;
+        self->click = click;
+    }
+}
+
+stable class nav_screen base composable : button_controls {
+    protected nav : navigator?;
+    protected model := gui.shared_model_of<controller_model>();
+    protected focus := state(0);
+
+    private actions : list<()()> = new list<()()>();
+
+    /** every screen writes its own; this placeholder only satisfies `composable` for the base */
+    override def build() : element {
+        return column(modifier()) { };
+    }
+
+    /** a subclass calls this in its constructor with the navigator it was given */
+    protected def arm(where: navigator) {
+        nav = where;
+        when_shown({ -> model.push_controls(self); });
+        when_gone({ -> model.pop_controls(self); });
+    }
+
+    /** open a screen over this one */
+    protected def go(where: route) { nav!!.go(where); }
+
+    /** clear the item list: the first thing a build() does */
+    protected def begin() {
+        actions = new list<()()>();
+    }
+
+    /** register the next item (top to bottom); gives back its highlight and a mouse click handler */
+    protected def item(action: ()()) : ring_item {
+        index : _int64 = actions.size().value;
+        actions.add(action);
+        marked : _int64 = (focus.value == index) ? 1 : 0;      // reads focus: a move rebuilds the screen
+        return new ring_item(marked, { -> focus.value = index; action(); });
+    }
+
+    // ---- the buttons (the on-screen ones, the Pi's GPIO ones, Tab/Enter on a keyboard)
+
+    override def up() {
+        n : _int64 = actions.size().value;
+        if(n > 0) { focus.value = (focus.peek() - 1 + n) % n; }
+    }
+    override def down() {
+        n : _int64 = actions.size().value;
+        if(n > 0) { focus.value = (focus.peek() + 1) % n; }
+    }
+    override def select() {
+        i : _int64 = focus.peek();
+        if(i >= 0 && i < actions.size().value) { actions.at(i)(); }
+    }
+    override def back() {
+        nav!!.back();
+    }
+}

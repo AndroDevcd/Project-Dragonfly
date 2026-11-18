@@ -1,0 +1,227 @@
+mod controller.gui;
+
+import ( std, std.guikit.*, controller, controller.input, link, link.hardware, link.messages );
+
+/**
+ * THE MODEL: the one piece of logic the screens share.
+ *
+ * It owns the heartbeat. Every 30th of a second it steps the controller
+ * (controller_app.step: the radio, the link, the settings), then copies what
+ * the controller now knows into guikit states - so the screens, which read
+ * those states, rebuild by themselves when a reading changes and only then.
+ * The screens never touch the controller_app directly for anything that
+ * changes; they read these states and call these methods.
+ *
+ *      model := gui.shared_model_of<controller_model>();   // every screen, the SAME model
+ *
+ * It is `shared`, not per-screen: there is one controller, one heartbeat, one
+ * set of readings, however many screens read them.
+ *
+ * WHAT IS REAL AND WHAT IS IDLE. The drone sends altitude, speed, battery (0..4
+ * bars) and its mode; the link gives the signal, the clock and notices. Those
+ * are live. Throttle, heading, distance, the pack's voltage and the two sticks
+ * are on the screen but rest at zero: the drone does not send them yet, and the
+ * controller has no analog sticks yet. They are kept so the layout is ready for
+ * when it does.
+ */
+class controller_model base view_model {
+    // ---- live, from the link and the drone
+    link := gui.state(LINK_DISCONNECTED);
+    signal := gui.state(0);                     // 0..4 bars
+    has_telemetry := gui.state(0);
+    battery_bars := gui.state(0);               // 0..4, as the drone sends it
+    altitude := gui.state(0);                   // cm
+    speed := gui.state(0);                      // cm/s
+    drone_mode := gui.state(MODE_NORMAL);
+    notice := gui.state("");
+    clock := gui.state("--:--");
+
+    // ---- on the screen, but resting until the hardware provides them
+    throttle := gui.state(0);                   // percent
+    heading := gui.state(0);                    // degrees
+    distance := gui.state(0);                   // metres
+    pack_volts := gui.state(0.0);
+    left_x := gui.state(0);                     // the sticks, -100..100 each
+    left_y := gui.state(0);
+    right_x := gui.state(0);
+    right_y := gui.state(0);
+
+    // ---- the settings and the radio's doings
+    flight_mode := gui.state(MODE_NORMAL);
+    mode_pending := gui.state(0);
+    dim_screen := gui.state(0);
+    radio_power := gui.state(0);
+    channel := gui.state(RADIO_CHANNEL);
+    channel_pending := gui.state(0);
+    channel_wanted := gui.state(0);
+    can_change_channel := gui.state(0);
+    jam_seconds := gui.state(0);
+    jam_channel_set := gui.state(0);
+    jam_width := gui.state(0);
+
+    // ---- a jam that is running
+    jamming := gui.state(0);
+    jam_left := gui.state(0);                    // whole seconds remaining
+    jam_low := gui.state(0);
+    jam_high := gui.state(0);
+
+    // bumped a few times a second so the channels screen repaints from the live scan
+    scan_tick := gui.state(0);
+    private ticks : _int64 = 0;
+
+    private app : controller_app?;
+
+    // the screens, deepest first, that the buttons drive: the one on top is in front (nav_screen.sharp)
+    private controls : list<button_controls> = new list<button_controls>();
+
+    controller_model() {
+        app = controller_host.app;
+        pump := gui.every(0.03, { -> tick(); });
+        when_cleared({ -> pump.cancel(); });
+    }
+
+    // ================================================================ the heartbeat
+
+    private def tick() {
+        if(app == null) { return; }
+        if(controller_host.on_tick != null) { controller_host.on_tick!!(); }   // the simulator's world and drone
+        app!!.step();
+        read_buttons();
+        refresh();
+        ticks++;
+        if(ticks % 6 == 0) { scan_tick.value = scan_tick.peek() + 1; }          // ~5 Hz for the spectrum
+    }
+
+    /** the Pi's physical buttons, routed to the screen in front - the same four the virtual ones send */
+    private def read_buttons() {
+        for(;;) {
+            b : _int64 = app!!.next_button();
+            if(b == BUTTON_NONE) { return; }
+            if(b == BUTTON_UP) { do_up(); }
+            else if(b == BUTTON_DOWN) { do_down(); }
+            else if(b == BUTTON_SELECT) { do_select(); }
+            else if(b == BUTTON_HOLD) { do_back(); }
+        }
+    }
+
+    // ================================================================ the buttons (virtual and physical)
+
+    def push_controls(c: button_controls) { controls.add(c); }
+    def pop_controls(c: button_controls) {
+        for(i : _int64 = controls.size().value - 1; i >= 0; i--) {
+            if(controls.at(i) == c) { controls.remove_at(i); return; }
+        }
+    }
+    private def front() : button_controls? {
+        n : _int64 = controls.size().value;
+        if(n == 0) { return null; }
+        return controls.at(n - 1);
+    }
+    def do_up() { f := front(); if(f != null) { f!!.up(); } }
+    def do_down() { f := front(); if(f != null) { f!!.down(); } }
+    def do_select() { f := front(); if(f != null) { f!!.select(); } }
+    def do_back() { f := front(); if(f != null) { f!!.back(); } }
+
+    /** copy what the controller knows into the states - only the ones that changed */
+    private def refresh() {
+        a := app!!;
+        s := a.state;
+        put(link, s.link_state);
+        put(signal, s.signal);
+        put(has_telemetry, s.has_telemetry ? 1 : 0);
+        put(battery_bars, s.battery);
+        put(altitude, s.altitude_cm);
+        put(speed, s.speed_cm_s);
+        put(drone_mode, s.drone_mode);
+        put_text(notice, s.notice_text);
+        put_text(clock, s.clock_text);
+
+        put(flight_mode, a.chosen.flight_mode);
+        put(mode_pending, a.mode_is_pending() ? 1 : 0);
+        put(dim_screen, a.chosen.dim_screen ? 1 : 0);
+        put(radio_power, a.chosen.radio_power);
+        put(channel, a.channel());
+        put(channel_pending, a.channel_is_pending() ? 1 : 0);
+        put(channel_wanted, a.channel_wanted);
+        put(can_change_channel, a.can_change_channel() ? 1 : 0);
+        put(jam_seconds, a.chosen.jam_seconds);
+        put(jam_channel_set, a.chosen.jam_channel);
+        put(jam_width, a.chosen.jam_width);
+
+        put(jamming, a.is_jamming() ? 1 : 0);
+        put(jam_left, a.jam_seconds_left());
+        put(jam_low, a.jam_low());
+        put(jam_high, a.jam_high());
+    }
+
+    private def put(cell: state<_int64>, v: _int64) {
+        if(cell.peek() != v) { cell.value = v; }
+    }
+    private def put_text(cell: state<string>, v: string) {
+        if(!(cell.peek() == v)) { cell.value = "" + v; }
+    }
+
+    // ================================================================ what the screens read
+
+    def is_connected() : _int64 { return link.value == LINK_CONNECTED; }
+    def is_lost() : _int64 { return link.value == LINK_LOST; }
+
+    /** the battery as a percent, for the icon's fill (the drone sends bars, 0..4) */
+    def battery_percent() : _int64 { return battery_bars.value * 25; }
+
+    /** the altitude in metres: "1.20" */
+    def altitude_text() : string {
+        cm : _int64 = altitude.value;
+        metres : _int64 = cm / 100;
+        return "" + metres + "." + pad2(cm % 100);
+    }
+
+    /** the pack's voltage, or "--" while the drone does not send it */
+    def volts_text() : string {
+        if(pack_volts.value <= 0.0) { return "--"; }
+        tenths : _int64 = pack_volts.value * 10.0 + 0.5;
+        volts : _int64 = tenths / 10;
+        return "" + volts + "." + (tenths % 10);
+    }
+
+    def mode_name() : string { return flight_mode_name(flight_mode.value); }
+
+    /** the controller, for a screen that reads something live and unmirrored (the spectrum) */
+    def controller() : controller_app { return app!!; }
+
+    // ================================================================ what the screens ask for
+
+    def toggle_mode() {
+        a := app!!;
+        if(a.chosen.flight_mode == MODE_SPORT) { a.chosen.change_flight_mode(MODE_NORMAL); }
+        else { a.chosen.change_flight_mode(MODE_SPORT); }
+    }
+
+    def toggle_dim() {
+        a := app!!;
+        a.chosen.change_dim_screen(!a.chosen.dim_screen);
+    }
+
+    def set_power(level: _int64) { app!!.chosen.change_radio_power(level); }
+    def set_jam_seconds(value: _int64) { app!!.chosen.set_jam_seconds(value); }
+    def set_jam_channel(value: _int64) { app!!.chosen.set_jam_channel(value); }
+    def set_jam_width(value: _int64) { app!!.chosen.set_jam_width(value); }
+
+    def change_channel(to: _int64) : _int64 { return app!!.change_channel(to); }
+    def start_scan() { app!!.start_scan(); }
+    def stop_scan() { app!!.stop_scan(); }
+    def quietest() : _int64 {
+        if(app!!.scanner == null) { return app!!.channel(); }
+        return app!!.scanner!!.quietest();
+    }
+
+    def start_jam() : _int64 { return app!!.start_jam(); }
+    def is_jamming() : _int64 { return app!!.is_jamming(); }
+
+    def power_off() { app!!.power_off(); }
+}
+
+def pad2(n: _int64) : string {
+    if(n < 10) { return "0" + n; }
+    return "" + n;
+}

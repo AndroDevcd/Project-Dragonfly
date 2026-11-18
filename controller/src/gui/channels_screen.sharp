@@ -1,0 +1,98 @@
+mod controller.gui;
+
+import ( std.guikit.*, link );
+
+/**
+ * THE CHANNELS: how busy the 2.4 GHz band is, a bar a channel, and what to do
+ * about it - move to the quietest channel, jam a band, or go back.
+ *
+ * The scanner runs only while this screen is up (when_shown / when_gone): it
+ * takes the radio's time, so the link loses a few frames meanwhile. The bars
+ * are painted straight from the live scan on a canvas; the model bumps a tick a
+ * few times a second so the picture keeps up without painting every frame.
+ */
+const SPECTRUM_HEIGHT : _int64 = 120;
+
+// the three actions along the bottom
+const CH_MOVE : _int64 = 0;
+const CH_JAM : _int64 = 1;
+const CH_BACK : _int64 = 2;
+
+class channels_screen base nav_screen {
+    channels_screen(nav: navigator) {
+        arm(nav);
+        when_shown({ -> model.start_scan(); });
+        when_gone({ -> model.stop_scan(); });
+    }
+
+    override def build() : element {
+        t := gui.current_theme();
+        model.scan_tick.value;                          // repaint when the scan moves on
+        begin();
+        move := item({ -> model.change_channel(model.quietest()); });
+        jam := item({ -> if(model.start_jam() == 1) { go(to_jam()); } });
+        back := item({ -> back(); });
+        return column(modifier().fill().background(t.background).padding(8)) {
+            top_strip("Channels", model.clock.value);
+            spectrum();
+            info();
+            actions(move, jam, back);
+        }.gap(8);
+    }
+
+    private def spectrum() : element {
+        t := gui.current_theme();
+        bars := t.text_dim;
+        here := t.primary;
+        return canvas(card().fill_width().height(SPECTRUM_HEIGHT)) { p: painter, f: frame ->
+            got := model.controller().scanner;
+            if(got == null) { return; }
+            scan := got!!;
+            w : decimal = f.width;
+            h : decimal = f.height;
+            step : decimal = w / 126.0;
+            bw : decimal = step - 1.0;
+            if(bw < 1.0) { bw = 1.0; }
+            for(c : _int64 = 0; c < 126; c++) {
+                level : _int64 = scan.level(c);         // 0 .. 1000
+                bar_h : decimal = h * level / 1000.0;
+                if(bar_h < 1.0 && level > 0) { bar_h = 1.0; }
+                p.rect(c * step, h - bar_h, bw, bar_h, bars);
+            }
+            cur : _int64 = model.controller().channel();
+            p.rect(cur * step, 0, bw, h, here);
+        }.still();
+    }
+
+    /** a word about what the radio is doing, or what the scan found */
+    private def info() : element {
+        words : string = scan_words();
+        return text(words).size(11).dim();
+    }
+
+    private def scan_words() : string {
+        if(model.channel_pending.value == 1) { return "moving to " + model.channel_wanted.value; }
+        got := model.controller().scanner;
+        if(got == null) { return "no scanner on this radio"; }
+        scan := got!!;
+        if(scan.sweeps > 0) { return "on " + model.channel.value + "   best " + scan.quietest() + "   busy " + scan.busiest(); }
+        return "scanning";
+    }
+
+    private def actions(move: ring_item, jam: ring_item, back: ring_item) : element {
+        return row(modifier().fill_width()) {
+            action_chip("Move", move);
+            action_chip("Jam", jam);
+            action_chip("Back", back);
+        }.gap(8).align(ALIGN_CENTER).justify(ALIGN_CENTER);
+    }
+
+    private def action_chip(words: string, it: ring_item) : element {
+        t := gui.current_theme();
+        box := modifier().padding(16, 8).corner(10).click(it.click);
+        ink := t.text;
+        if(it.marked == 1) { box = box.background(t.primary); ink = t.on_primary; }
+        else { box = box.background(t.surface_high); }
+        return text(words, box).size(12).bold().color(ink);
+    }
+}

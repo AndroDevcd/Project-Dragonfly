@@ -1,6 +1,27 @@
 mod controller.input;
 
-import ( std, link.hardware, ui );
+import ( std, link.hardware );
+
+/**
+ * THE BUTTON EVENTS a screen can react to. Two physical buttons (UP and DOWN)
+ * make these: one of them for a press, SELECT for both together, HOLD for a
+ * long press. They used to live in the old UI toolkit; they belong with the
+ * buttons that make them.
+ */
+const BUTTON_NONE : _int64 = 0;
+const BUTTON_UP : _int64 = 1;
+const BUTTON_DOWN : _int64 = 2;
+const BUTTON_SELECT : _int64 = 3;           // both buttons together
+const BUTTON_HOLD : _int64 = 4;             // one button kept down for a second (a "long press")
+
+/** a button event's name, for printing */
+def button_name(button: _int64) : string {
+    if(button == BUTTON_UP) { return "up"; }
+    if(button == BUTTON_DOWN) { return "down"; }
+    if(button == BUTTON_SELECT) { return "both (select)"; }
+    if(button == BUTTON_HOLD) { return "long press"; }
+    return "none";
+}
 
 /**
  * THE TWO BUTTONS

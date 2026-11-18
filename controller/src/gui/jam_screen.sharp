@@ -1,0 +1,42 @@
+mod controller.gui;
+
+import ( std.guikit.* );
+
+/**
+ * THE JAM COUNTDOWN. The jam is already running (the model started it); this
+ * screen shows the seconds left and the band it covers. While the jam runs the
+ * controller does nothing but flood the band and read its own buttons (in C++),
+ * so the only way to stop it early is a hardware button - the flood watches for
+ * one. When the countdown reaches zero the screen returns on its own.
+ */
+class jam_screen base nav_screen {
+    private leaving : _int64 = 0;
+
+    jam_screen(nav: navigator) {
+        arm(nav);
+        every(0.2, { -> check_done(); });
+    }
+
+    private def check_done() {
+        if(leaving == 0 && model.jamming.value == 0) {
+            leaving = 1;
+            back();
+        }
+    }
+
+    override def build() : element {
+        t := gui.current_theme();
+        begin();                                        // the buttons do nothing here: the flood owns them
+        return column(modifier().fill().background(t.background).padding(8)) {
+            top_strip("Jamming", model.clock.value);
+            spacer();
+            column(modifier().fill_width()) {
+                text("channel " + model.controller().jam_channel()).size(13).dim();
+                text("" + model.jam_left.value + "s").size(48).bold().color(t.danger);
+                text("" + model.jam_low.value + " - " + model.jam_high.value).size(12).dim();
+            }.gap(6).align(ALIGN_CENTER);
+            spacer();
+            text("press a button on the controller to stop").size(11).dim();
+        }.gap(8).align(ALIGN_CENTER);
+    }
+}

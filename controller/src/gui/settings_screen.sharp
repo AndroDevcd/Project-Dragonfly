@@ -1,0 +1,61 @@
+mod controller.gui;
+
+import ( std.guikit.* );
+
+/**
+ * SETTINGS: the menu. A line with one of a few values (the mode, the screen)
+ * changes in place when it is chosen; a line with many (power, the jam
+ * numbers) opens a picker; the channel opens the spectrum. Each line shows its
+ * value, so there are no sub-screens for the simple ones.
+ *
+ * The highlighted line is the one UP / DOWN are on and SELECT acts on; a mouse
+ * click acts on the line it lands on. The screen reads the model and calls it -
+ * it changes nothing itself.
+ */
+class settings_screen base nav_screen {
+    settings_screen(nav: navigator) {
+        arm(nav);
+    }
+
+    override def build() : element {
+        t := gui.current_theme();
+        begin();
+        return column(modifier().fill().background(t.background).padding(8)) {
+            top_strip("Settings", model.clock.value);
+            scroll(modifier().fill_width().grow(1.0)) {
+                menu();
+            };
+        }.gap(6);
+    }
+
+    private def menu() : element {
+        return column(modifier().fill_width()) {
+            row_for("Mode", mode_value(), { -> model.toggle_mode(); });
+            row_for("Screen", model.dim_screen.value ? "dim" : "bright", { -> model.toggle_dim(); });
+            row_for("Radio power", "" + model.radio_power.value, { -> go(to_picker(PICK_POWER)); });
+            row_for("Channel", channel_value(), { -> go(to_channels()); });
+            row_for("Jam", model.jam_seconds.value <= 0 ? "off" : ("" + model.jam_seconds.value + "s"), { -> go(to_picker(PICK_JAM_TIME)); });
+            row_for("Jam ch", "" + model.jam_channel_set.value, { -> go(to_picker(PICK_JAM_CHANNEL)); });
+            row_for("Jam width", "+/- " + model.jam_width.value, { -> go(to_picker(PICK_JAM_WIDTH)); });
+            row_for("Power off", "", { -> go(to_power()); });
+            row_for("Back", "", { -> back(); });
+        }.gap(4);
+    }
+
+    /** one line: item() registers it for the buttons and gives its highlight and mouse click */
+    private def row_for(words: string, value: string, action: ()()) : element {
+        it := item(action);
+        return list_row(words, value, it.marked, it.click);
+    }
+
+    private def mode_value() : string {
+        name : string = model.mode_name();
+        if(model.mode_pending.value == 1) { return name + " *"; }
+        return name;
+    }
+
+    private def channel_value() : string {
+        if(model.channel_pending.value == 1) { return "" + model.channel.value + " > " + model.channel_wanted.value; }
+        return "" + model.channel.value;
+    }
+}

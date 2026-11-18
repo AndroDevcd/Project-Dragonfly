@@ -1,0 +1,27 @@
+mod controller.gui;
+
+import ( std.guikit.* );
+
+/**
+ * WHERE THE CONTROLLER CAN GO. One route class per screen; the navigator and
+ * the screen list (app_root.sharp) turn a route into the screen for it.
+ *
+ *      nav.go(to_settings());          open the settings over the flight screen
+ *      nav.back();                     back to the one below
+ */
+stable class to_flight base route { }
+stable class to_settings base route { }
+stable class to_channels base route { }
+stable class to_jam base route { }
+stable class to_power base route { }
+
+// the pickers all share one screen; the kind says which setting it changes
+const PICK_POWER : _int64 = 0;
+const PICK_JAM_TIME : _int64 = 1;
+const PICK_JAM_CHANNEL : _int64 = 2;
+const PICK_JAM_WIDTH : _int64 = 3;
+
+stable class to_picker base route {
+    kind : _int64 = PICK_POWER;
+    to_picker(kind: _int64) { self->kind = kind; }
+}

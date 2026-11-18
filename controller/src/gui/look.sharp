@@ -1,4 +1,4 @@
-mod dragonfly.sim;
+mod controller.gui;
 
 import ( std.guikit.* );
 
@@ -47,3 +47,6 @@ def sport_chip_text() : color { return gui.rgb(255, 221, 183); }
 // the notice at the bottom: Material's snackbar, light on dark
 def snackbar_color() : color { return gui.rgb(226, 226, 233); }        // inverse surface
 def snackbar_text() : color { return gui.rgb(46, 48, 54); }            // inverse on surface
+
+// a row in a list: the one in focus is a filled tonal container, the rest are flat
+def row_selected_color() : color { return gui.rgb(39, 52, 74); }       // a quiet blue container
