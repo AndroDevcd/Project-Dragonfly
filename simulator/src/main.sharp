@@ -45,6 +45,7 @@ def main() : int {
     controller_host.virtual = 1;
 
     gui.use_theme(material_dark());
+    gui.frame_rate(FRAME_RATE);         // as on the real controller
     gui.run("Dragonfly (sim)", SCREEN_W, window_height(), new controller_app_root());
     return 0;
 }

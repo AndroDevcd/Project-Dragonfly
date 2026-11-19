@@ -43,6 +43,7 @@ def main(args: string[]) : int {
         else if(has_arg(args, "virtual")) { controller_host.virtual = 1; }
 
         gui.use_theme(material_dark());
+        gui.frame_rate(FRAME_RATE);
         gui.run("Dragonfly", SCREEN_W, window_height(), new controller_app_root());
 
         app.shut_down();

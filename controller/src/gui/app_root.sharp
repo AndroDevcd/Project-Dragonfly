@@ -15,6 +15,7 @@ import ( std, std.guikit.* );
 const SCREEN_W : _int64 = 320;
 const SCREEN_H : _int64 = 240;
 const BUTTON_BAR_H : _int64 = 60;
+const FRAME_RATE : _int64 = 30;         // the most frames the GUI paints in a second (gui.frame_rate)
 
 /** the window height to open: taller when the virtual buttons are shown */
 def window_height() : _int64 {
