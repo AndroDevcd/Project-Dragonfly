@@ -35,7 +35,7 @@ class controller_app_root base composable {
                 screen<to_settings>() { settings_screen(nav); };
                 screen<to_channels>() { channels_screen(nav); };
                 screen<to_jam>()      { jam_screen(nav); };
-                screen<to_power>()    { power_screen(nav); };
+                screen<to_reboot>()   { reboot_screen(nav); };
                 screen<to_picker>()   { picker_screen(nav, it.kind); };
             };
             if(v == 1) { button_bar(); }

@@ -125,7 +125,8 @@ class flight_screen base nav_screen {
             spacer();
             column(modifier()) {
                 caption("MODE");
-                mode_chip(model.flight_mode.value, { -> model.toggle_mode(); });
+                // the mode follows the physical sport switch; the chip just shows it (no toggle)
+                mode_chip(model.flight_mode.value, { -> });
             }.gap(6).align(ALIGN_CENTER);
             spacer();
             column(modifier()) {

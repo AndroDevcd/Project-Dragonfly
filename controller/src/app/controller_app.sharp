@@ -83,7 +83,7 @@ class controller_app {
     report_buttons : _int64 = false;            // print every button event (the console on the Pi turns it on)
 
     private keep_running : _int64 = true;       // the main loop runs while this is true
-    wants_power_off : _int64 = false;           // the pilot chose "power off" (not just "quit"): power the Pi down
+    wants_reboot : _int64 = false;              // the pilot chose "Reboot": restart the Pi (software + display)
     private jam_until : _int64 = 0 - 1;         // when the running jam ends (-1: not jamming)
     private jam_on_channel : _int64 = 0;        // the centre channel of the jam
 
@@ -176,10 +176,22 @@ class controller_app {
         carry_out_settings();
         buttons.step();
         sport.step();
-        if(is_sport_mode() != logged_sport) {
-            logged_sport = is_sport_mode();
-            note(logged_sport ? "sport mode: ON" : "sport mode: off");
+        follow_sport_switch();
+    }
+
+    /**
+     * The physical SPORT switch is the flight mode: drive `chosen.flight_mode` from it every step,
+     * so the badge, the settings line and the drone all follow the switch. change_flight_mode only
+     * writes to the settings file on an actual change, so this is cheap to call each turn.
+     */
+    private def follow_sport_switch() {
+        on : _int64 = is_sport_mode();
+        if(on != logged_sport) {
+            logged_sport = on;
+            note(on ? "sport mode: ON" : "sport mode: off");
         }
+        wanted : _int64 = on ? MODE_SPORT : MODE_NORMAL;
+        if(chosen.flight_mode != wanted) { chosen.change_flight_mode(wanted); }
     }
 
     // ------------------------------------------------------------------ 2. what the drone said
@@ -379,9 +391,9 @@ class controller_app {
     /** stop the program the tidy way */
     def request_stop() { keep_running = false; }
 
-    /** stop, and power the Raspberry Pi down (the "Power off" line in the settings) */
-    def power_off() {
-        wants_power_off = true;
+    /** stop, and reboot the Raspberry Pi - restarts the controller software and the display together */
+    def reboot() {
+        wants_reboot = true;
         keep_running = false;
     }
     def channel_is_pending() : _int64 { return channel_message >= 0; }
@@ -465,7 +477,7 @@ class controller_app {
      * GUI's (it goes when the window closes); this only tends the pins.
      */
     def shut_down() {
-        note(wants_power_off ? "controller stopping (power off)" : "controller stopping");
+        note(wants_reboot ? "controller rebooting" : "controller stopping");
         devices.pins.write(CONNECTING_LIGHT_PIN, false);
         devices.pins.write(BUTTON_POWER_PIN, false);
     }

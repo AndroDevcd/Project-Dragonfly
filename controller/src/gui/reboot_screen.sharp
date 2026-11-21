@@ -3,12 +3,13 @@ mod controller.gui;
 import ( std.guikit.* );
 
 /**
- * "POWER DOWN?" - Yes or No. Pushed on top of the settings when the pilot
- * chooses "Power off". "No" is highlighted to begin with, so a stray press does
- * not turn the controller off. "No" goes back; "Yes" powers the Pi down.
+ * "REBOOT?" - Yes or No. Pushed on top of the settings when the pilot chooses
+ * "Reboot". "No" is highlighted to begin with, so a stray press does not restart
+ * the controller. "No" goes back; "Yes" reboots the Raspberry Pi - which brings
+ * the controller software and the display back up together.
  */
-class power_screen base nav_screen {
-    power_screen(nav: navigator) {
+class reboot_screen base nav_screen {
+    reboot_screen(nav: navigator) {
         arm(nav);
         focus.value = 0;                                // start on "No", the safe one
     }
@@ -17,12 +18,12 @@ class power_screen base nav_screen {
         t := gui.current_theme();
         begin();
         no := item({ -> back(); });
-        yes := item({ -> model.power_off(); });
+        yes := item({ -> model.reboot(); });
         return column(modifier().fill().background(t.background).padding(8)) {
-            top_strip("Power off", model.clock.value);
+            top_strip("Reboot", model.clock.value);
             spacer();
-            text("Power the controller down?").size(15).bold();
-            text("the Raspberry Pi will switch off").size(11).dim();
+            text("Reboot the controller?").size(15).bold();
+            text("the software and display will restart").size(11).dim();
             row(modifier()) {
                 choice("No", no);
                 choice("Yes", yes);

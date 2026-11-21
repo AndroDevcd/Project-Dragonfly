@@ -7,6 +7,7 @@ import ( std, std.io, link.messages );
  *
  *      flight_mode     normal / sport                  (sent to the drone)
  *      dim_screen      low brightness
+ *      light_mode      the light UI theme instead of the dark one
  *      radio_power     0 (least) .. 3 (most)
  *      utc_offset      hours to add to UTC for the clock on the status bar
  *
@@ -60,6 +61,7 @@ class settings {
 
     flight_mode : _int64 = MODE_NORMAL;
     dim_screen : _int64 = false;
+    light_mode : _int64 = false;                 // false = the dark theme (the default)
     radio_power : _int64 = 0;
     utc_offset : _int64 = 0 - 5;
     jam_seconds : _int64 = 0;                    // how long a jam lasts: 0 (off), 10, 20 ... 60
@@ -73,6 +75,7 @@ class settings {
 
     def change_flight_mode(mode: _int64) { flight_mode = mode; write(); }
     def change_dim_screen(yes: _int64) { dim_screen = yes; write(); }
+    def change_light_mode(yes: _int64) { light_mode = yes; write(); }
     def change_radio_power(level: _int64) { radio_power = level; write(); }
     def change_jam_seconds() { jam_seconds = (jam_seconds + 10) % 70; write(); }   // 0,10..60, then 0
     def change_jam_channel() { jam_channel = (jam_channel + 1) % 126; write(); }   // 0..125, then 0
@@ -82,6 +85,7 @@ class settings {
 
     private def write() {
         store.save("flight_mode=" + flight_mode + "\ndim_screen=" + dim_screen
+                   + "\nlight_mode=" + light_mode
                    + "\nradio_power=" + radio_power + "\nutc_offset=" + utc_offset
                    + "\njam_seconds=" + jam_seconds + "\njam_channel=" + jam_channel
                    + "\njam_width=" + jam_width + "\n");
@@ -111,6 +115,7 @@ class settings {
 
         if(name == "flight_mode" && (value == MODE_NORMAL || value == MODE_SPORT)) { flight_mode = value; }
         else if(name == "dim_screen") { dim_screen = value != 0; }
+        else if(name == "light_mode") { light_mode = value != 0; }
         else if(name == "radio_power" && value >= 0 && value <= 3) { radio_power = value; }
         else if(name == "utc_offset" && value >= 0 - 12 && value <= 14) { utc_offset = value; }
         else if(name == "jam_seconds" && value >= 0 && value <= 60 && (value % 10) == 0) { jam_seconds = value; }

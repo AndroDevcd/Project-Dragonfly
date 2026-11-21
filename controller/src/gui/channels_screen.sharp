@@ -40,27 +40,35 @@ class channels_screen base nav_screen {
         }.gap(8);
     }
 
+    /**
+     * The band as a grid of rounded squares, one per channel (0 .. 125, so 21 x 6 = 126). Each
+     * square's colour is how busy that channel is (look.activity_color); the channel the radio is on
+     * gets a bright ring. Painted straight from the live scan, so it keeps up as the scanner hops.
+     */
     private def spectrum() : element {
         t := gui.current_theme();
-        bars := t.text_dim;
-        here := t.primary;
-        return canvas(card().fill_width().height(SPECTRUM_HEIGHT)) { p: painter, f: frame ->
+        quiet := t.surface_high;
+        mark := t.text;
+        return canvas(card().fill_width().height(SPECTRUM_HEIGHT).padding(6)) { p: painter, f: frame ->
             got := model.controller().scanner;
-            if(got == null) { return; }
-            scan := got!!;
-            w : decimal = f.width;
-            h : decimal = f.height;
-            step : decimal = w / 126.0;
-            bw : decimal = step - 1.0;
-            if(bw < 1.0) { bw = 1.0; }
-            for(c : _int64 = 0; c < 126; c++) {
-                level : _int64 = scan.level(c);         // 0 .. 1000
-                bar_h : decimal = h * level / 1000.0;
-                if(bar_h < 1.0 && level > 0) { bar_h = 1.0; }
-                p.rect(c * step, h - bar_h, bw, bar_h, bars);
-            }
+            cols : _int64 = 21;
+            rows : _int64 = 6;
+            cw : decimal = f.width / cols;
+            ch : decimal = f.height / rows;
+            side : decimal = (cw < ch ? cw : ch) - 3.0;
+            if(side < 2.0) { side = 2.0; }
+            rad : decimal = side / 3.0;
             cur : _int64 = model.controller().channel();
-            p.rect(cur * step, 0, bw, h, here);
+            for(c : _int64 = 0; c < 126; c++) {
+                col : _int64 = c % cols;
+                rowi : _int64 = c / cols;
+                cx : decimal = col * cw + (cw - side) / 2.0;
+                cy : decimal = rowi * ch + (ch - side) / 2.0;
+                fill := quiet;
+                if(got != null) { fill = activity_color(got!!.level(c)); }  // 0 .. 1000
+                if(c == cur) { p.rect(cx - 2.0, cy - 2.0, side + 4.0, side + 4.0, rad + 2.0, mark); }
+                p.rect(cx, cy, side, side, rad, fill);
+            }
         }.still();
     }
 

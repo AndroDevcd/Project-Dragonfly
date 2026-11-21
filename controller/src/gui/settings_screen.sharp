@@ -30,14 +30,15 @@ class settings_screen base nav_screen {
 
     private def menu() : element {
         return column(modifier().fill_width()) {
-            row_for("Mode", mode_value(), { -> model.toggle_mode(); });
+            status_row("Mode", mode_value());               // follows the physical sport switch; not chosen here
+            row_for("Theme", model.light_theme.value ? "light" : "dark", { -> model.toggle_theme(); });
             row_for("Screen", model.dim_screen.value ? "dim" : "bright", { -> model.toggle_dim(); });
             row_for("Radio power", "" + model.radio_power.value, { -> go(to_picker(PICK_POWER)); });
             row_for("Channel", channel_value(), { -> go(to_channels()); });
             row_for("Jam", model.jam_seconds.value <= 0 ? "off" : ("" + model.jam_seconds.value + "s"), { -> go(to_picker(PICK_JAM_TIME)); });
             row_for("Jam ch", "" + model.jam_channel_set.value, { -> go(to_picker(PICK_JAM_CHANNEL)); });
             row_for("Jam width", "+/- " + model.jam_width.value, { -> go(to_picker(PICK_JAM_WIDTH)); });
-            row_for("Power off", "", { -> go(to_power()); });
+            row_for("Reboot", "", { -> go(to_reboot()); });
             row_for("Back", "", { -> back(); });
         }.gap(4);
     }
@@ -46,6 +47,11 @@ class settings_screen base nav_screen {
     private def row_for(words: string, value: string, action: ()()) : element {
         it := item(action);
         return list_row(words, value, it.marked, it.click);
+    }
+
+    /** a line that only shows a value and cannot be chosen (the mode, set by the hardware switch) */
+    private def status_row(words: string, value: string) : element {
+        return list_row(words, value, 0, { -> });
     }
 
     private def mode_value() : string {

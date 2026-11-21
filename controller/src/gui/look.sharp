@@ -28,6 +28,82 @@ def material_dark() : theme {
     return t;
 }
 
+/**
+ * The same palette, dimmed - the "Screen: dim" setting swaps to this (controller_model.apply_theme).
+ * Every colour is about 58% of its full brightness, so on the LCD the whole screen gives off less
+ * light. It is a separate theme, not a layer over the top, so clicks still reach the UI.
+ */
+def material_dark_dim() : theme {
+    t := theme.dark();
+    t.background   = gui.rgb(10, 12, 15);
+    t.surface      = gui.rgb(17, 19, 22);
+    t.surface_high = gui.rgb(23, 24, 28);
+    t.border       = gui.rgb(39, 41, 46);
+    t.text         = gui.rgb(150, 150, 155);
+    t.text_dim     = gui.rgb(104, 107, 115);
+    t.primary      = gui.rgb(104, 123, 155);
+    t.primary_high = gui.rgb(118, 133, 156);
+    t.primary_low  = gui.rgb(87, 109, 147);
+    t.on_primary   = gui.rgb(3, 27, 64);
+    t.danger       = gui.rgb(158, 112, 106);
+    t.success      = gui.rgb(68, 132, 87);
+    t.radius = 12;
+    return t;
+}
+
+/**
+ * THE LIGHT THEME: Material 3 light - near-white surfaces, dark text, a deep blue for the main
+ * readings. Chosen with the "Theme: light" setting; the dark one is still the default.
+ */
+def material_light() : theme {
+    t := theme.light();
+    t.background   = gui.rgb(247, 248, 251);    // surface
+    t.surface      = gui.rgb(255, 255, 255);    // surface container
+    t.surface_high = gui.rgb(230, 233, 240);    // surface container high
+    t.border       = gui.rgb(196, 200, 209);    // outline variant
+    t.text         = gui.rgb(26, 28, 33);       // on surface
+    t.text_dim     = gui.rgb(92, 97, 107);      // on surface variant
+    t.primary      = gui.rgb(40, 90, 175);      // primary
+    t.primary_high = gui.rgb(28, 72, 152);
+    t.primary_low  = gui.rgb(66, 116, 198);
+    t.on_primary   = gui.rgb(255, 255, 255);
+    t.danger       = gui.rgb(186, 26, 26);      // error
+    t.success      = gui.rgb(27, 125, 68);
+    t.radius = 12;
+    return t;
+}
+
+/** the light theme, dimmed - the "Screen: dim" setting while the theme is light (see material_dark_dim) */
+def material_light_dim() : theme {
+    t := theme.light();
+    t.background   = gui.rgb(198, 199, 203);
+    t.surface      = gui.rgb(206, 207, 210);
+    t.surface_high = gui.rgb(184, 187, 193);
+    t.border       = gui.rgb(157, 160, 167);
+    t.text         = gui.rgb(21, 22, 26);
+    t.text_dim     = gui.rgb(74, 78, 86);
+    t.primary      = gui.rgb(32, 72, 140);
+    t.primary_high = gui.rgb(22, 58, 122);
+    t.primary_low  = gui.rgb(53, 93, 158);
+    t.on_primary   = gui.rgb(242, 243, 245);
+    t.danger       = gui.rgb(149, 21, 21);
+    t.success      = gui.rgb(22, 100, 54);
+    t.radius = 12;
+    return t;
+}
+
+/**
+ * The colour of one channel cell on the channels screen, by how busy it is (0 .. 1000). Bucketed,
+ * quiet grey through blue to amber and red, so a glance reads the band without fine gradients.
+ */
+def activity_color(level: _int64) : color {
+    if(level <= 40)  { return gui.rgb(44, 48, 56); }      // idle
+    if(level <= 200) { return gui.rgb(60, 92, 150); }     // a little
+    if(level <= 450) { return gui.rgb(108, 158, 246); }   // busy (blue)
+    if(level <= 700) { return gui.rgb(255, 185, 92); }    // amber
+    return gui.rgb(255, 120, 100);                         // very busy (red)
+}
+
 /** getting low: amber */
 def warning_color() : color { return gui.rgb(255, 185, 92); }
 
@@ -48,5 +124,6 @@ def sport_chip_text() : color { return gui.rgb(255, 221, 183); }
 def snackbar_color() : color { return gui.rgb(226, 226, 233); }        // inverse surface
 def snackbar_text() : color { return gui.rgb(46, 48, 54); }            // inverse on surface
 
-// a row in a list: the one in focus is a filled tonal container, the rest are flat
-def row_selected_color() : color { return gui.rgb(39, 52, 74); }       // a quiet blue container
+// a row in a list: the one in focus is a raised tonal container, the rest are flat. Taken from the
+// theme (its raised surface) so the words on it stay readable in both the dark and the light theme.
+def row_selected_color() : color { return gui.current_theme().surface_high; }

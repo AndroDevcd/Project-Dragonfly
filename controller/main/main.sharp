@@ -59,9 +59,9 @@ def main(args: string[]) : int {
         gui.run("Dragonfly", SCREEN_W, window_height(), window_mode.fullscreen, new controller_app_root());
 
         app.shut_down();
-        if(app.wants_power_off) {
-            println("dragonfly controller: powering down");
-            sys("poweroff");                // the Pi turns off (the program runs as root); on a PC this is just a command
+        if(app.wants_reboot) {
+            println("dragonfly controller: rebooting");
+            sys("reboot");                  // the Pi reboots (the program runs as root); on a PC this is just a command
         } else {
             println("dragonfly controller: stopped");
         }

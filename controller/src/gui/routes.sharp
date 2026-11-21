@@ -13,7 +13,7 @@ stable class to_flight base route { }
 stable class to_settings base route { }
 stable class to_channels base route { }
 stable class to_jam base route { }
-stable class to_power base route { }
+stable class to_reboot base route { }
 
 // the pickers all share one screen; the kind says which setting it changes
 const PICK_POWER : _int64 = 0;

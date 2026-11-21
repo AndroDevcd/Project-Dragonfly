@@ -50,6 +50,7 @@ class controller_model base view_model {
     flight_mode := gui.state(MODE_NORMAL);
     mode_pending := gui.state(0);
     dim_screen := gui.state(0);
+    light_theme := gui.state(0);
     radio_power := gui.state(0);
     channel := gui.state(RADIO_CHANNEL);
     channel_pending := gui.state(0);
@@ -70,6 +71,8 @@ class controller_model base view_model {
     private ticks : _int64 = 0;
 
     private app : controller_app?;
+    private dim_applied : _int64 = 0 - 1;        // the dim/light the theme is set for (-1: not set yet)
+    private light_applied : _int64 = 0 - 1;
 
     // the screens, deepest first, that the buttons drive: the one on top is in front (nav_screen.sharp)
     private controls : list<button_controls> = new list<button_controls>();
@@ -139,6 +142,7 @@ class controller_model base view_model {
         put(flight_mode, a.chosen.flight_mode);
         put(mode_pending, a.mode_is_pending() ? 1 : 0);
         put(dim_screen, a.chosen.dim_screen ? 1 : 0);
+        put(light_theme, a.chosen.light_mode ? 1 : 0);
         put(radio_power, a.chosen.radio_power);
         put(channel, a.channel());
         put(channel_pending, a.channel_is_pending() ? 1 : 0);
@@ -152,6 +156,22 @@ class controller_model base view_model {
         put(jam_left, a.jam_seconds_left());
         put(jam_low, a.jam_low());
         put(jam_high, a.jam_high());
+
+        apply_theme(a.chosen.dim_screen ? 1 : 0, a.chosen.light_mode ? 1 : 0);
+    }
+
+    /**
+     * The "Theme" (light / dark) and "Screen" (bright / dim) settings pick one of four themes
+     * (look.sharp) and swap the whole UI to it. A theme change only touches colours, so the mouse
+     * and the buttons keep working - unlike a translucent layer over the top, which would swallow
+     * their clicks. Applied once, only when either setting changes.
+     */
+    private def apply_theme(dim: _int64, light: _int64) {
+        if(dim == dim_applied && light == light_applied) { return; }
+        dim_applied = dim;
+        light_applied = light;
+        if(light == 1) { gui.use_theme(dim == 1 ? material_light_dim() : material_light()); }
+        else { gui.use_theme(dim == 1 ? material_dark_dim() : material_dark()); }
     }
 
     private def put(cell: state<_int64>, v: _int64) {
@@ -191,15 +211,17 @@ class controller_model base view_model {
 
     // ================================================================ what the screens ask for
 
-    def toggle_mode() {
-        a := app!!;
-        if(a.chosen.flight_mode == MODE_SPORT) { a.chosen.change_flight_mode(MODE_NORMAL); }
-        else { a.chosen.change_flight_mode(MODE_SPORT); }
-    }
+    // the flight mode is set by the physical sport switch now (controller_app.follow_sport_switch),
+    // not from the screen - so there is no toggle_mode(); the screens only read mode_name().
 
     def toggle_dim() {
         a := app!!;
         a.chosen.change_dim_screen(!a.chosen.dim_screen);
+    }
+
+    def toggle_theme() {
+        a := app!!;
+        a.chosen.change_light_mode(!a.chosen.light_mode);
     }
 
     def set_power(level: _int64) { app!!.chosen.change_radio_power(level); }
@@ -218,7 +240,11 @@ class controller_model base view_model {
     def start_jam() : _int64 { return app!!.start_jam(); }
     def is_jamming() : _int64 { return app!!.is_jamming(); }
 
-    def power_off() { app!!.power_off(); }
+    /** reboot the Pi: tell the app, then close the window so main() runs the reboot after gui.run returns */
+    def reboot() {
+        app!!.reboot();
+        if(ui_host.current != null) { ui_host.current!!.win.close(); }
+    }
 }
 
 def pad2(n: _int64) : string {
