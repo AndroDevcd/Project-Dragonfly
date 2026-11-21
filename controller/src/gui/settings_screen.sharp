@@ -1,6 +1,6 @@
 mod controller.gui;
 
-import ( std.guikit.* );
+import ( std, std.guikit.* );
 
 /**
  * SETTINGS: the menu. A line with one of a few values (the mode, the screen)
@@ -11,8 +11,18 @@ import ( std.guikit.* );
  * The highlighted line is the one UP / DOWN are on and SELECT acts on; a mouse
  * click acts on the line it lands on. The screen reads the model and calls it -
  * it changes nothing itself.
+ *
+ * THE LIST FOLLOWS THE HIGHLIGHT. There are more lines than fit on the little
+ * screen, so only a window of VISIBLE of them is drawn, and the window slides
+ * to keep the highlighted line on screen - press DOWN on the bottom one and the
+ * list scrolls up by one, the way an Android list does. Every line is still
+ * registered for the buttons (so UP / DOWN / SELECT reach them all); only the
+ * drawing is windowed.
  */
 class settings_screen base nav_screen {
+    private static const VISIBLE : _int64 = 5;          // lines that fit on the panel at once
+    private scroll_top : _int64 = 0;                    // the first line drawn; follows the highlight
+
     settings_screen(nav: navigator) {
         arm(nav);
     }
@@ -20,38 +30,65 @@ class settings_screen base nav_screen {
     override def build() : element {
         t := gui.current_theme();
         begin();
+        rows := gather();                               // every line, in order (registers the buttons' items)
+        shown := window(rows);                          // just the slice that fits, following the highlight
         return column(modifier().fill().background(t.background).padding(8)) {
             top_strip("Settings", model.clock.value);
             scroll(modifier().fill_width().grow(1.0)) {
-                menu();
+                column(modifier().fill_width()) {
+                    for(i : _int64 = 0; i < shown.size().value; i++) {
+                        r := shown.at(i);
+                        list_row(r.words, r.value, r.marked, r.click);
+                    }
+                }.gap(4);
             };
         }.gap(6);
     }
 
-    private def menu() : element {
-        return column(modifier().fill_width()) {
-            status_row("Mode", mode_value());               // follows the physical sport switch; not chosen here
-            row_for("Theme", model.light_theme.value ? "light" : "dark", { -> model.toggle_theme(); });
-            row_for("Screen", model.dim_screen.value ? "dim" : "bright", { -> model.toggle_dim(); });
-            row_for("Radio power", "" + model.radio_power.value, { -> go(to_picker(PICK_POWER)); });
-            row_for("Channel", channel_value(), { -> go(to_channels()); });
-            row_for("Jam", model.jam_seconds.value <= 0 ? "off" : ("" + model.jam_seconds.value + "s"), { -> go(to_picker(PICK_JAM_TIME)); });
-            row_for("Jam ch", "" + model.jam_channel_set.value, { -> go(to_picker(PICK_JAM_CHANNEL)); });
-            row_for("Jam width", "+/- " + model.jam_width.value, { -> go(to_picker(PICK_JAM_WIDTH)); });
-            row_for("Reboot", "", { -> go(to_reboot()); });
-            row_for("Back", "", { -> back(); });
-        }.gap(4);
+    /** build every line in order; the selectable ones register an item() so the buttons can land on them */
+    private def gather() : list<menu_row> {
+        rows : list<menu_row> = new list<menu_row>();
+        rows.add(new menu_row("Mode", mode_value(), 0, { -> }));          // follows the physical sport switch; not chosen here
+        rows.add(sel("Theme", model.light_theme.value ? "light" : "dark", { -> model.toggle_theme(); }));
+        rows.add(sel("Screen", model.dim_screen.value ? "dim" : "bright", { -> model.toggle_dim(); }));
+        rows.add(sel("Radio power", "" + model.radio_power.value, { -> go(to_picker(PICK_POWER)); }));
+        rows.add(sel("Channel", channel_value(), { -> go(to_channels()); }));
+        rows.add(sel("Jam", model.jam_seconds.value <= 0 ? "off" : ("" + model.jam_seconds.value + "s"), { -> go(to_picker(PICK_JAM_TIME)); }));
+        rows.add(sel("Jam ch", "" + model.jam_channel_set.value, { -> go(to_picker(PICK_JAM_CHANNEL)); }));
+        rows.add(sel("Jam width", "+/- " + model.jam_width.value, { -> go(to_picker(PICK_JAM_WIDTH)); }));
+        rows.add(sel("Reboot", "", { -> go(to_reboot()); }));
+        rows.add(sel("Back", "", { -> back(); }));
+        return rows;
     }
 
-    /** one line: item() registers it for the buttons and gives its highlight and mouse click */
-    private def row_for(words: string, value: string, action: ()()) : element {
+    /** one selectable line: item() registers it for the buttons and gives its highlight and mouse click */
+    private def sel(words: string, value: string, action: ()()) : menu_row {
         it := item(action);
-        return list_row(words, value, it.marked, it.click);
+        return new menu_row(words, value, it.marked, it.click);
     }
 
-    /** a line that only shows a value and cannot be chosen (the mode, set by the hardware switch) */
-    private def status_row(words: string, value: string) : element {
-        return list_row(words, value, 0, { -> });
+    /**
+     * The slice of the list to draw: VISIBLE lines, slid so the highlighted one is inside it. When the
+     * highlight goes below the bottom of the window the window moves down to it; above the top, up to
+     * it - so pressing DOWN past the last visible line scrolls the list.
+     */
+    private def window(rows: list<menu_row>) : list<menu_row> {
+        total : _int64 = rows.size().value;
+        if(total <= VISIBLE) { scroll_top = 0; return rows; }
+
+        focused : _int64 = 0;                           // the drawn position of the highlighted line
+        for(i : _int64 = 0; i < total; i++) { if(rows.at(i).marked == 1) { focused = i; } }
+
+        top : _int64 = scroll_top;
+        if(focused < top) { top = focused; }
+        if(focused >= top + VISIBLE) { top = focused - VISIBLE + 1; }
+        if(top > total - VISIBLE) { top = total - VISIBLE; }
+        if(top < 0) { top = 0; }
+        scroll_top = top;
+
+        out : list<menu_row> = new list<menu_row>();
+        for(i : _int64 = top; i < top + VISIBLE && i < total; i++) { out.add(rows.at(i)); }
+        return out;
     }
 
     private def mode_value() : string {
@@ -63,5 +100,19 @@ class settings_screen base nav_screen {
     private def channel_value() : string {
         if(model.channel_pending.value == 1) { return "" + model.channel.value + " > " + model.channel_wanted.value; }
         return "" + model.channel.value;
+    }
+}
+
+/** one line of the settings list: its words, its value, whether it is the highlight, and its click */
+class menu_row {
+    words : string = "";
+    value : string = "";
+    marked : _int64 = 0;
+    click : ()();
+    menu_row(words: string, value: string, marked: _int64, click: ()()) {
+        self->words = words;
+        self->value = value;
+        self->marked = marked;
+        self->click = click;
     }
 }
