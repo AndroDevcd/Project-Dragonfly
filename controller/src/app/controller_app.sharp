@@ -52,6 +52,7 @@ class controller_devices {
     tuning : radio_control? = null;             // the radio's own settings, when it has them
     channels : channel_control? = null;         // the radio's channels, when it can change them
     jammer : sustained_jammer? = null;          // the radio as a jammer, when it can be one
+    log : controller_log? = null;               // the run log, when the program keeps one (null = do not log)
 
     controller_devices(air: radio, time: clock, pins: gpio, saved: settings_store) {
         self->air = air;
@@ -74,6 +75,8 @@ class controller_app {
     private mode_message : _int64 = 0 - 1;      // the id of the set_mode that is on its way (-1: none)
     private mode_wanted : _int64 = 0 - 1;       // ... and the mode it carries
     private power_set : _int64 = 0 - 1;
+    private logged_connected : _int64 = 0 - 1;  // last link state written to the log (-1: none yet)
+    private logged_sport : _int64 = 0 - 1;      // last sport-mode state written to the log
 
     steps : _int64 = 0;                         // turns of the loop so far
     private started_at : _int64 = 0;
@@ -101,6 +104,29 @@ class controller_app {
         started_at = devices.time.now_ms();
         if(devices.channels != null) { keeper = new channel_keeper(devices.channels!!, net, devices.time); }
         net.connect();
+        log_setup();
+    }
+
+    /** write the hardware we just set up to the run log (once, at start) */
+    private def log_setup() {
+        if(devices.log == null) { return; }
+        l := devices.log!!;
+        l.pin("button up", UP_BUTTON_PIN, "input");
+        l.pin("button down", DOWN_BUTTON_PIN, "input");
+        l.pin("sport switch", SPORT_MODE_PIN, "input, pull-up (low = on)");
+        l.pin("connecting light", CONNECTING_LIGHT_PIN, "output");
+        l.pin("buttons power", BUTTON_POWER_PIN, "output, held high");
+        l.event("radio extras - tuning: " + yes_no(devices.tuning != null)
+                + ", channels: " + yes_no(devices.channels != null)
+                + ", jammer: " + yes_no(devices.jammer != null));
+        l.event("link: connecting on channel " + RADIO_CHANNEL);
+    }
+
+    private static def yes_no(flag: _int64) : string { return flag ? "yes" : "no"; }
+
+    /** one line in the run log, when there is one (never called on the hot path) */
+    private def note(text: string) {
+        if(devices.log != null) { devices.log!!.event(text); }
     }
 
     def now_ms() : _int64 { return devices.time.now_ms(); }
@@ -150,6 +176,10 @@ class controller_app {
         carry_out_settings();
         buttons.step();
         sport.step();
+        if(is_sport_mode() != logged_sport) {
+            logged_sport = is_sport_mode();
+            note(logged_sport ? "sport mode: ON" : "sport mode: off");
+        }
     }
 
     // ------------------------------------------------------------------ 2. what the drone said
@@ -182,6 +212,12 @@ class controller_app {
 
     private def judge_connection(now: _int64) {
         state.link_state = net.state();
+
+        conn : _int64 = net.is_connected();
+        if(conn != logged_connected) {
+            note(conn ? "link: connected" : "link: searching for the drone");
+            logged_connected = conn;
+        }
 
         // the bars: how fresh the drone's last telemetry is (it sends five a second)
         bars : _int64 = 0;
@@ -226,6 +262,7 @@ class controller_app {
         if(chosen.radio_power != power_set && devices.tuning != null) {
             devices.tuning!!.set_power(chosen.radio_power);
             power_set = chosen.radio_power;
+            note("radio power: " + power_set);
         }
 
         // The flight mode is the drone's to obey: it is SENT, reliably, and counts as told only
@@ -241,6 +278,7 @@ class controller_app {
             if(net.is_delivered(mode_message)) {
                 mode_sent = mode_wanted;
                 mode_message = 0 - 1;
+                note("flight mode: drone has mode " + mode_sent);
             } else if(net.has_failed(mode_message)) {
                 mode_message = 0 - 1;
             }
@@ -249,6 +287,7 @@ class controller_app {
         if(mode_sent != chosen.flight_mode) {
             mode_wanted = chosen.flight_mode;
             mode_message = net.send(new set_mode(mode_wanted).to_message());
+            note("flight mode: sending " + mode_wanted);
         }
     }
 
@@ -304,6 +343,7 @@ class controller_app {
         jam_on_channel = chosen.jam_channel;
         if(devices.jammer!!.jam_begin(jam_on_channel, chosen.jam_width) == 0) { tell("the radio would not jam", at); return false; }
         jam_until = at + chosen.jam_seconds * 1000;
+        note("jam: start on channel " + jam_on_channel + " +/-" + chosen.jam_width + " for " + chosen.jam_seconds + "s");
         return true;
     }
 
@@ -393,6 +433,7 @@ class controller_app {
         state.notice_text = text;
         state.notice_level = NOTICE_INFO;
         state.notice_until = now + NOTICE_SHOWN_MS;
+        note(text);
     }
 
     // ------------------------------------------------------------------ 7. what a console can ask
@@ -424,6 +465,7 @@ class controller_app {
      * GUI's (it goes when the window closes); this only tends the pins.
      */
     def shut_down() {
+        note(wants_power_off ? "controller stopping (power off)" : "controller stopping");
         devices.pins.write(CONNECTING_LIGHT_PIN, false);
         devices.pins.write(BUTTON_POWER_PIN, false);
     }

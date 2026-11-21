@@ -1,0 +1,75 @@
+mod controller;
+
+import ( std, std.io, link.hardware );
+
+/**
+ * THE CONTROLLER'S LOG FILE: a record of what it did, one line per event.
+ *
+ * It logs the things worth a record - the hardware it set up (each pin, the
+ * radio), the link coming and going, channel changes, jams, flight-mode and
+ * sport-mode changes, the end. It does NOT log the high-frequency work: every
+ * turn of the loop, every frame drawn, every telemetry packet (five a second),
+ * every button poll. Those would bury the record in noise and slow the file
+ * down, so nothing on the hot path calls in here - only discrete events do.
+ *
+ * LOGGING NEVER THROWS. If the file cannot be written - a read-only card, a full
+ * disk, no permission - the controller carries on and simply stops logging; a
+ * lost log line must never stop a flight. Each line is "[<seconds>s] <text>",
+ * the seconds counted from when this log was opened.
+ *
+ *      log := new controller_log(program_folder() + "/controller.log", clock);
+ *      log.event("radio: up");
+ *      log.pin("button up", 28, "input");
+ *
+ * The file is appended to across runs, with a "controller started" banner each
+ * time. Past a size limit the current file is rolled to "<name>.old" and a fresh
+ * one begun, so it stays small and each append stays quick (an append rewrites
+ * the whole file, so an unbounded log would get slower and slower).
+ */
+const LOG_MAX_BYTES : _int64 = 200000;      // roll the log once it passes this
+
+class controller_log {
+    private out : file;
+    private path : string;
+    private time : clock;
+    private started : _int64;
+    private writing : _int64 = true;        // still able to write? turned off after a failure, so it does not thrash
+
+    controller_log(path: string, time: clock) {
+        self->path = path;
+        self->out = new file(path);
+        self->time = time;
+        self->started = time.now_ms();
+        try {
+            roll_if_big();
+            out.append_text("\n==== controller started ====\n");
+        } catch(e: exception) {
+            writing = false;                // the log is optional: give up quietly
+        }
+    }
+
+    /** one timestamped line; any IO error just turns logging off */
+    def event(text: string) {
+        if(!writing) { return; }
+        secs : _int64 = (time.now_ms() - started) / 1000;
+        try {
+            out.append_line("[" + secs + "s] " + text);
+        } catch(e: exception) {
+            writing = false;
+        }
+    }
+
+    /** a pin as it is set up, e.g. pin("button up", 28, "input") -> "pin button up (wiringPi 28): input" */
+    def pin(role: string, number: _int64, kind: string) {
+        event("pin " + role + " (wiringPi " + number + "): " + kind);
+    }
+
+    /** when the current file is big, move it aside so a fresh one is started (keeps appends quick) */
+    private def roll_if_big() {
+        if(!out.exists() || out.length() <= LOG_MAX_BYTES) { return; }
+        old := new file(path + ".old");
+        if(old.exists()) { old.delete(); }
+        out.rename(old);                    // `out` now names the .old file
+        out = new file(path);               // point it back at the live path (now gone, will be recreated)
+    }
+}

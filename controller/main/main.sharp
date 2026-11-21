@@ -22,6 +22,9 @@ import ( std, std.io, platform, link.hardware, controller, controller.gui, std.g
  * drone and a radio in memory, so a change can be seen on a PC first.
  */
 def main(args: string[]) : int {
+    time := new system_clock();
+    log := new controller_log(program_folder() + "/controller.log", time);
+    log.event("controller starting");
     try {
         load_library(program_folder() + "/dragonfly");
 
@@ -29,10 +32,15 @@ def main(args: string[]) : int {
         // library both take over the Pi's GPIO; bringing wiringPi up first was leaving the radio's
         // begin() unable to init - the chip answered on SPI but radio_begin() returned 0. Starting
         // the radio first, then wiringPi, keeps both working.
+        log.event("radio: starting (CE GPIO22, SPI0 CE0)");
         air := new nrf24_radio(true, 0);
+        log.event("radio: up");
+        log.event("pins: starting (wiringPi)");
         pins := new pi_gpio();
-        devices := new controller_devices(air, new system_clock(), pins,
+        log.event("pins: up");
+        devices := new controller_devices(air, time, pins,
                                           new file_store(program_folder() + "/settings.prefs"));
+        devices.log = log;
         devices.tuning = air;
         devices.channels = air;
         devices.jammer = air;
@@ -58,6 +66,7 @@ def main(args: string[]) : int {
             println("dragonfly controller: stopped");
         }
     } catch(problem: hardware_exception) {
+        log.event("startup FAILED: " + problem.get_message());
         println("dragonfly controller: " + problem.get_message());
         return 1;
     }
