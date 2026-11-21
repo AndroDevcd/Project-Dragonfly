@@ -1,6 +1,6 @@
 mod controller.gui;
 
-import ( std.guikit.*, link, std.math );
+import ( std.guikit.*, link );
 
 /**
  * THE CHANNELS: how busy the 2.4 GHz band is, a bar a channel, and what to do
@@ -41,13 +41,13 @@ class channels_screen base nav_screen {
     }
 
     /**
-     * THE CHANNEL MAP, the way a WiFi scanner draws one: the 2.4 GHz band on the X axis labelled by
-     * WiFi channel (1 .. 14), an approximate signal scale (dBm) up the Y, and a smooth arc over each
-     * WiFi channel whose height is how busy that band measured. A faint fill underneath is the raw
-     * per-frequency energy the radio actually sensed; a line marks the channel the radio is on.
+     * THE CHANNEL MAP, as a plain bar chart: one wide bar per WiFi channel (1 .. 14) along the X, an
+     * approximate signal scale (dBm) up the Y, each bar as tall as how busy that band measured. The
+     * bar for the channel the radio itself sits on is outlined; if the radio is off the WiFi band
+     * (where it usually is) nothing is drawn for it - no stray marker line.
      *
      * The nRF24 senses energy, not WiFi packets, so it cannot name networks or read true dBm - each
-     * arc is a WiFi channel's OCCUPANCY from the scan, and the dB scale is relative. nRF channel c is
+     * bar is a WiFi channel's OCCUPANCY from the scan, and the dB scale is relative. nRF channel c is
      * (2400 + c) MHz; a WiFi channel is ~22 MHz wide (wifi_freq / band_occupancy below).
      */
     private def spectrum() : element {
@@ -56,25 +56,20 @@ class channels_screen base nav_screen {
         ink := t.text_dim;
         strong := t.text;
         markc := t.primary;
-        back := t.surface_high;
         return canvas(card().fill_width().height(SPECTRUM_HEIGHT)) { p: painter, f: frame ->
-            mL : decimal = 24.0;  mR : decimal = 6.0;  mT : decimal = 6.0;  mB : decimal = 13.0;
+            mL : decimal = 24.0;  mR : decimal = 6.0;  mT : decimal = 6.0;  mB : decimal = 14.0;
             px : decimal = mL;  py : decimal = mT;
             pw : decimal = f.width - mL - mR;
             ph : decimal = f.height - mT - mB;
             if(pw < 20.0 || ph < 20.0) { return; }
 
-            fMin : decimal = 2401.0;  fMax : decimal = 2487.0;
-            fSpan : decimal = fMax - fMin;
-            floorMag : decimal = 92.0;      // dBm magnitude at the baseline (-92)
-            rangeMag : decimal = 62.0;      // ... up to -30 at the top
-
             small := gui.font(9.0);
 
-            // horizontal dB gridlines and their labels (-40 .. -90)
+            // horizontal dB gridlines and their labels (-40 .. -90); bar height uses the same scale,
+            // so a bar top lines up with the dB readings (occ 0 -> -92 baseline, 1000 -> -30 top)
             gfade := p.fade(0.5);
             for(mag : _int64 = 40; mag <= 90; mag = mag + 10) {
-                s : decimal = (floorMag - mag) / rangeMag;
+                s : decimal = (92.0 - mag) / 62.0;
                 yy : decimal = py + (1.0 - s) * ph;
                 p.line(px, yy, px + pw, yy, 1.0, grid);
                 lab : string = "-" + mag;
@@ -83,78 +78,47 @@ class channels_screen base nav_screen {
             p.unfade(gfade);
 
             got := model.controller().scanner;
-            if(got != null) {
-                scan := got!!;
-
-                // the raw sensed energy, as a faint column under each frequency
-                cw : decimal = pw / 86.0 + 1.0;
-                bfade := p.fade(0.4);
-                for(fc : _int64 = 2401; fc <= 2487; fc++) {
-                    cc : _int64 = fc - 2400;
-                    lvl : _int64 = 0;
-                    if(cc >= 0 && cc <= 125) { lvl = scan.level(cc); }
-                    if(lvl > 0) {
-                        colh : decimal = lvl / 1000.0 * 0.5 * ph;
-                        xx : decimal = px + (fc - fMin) / fSpan * pw;
-                        p.rect(xx, py + ph - colh, cw, colh, back);
-                    }
-                }
-                p.unfade(bfade);
-
-                // one bell-curve arc per WiFi channel with any traffic
-                axs := new decimal[72];  ays := new decimal[72];
-                for(wc : _int64 = 1; wc <= 14; wc++) {
-                    fc : _int64 = wifi_freq(wc);
-                    occ : _int64 = band_occupancy(scan, fc);
-                    if(occ < 60) { continue; }
-                    peak : decimal = occ / 1000.0 * 0.92;
-                    sigma : decimal = 8.0;  half : decimal = 22.0;
-                    col := activity_color(occ);
-                    m : _int64 = 0;
-                    axs[m] = px + (fc - half - fMin) / fSpan * pw;  ays[m] = py + ph;  m++;
-                    for(d : decimal = 0.0 - half; d <= half; d = d + 2.0) {
-                        g : decimal = exp_of(0.0 - (d * d) / (2.0 * sigma * sigma));
-                        s : decimal = peak * g;
-                        axs[m] = px + (fc + d - fMin) / fSpan * pw;
-                        ays[m] = py + (1.0 - s) * ph;
-                        m++;
-                    }
-                    axs[m] = px + (fc + half - fMin) / fSpan * pw;  ays[m] = py + ph;  m++;
-                    afade := p.fade(0.20);
-                    p.polygon(axs, ays, m, col);
-                    p.unfade(afade);
-                    for(i : _int64 = 2; i < m - 1; i++) {
-                        p.line(axs[i - 1], ays[i - 1], axs[i], ays[i], 1.6, col);
-                    }
-                    num : string = "" + wc;
-                    p.text(num, px + (fc - fMin) / fSpan * pw - small.width_of(num) / 2.0,
-                           py + (1.0 - peak) * ph - 11.0, small, col);
-                }
-            } else {
+            if(got == null) {
                 msg : string = "scanning...";
                 p.text(msg, px + pw / 2.0 - small.width_of(msg) / 2.0, py + ph / 2.0 - 4.0, small, ink);
+                return;
             }
+            scan := got!!;
 
-            // the channel the radio is on (clamped into view if it sits above the WiFi band)
+            slot : decimal = pw / 14.0;          // one slot per WiFi channel
+            gap : decimal = slot * 0.14;         // breathing room each side
+            barw : decimal = slot - gap * 2.0;   // the bar itself, nice and wide
             rf : _int64 = 2400 + model.controller().channel();
-            rx : decimal = px + (rf - fMin) / fSpan * pw;
-            off : _int64 = false;
-            if(rx < px) { rx = px;  off = true; }
-            if(rx > px + pw) { rx = px + pw;  off = true; }
-            p.line(rx, py, rx, py + ph, 1.5, markc);
-            tag : string = off ? "radio>" : "radio";
-            tagx : decimal = rx - small.width_of(tag) - 2.0;
-            if(tagx < px) { tagx = rx + 2.0; }
-            p.text(tag, tagx, py + 1.0, small, markc);
 
-            // X axis: WiFi channel numbers, 1 / 6 / 11 emphasised
             for(wc : _int64 = 1; wc <= 14; wc++) {
-                xx : decimal = px + (wifi_freq(wc) - fMin) / fSpan * pw;
+                occ : _int64 = band_occupancy(scan, wifi_freq(wc));
+                frac : decimal = occ / 1000.0;
+                if(frac > 1.0) { frac = 1.0; }
+                bh : decimal = frac * ph;
+                if(occ > 0 && bh < 2.0) { bh = 2.0; }
+                bx : decimal = px + (wc - 1) * slot + gap;
+                col := activity_color(occ);
+
+                // a faint full-height track so empty channels still read as a slot
+                trfade := p.fade(0.12);
+                p.rect(bx, py, barw, ph, 4.0, grid);
+                p.unfade(trfade);
+
+                if(bh > 0.0) {
+                    p.rect(bx, py + ph - bh, barw, bh, 4.0, col);
+                }
+
+                // channel number under the bar, 1 / 6 / 11 emphasised
                 lab : string = "" + wc;
                 emph : _int64 = (wc == 1 || wc == 6 || wc == 11) ? 1 : 0;
-                was := p.fade(emph == 1 ? 1.0 : 0.55);
-                p.text(lab, xx - small.width_of(lab) / 2.0, py + ph + 2.0, small, emph == 1 ? strong : ink);
+                was := p.fade(emph == 1 ? 1.0 : 0.6);
+                p.text(lab, bx + barw / 2.0 - small.width_of(lab) / 2.0, py + ph + 3.0, small, emph == 1 ? strong : ink);
                 p.unfade(was);
+
+                // outline the bar the radio is sitting on (only when it falls in the WiFi band)
+                if(rf >= wifi_freq(wc) - 2 && rf <= wifi_freq(wc) + 2) {
+                    p.outline(bx - 1.0, py, barw + 2.0, ph, 4.0, 1.5, markc);
+                }
             }
         }.still();
     }
