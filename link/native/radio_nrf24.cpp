@@ -36,7 +36,12 @@
 // function needed is declared here by hand; -lwiringPi provides it. HIGH is 1.
 extern "C" int digitalRead(int pin);
 
-static RF24 radio(22, 0);
+// 4 MHz SPI, not the RF24 default of 10 MHz. On this build's breadboard wiring - and especially
+// with the AS01-ML01DP5 (PA/LNA) module - 10 MHz left begin() failing every time: the chip would
+// answer a bare register read over SPI, but could not be set up reliably, so radio_begin() returned
+// 0 ("the radio does not answer"). 4 MHz is rock-solid here. This is the SPI clock between the Pi
+// and the chip, NOT the over-the-air data rate (that is link_rate / setDataRate below).
+static RF24 radio(22, 0, 4000000);
 static bool started = false;
 static uint8_t power_level = 0;
 static rf24_datarate_e link_rate = RF24_250KBPS;   // the link's data rate, restored after a jam

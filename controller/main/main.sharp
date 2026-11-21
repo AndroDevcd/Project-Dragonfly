@@ -28,10 +28,9 @@ def main(args: string[]) : int {
     try {
         load_library(program_folder() + "/dragonfly");
 
-        // The radio is started BEFORE the pins on purpose. wiringPiSetup() (pi_gpio) and the RF24
-        // library both take over the Pi's GPIO; bringing wiringPi up first was leaving the radio's
-        // begin() unable to init - the chip answered on SPI but radio_begin() returned 0. Starting
-        // the radio first, then wiringPi, keeps both working.
+        // The radio is brought up first, then the pins; the log notes each. (The "radio does not
+        // answer" fault chased here was the SPI clock - the RF24 default of 10 MHz was too fast for
+        // this wiring - fixed in radio_nrf24.cpp, not the GPIO or the order.)
         log.event("radio: starting (CE GPIO22, SPI0 CE0)");
         air := new nrf24_radio(true, 0);
         log.event("radio: up");
