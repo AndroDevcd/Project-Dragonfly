@@ -1,0 +1,55 @@
+mod controller.input;
+
+import ( std, link.hardware );
+
+/**
+ * THE SPORT MODE SWITCH
+ *
+ * A single toggle (an MTS-102, an SPDT used as plain on/off) on its own GPIO
+ * input, wired SWITCH-TO-GROUND: one side goes through a 1k resistor to the pin,
+ * the other side to GND. The pin is set up with the Pi's PULL-UP, so it reads
+ * HIGH while the switch is open and LOW when the switch is closed (which ties the
+ * pin to ground) - so LOW = ON. This is the robust way to wire a switch: it never
+ * touches a power rail, which is why it uses `set_input_pull_up`, not the
+ * pull-DOWN every other input gets.
+ *
+ * It is NOT a button: there are no press / hold / select events, only a level
+ * that is on or off. `step()` looks at the pin once; `is_on()` gives the last
+ * steady reading. A flip shorter than SPORT_DEBOUNCE_MS is contact bounce and is
+ * ignored, so the mode does not flicker as the contacts settle.
+ */
+const SPORT_DEBOUNCE_MS : _int64 = 20;
+
+class sport_mode_switch {
+    private pins : gpio;
+    private time : clock;
+    private pin : _int64;
+
+    private on : _int64 = false;            // the last steady reading (true = in SPORT, i.e. pin LOW)
+    private candidate : _int64 = false;     // a reading that has not held long enough yet
+    private changed_at : _int64 = 0;
+
+    sport_mode_switch(pins: gpio, time: clock, pin: _int64) {
+        self->pins = pins;
+        self->time = time;
+        self->pin = pin;
+        pins.set_input_pull_up(pin);
+        on = !pins.read(pin);               // LOW = ON; start from where the switch actually is
+        candidate = on;
+    }
+
+    /** look at the pin once; call it every turn of the loop */
+    def step() {
+        now : _int64 = time.now_ms();
+        reading : _int64 = !pins.read(pin); // LOW (pin pulled to GND by the switch) = ON
+        if(reading != candidate) {
+            candidate = reading;            // a change began: wait for it to hold
+            changed_at = now;
+        } else if(candidate != on && now - changed_at >= SPORT_DEBOUNCE_MS) {
+            on = candidate;                 // held long enough: take it
+        }
+    }
+
+    /** true while the switch is in the SPORT position */
+    def is_on() : _int64 { return on; }
+}

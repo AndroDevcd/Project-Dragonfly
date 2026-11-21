@@ -35,6 +35,7 @@ native "dragonfly" {
     def gpio_mode(pin: _int32, output: _int32);
     def gpio_write(pin: _int32, high: _int32);
     def gpio_read(pin: _int32) : _int32;
+    def gpio_input_pull_up(pin: _int32);
 }
 
 /** the slowest rate: the longest range */
@@ -115,6 +116,7 @@ class pi_gpio : gpio {
     }
 
     override def set_input(pin: _int64) { gpio_mode(pin, 0); }
+    override def set_input_pull_up(pin: _int64) { gpio_input_pull_up(pin); }
     override def set_output(pin: _int64) { gpio_mode(pin, 1); }
     override def write(pin: _int64, high: _int64) { gpio_write(pin, high ? 1 : 0); }
     override def read(pin: _int64) : _int64 { return gpio_read(pin) != 0; }

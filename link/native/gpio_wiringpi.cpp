@@ -37,11 +37,20 @@ int32_t dragonfly_gpio_read(sni_env* env, int32_t pin) {
     return digitalRead(pin) == HIGH ? 1 : 0;
 }
 
+// An input with the Pi's PULL-UP: it reads HIGH (1) while nothing drives it, and a switch wired
+// from the pin to GND reads LOW (0) when it is closed. The sport-mode switch is wired that way
+// (to ground), so it needs this rather than the pull-DOWN that gpio_mode gives an ordinary input.
+void dragonfly_gpio_input_pull_up(sni_env* env, int32_t pin) {
+    pinMode(pin, INPUT);
+    pullUpDnControl(pin, PUD_UP);
+}
+
 #else   // ---- no hardware under this build
 
 int32_t dragonfly_gpio_begin(sni_env* env) { return 0; }
 void dragonfly_gpio_mode(sni_env* env, int32_t pin, int32_t output) { }
 void dragonfly_gpio_write(sni_env* env, int32_t pin, int32_t high) { }
 int32_t dragonfly_gpio_read(sni_env* env, int32_t pin) { return 0; }
+void dragonfly_gpio_input_pull_up(sni_env* env, int32_t pin) { }
 
 #endif

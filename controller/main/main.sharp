@@ -25,8 +25,12 @@ def main(args: string[]) : int {
     try {
         load_library(program_folder() + "/dragonfly");
 
-        pins := new pi_gpio();
+        // The radio is started BEFORE the pins on purpose. wiringPiSetup() (pi_gpio) and the RF24
+        // library both take over the Pi's GPIO; bringing wiringPi up first was leaving the radio's
+        // begin() unable to init - the chip answered on SPI but radio_begin() returned 0. Starting
+        // the radio first, then wiringPi, keeps both working.
         air := new nrf24_radio(true, 0);
+        pins := new pi_gpio();
         devices := new controller_devices(air, new system_clock(), pins,
                                           new file_store(program_folder() + "/settings.prefs"));
         devices.tuning = air;

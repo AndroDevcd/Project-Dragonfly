@@ -19,6 +19,8 @@ import ( std );
  */
 interface gpio {
     def set_input(pin: _int64);
+    /** an input held HIGH by the Pi's pull-up: a switch wired to GND reads LOW when it is closed */
+    def set_input_pull_up(pin: _int64);
     def set_output(pin: _int64);
     def write(pin: _int64, high: _int64);
     /** true when the pin is high */
@@ -32,6 +34,8 @@ class fake_gpio : gpio {
     writes : _int64 = 0;                    // how often the program wrote a pin
 
     override def set_input(pin: _int64) { outputs[pin] = false; }
+    // a pull-up input idles HIGH (1); a test "closes a switch to ground" with force(pin, false)
+    override def set_input_pull_up(pin: _int64) { outputs[pin] = false; levels[pin] = 1; }
     override def set_output(pin: _int64) { outputs[pin] = true; }
 
     override def write(pin: _int64, high: _int64) {

@@ -37,6 +37,11 @@ const CONNECTING_LIGHT_PIN : _int64 = 27;
 // too few 3.3 V pins to go round. Both buttons take their positive side from it. wiringPi 25 is
 // GPIO 26, physical pin 37 - beside the buttons' own pins 38 and 40.
 const BUTTON_POWER_PIN : _int64 = 25;
+// The SPORT MODE switch: a toggle wired SWITCH-TO-GROUND (one side through a 1k resistor to the
+// pin, the other to GND). The pin is set up with the Pi's pull-UP, so it reads HIGH when the switch
+// is open and LOW when it is closed - LOW = on (see sport_mode_switch). Unlike the buttons it
+// touches no power rail. wiringPi 0 is GPIO 17, physical pin 11; the nearest ground is pin 9.
+const SPORT_MODE_PIN : _int64 = 0;
 
 /** everything the controller is made of */
 class controller_devices {
@@ -62,6 +67,7 @@ class controller_app {
     state := new controller_state();
     chosen : settings;
     buttons : button_reader;
+    sport : sport_mode_switch;
 
     private telemetry_at : _int64 = 0 - 1;      // when telemetry last arrived
     private mode_sent : _int64 = 0 - 1;         // the flight mode the drone was last told (-1: none yet)
@@ -88,6 +94,7 @@ class controller_app {
         net = new radio_link(devices.air, devices.time);
         chosen = new settings(devices.saved);
         buttons = new button_reader(devices.pins, devices.time, UP_BUTTON_PIN, DOWN_BUTTON_PIN);
+        sport = new sport_mode_switch(devices.pins, devices.time, SPORT_MODE_PIN);
         devices.pins.set_output(CONNECTING_LIGHT_PIN);
         devices.pins.set_output(BUTTON_POWER_PIN);
         devices.pins.write(BUTTON_POWER_PIN, true);
@@ -142,6 +149,7 @@ class controller_app {
         judge_connection(now);
         carry_out_settings();
         buttons.step();
+        sport.step();
     }
 
     // ------------------------------------------------------------------ 2. what the drone said
@@ -261,6 +269,17 @@ class controller_app {
         if(pressed != BUTTON_NONE && report_buttons) { println("button: " + button_name(pressed)); }
         return pressed;
     }
+
+    /**
+     * SPORT MODE: the toggle switch's position. On means a faster, twitchier craft; off is the
+     * normal, gentler envelope. The screen can show a "SPORT" badge from this (controller/src/gui).
+     *
+     * TODO(sport-mode): once the sticks and their throttle/rate are wired in (the planned ADC),
+     * RAISE the throttle and angular-rate CAPS while this is true - and clamp back to the normal
+     * caps when it is false - before the stick values go into the frame sent over the radio.
+     * Nothing sends throttle yet, so for now this only reports the switch.
+     */
+    def is_sport_mode() : _int64 { return sport.is_on(); }
 
     // ------------------------------------------------------------------ 6. the radio channel
 
@@ -383,6 +402,7 @@ class controller_app {
         return "up (pin 38): " + devices.pins.read(UP_BUTTON_PIN)
              + "   down (pin 40): " + devices.pins.read(DOWN_BUTTON_PIN)
              + "   buttons' power (pin 37): " + devices.pins.read(BUTTON_POWER_PIN)
+             + "   sport (pin 11): " + devices.pins.read(SPORT_MODE_PIN) + " (0 = sport on)"
              + "   (1 = 3.3 V)";
     }
 
