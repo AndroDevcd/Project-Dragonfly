@@ -1,6 +1,6 @@
 mod controller.gui;
 
-import ( std.guikit.*, link );
+import ( std.guikit.*, link, std.math );
 
 /**
  * THE CHANNELS: how busy the 2.4 GHz band is, a bar a channel, and what to do
@@ -41,33 +41,120 @@ class channels_screen base nav_screen {
     }
 
     /**
-     * The band as a grid of rounded squares, one per channel (0 .. 125, so 21 x 6 = 126). Each
-     * square's colour is how busy that channel is (look.activity_color); the channel the radio is on
-     * gets a bright ring. Painted straight from the live scan, so it keeps up as the scanner hops.
+     * THE CHANNEL MAP, the way a WiFi scanner draws one: the 2.4 GHz band on the X axis labelled by
+     * WiFi channel (1 .. 14), an approximate signal scale (dBm) up the Y, and a smooth arc over each
+     * WiFi channel whose height is how busy that band measured. A faint fill underneath is the raw
+     * per-frequency energy the radio actually sensed; a line marks the channel the radio is on.
+     *
+     * The nRF24 senses energy, not WiFi packets, so it cannot name networks or read true dBm - each
+     * arc is a WiFi channel's OCCUPANCY from the scan, and the dB scale is relative. nRF channel c is
+     * (2400 + c) MHz; a WiFi channel is ~22 MHz wide (wifi_freq / band_occupancy below).
      */
     private def spectrum() : element {
         t := gui.current_theme();
-        quiet := t.surface_high;
-        mark := t.text;
-        return canvas(card().fill_width().height(SPECTRUM_HEIGHT).padding(6)) { p: painter, f: frame ->
+        grid := t.border;
+        ink := t.text_dim;
+        strong := t.text;
+        markc := t.primary;
+        back := t.surface_high;
+        return canvas(card().fill_width().height(SPECTRUM_HEIGHT)) { p: painter, f: frame ->
+            mL : decimal = 24.0;  mR : decimal = 6.0;  mT : decimal = 6.0;  mB : decimal = 13.0;
+            px : decimal = mL;  py : decimal = mT;
+            pw : decimal = f.width - mL - mR;
+            ph : decimal = f.height - mT - mB;
+            if(pw < 20.0 || ph < 20.0) { return; }
+
+            fMin : decimal = 2401.0;  fMax : decimal = 2487.0;
+            fSpan : decimal = fMax - fMin;
+            floorMag : decimal = 92.0;      // dBm magnitude at the baseline (-92)
+            rangeMag : decimal = 62.0;      // ... up to -30 at the top
+
+            small := gui.font(9.0);
+
+            // horizontal dB gridlines and their labels (-40 .. -90)
+            gfade := p.fade(0.5);
+            for(mag : _int64 = 40; mag <= 90; mag = mag + 10) {
+                s : decimal = (floorMag - mag) / rangeMag;
+                yy : decimal = py + (1.0 - s) * ph;
+                p.line(px, yy, px + pw, yy, 1.0, grid);
+                lab : string = "-" + mag;
+                p.text(lab, px - 3.0 - small.width_of(lab), yy - 5.0, small, ink);
+            }
+            p.unfade(gfade);
+
             got := model.controller().scanner;
-            cols : _int64 = 21;
-            rows : _int64 = 6;
-            cw : decimal = f.width / cols;
-            ch : decimal = f.height / rows;
-            side : decimal = (cw < ch ? cw : ch) - 3.0;
-            if(side < 2.0) { side = 2.0; }
-            rad : decimal = side / 3.0;
-            cur : _int64 = model.controller().channel();
-            for(c : _int64 = 0; c < 126; c++) {
-                col : _int64 = c % cols;
-                rowi : _int64 = c / cols;
-                cx : decimal = col * cw + (cw - side) / 2.0;
-                cy : decimal = rowi * ch + (ch - side) / 2.0;
-                fill := quiet;
-                if(got != null) { fill = activity_color(got!!.level(c)); }  // 0 .. 1000
-                if(c == cur) { p.rect(cx - 2.0, cy - 2.0, side + 4.0, side + 4.0, rad + 2.0, mark); }
-                p.rect(cx, cy, side, side, rad, fill);
+            if(got != null) {
+                scan := got!!;
+
+                // the raw sensed energy, as a faint column under each frequency
+                cw : decimal = pw / 86.0 + 1.0;
+                bfade := p.fade(0.4);
+                for(fc : _int64 = 2401; fc <= 2487; fc++) {
+                    cc : _int64 = fc - 2400;
+                    lvl : _int64 = 0;
+                    if(cc >= 0 && cc <= 125) { lvl = scan.level(cc); }
+                    if(lvl > 0) {
+                        colh : decimal = lvl / 1000.0 * 0.5 * ph;
+                        xx : decimal = px + (fc - fMin) / fSpan * pw;
+                        p.rect(xx, py + ph - colh, cw, colh, back);
+                    }
+                }
+                p.unfade(bfade);
+
+                // one bell-curve arc per WiFi channel with any traffic
+                axs := new decimal[72];  ays := new decimal[72];
+                for(wc : _int64 = 1; wc <= 14; wc++) {
+                    fc : _int64 = wifi_freq(wc);
+                    occ : _int64 = band_occupancy(scan, fc);
+                    if(occ < 60) { continue; }
+                    peak : decimal = occ / 1000.0 * 0.92;
+                    sigma : decimal = 8.0;  half : decimal = 22.0;
+                    col := activity_color(occ);
+                    m : _int64 = 0;
+                    axs[m] = px + (fc - half - fMin) / fSpan * pw;  ays[m] = py + ph;  m++;
+                    for(d : decimal = 0.0 - half; d <= half; d = d + 2.0) {
+                        g : decimal = exp_of(0.0 - (d * d) / (2.0 * sigma * sigma));
+                        s : decimal = peak * g;
+                        axs[m] = px + (fc + d - fMin) / fSpan * pw;
+                        ays[m] = py + (1.0 - s) * ph;
+                        m++;
+                    }
+                    axs[m] = px + (fc + half - fMin) / fSpan * pw;  ays[m] = py + ph;  m++;
+                    afade := p.fade(0.20);
+                    p.polygon(axs, ays, m, col);
+                    p.unfade(afade);
+                    for(i : _int64 = 2; i < m - 1; i++) {
+                        p.line(axs[i - 1], ays[i - 1], axs[i], ays[i], 1.6, col);
+                    }
+                    num : string = "" + wc;
+                    p.text(num, px + (fc - fMin) / fSpan * pw - small.width_of(num) / 2.0,
+                           py + (1.0 - peak) * ph - 11.0, small, col);
+                }
+            } else {
+                msg : string = "scanning...";
+                p.text(msg, px + pw / 2.0 - small.width_of(msg) / 2.0, py + ph / 2.0 - 4.0, small, ink);
+            }
+
+            // the channel the radio is on (clamped into view if it sits above the WiFi band)
+            rf : _int64 = 2400 + model.controller().channel();
+            rx : decimal = px + (rf - fMin) / fSpan * pw;
+            off : _int64 = false;
+            if(rx < px) { rx = px;  off = true; }
+            if(rx > px + pw) { rx = px + pw;  off = true; }
+            p.line(rx, py, rx, py + ph, 1.5, markc);
+            tag : string = off ? "radio>" : "radio";
+            tagx : decimal = rx - small.width_of(tag) - 2.0;
+            if(tagx < px) { tagx = rx + 2.0; }
+            p.text(tag, tagx, py + 1.0, small, markc);
+
+            // X axis: WiFi channel numbers, 1 / 6 / 11 emphasised
+            for(wc : _int64 = 1; wc <= 14; wc++) {
+                xx : decimal = px + (wifi_freq(wc) - fMin) / fSpan * pw;
+                lab : string = "" + wc;
+                emph : _int64 = (wc == 1 || wc == 6 || wc == 11) ? 1 : 0;
+                was := p.fade(emph == 1 ? 1.0 : 0.55);
+                p.text(lab, xx - small.width_of(lab) / 2.0, py + ph + 2.0, small, emph == 1 ? strong : ink);
+                p.unfade(was);
             }
         }.still();
     }
@@ -103,4 +190,27 @@ class channels_screen base nav_screen {
         else { box = box.background(t.surface_high); }
         return text(words, box).size(12).bold().color(ink);
     }
+}
+
+/** the centre frequency (MHz) of 2.4 GHz WiFi channel 1 .. 14 */
+def wifi_freq(channel: _int64) : _int64 {
+    if(channel == 14) { return 2484; }
+    return 2412 + (channel - 1) * 5;
+}
+
+/**
+ * How busy the ~22 MHz band around `centre_freq` (MHz) measured: the strongest of the nRF24
+ * channels that fall inside it (0 .. 1000). nRF channel c covers 2400 + c MHz.
+ */
+def band_occupancy(scan: channel_scanner, centre_freq: _int64) : _int64 {
+    lo : _int64 = centre_freq - 11 - 2400;
+    hi : _int64 = centre_freq + 11 - 2400;
+    if(lo < 0) { lo = 0; }
+    if(hi > 125) { hi = 125; }
+    best : _int64 = 0;
+    for(c : _int64 = lo; c <= hi; c++) {
+        v : _int64 = scan.level(c);
+        if(v > best) { best = v; }
+    }
+    return best;
 }
