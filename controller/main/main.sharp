@@ -55,7 +55,8 @@ def main(args: string[]) : int {
 
         gui.use_theme(material_dark());
         gui.frame_rate(FRAME_RATE);
-        gui.run("Dragonfly", SCREEN_W, window_height(), new controller_app_root());
+        // fullscreen: the whole 320x240 panel, no title bar or desktop - a kiosk on the Pi
+        gui.run("Dragonfly", SCREEN_W, window_height(), window_mode.fullscreen, new controller_app_root());
 
         app.shut_down();
         if(app.wants_power_off) {
