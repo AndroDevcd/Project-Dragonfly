@@ -34,12 +34,12 @@ class file_store : settings_store {
     override def load() : string? {
         saved := new file(path);
         if(!saved.exists()) { return null; }
-        return saved.read();
+        return saved.read_text();
     }
 
     override def save(text: string) {
         saved := new file(path);
-        saved.write(text);
+        saved.write_text(text);
     }
 }
 

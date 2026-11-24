@@ -8,8 +8,9 @@ import ( std.guikit.*, link );
  *
  * The scanner runs only while this screen is up (when_shown / when_gone): it
  * takes the radio's time, so the link loses a few frames meanwhile. The bars
- * are painted straight from the live scan on a canvas; the model bumps a tick a
- * few times a second so the picture keeps up without painting every frame.
+ * are a chart of the library (std.guikit: chart, bars), given the live scan's
+ * numbers; the model bumps a tick a few times a second, and the bars glide to
+ * the new numbers.
  */
 const SPECTRUM_HEIGHT : _int64 = 120;
 
@@ -41,86 +42,45 @@ class channels_screen base nav_screen {
     }
 
     /**
-     * THE CHANNEL MAP, as a plain bar chart: one wide bar per WiFi channel (1 .. 14) along the X, an
-     * approximate signal scale (dBm) up the Y, each bar as tall as how busy that band measured. The
-     * bar for the channel the radio itself sits on is outlined; if the radio is off the WiFi band
-     * (where it usually is) nothing is drawn for it - no stray marker line.
+     * THE CHANNEL MAP, as a bar chart: one bar per WiFi channel (1 .. 14) along the X, how busy that
+     * band measured up the Y (0 .. 100 %), each bar in the colour of its activity. The number of the
+     * WiFi channel the radio itself sits on is written in the theme's colour; when the radio is off
+     * the WiFi band (where it usually is) no number is marked.
      *
      * The nRF24 senses energy, not WiFi packets, so it cannot name networks or read true dBm - each
-     * bar is a WiFi channel's OCCUPANCY from the scan, and the dB scale is relative. nRF channel c is
-     * (2400 + c) MHz; a WiFi channel is ~22 MHz wide (wifi_freq / band_occupancy below).
+     * bar is a WiFi channel's OCCUPANCY from the scan. nRF channel c is (2400 + c) MHz; a WiFi
+     * channel is ~22 MHz wide (wifi_freq / band_occupancy below).
      */
     private def spectrum() : element {
         t := gui.current_theme();
-        grid := t.border;
-        ink := t.text_dim;
-        strong := t.text;
-        markc := t.primary;
-        return canvas(card().fill_width().height(SPECTRUM_HEIGHT)) { p: painter, f: frame ->
-            mL : decimal = 24.0;  mR : decimal = 6.0;  mT : decimal = 6.0;  mB : decimal = 14.0;
-            px : decimal = mL;  py : decimal = mT;
-            pw : decimal = f.width - mL - mR;
-            ph : decimal = f.height - mT - mB;
-            if(pw < 20.0 || ph < 20.0) { return; }
+        box := card().fill_width().height(SPECTRUM_HEIGHT);
+        got := model.controller().scanner;
+        if(got == null) {
+            return column(box) { text("scanning...").size(11).dim(); }.center();
+        }
+        scan := got!!;
 
-            small := gui.font(9.0);
+        busy := new decimal[14];
+        names := new string[14];
+        for(wc : _int64 = 1; wc <= 14; wc++) {
+            busy[wc - 1] = band_occupancy(scan, wifi_freq(wc)) / 10.0;
+            names[wc - 1] = "" + wc;
+        }
+        rf : _int64 = 2400 + model.controller().channel();
 
-            // horizontal dB gridlines and their labels (-40 .. -90); bar height uses the same scale,
-            // so a bar top lines up with the dB readings (occ 0 -> -92 baseline, 1000 -> -30 top)
-            gfade := p.fade(0.5);
-            for(mag : _int64 = 40; mag <= 90; mag = mag + 10) {
-                s : decimal = (92.0 - mag) / 62.0;
-                yy : decimal = py + (1.0 - s) * ph;
-                p.line(px, yy, px + pw, yy, 1.0, grid);
-                lab : string = "-" + mag;
-                p.text(lab, px - 3.0 - small.width_of(lab), yy - 5.0, small, ink);
-            }
-            p.unfade(gfade);
-
-            got := model.controller().scanner;
-            if(got == null) {
-                msg : string = "scanning...";
-                p.text(msg, px + pw / 2.0 - small.width_of(msg) / 2.0, py + ph / 2.0 - 4.0, small, ink);
-                return;
-            }
-            scan := got!!;
-
-            slot : decimal = pw / 14.0;          // one slot per WiFi channel
-            gap : decimal = slot * 0.14;         // breathing room each side
-            barw : decimal = slot - gap * 2.0;   // the bar itself, nice and wide
-            rf : _int64 = 2400 + model.controller().channel();
-
-            for(wc : _int64 = 1; wc <= 14; wc++) {
-                occ : _int64 = band_occupancy(scan, wifi_freq(wc));
-                frac : decimal = occ / 1000.0;
-                if(frac > 1.0) { frac = 1.0; }
-                bh : decimal = frac * ph;
-                if(occ > 0 && bh < 2.0) { bh = 2.0; }
-                bx : decimal = px + (wc - 1) * slot + gap;
-                col := activity_color(occ);
-
-                // a faint full-height track so empty channels still read as a slot
-                trfade := p.fade(0.12);
-                p.rect(bx, py, barw, ph, 4.0, grid);
-                p.unfade(trfade);
-
-                if(bh > 0.0) {
-                    p.rect(bx, py + ph - bh, barw, bh, 4.0, col);
-                }
-
-                // channel number under the bar, 1 / 6 / 11 emphasised
-                lab : string = "" + wc;
-                emph : _int64 = (wc == 1 || wc == 6 || wc == 11) ? 1 : 0;
-                was := p.fade(emph == 1 ? 1.0 : 0.6);
-                p.text(lab, bx + barw / 2.0 - small.width_of(lab) / 2.0, py + ph + 3.0, small, emph == 1 ? strong : ink);
-                p.unfade(was);
-
-                // outline the bar the radio is sitting on (only when it falls in the WiFi band)
-                if(rf >= wifi_freq(wc) - 2 && rf <= wifi_freq(wc) + 2) {
-                    p.outline(bx - 1.0, py, barw + 2.0, ph, 4.0, 1.5, markc);
-                }
-            }
-        }.still();
+        return chart(box.padding(6)) {
+            bars(busy).corner(4).gap(0.28).color_each { i: _int64, v: decimal ->
+                return activity_color((v * 10) as _int64);
+            };
+            // 1 / 6 / 11 stand out, and so does the channel the radio is on
+            x_axis(names).for_each { l: axis_label ->
+                wc : _int64 = l.index + 1;
+                if(rf >= wifi_freq(wc) - 2 && rf <= wifi_freq(wc) + 2) { l.tint = t.primary; l.bold = 1; }
+                else if(wc == 1 || wc == 6 || wc == 11) { l.tint = t.text; l.bold = 1; }
+            };
+            y_axis().ticks(4).format { v: decimal -> return chart_text.number(v) + "%"; };
+            grid_lines();
+        }.range(0, 100).change(motion.glide().over(0.3));
     }
 
     /** a word about what the radio is doing, or what the scan found */

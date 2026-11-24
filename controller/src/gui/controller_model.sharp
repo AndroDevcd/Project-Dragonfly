@@ -111,12 +111,12 @@ class controller_model base view_model {
 
     def push_controls(c: button_controls) { controls.add(c); }
     def pop_controls(c: button_controls) {
-        for(i : _int64 = controls.size().value - 1; i >= 0; i--) {
+        for(i : _int64 = controls.size() - 1; i >= 0; i--) {
             if(controls.at(i) == c) { controls.remove_at(i); return; }
         }
     }
     private def front() : button_controls? {
-        n : _int64 = controls.size().value;
+        n : _int64 = controls.size();
         if(n == 0) { return null; }
         return controls.at(n - 1);
     }

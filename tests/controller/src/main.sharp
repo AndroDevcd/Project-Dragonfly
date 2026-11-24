@@ -294,11 +294,11 @@ def test_shutting_down() {
         t.app.start(new home_screen(t.app));
         t.send_telemetry(300, 10, 4, MODE_NORMAL);
         t.run(4, 20);
-        drawn : _int64 = t.panel.shown.size().value;
+        drawn : _int64 = t.panel.shown.size();
         test("running: something is on the screen") { expect_true(drawn > 0); };
         test("running: the light is on") { expect_true(t.pins.read(CONNECTING_LIGHT_PIN)); };
         t.app.shut_down();
-        drawn = t.panel.shown.size().value;
+        drawn = t.panel.shown.size();
         test("stopped: things on the screen") { expect(drawn).should_be(0); };
         test("stopped: the light is off") { expect_true(!t.pins.read(CONNECTING_LIGHT_PIN)); };
         test("stopped: the buttons' power is off") { expect_true(!t.pins.read(BUTTON_POWER_PIN)); };

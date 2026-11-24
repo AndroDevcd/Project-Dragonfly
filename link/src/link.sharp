@@ -227,7 +227,7 @@ class radio_link {
 
     /** how many reliable messages have not been delivered or given up yet */
     def pending() : _int64 {
-        return waiting.size().value;
+        return waiting.size();
     }
 
     /** The next complete message that arrived, or null. Each is handed out once. */

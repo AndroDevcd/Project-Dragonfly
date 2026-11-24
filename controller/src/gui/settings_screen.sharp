@@ -36,7 +36,7 @@ class settings_screen base nav_screen {
             top_strip("Settings", model.clock.value);
             scroll(modifier().fill_width().grow(1.0)) {
                 column(modifier().fill_width()) {
-                    for(i : _int64 = 0; i < shown.size().value; i++) {
+                    for(i : _int64 = 0; i < shown.size(); i++) {
                         r := shown.at(i);
                         list_row(r.words, r.value, r.marked, r.click);
                     }
@@ -73,7 +73,7 @@ class settings_screen base nav_screen {
      * it - so pressing DOWN past the last visible line scrolls the list.
      */
     private def window(rows: list<menu_row>) : list<menu_row> {
-        total : _int64 = rows.size().value;
+        total : _int64 = rows.size();
         if(total <= VISIBLE) { scroll_top = 0; return rows; }
 
         focused : _int64 = 0;                           // the drawn position of the highlighted line

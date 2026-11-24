@@ -66,10 +66,10 @@ class controller_log {
 
     /** when the current file is big, move it aside so a fresh one is started (keeps appends quick) */
     private def roll_if_big() {
-        if(!out.exists() || out.length() <= LOG_MAX_BYTES) { return; }
+        if(!out.exists() || out.size() <= LOG_MAX_BYTES) { return; }
         old := new file(path + ".old");
-        if(old.exists()) { old.delete(); }
-        out.rename(old);                    // `out` now names the .old file
+        if(old.exists()) { old.remove(); }
+        out.move_to(old);                    // `out` now names the .old file
         out = new file(path);               // point it back at the live path (now gone, will be recreated)
     }
 }

@@ -75,7 +75,7 @@ stable class nav_screen base composable : button_controls {
 
     /** register the next item (top to bottom); gives back its highlight and a mouse click handler */
     protected def item(action: ()()) : ring_item {
-        index : _int64 = actions.size().value;
+        index : _int64 = actions.size();
         actions.add(action);
         marked : _int64 = (focus.value == index) ? 1 : 0;      // reads focus: a move rebuilds the screen
         return new ring_item(marked, { -> focus.value = index; action(); });
@@ -84,16 +84,16 @@ stable class nav_screen base composable : button_controls {
     // ---- the buttons (the on-screen ones, the Pi's GPIO ones, Tab/Enter on a keyboard)
 
     override def up() {
-        n : _int64 = actions.size().value;
+        n : _int64 = actions.size();
         if(n > 0) { focus.value = (focus.peek() - 1 + n) % n; }
     }
     override def down() {
-        n : _int64 = actions.size().value;
+        n : _int64 = actions.size();
         if(n > 0) { focus.value = (focus.peek() + 1) % n; }
     }
     override def select() {
         i : _int64 = focus.peek();
-        if(i >= 0 && i < actions.size().value) { actions.at(i)(); }
+        if(i >= 0 && i < actions.size()) { actions.at(i)(); }
     }
     override def back() {
         nav!!.back();

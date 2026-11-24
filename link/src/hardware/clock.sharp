@@ -17,7 +17,7 @@ interface clock {
 /** the real clock */
 class system_clock : clock {
     override def now_ms() : _int64 {
-        return time.mills_time().value;
+        return utc_mills().value;
     }
 }
 
