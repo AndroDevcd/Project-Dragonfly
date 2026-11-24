@@ -107,8 +107,19 @@ int32_t dragonfly_radio_begin(sni_env* env, int32_t is_controller, int32_t chann
     return 1;
 }
 
+// The longest a send may take, in milliseconds. A frame with its three resends is over in
+// about ten; past this the chip is not going to say "finished", and the send is given up.
+#define SEND_WAIT_MS 20
+
 // 1 when the frame left the radio. (The chip's "nobody acknowledged" is NOT an error here:
 // the link finds out by itself, and a frame without an answer is normal while out of range.)
+//
+// IT ALWAYS COMES BACK. The library's write() waits for the chip to say "sent" or "gave up", and
+// on a Raspberry Pi it waits for that without an end: one frame whose answer never came (a dip in
+// the radio's power, a bit lost on the SPI wires) froze the controller for good - the screen and
+// the buttons too, because the GUI's loop is the one that calls this. So the frame is handed to
+// the chip without waiting (startFastWrite) and the waiting is done by txStandBy, which stops at
+// SEND_WAIT_MS and empties the chip's queue when the time is up.
 int32_t dragonfly_radio_send(sni_env* env, sni_ref frame) {
     if(!chip_there()) return 0;
     sni_array bytes = env->array(frame);
@@ -119,7 +130,9 @@ int32_t dragonfly_radio_send(sni_env* env, sni_ref frame) {
     memcpy(out, bytes.data, (size_t) (bytes.count < FRAME_SIZE ? bytes.count : FRAME_SIZE));
 
     radio.stopListening();
-    radio.write(out, FRAME_SIZE);
+    radio.flush_tx();                               // nothing left over from a send that was given up
+    radio.startFastWrite(out, FRAME_SIZE, false);
+    radio.txStandBy(SEND_WAIT_MS);
     radio.startListening();
     return 1;
 }

@@ -18,6 +18,7 @@ public:
     bool write(const void* buf, uint8_t len);
     void startFastWrite(const void* buf, uint8_t len, const bool multicast);
     void flush_tx();
+    bool txStandBy(uint32_t timeout);
     void openWritingPipe(const uint8_t* address);
     void openReadingPipe(uint8_t number, const uint8_t* address);
     void printDetails();
