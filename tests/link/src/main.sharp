@@ -411,6 +411,29 @@ def test_channels() {
         test("the busiest") { expect(scan.busiest()).should_be(37); };
         test("the quietest: the highest of the quiet ones") { expect(scan.quietest()).should_be(125); };
 
+        // a Wi-Fi network on channel 6 (the middle is 37): the bands beside it are lower, far ones empty
+        wifi := new fake_radio();
+        for(c : _int64 = 29; c <= 45; c++) { wifi.make_busy(c); }
+        bands := new channel_scanner(wifi);
+        for(i : _int64 = 0; i < 21 * 40; i++) { bands.step(); }
+        test("a quiet air has no background") { expect(bands.background()).should_be(0); };
+        on_6 : _int64 = bands.band(37, 10, 0);
+        on_5 : _int64 = bands.band(32, 10, 0);
+        on_4 : _int64 = bands.band(27, 10, 0);
+        test("the band the signal is in stands high") { expect_true(on_6 > 850); };
+        test("the band beside it is clearly lower, the next one lower again") {
+            expect_true(on_5 < on_6 - 150);
+            expect_true(on_4 < on_5 - 150);
+        };
+        test("a band far away is empty") { expect(bands.band(72, 10, 0)).should_be(0); };
+
+        // the same signal with something heard on EVERY channel: the background is taken out
+        for(c : _int64 = 0; c < 126; c++) { wifi.make_busy(c); }
+        for(i : _int64 = 0; i < 21 * 40; i++) { bands.step(); }
+        floor : _int64 = bands.background();
+        test("what every channel shares is the background") { expect_true(floor > 900); };
+        test("and no band stands out of it") { expect_true(bands.band(37, 10, floor) < 60 && bands.band(72, 10, floor) < 60); };
+
         radio.make_busy(120);
         radio.make_busy(123);
         radio.make_busy(125);

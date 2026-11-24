@@ -67,6 +67,53 @@ class channel_scanner {
         return levels[channel];
     }
 
+    /**
+     * THE BACKGROUND: the level the quiet part of the air has (0 .. 1000) - the average of the
+     * quietest quarter of the channels. With an amplified radio, or in a room full of Wi-Fi, the
+     * chip says "something strong" now and then on EVERY channel; that part says nothing about
+     * any one of them. What a channel has above it is what is really on that channel.
+     */
+    def background() : _int64 {
+        sorted := new _int64[CHANNEL_COUNT];
+        for(c : _int64 = 0; c < CHANNEL_COUNT; c++) {
+            // put each level in its place among the ones before it (126 numbers: nothing to it)
+            at : _int64 = c;
+            while(at > 0 && sorted[at - 1] > levels[c]) {
+                sorted[at] = sorted[at - 1];
+                at--;
+            }
+            sorted[at] = levels[c];
+        }
+        quiet : _int64 = CHANNEL_COUNT / 4;
+        total : _int64 = 0;
+        for(c : _int64 = 0; c < quiet; c++) { total = total + sorted[c]; }
+        return total / quiet;
+    }
+
+    /**
+     * How busy the band around `centre` is, above `floor` (background(), asked once for a whole
+     * picture): 0 .. 1000. The channels `reach` to each side count, the middle ones most and the
+     * outer ones least - so a signal that fills this band shows fully here, about half in the
+     * band beside it and hardly at all two bands away, instead of raising every band it touches
+     * to the same height.
+     */
+    def band(centre: _int64, reach: _int64, floor: _int64) : _int64 {
+        total : _int64 = 0;
+        weights : _int64 = 0;
+        for(c : _int64 = centre - reach; c <= centre + reach; c++) {
+            if(c < 0 || c >= CHANNEL_COUNT) { continue; }
+            away : _int64 = c - centre;
+            if(away < 0) { away = 0 - away; }
+            weight : _int64 = reach + 1 - away;
+            above : _int64 = levels[c] - floor;
+            if(above < 0) { above = 0; }
+            total = total + above * weight;
+            weights = weights + weight;
+        }
+        if(weights == 0) { return 0; }
+        return total / weights;
+    }
+
     /** the busiest channel */
     def busiest() : _int64 {
         best : _int64 = 0;

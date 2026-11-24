@@ -13,6 +13,7 @@ import ( std.guikit.*, link );
  * the new numbers.
  */
 const SPECTRUM_HEIGHT : _int64 = 120;
+const WIFI_REACH : _int64 = 10;                 // a WiFi channel reaches about 10 MHz to each side of its middle
 
 // the three actions along the bottom
 const CH_MOVE : _int64 = 0;
@@ -49,7 +50,12 @@ class channels_screen base nav_screen {
      *
      * The nRF24 senses energy, not WiFi packets, so it cannot name networks or read true dBm - each
      * bar is a WiFi channel's OCCUPANCY from the scan. nRF channel c is (2400 + c) MHz; a WiFi
-     * channel is ~22 MHz wide (wifi_freq / band_occupancy below).
+     * channel is ~20 MHz wide and the next one starts 5 MHz on, so they overlap.
+     *
+     * A BAR IS HIGH ONLY WHERE THE AIR IS BUSIER THAN ELSEWHERE. Two things are taken out
+     * (channel_scanner.background and .band): the level every channel shares - with it in, all
+     * fourteen bars stood at the same height - and the spill of a signal into the bands beside
+     * it, by counting the middle of a band more than its edges.
      */
     private def spectrum() : element {
         t := gui.current_theme();
@@ -60,10 +66,11 @@ class channels_screen base nav_screen {
         }
         scan := got!!;
 
+        floor : _int64 = scan.background();
         busy := new decimal[14];
         names := new string[14];
         for(wc : _int64 = 1; wc <= 14; wc++) {
-            busy[wc - 1] = band_occupancy(scan, wifi_freq(wc)) / 10.0;
+            busy[wc - 1] = scan.band(wifi_freq(wc) - 2400, WIFI_REACH, floor) / 10.0;
             names[wc - 1] = "" + wc;
         }
         rf : _int64 = 2400 + model.controller().channel();
@@ -122,19 +129,3 @@ def wifi_freq(channel: _int64) : _int64 {
     return 2412 + (channel - 1) * 5;
 }
 
-/**
- * How busy the ~22 MHz band around `centre_freq` (MHz) measured: the strongest of the nRF24
- * channels that fall inside it (0 .. 1000). nRF channel c covers 2400 + c MHz.
- */
-def band_occupancy(scan: channel_scanner, centre_freq: _int64) : _int64 {
-    lo : _int64 = centre_freq - 11 - 2400;
-    hi : _int64 = centre_freq + 11 - 2400;
-    if(lo < 0) { lo = 0; }
-    if(hi > 125) { hi = 125; }
-    best : _int64 = 0;
-    for(c : _int64 = lo; c <= hi; c++) {
-        v : _int64 = scan.level(c);
-        if(v > best) { best = v; }
-    }
-    return best;
-}
