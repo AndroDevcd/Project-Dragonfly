@@ -48,8 +48,8 @@ def main(args: string[]) : int {
         app.report_buttons = true;          // every button event is printed: "button: long press"
 
         controller_host.app = app;
-        // the on-screen buttons are on by default (controller_host); `real` turns them off for a
-        // Pi with its two buttons wired, `virtual` forces them on
+        // the on-screen buttons are off by default now the Pi has its two buttons wired; `virtual`
+        // forces them on to drive the UI on a PC, `real` is still accepted (and is the default)
         if(has_arg(args, "real")) { controller_host.virtual = 0; }
         else if(has_arg(args, "virtual")) { controller_host.virtual = 1; }
 

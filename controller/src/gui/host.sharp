@@ -22,6 +22,7 @@ stable class controller_host {
     static on_tick : ()()? = null;
 
     // 1: draw on-screen stand-ins for the two hardware buttons, so the UI can be driven with a
-    // mouse on a PC with no buttons wired up. 0: the real controller, driven by the GPIO buttons.
-    static virtual : _int64 = 1;
+    // mouse on a PC with no buttons wired up. 0 (the default): the real controller / panel, driven
+    // by the GPIO buttons - no bar. The simulator and the `virtual` launch flag turn it back on.
+    static virtual : _int64 = 0;
 }
