@@ -12,12 +12,14 @@ import ( std, std.guikit.* );
  * click acts on the line it lands on. The screen reads the model and calls it -
  * it changes nothing itself.
  *
- * THE LIST FOLLOWS THE HIGHLIGHT. There are more lines than fit on the little
- * screen, so only a window of VISIBLE of them is drawn, and the window slides
- * to keep the highlighted line on screen - press DOWN on the bottom one and the
- * list scrolls up by one, the way an Android list does. Every line is still
- * registered for the buttons (so UP / DOWN / SELECT reach them all); only the
- * drawing is windowed.
+ * THE LIST IS LONGER THAN THE PANEL, so it has to scroll - and it is read two
+ * ways. On a PC / the simulator (controller_host.virtual) there is a mouse, so
+ * the whole list goes in a real scroller: the wheel, a drag and the bar all
+ * move it. On the real panel there is no pointer, only the two buttons, so a
+ * window of VISIBLE lines is drawn and slid to keep the highlighted line on
+ * screen - press DOWN on the bottom one and the list scrolls up by one, the way
+ * an Android list does. Either way every line is registered for the buttons (so
+ * UP / DOWN / SELECT reach them all); only the real panel windows the drawing.
  */
 class settings_screen base nav_screen {
     private static const VISIBLE : _int64 = 5;          // lines that fit on the panel at once
@@ -31,17 +33,32 @@ class settings_screen base nav_screen {
         t := gui.current_theme();
         begin();
         rows := gather();                               // every line, in order (registers the buttons' items)
+        // TWO WAYS TO READ A LIST TOO LONG FOR THE PANEL. On a PC / the simulator there is a mouse, so
+        // the whole list goes in a real scroller and the wheel, a drag and the bar all work. On the real
+        // panel there is no pointer, only the two buttons - a native scroller would have nothing to drive
+        // it - so a window of VISIBLE lines is drawn instead and slid to follow the highlight.
+        if(controller_host.virtual == 1) {
+            return column(modifier().fill().background(t.background).padding(8)) {
+                top_strip("Settings", model.clock.value);
+                scroll(modifier().fill_width().grow(1.0)) {
+                    column(modifier().fill_width()) {
+                        for(i : _int64 = 0; i < rows.size(); i++) {
+                            r := rows.at(i);
+                            list_row(r.words, r.value, r.marked, r.click);
+                        }
+                    }.gap(4);
+                };
+            }.gap(6);
+        }
         shown := window(rows);                          // just the slice that fits, following the highlight
         return column(modifier().fill().background(t.background).padding(8)) {
             top_strip("Settings", model.clock.value);
-            scroll(modifier().fill_width().grow(1.0)) {
-                column(modifier().fill_width()) {
-                    for(i : _int64 = 0; i < shown.size(); i++) {
-                        r := shown.at(i);
-                        list_row(r.words, r.value, r.marked, r.click);
-                    }
-                }.gap(4);
-            };
+            column(modifier().fill_width().grow(1.0)) {
+                for(i : _int64 = 0; i < shown.size(); i++) {
+                    r := shown.at(i);
+                    list_row(r.words, r.value, r.marked, r.click);
+                }
+            }.gap(4);
         }.gap(6);
     }
 
