@@ -7,7 +7,9 @@
   ],
   "extern_lib": [
     "../link/src",
-    "../controller/src",
+    "../controller/src/app",
+    "../controller/src/gui",
+    "../controller/src/input",
     "../drone/src"
   ]
 }
