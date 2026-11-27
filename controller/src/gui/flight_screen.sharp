@@ -119,7 +119,9 @@ class flight_screen base nav_screen {
     private def controls() : element {
         return row(card().fill_width().padding(10, 8)) {
             column(modifier()) {
-                stick(model.left_x.value, model.left_y.value);
+                stick(model.left_x.value, model.left_y.value,
+                      { dx: decimal, dy: decimal -> model.move_left_stick(dx, dy); },
+                      { -> model.release_left(); });
                 caption("THR / YAW");
             }.gap(4).align(ALIGN_CENTER);
             spacer();
@@ -130,7 +132,9 @@ class flight_screen base nav_screen {
             }.gap(6).align(ALIGN_CENTER);
             spacer();
             column(modifier()) {
-                stick(model.right_x.value, model.right_y.value);
+                stick(model.right_x.value, model.right_y.value,
+                      { dx: decimal, dy: decimal -> model.move_right_stick(dx, dy); },
+                      { -> model.release_right(); });
                 caption("PITCH / ROLL");
             }.gap(4).align(ALIGN_CENTER);
         }.align(ALIGN_CENTER);

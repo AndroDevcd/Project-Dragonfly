@@ -19,10 +19,11 @@ import ( std, std.guikit.*, controller, controller.input, link, link.hardware, l
  *
  * WHAT IS REAL AND WHAT IS IDLE. The drone sends altitude, speed, battery (0..4
  * bars) and its mode; the link gives the signal, the clock and notices. Those
- * are live. Throttle, heading, distance, the pack's voltage and the two sticks
- * are on the screen but rest at zero: the drone does not send them yet, and the
- * controller has no analog sticks yet. They are kept so the layout is ready for
- * when it does.
+ * are live. Throttle, heading, distance and the pack's voltage are on the screen
+ * but rest at zero: the drone does not send them yet. The two sticks have no ADC
+ * behind them yet either, so on the Pi they rest at zero - but on a PC they can be
+ * dragged with the mouse (move_left_stick / move_right_stick) to stand in for the
+ * real gimbals while the control path is built.
  */
 class controller_model base view_model {
     // ---- live, from the link and the drone
@@ -41,7 +42,7 @@ class controller_model base view_model {
     heading := gui.state(0);                    // degrees
     distance := gui.state(0);                   // metres
     pack_volts := gui.state(0.0);
-    left_x := gui.state(0);                     // the sticks, -100..100 each
+    left_x := gui.state(0);                     // the sticks, -100..100 each; draggable on a PC (move_left_stick)
     left_y := gui.state(0);
     right_x := gui.state(0);
     right_y := gui.state(0);
@@ -73,6 +74,13 @@ class controller_model base view_model {
     private app : controller_app?;
     private dim_applied : _int64 = 0 - 1;        // the dim/light the theme is set for (-1: not set yet)
     private light_applied : _int64 = 0 - 1;
+
+    // the sticks' live positions, kept as decimals so small mouse moves accumulate instead of being
+    // lost to rounding; mirrored (rounded) into left_x/left_y/right_x/right_y for the dots to draw.
+    private lx : decimal = 0.0;                   // left stick:  x = yaw, y = throttle
+    private ly : decimal = 0.0;
+    private rx : decimal = 0.0;                   // right stick: x = roll, y = pitch
+    private ry : decimal = 0.0;
 
     // the screens, deepest first, that the buttons drive: the one on top is in front (nav_screen.sharp)
     private controls : list<button_controls> = new list<button_controls>();
@@ -239,6 +247,50 @@ class controller_model base view_model {
 
     def start_jam() : _int64 { return app!!.start_jam(); }
     def is_jamming() : _int64 { return app!!.is_jamming(); }
+
+    // ---- the on-screen sticks, dragged with the mouse as a stand-in for the real gimbals (flight screen)
+
+    /** drag the left stick by `dx`,`dy` axis units: yaw on x, throttle on y (both -100..100) */
+    def move_left_stick(dx: decimal, dy: decimal) {
+        lx = clamp_axis(lx + dx);
+        ly = clamp_axis(ly + dy);
+        left_x.value = round_axis(lx);
+        left_y.value = round_axis(ly);
+    }
+
+    /** drag the right stick by `dx`,`dy` axis units: roll on x, pitch on y */
+    def move_right_stick(dx: decimal, dy: decimal) {
+        rx = clamp_axis(rx + dx);
+        ry = clamp_axis(ry + dy);
+        right_x.value = round_axis(rx);
+        right_y.value = round_axis(ry);
+    }
+
+    /** let go of the left stick: yaw springs back to centre, throttle holds where it was set */
+    def release_left() {
+        lx = 0.0;
+        left_x.value = 0;
+    }
+
+    /** let go of the right stick: pitch and roll both spring back to centre */
+    def release_right() {
+        rx = 0.0;
+        ry = 0.0;
+        right_x.value = 0;
+        right_y.value = 0;
+    }
+
+    private static def clamp_axis(v: decimal) : decimal {
+        if(v > 100.0) { return 100.0; }
+        if(v < 0.0 - 100.0) { return 0.0 - 100.0; }
+        return v;
+    }
+
+    /** nearest whole axis unit, rounding away from zero at the half */
+    private static def round_axis(v: decimal) : _int64 {
+        if(v >= 0.0) { return (v + 0.5) as _int64; }
+        return (v - 0.5) as _int64;
+    }
 
     /** reboot the Pi: tell the app, then close the window so main() runs the reboot after gui.run returns */
     def reboot() {

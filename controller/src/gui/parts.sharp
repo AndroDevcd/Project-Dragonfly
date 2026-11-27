@@ -54,8 +54,16 @@ def reading_row(name: string, value: string, unit: string) : element {
     }.gap(3).align(ALIGN_CENTER);
 }
 
-/** a stick: a square with cross lines, and the stick's dot at (x, y), each -100..100 */
-def stick(x: _int64, y: _int64) : element {
+/**
+ * A STICK: a square with cross lines and the stick's dot at (x, y), each -100..100.
+ *
+ * It is also DRAGGABLE with the mouse, the stand-in for the real gimbal until the ADC is wired: a
+ * drag moves the dot, and `on_drag` is handed how far it moved in AXIS units (-100..100) across and
+ * up (up is positive) to add to the stick's position; `on_release` fires when the button comes up
+ * (a real gimbal springs back then). The Pi's panel has no pointer, so there these never fire and
+ * the dot simply sits where it is put.
+ */
+def stick(x: _int64, y: _int64, on_drag: (decimal, decimal)(), on_release: ()()) : element {
     t := gui.current_theme();
     field : _int64 = 46;
     dot : _int64 = 12;
@@ -63,7 +71,11 @@ def stick(x: _int64, y: _int64) : element {
     reach : _int64 = (field - dot) / 2;
     dot_x : _int64 = reach + x * reach / 100;
     dot_y : _int64 = reach - y * reach / 100;           // up is positive
-    return stack(modifier().size(field, field).background(t.surface_high).corner(10)) {
+    // a pixel of drag is (100 / reach) axis units; down on screen is negative on the stick
+    box := modifier().size(field, field).background(t.surface_high).corner(10)
+                     .drag({ dx: decimal, dy: decimal -> on_drag(dx * 100.0 / reach, 0.0 - dy * 100.0 / reach); })
+                     .drag_end(on_release);
+    return stack(box) {
         stack(modifier().size(field - 12, 1).margin(6, middle, 0, 0).background(t.border)) { };
         stack(modifier().size(1, field - 12).margin(middle, 6, 0, 0).background(t.border)) { };
         stack(modifier().size(dot, dot).margin(dot_x, dot_y, 0, 0).background(t.primary).corner(dot / 2)) { };
