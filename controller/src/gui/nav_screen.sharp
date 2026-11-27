@@ -37,10 +37,10 @@ interface button_controls {
 }
 
 /** what item() hands back: is this item highlighted, and the click handler for the mouse */
-class ring_item {
+class nav_item {
     marked : _int64 = 0;
     click : ()();
-    ring_item(marked: _int64, click: ()()) {
+    nav_item(marked: _int64, click: ()()) {
         self->marked = marked;
         self->click = click;
     }
@@ -74,11 +74,11 @@ stable class nav_screen base composable : button_controls {
     }
 
     /** register the next item (top to bottom); gives back its highlight and a mouse click handler */
-    protected def item(action: ()()) : ring_item {
+    protected def item(action: ()()) : nav_item {
         index : _int64 = actions.size();
         actions.add(action);
         marked : _int64 = (focus.value == index) ? 1 : 0;      // reads focus: a move rebuilds the screen
-        return new ring_item(marked, { -> focus.value = index; action(); });
+        return new nav_item(marked, { -> focus.value = index; action(); });
     }
 
     // ---- the buttons (the on-screen ones, the Pi's GPIO ones, Tab/Enter on a keyboard)

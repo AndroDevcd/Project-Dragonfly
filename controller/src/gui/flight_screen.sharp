@@ -45,7 +45,7 @@ class flight_screen base nav_screen {
         }.place(ALIGN_CENTER, ALIGN_END);
     }
 
-    private def page(open: ring_item) : element {
+    private def page(open: nav_item) : element {
         t := gui.current_theme();
         return column(modifier().fill().background(t.background).padding(8)) {
             status_bar(open);
@@ -60,7 +60,7 @@ class flight_screen base nav_screen {
     }
 
     /** the menu button and clock on the left; the signal, voltage and battery on the right */
-    private def status_bar(open: ring_item) : element {
+    private def status_bar(open: nav_item) : element {
         t := gui.current_theme();
         menu_fill := (open.marked == 1) ? t.primary : t.surface_high;
         menu_ink := (open.marked == 1) ? t.on_primary : t.text_dim;

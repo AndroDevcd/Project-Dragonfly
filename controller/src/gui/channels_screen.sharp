@@ -105,7 +105,7 @@ class channels_screen base nav_screen {
         return "scanning";
     }
 
-    private def actions(move: ring_item, jam: ring_item, back: ring_item) : element {
+    private def actions(move: nav_item, jam: nav_item, back: nav_item) : element {
         return row(modifier().fill_width()) {
             action_chip("Move", move);
             action_chip("Jam", jam);
@@ -113,7 +113,7 @@ class channels_screen base nav_screen {
         }.gap(8).align(ALIGN_CENTER).justify(ALIGN_CENTER);
     }
 
-    private def action_chip(words: string, it: ring_item) : element {
+    private def action_chip(words: string, it: nav_item) : element {
         t := gui.current_theme();
         box := modifier().padding(16, 8).corner(10).click(it.click);
         ink := t.text;

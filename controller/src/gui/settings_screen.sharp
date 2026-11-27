@@ -12,18 +12,16 @@ import ( std, std.guikit.* );
  * click acts on the line it lands on. The screen reads the model and calls it -
  * it changes nothing itself.
  *
- * THE LIST IS LONGER THAN THE PANEL, so it has to scroll - and it is read two
- * ways. On a PC / the simulator (controller_host.virtual) there is a mouse, so
- * the whole list goes in a real scroller: the wheel, a drag and the bar all
- * move it. On the real panel there is no pointer, only the two buttons, so a
- * window of VISIBLE lines is drawn and slid to keep the highlighted line on
- * screen - press DOWN on the bottom one and the list scrolls up by one, the way
- * an Android list does. Either way every line is registered for the buttons (so
- * UP / DOWN / SELECT reach them all); only the real panel windows the drawing.
+ * THE LIST IS LONGER THAN THE PANEL, so it is a lazy_column, and it FOLLOWS THE
+ * HIGHLIGHT: every build asks the list (through `where`, its scroll_state) to
+ * bring the highlighted line into view. That moves nothing while the line is on
+ * the screen, and glides the list by a line when UP / DOWN take it off - the
+ * way an Android list follows its selection. On a PC the wheel, a drag and the
+ * bar move the same list. Every line is registered for the buttons (gather), so
+ * UP / DOWN / SELECT reach them all, drawn right now or not.
  */
 class settings_screen base nav_screen {
-    private static const VISIBLE : _int64 = 5;          // lines that fit on the panel at once
-    private scroll_top : _int64 = 0;                    // the first line drawn; follows the highlight
+    private where := scroll_state();                    // the list's position; asked to follow the highlight
 
     settings_screen(nav: navigator) {
         arm(nav);
@@ -33,33 +31,24 @@ class settings_screen base nav_screen {
         t := gui.current_theme();
         begin();
         rows := gather();                               // every line, in order (registers the buttons' items)
-        // TWO WAYS TO READ A LIST TOO LONG FOR THE PANEL. On a PC / the simulator there is a mouse, so
-        // the whole list goes in a real scroller and the wheel, a drag and the bar all work. On the real
-        // panel there is no pointer, only the two buttons - a native scroller would have nothing to drive
-        // it - so a window of VISIBLE lines is drawn instead and slid to follow the highlight.
-        if(controller_host.virtual == 1) {
-            return column(modifier().fill().background(t.background).padding(8)) {
-                top_strip("Settings", model.clock.value);
-                scroll(modifier().fill_width().grow(1.0)) {
-                    column(modifier().fill_width()) {
-                        for(i : _int64 = 0; i < rows.size(); i++) {
-                            r := rows.at(i);
-                            list_row(r.words, r.value, r.marked, r.click);
-                        }
-                    }.gap(4);
-                };
-            }.gap(6);
-        }
-        shown := window(rows);                          // just the slice that fits, following the highlight
+        where.animate_scroll_to(highlighted(rows));     // keep the highlighted line in view (nothing moves while it is)
         return column(modifier().fill().background(t.background).padding(8)) {
             top_strip("Settings", model.clock.value);
-            column(modifier().fill_width().grow(1.0)) {
-                for(i : _int64 = 0; i < shown.size(); i++) {
-                    r := shown.at(i);
+            lazy_column(where, modifier().fill_width().grow(1.0)) {
+                items(rows.size()) { i: _int64 ->
+                    r := rows.at(i);
                     list_row(r.words, r.value, r.marked, r.click);
-                }
+                };
             }.gap(4);
         }.gap(6);
+    }
+
+    /** the position in the list of the highlighted line (the top when none is) */
+    private def highlighted(rows: list<menu_row>) : _int64 {
+        for(i : _int64 = 0; i < rows.size(); i++) {
+            if(rows.at(i).marked == 1) { return i; }
+        }
+        return 0;
     }
 
     /** build every line in order; the selectable ones register an item() so the buttons can land on them */
@@ -82,30 +71,6 @@ class settings_screen base nav_screen {
     private def sel(words: string, value: string, action: ()()) : menu_row {
         it := item(action);
         return new menu_row(words, value, it.marked, it.click);
-    }
-
-    /**
-     * The slice of the list to draw: VISIBLE lines, slid so the highlighted one is inside it. When the
-     * highlight goes below the bottom of the window the window moves down to it; above the top, up to
-     * it - so pressing DOWN past the last visible line scrolls the list.
-     */
-    private def window(rows: list<menu_row>) : list<menu_row> {
-        total : _int64 = rows.size();
-        if(total <= VISIBLE) { scroll_top = 0; return rows; }
-
-        focused : _int64 = 0;                           // the drawn position of the highlighted line
-        for(i : _int64 = 0; i < total; i++) { if(rows.at(i).marked == 1) { focused = i; } }
-
-        top : _int64 = scroll_top;
-        if(focused < top) { top = focused; }
-        if(focused >= top + VISIBLE) { top = focused - VISIBLE + 1; }
-        if(top > total - VISIBLE) { top = total - VISIBLE; }
-        if(top < 0) { top = 0; }
-        scroll_top = top;
-
-        out : list<menu_row> = new list<menu_row>();
-        for(i : _int64 = top; i < top + VISIBLE && i < total; i++) { out.add(rows.at(i)); }
-        return out;
     }
 
     private def mode_value() : string {

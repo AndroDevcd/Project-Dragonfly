@@ -32,7 +32,7 @@ class reboot_screen base nav_screen {
         }.gap(10).align(ALIGN_CENTER);
     }
 
-    private def choice(words: string, it: ring_item) : element {
+    private def choice(words: string, it: nav_item) : element {
         t := gui.current_theme();
         box := modifier().padding(22, 10).corner(10).click(it.click);
         ink := t.text;
